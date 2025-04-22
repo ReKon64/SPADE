@@ -4,7 +4,7 @@ from scanners.scanner import Scanner
 from scanners.nmap_parser import parse_nmap_xml
 
 @Scanner.extend
-def scan_network(self):
+def coordinate_scan_network(self):
     """
     Coordinates TCP and UDP scans and processes results after both complete.
     This is the main entry point for network scanning.
@@ -28,6 +28,7 @@ def scan_network(self):
     # Process the scan results
     self.process_scan_results(tcp_result_path, udp_result_path)
 
+Commented out for testing an alternate solution 
 @Scanner.extend
 def process_scan_results(self, tcp_path, udp_path):
     """

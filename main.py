@@ -8,7 +8,10 @@ from scanners.scanner import Scanner
 def main():
     parser = argparse.ArgumentParser(description="SPADE - Scalable Plug-and-play Auto Detection Engine")
     parser.add_argument("-t", "--target", help="One or more IP / Domain", required=True)
-    parser.add_argument("-p", "--ports", default="-p-", help="Ports to scan. Passed directly to nmap. Default -p-")
+    
+    parser.add_argument("-tp", "--tcp_ports", default="-p-", help="Ports to scan. Passed directly to nmap. Default -p-")
+    parser.add_argument("-up", "--udp_ports", default="--top-ports=100", help="WIP")
+
     parser.add_argument("-T", "--threads", default=16, help="Number of threads scanner will use. I suggest 64")
     parser.add_argument("-v", "--verbose", action="store_true", help="Enable verbose output")
     parser.add_argument("-o", "--output", help="Output directory for reports and payloads")
@@ -28,13 +31,17 @@ def main():
         'verbose': args.verbose,
         'threads': args.threads,
         'target': args.target,
-        'ports': args.ports,
+        'tcp_ports': args.tcp_ports,
+        'udp_ports': args.udp_ports,
         'tcp_options': args.tcp_options,
         'udp_options': args.udp_options,
     }
 
+
     # Create instances of core components
+    Scanner.load_extensions()
     scanner = Scanner(options)
+
     # reporter = Reporter(options)
 
     logging.info(f"[+] Starting scan against {options['target']}")

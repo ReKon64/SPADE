@@ -1,6 +1,5 @@
 # File: scanners/scanner.py
 from core.imports import *
-
 class Scanner:
     """
     Base Scanner class supporting auto-discovery of scan methods with threaded execution.
@@ -24,8 +23,25 @@ class Scanner:
         # Bind registered extension methods to the instance
         for name, func in self._extensions.items():
             bound_method = func.__get__(self, self.__class__)
+            logging.debug(f"Loaded Bound: {bound_method}")
             setattr(self, name, bound_method)
     
+    @classmethod
+    def load_extensions(cls, extensions_path="scanners.extensions"):
+        """
+        Dynamically load all extension modules from the specified path.
+        
+        Args:
+            extensions_path (str): The Python module path to the extensions directory.
+        """
+        package = importlib.import_module(extensions_path)
+        package_path = os.path.dirname(package.__file__)
+        logging.debug(f"Package Path: {package_path}")
+        for _, module_name, _ in pkgutil.iter_modules([package_path]):
+            full_module_name = f"{extensions_path}.{module_name}"
+            importlib.import_module(full_module_name)
+        logging.debug(f"Loaded extension module: {full_module_name}")
+
     def scan(self, max_workers=None, prioritized_methods=None):
         """
         Discover and execute scan methods in a controlled order.
@@ -140,4 +156,6 @@ class Scanner:
                 ...
         """
         cls._extensions[func.__name__] = func
+        logging.debug(f"Registering extension: {func.__name__}")
+
         return func

@@ -1,11 +1,11 @@
-# File: scanners/udp_scanner.py
+# File: scanners/tcp_scanner.py
 from core.imports import *
 from scanners.scanner import Scanner
 
 @Scanner.extend
-def scan_udp_scan(self):
+def scan_tcp_scan(self):
     """
-    Perform a UDP network scan using nmap.
+    Perform a TCP network scan using nmap.
     
     Returns:
         str: Path to XML output file
@@ -15,9 +15,9 @@ def scan_udp_scan(self):
         xml_output_path = tmp_file.name
     
     try:
-        # Build and execute nmap command for UDP scan - note the -sU flag for UDP
-        cmd = f"nmap {self.options['target']} {self.options.get('udp_options', '-sUCV --top-ports 100')} -oX {xml_output_path}"
-        logging.info(f"Executing UDP nmap command: {cmd}")
+        # Build and execute nmap command for TCP scan
+        cmd = f"nmap {self.options['target']} {self.options['tcp_ports']} {self.options.get('tcp_options') or '-A -T3'} -vv --reason -Pn -n -oX {xml_output_path}"
+        logging.info(f"Executing TCP nmap command: {cmd}")
         
         result = subprocess.run(
             cmd, 
@@ -28,18 +28,18 @@ def scan_udp_scan(self):
         )
         
         # Store the output path in the options for later processing
-        self.options['udp_output_path'] = xml_output_path
-        logging.info(f"UDP scan completed. Results saved to {xml_output_path}")
+        self.options['tcp_output_path'] = xml_output_path
+        logging.info(f"TCP scan completed. Results saved to {xml_output_path}")
         
         return xml_output_path
         
     except subprocess.CalledProcessError as e:
-        logging.error(f"UDP Nmap scan failed: {e}")
+        logging.error(f"TCP Nmap scan failed: {e}")
         logging.error(f"Stderr: {e.stderr}")
         # Still return the path in case partial results were generated
-        self.options['udp_output_path'] = xml_output_path
+        self.options['tcp_output_path'] = xml_output_path
         return xml_output_path
     except Exception as e:
-        logging.error(f"Error during UDP nmap scan: {e}")
-        self.options['udp_output_path'] = xml_output_path
+        logging.error(f"Error during TCP nmap scan: {e}")
+        self.options['tcp_output_path'] = xml_output_path
         return xml_output_path

@@ -1,0 +1,1 @@
+# Probably will just build the HTML / PDF report from findings dict. Be sure to append to it instead of building it all in one go

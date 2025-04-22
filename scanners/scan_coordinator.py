@@ -16,8 +16,8 @@ def scan_network(self):
     
     # Run TCP and UDP scans concurrently
     with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
-        tcp_future = executor.submit(self.tcp_scan)
-        udp_future = executor.submit(self.udp_scan)
+        tcp_future = executor.submit(self.scan_tcp_scan)
+        udp_future = executor.submit(self.scan_udp_scan)
         
         # Wait for both to complete
         tcp_result_path = tcp_future.result()

@@ -42,7 +42,9 @@ class Scanner:
             method for method in dir(self)
             if method.startswith('scan_') and callable(getattr(self, method))
         ]
-        
+        logging.debug(f"Loaded Modules: {scan_methods}")
+        logging.debug(f"Attributes: {dir(self)}")
+
         # Handle prioritized methods if specified
         if prioritized_methods:
             # Filter out methods that don't exist

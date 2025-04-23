@@ -78,6 +78,28 @@ class Scanner:
 
         return self.findings
     
+    def _execute_scan_method(self, method_name):
+        """
+        Dynamically execute a scan method by its name.
+        
+        Args:
+            method_name (str): Name of the scan method to execute.
+        
+        Returns:
+            Any: The result of the scan method (e.g., path to the result file).
+        """
+        logging.info(f"Executing scan method: {method_name}")
+        try:
+            # Dynamically call the method by its name
+            method = getattr(self, method_name)
+            return method()
+        except AttributeError:
+            logging.error(f"Method {method_name} does not exist.")
+            raise
+        except Exception as e:
+            logging.error(f"Error executing method {method_name}: {e}")
+            raise
+
     def _execute_methods(self, method_names, max_workers=None):
         """
         Execute the specified methods, either sequentially or in parallel, and process results if applicable.
@@ -148,7 +170,7 @@ class Scanner:
 
     def _process_scan_results(self, result_path, method_name):
         """
-        Process the scan results by parsing the XML and storing findings.
+        Process the scan results by parsing the XML, storing findings, and optionally saving to JSON.
         
         Args:
             result_path (str): Path to the scan result file.
@@ -159,8 +181,18 @@ class Scanner:
             with open(result_path, 'r') as f:
                 xml_data = f.read()
             logging.debug(f"{method_name} XML Path: {result_path}")
+            
+            # Parse the XML data
             parsed_results = parse_nmap_xml(xml_data)
+            
+            # Store findings in the Scanner instance
             self._store_findings(parsed_results)
+            
+            # Save parsed results to a JSON file
+            json_output_path = os.path.join(self.options['output_dir'], f"{method_name}_results.json")
+            with open(json_output_path, 'w') as json_file:
+                json.dump(parsed_results, json_file, indent=4)
+            logging.info(f"Saved parsed results to JSON: {json_output_path}")
             
             # Optionally clean up the result file
             self._cleanup_scan_files(result_path)

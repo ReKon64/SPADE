@@ -103,11 +103,7 @@ class Scanner:
                         
                         # Process results if the method produces output
                         if result_path and os.path.exists(result_path):
-                            logging.info(f"Processing results for {method_name}")
-                            with open(result_path, 'r') as f:
-                                xml_data = f.read()
-                            parsed_results = parse_nmap_xml(xml_data)
-                            self._store_findings(parsed_results)
+                            self._process_scan_results(result_path, method_name)
                     except Exception as e:
                         logging.error(f"Error in {method_name}: {e}")
         else:
@@ -119,42 +115,10 @@ class Scanner:
                     
                     # Process results if the method produces output
                     if result_path and os.path.exists(result_path):
-                        logging.info(f"Processing results for {method_name}")
-                        with open(result_path, 'r') as f:
-                            xml_data = f.read()
-                        parsed_results = parse_nmap_xml(xml_data)
-                        self._store_findings(parsed_results)
+                        self._process_scan_results(result_path, method_name)
                 except Exception as e:
                     logging.error(f"Error in {method_name}: {e}")
-    
-    def _execute_scan_method(self, method_name):
-        """
-        Helper method to execute a single scan method and handle exceptions.
-        
-        Args:
-            method_name (str): Name of the scan method to execute.
-        
-        Returns:
-            str: Path to the result file (if applicable).
-        """
-        logging.info(f"Starting scan: {method_name}")
-        try:
-            result = getattr(self, method_name)()
-            return result  # Return the result path if the method produces one
-        except Exception as e:
-            logging.error(f"Error in method {method_name}: {e}")
-            return None
-    
-    def add_finding(self, finding: str) -> None:
-        """
-        Thread-safe method to add a finding to the internal findings list.
-        
-        Args:
-            finding (str): Description or result of a scan.
-        """
-        with self._findings_lock:
-            self.findings.append(finding)
-    
+
     def _store_findings(self, parsed_results):
         """
         Store parsed findings into the findings list.
@@ -166,6 +130,43 @@ class Scanner:
         with self._findings_lock:
             for finding in findings:
                 self.findings.append(finding['message'])
+
+    def _cleanup_scan_files(self, *file_paths):
+        """
+        Delete temporary scan result files.
+        
+        Args:
+            file_paths (list): List of file paths to delete.
+        """
+        for file_path in file_paths:
+            if file_path and os.path.exists(file_path):
+                try:
+                    os.remove(file_path)
+                    logging.info(f"Deleted temporary file: {file_path}")
+                except Exception as e:
+                    logging.error(f"Failed to delete file {file_path}: {e}")
+
+    def _process_scan_results(self, result_path, method_name):
+        """
+        Process the scan results by parsing the XML and storing findings.
+        
+        Args:
+            result_path (str): Path to the scan result file.
+            method_name (str): Name of the scan method that produced the result.
+        """
+        try:
+            logging.info(f"Processing results for {method_name}")
+            with open(result_path, 'r') as f:
+                xml_data = f.read()
+            logging.debug(f"{method_name} XML Path: {result_path}")
+            parsed_results = parse_nmap_xml(xml_data)
+            self._store_findings(parsed_results)
+            
+            # Optionally clean up the result file
+            self._cleanup_scan_files(result_path)
+        except Exception as e:
+            logging.error(f"Error processing results for {method_name}: {e}")
+
     
     @classmethod
     def extend(cls, func):

@@ -50,7 +50,6 @@ def main():
         max_workers=int(options['threads']),
         prioritized_methods=['scan_tcp_scan', 'scan_udp_scan']
     )
-
     logging.info(f"[+] Scan complete. Found {len(findings)} items.")
     #report_file = reporter.generate(findings)
     #logging.info(f"[+] Report generated: {report_file}")

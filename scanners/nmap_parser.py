@@ -2,6 +2,7 @@
 from core.imports import *
 
 def parse_nmap_xml(xml_data: str):
+    logging.debug("[!] parse_nmap_xml called")
     """
     Parse nmap XML output and extract structured findings.
     

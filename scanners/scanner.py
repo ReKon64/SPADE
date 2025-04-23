@@ -168,6 +168,8 @@ class Scanner:
                 except Exception as e:
                     logging.error(f"Failed to delete file {file_path}: {e}")
 
+
+    # Repurpose this later for general parsing ?
     def _process_scan_results(self, result_path, method_name):
         """
         Process the scan results by parsing the XML, storing findings, and optionally saving to JSON.

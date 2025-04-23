@@ -17,11 +17,12 @@ SPADE is a modular vulnerability scanning framework that leverages external tool
 # TODO
 1. Create a convention for findings. 
 2. Provide clear documentation for writing scanners and finding returning cleaner
-3. Build upon "base exploit" class to make the structure and finding fetching clearer
-4. Create the report class
+3. Create the report class
+4. Decide if I want "findings" list into a dictionary. Quicker lookup, cleaner code
 
-5. Decide if I want "findings" list into a dictionary. Quicker lookup, cleaner code
 
+# How do I make sure feeders execute before ingestors ?
+# 1. Maybe just group ingestors by prefix_ and force them only after feeders_ like scan_ execute
 
 NMAP -> Results -> NMAP Protocol Specific Scanners (SMB TOO) -> BruteForce -> FeroxBust -> FingerPrint -> Check Exploits -> Build into one "big" NMAP report
 -> Create to do list for the tester -> Add AI fingerprinting magic for git clout

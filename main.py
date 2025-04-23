@@ -46,7 +46,10 @@ def main():
 
     logging.info(f"[+] Starting scan against {options['target']}")
     logging.debug(f"Scanner initialized with options: {scanner.options}")
-    findings = scanner.scan()
+    findings = scanner.scan(
+        max_workers=int(options['threads']),
+        prioritized_methods=['scan_tcp_scan', 'scan_udp_scan']
+    )
 
     logging.info(f"[+] Scan complete. Found {len(findings)} items.")
     #report_file = reporter.generate(findings)

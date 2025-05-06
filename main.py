@@ -17,14 +17,19 @@ def main():
     parser.add_argument("-o", "--output", help="Output directory for reports and payloads")
     parser.add_argument('-at', "--tcp_options", help="Additional flags to inject into the TCP nmap command")
     parser.add_argument('-au', "--udp_options", help="Additional flags to inject into the UDP nmap command")
+    parser.add_argument("-m", "--memory", action="store_true", help="Include memory usage in log messages") 
 
     
     args = parser.parse_args()
 
     # Configure logging
+    format='%(asctime)s - %(levelname)s - %(message)s'
     log_level = logging.DEBUG if args.verbose else logging.INFO
-    logging.basicConfig(level=log_level, format='%(asctime)s - %(levelname)s - %(message)s')
-       
+
+    if args.memory:
+        format = format + ' - [Memory: %(memory_usage)s]'
+    logging.basicConfig(level=log_level, format=format)
+
     # I like the extra layer of abstraction and control compared to just raw args.opt alright?
     options = {
         'output_dir': args.output or os.getcwd(),
@@ -35,6 +40,8 @@ def main():
         'udp_ports': args.udp_ports,
         'tcp_options': args.tcp_options,
         'udp_options': args.udp_options,
+        'memory_logging': args.memory,
+
     }
 
 

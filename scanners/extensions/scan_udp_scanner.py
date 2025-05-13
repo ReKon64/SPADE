@@ -16,7 +16,8 @@ def scan_udp_scan(self):
     
     try:
         # Build and execute nmap command for UDP scan
-        cmd = f"nmap {self.options['target']} {self.options['udp_ports']} {self.options.get('udp_options') or '-T3 -sUCV'} -vv --reason -Pn -n -oX {xml_output_path}"
+        # Defaults to top 100 ports
+        cmd = f"nmap {self.options['target']} {self.options['udp_ports']} {self.options.get('udp_options') or '-T4 -sUCV'} -vv --reason -Pn -n -oX {xml_output_path}"
         logging.info(f"Executing UDP nmap command: {cmd}")
         
         result = subprocess.run(

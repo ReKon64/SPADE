@@ -43,52 +43,64 @@ class Scanner:
             importlib.import_module(full_module_name)
         logging.debug(f"Loaded extension module: {full_module_name}")
 
-    def scan(self, max_workers=None, prioritized_methods=None):
+# This can be reimplemented to use a different prefix.
+# I'd have to pass a different string that "scanners.extensions" for example for bruteforce etc.
+
+
+    def scan(self, max_workers=None, prioritized_methods=None, prefixes=None):
         """
-        Discover and execute scan methods in a controlled order.
+        Discover and execute methods matching any of the specified prefixes in a controlled order.
         
         Args:
             max_workers (int, optional): Maximum number of worker threads.
             prioritized_methods (list, optional): List of method names to execute first and process results.
+            prefixes (list): A list of prefixes used to identify methods to be executed (e.g., ['scan_', 'brute_']).
         
         Returns:
             list: Collected findings from all scan methods.
         """
-        # Discover all scan methods
-        scan_methods = [
-            method for method in dir(self)
-            if method.startswith('scan_') and callable(getattr(self, method))
-        ]
-        logging.debug(f"Discovered scan methods: {scan_methods}")
+        try:
+            if not prefixes or not isinstance(prefixes, list):
+                raise ValueError("The 'prefixes' argument must be a non-empty list of strings.")
 
-        # Separate prioritized methods from remaining methods
-        prioritized_methods = prioritized_methods or []
-        valid_prioritized_methods = [m for m in prioritized_methods if m in scan_methods]
-        remaining_methods = [m for m in scan_methods if m not in valid_prioritized_methods]
+            # Discover all methods matching any of the prefixes
+            discovered_methods = [
+                method for method in dir(self)
+                if any(method.startswith(prefix) for prefix in prefixes) and callable(getattr(self, method))
+            ]
+            logging.debug(f"Discovered methods with prefixes {prefixes}: {discovered_methods}")
 
-        # Execute prioritized methods first
-        if valid_prioritized_methods:
-            logging.info(f"Executing prioritized methods: {valid_prioritized_methods}")
-            self._execute_methods(valid_prioritized_methods, max_workers)
+            # Separate prioritized methods from remaining methods
+            prioritized_methods = prioritized_methods or []
+            valid_prioritized_methods = [m for m in prioritized_methods if m in discovered_methods]
+            remaining_methods = [m for m in discovered_methods if m not in valid_prioritized_methods]
 
-        # Execute remaining methods
-        if remaining_methods:
-            logging.info(f"Executing remaining methods: {remaining_methods}")
-            self._execute_methods(remaining_methods, max_workers)
+            # Execute prioritized methods first
+            if valid_prioritized_methods:
+                self._execute_methods(method_names=valid_prioritized_methods, max_workers=max_workers)
+
+            # Execute remaining methods
+            if remaining_methods:
+                logging.info(f"Executing remaining methods: {remaining_methods}")
+                self._execute_methods(method_names=remaining_methods, max_workers=max_workers)
+
+        except ValueError as e:
+            logging.error(f"Invalid prefixes argument: {e}")
+            return []
 
         return self.findings
-    
-    def _execute_scan_method(self, method_name):
+
+    def _reflection_execute_method(self, method_name):
         """
-        Dynamically execute a scan method by its name.
+        Dynamically execute a method via reflection by its name.
         
         Args:
-            method_name (str): Name of the scan method to execute.
+            method_name (str): Name of the method to execute.
         
         Returns:
-            Any: The result of the scan method (e.g., path to the result file).
+            Any: The result of the method (e.g., path to the result file).
         """
-        logging.info(f"Executing scan method: {method_name}")
+        logging.info(f"Executing method: {method_name}")
         try:
             # Dynamically call the method by its name
             method = getattr(self, method_name)
@@ -112,7 +124,7 @@ class Scanner:
             # Execute in parallel
             with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
                 futures = {
-                    executor.submit(self._execute_scan_method, method_name): method_name
+                    executor.submit(self._reflection_execute_method, method_name): method_name
                     for method_name in method_names
                 }
                 
@@ -132,7 +144,7 @@ class Scanner:
             # Execute sequentially
             for method_name in method_names:
                 try:
-                    result_path = self._execute_scan_method(method_name)
+                    result_path = self._reflection_execute_method(method_name)
                     logging.info(f"Completed scan: {method_name}")
                     
                     # Process results if the method produces output
@@ -140,7 +152,7 @@ class Scanner:
                         self._process_scan_results(result_path, method_name)
                 except Exception as e:
                     logging.error(f"Error in {method_name}: {e}")
-
+    # seperate prefix for tcp 
     def _store_findings(self, parsed_results):
         """
         Store parsed findings into the findings list.
@@ -152,6 +164,7 @@ class Scanner:
         with self._findings_lock:
             for finding in findings:
                 self.findings.append(finding['message'])
+        logging.debug(f"Findings size: {getsizeof(self.findings)}")
 
     def _cleanup_scan_files(self, *file_paths):
         """
@@ -184,7 +197,8 @@ class Scanner:
                 xml_data = f.read()
             logging.debug(f"{method_name} XML Path: {result_path}")
             
-            # Parse the XML data
+            # Parse the XML data. 
+            # Implement a check so this runs only for XML files lol ?
             parsed_results = parse_nmap_xml(xml_data)
             
             # Store findings in the Scanner instance

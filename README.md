@@ -15,6 +15,8 @@ SPADE is a modular vulnerability scanning framework that leverages external tool
 ## 🚀 Getting Started
 
 # TODO
+# Separate prefix for TCP ? How do I make the other methods wait for it? just que them and sleep em? 
+
 1. Create a convention for findings. 
 2. Provide clear documentation for writing scanners and finding returning cleaner
 3. Create the report class

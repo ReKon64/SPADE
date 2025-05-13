@@ -11,3 +11,4 @@ import os
 import logging
 import importlib
 import pkgutil
+from sys import getsizeof

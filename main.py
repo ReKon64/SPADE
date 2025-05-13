@@ -41,7 +41,6 @@ def main():
         'tcp_options': args.tcp_options,
         'udp_options': args.udp_options,
         'memory_logging': args.memory,
-
     }
 
 
@@ -51,14 +50,29 @@ def main():
 
     # reporter = Reporter(options)
 
-    logging.info(f"[+] Starting scan against {options['target']}")
+    logging.info(f"[+] Starting initial scans against {options['target']}")
     logging.debug(f"Scanner initialized with options: {scanner.options}")
     findings = scanner.scan(
         max_workers=int(options['threads']),
-        prioritized_methods=['scan_tcp_scan', 'scan_udp_scan']
+        prioritized_methods=['scan_tcp_scan', 'scan_udp_scan'],
+        prefix='scan_',
     )
     logging.info(f"[+] Scan complete. Found {len(findings)} items.")
-    #report_file = reporter.generate(findings)
+    logging.info(f"[+] Starting consumer scans against {options['target']}")
+
+    for service_name in (port.get("service", {}).get("name", "").lower() 
+                        for host in findings.get("hosts", []) 
+                        for port in host.get("ports", [])):
+        match service_name: # Add new services to a list, then that list is supplied to the prefix_
+            case "ftp":
+                print("Handle FTP logic here.")
+            case "http":
+                print("Handle HTTP logic here.")
+            case _:
+                print(f"Unhandled service: {service_name}")
+    
+    # Add to a list of existing services, then start pararell scans
+        #report_file = reporter.generate(findings)
     #logging.info(f"[+] Report generated: {report_file}")
 
 

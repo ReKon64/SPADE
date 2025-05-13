@@ -19,7 +19,6 @@ def main():
     parser.add_argument('-au', "--udp_options", help="Additional flags to inject into the UDP nmap command")
     parser.add_argument("-m", "--memory", action="store_true", help="Include memory usage in log messages") 
 
-    
     args = parser.parse_args()
 
     # Configure logging
@@ -30,7 +29,7 @@ def main():
         format = format + ' - [Memory: %(memory_usage)s]'
     logging.basicConfig(level=log_level, format=format)
 
-    # I like the extra layer of abstraction and control compared to just raw args.opt alright?
+    # Options dictionary
     options = {
         'output_dir': args.output or os.getcwd(),
         'verbose': args.verbose,
@@ -43,38 +42,48 @@ def main():
         'memory_logging': args.memory,
     }
 
-
-    # Create instances of core components
+    # Load all scanner extensions
     Scanner.load_extensions()
     scanner = Scanner(options)
 
-    # reporter = Reporter(options)
-
+    ####################
+    ### INITIAL SCAN ###
+    ####################
     logging.info(f"[+] Starting initial scans against {options['target']}")
     logging.debug(f"Scanner initialized with options: {scanner.options}")
+    
+    # Run the initial TCP and UDP scans
     findings = scanner.scan(
         max_workers=int(options['threads']),
         prioritized_methods=['scan_tcp_scan', 'scan_udp_scan'],
-        prefix='scan_',
+        prefix=['scan_'],
     )
-    logging.info(f"[+] Scan complete. Found {len(findings)} items.")
-    logging.info(f"[+] Starting consumer scans against {options['target']}")
-
-    for service_name in (port.get("service", {}).get("name", "").lower() 
-                        for host in findings.get("hosts", []) 
-                        for port in host.get("ports", [])):
-        match service_name: # Add new services to a list, then that list is supplied to the prefix_
-            case "ftp":
-                print("Handle FTP logic here.")
-            case "http":
-                print("Handle HTTP logic here.")
-            case _:
-                print(f"Unhandled service: {service_name}")
     
-    # Add to a list of existing services, then start pararell scans
-        #report_file = reporter.generate(findings)
-    #logging.info(f"[+] Report generated: {report_file}")
+    logging.info(f"[+] Initial scan complete.")
+    
+    # Get the count of discovered hosts and ports
+    hosts_count = len(findings.get("hosts", []))
+    ports_count = sum(len(host.get("ports", [])) for host in findings.get("hosts", []))
+    logging.info(f"[+] Found {hosts_count} hosts with {ports_count} open ports.")
 
+    ##########################
+    ### SERVICE-BASED SCAN ###
+    ##########################
+    logging.info(f"[+] Starting service-specific enumeration")
+    
+    # Use our new extension to scan by port/service
+    findings = scanner.scan_by_port_service(max_workers=int(options['threads']))
+    
+    # Output findings summary
+    if "services" in findings:
+        for service_name, service_results in findings.get("services", {}).items():
+            logging.info(f"[+] {service_name}: Found {len(service_results)} instances")
+    
+    # Optional: Save the final results to a JSON file
+    output_file = os.path.join(options['output_dir'], "spade_results.json")
+    with open(output_file, 'w') as f:
+        json.dump(findings, f, indent=4)
+    logging.info(f"[+] Saved final results to {output_file}")
 
 if __name__ == "__main__":
     main()

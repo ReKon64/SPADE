@@ -3,13 +3,15 @@ from core.imports import *
 from scanners.scanner import Scanner
 
 @Scanner.extend
-def scan_http_whatweb(self):
-    with tempfile.NamedTemporaryFile(delete=False, suffix='.whatweb') as tmp_file:
+def enum_http_whatweb(self):
+    with tempfile.NamedTemporaryFile(delete=False, suffix='.json') as tmp_file:
         output_path = tmp_file.name
     
     try:
         # Build and execute nmap command for TCP scan
-        cmd = f"whatweb {self.options['target']} -a 3 -v --log-xml={output_path}"
+        # make it fetch the ports itself
+        # Also it will append itself?
+        cmd = f"whatweb {self.options['target']} -p -a 3 -v --log-json={output_path}"
         logging.info(f"Executing TCP nmap command: {cmd}")
         
         result = subprocess.run(

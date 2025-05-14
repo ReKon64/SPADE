@@ -23,23 +23,26 @@ def parse_nmap_xml(xml_data: str):
         
         # Process each host
         for host in root.findall('.//host'):
-            host_data = {'ports': []}
-            
             # Get host address
             addr_elem = host.find('./address[@addrtype="ipv4"]')
             if addr_elem is None:
                 continue
                 
             ip_address = addr_elem.get('addr')
-            host_data['ip'] = ip_address
-            
+
             # Find hostname if available
             hostname = "unknown"
             hostname_elem = host.find('./hostnames/hostname')
             if hostname_elem is not None:
                 hostname = hostname_elem.get('name', 'unknown')
-            host_data['hostname'] = hostname
             
+            # Initialize host_data with desired key order
+            host_data = {
+                'ip': ip_address,
+                'hostname': hostname,
+                'ports': []
+            }
+
             # Process ports
             for port in host.findall('.//port'):
                 port_data = {}
@@ -47,15 +50,14 @@ def parse_nmap_xml(xml_data: str):
                 protocol = port.get('protocol')
                 port_data['id'] = port_id
                 port_data['protocol'] = protocol
-                
+
                 # Get state
                 state_elem = port.find('./state')
                 if state_elem is None:
                     continue
-                    
                 state = state_elem.get('state')
                 port_data['state'] = state
-                
+
                 # Get service info if available
                 service_name = "unknown"
                 service_elem = port.find('./service')
@@ -70,7 +72,7 @@ def parse_nmap_xml(xml_data: str):
                         'version': version,
                         'tunnel': tunnel,
                     }
-                    
+
                     if product and version:
                         service_display = f"{service_name} ({product} {version})"
                     elif product:
@@ -80,10 +82,10 @@ def parse_nmap_xml(xml_data: str):
                 else:
                     service_display = "unknown"
                     port_data['service'] = {'name': 'unknown'}
-                
+
                 # Add port to host data
                 host_data['ports'].append(port_data)
-                            
+
             # Add host to results
             structured_results['hosts'].append(host_data)
     

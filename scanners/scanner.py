@@ -28,6 +28,7 @@ class Scanner:
             setattr(self, name, bound_method)
     
     @classmethod
+    # Next time I build a scanner, load this dynamically
     def load_extensions(cls, extensions_path="scanners.extensions"):
         """
         Dynamically load all extension modules from the specified path.
@@ -35,13 +36,20 @@ class Scanner:
         Args:
             extensions_path (str): The Python module path to the extensions directory.
         """
+    
         package = importlib.import_module(extensions_path)
         package_path = os.path.dirname(package.__file__)
         logging.debug(f"Package Path: {package_path}")
         for _, module_name, _ in pkgutil.iter_modules([package_path]):
-            full_module_name = f"{extensions_path}.{module_name}"
-            importlib.import_module(full_module_name)
-        logging.debug(f"Loaded extension module: {full_module_name}")
+            try:
+                full_module_name = f"{extensions_path}.{module_name}"
+                importlib.import_module(full_module_name)
+            except Exception as e:
+                logging.info(f"[!] Skipping {full_module_name} due to exception : {e}")
+                continue
+            logging.debug(f"Loaded extension module: {full_module_name}")
+
+
 
 # This can be reimplemented to use a different prefix.
 # I'd have to pass a different string that "scanners.extensions" for example for bruteforce etc.
@@ -254,24 +262,20 @@ class Scanner:
                 service_name = port.get("service", {}).get("name", "").lower()
                 logging.debug(f"[*] Checking service name : {service_name}")
                 # Check if this service has a matching prefix
-                for key in service_prefix_map:
-                    if service_name == key or service_name.startswith(key):
-                        enum_prefix = service_prefix_map[key]
+                for pattern, enum_prefix in service_prefix_map.items():
+                    if pattern.search(service_name):
                         services_to_scan.add(enum_prefix)
-                        logging.debug(f"Services to scan: {services_to_scan}")
-                        # Store the port details and service name for later use
+
                         port_data = {
-                            "host": host.get("ip", ""),
-                            "port_id": port.get("id", ""),
-                            "protocol": port.get("protocol", ""),
-                            "service": service_name,
+                            "host":        host.get("ip", ""),
+                            "port_id":     port.get("id", ""),
+                            "protocol":    port.get("protocol", ""),
+                            "service":     service_name,
                             "enum_prefix": enum_prefix
                         }
-                        logging.debug(f"[*] Port Data: {port_data}")
                         port_service_pairs.append(port_data)
-                        logging.debug(f"Will scan {service_name} on {host.get('addr')}:{port.get('portid')}")
-                        
-                        # Break so we don’t match multiple prefixes for the same svc
+                        logging.debug(f"[*] Will scan with prefix {enum_prefix} on {port_data['host']}:{port_data['port_id']} with {enum_prefix}")
+                        # Break so you don’t match multiple prefixes for the same svc
                         break
         
         # If no services found, return early
@@ -323,7 +327,7 @@ class Scanner:
                         })
                         
                         # Also add to the overall findings
-                        all_results["findings"].extend(port_result.get("findings", []))
+                        #all_results["findings"].extend(port_result.get("findings", []))
                 except Exception as e:
                     logging.error(f"Error processing scan for {port_data['service']} on {port_data['host']}:{port_data['port_id']}: {e}")
         

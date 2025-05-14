@@ -73,7 +73,9 @@ def main():
     # Output findings summary
     if "services" in findings:
         for service_name, service_results in findings.get("services", {}).items():
-            logging.info(f"[+] {service_name}: Found {len(service_results)} instances")
+            logging.info(f"[+] Testing service output {service_name} : {service_results}")
+            logging.info(f"{findings}")
+            
     
     # Optional: Save the final results to a JSON file
     output_file = os.path.join(options['output_dir'], "spade_results.json")

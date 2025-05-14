@@ -1,0 +1,119 @@
+# Nmap 7.95 scan initiated Wed May 14 08:44:13 2025 as: /usr/lib/nmap/nmap -A -vv --reason --open -oN nmap192.168.174.172 -p- -Pn -T4 192.168.174.172
+Nmap scan report for 192.168.174.172
+Host is up, received user-set (0.048s latency).
+Scanned at 2025-05-14 08:44:13 EDT for 194s
+Not shown: 65514 filtered tcp ports (no-response)
+Some closed ports may be reported as filtered due to --defeat-rst-ratelimit
+PORT      STATE SERVICE       REASON          VERSION
+53/tcp    open  domain        syn-ack ttl 125 Simple DNS Plus
+88/tcp    open  kerberos-sec  syn-ack ttl 125 Microsoft Windows Kerberos (server time: 2025-05-14 12:44:07Z)
+135/tcp   open  msrpc         syn-ack ttl 125 Microsoft Windows RPC
+139/tcp   open  netbios-ssn   syn-ack ttl 125 Microsoft Windows netbios-ssn
+389/tcp   open  ldap          syn-ack ttl 125 Microsoft Windows Active Directory LDAP (Domain: vault.offsec0., Site: Default-First-Site-Name)
+445/tcp   open  microsoft-ds? syn-ack ttl 125
+464/tcp   open  kpasswd5?     syn-ack ttl 125
+593/tcp   open  ncacn_http    syn-ack ttl 125 Microsoft Windows RPC over HTTP 1.0
+636/tcp   open  tcpwrapped    syn-ack ttl 125
+3268/tcp  open  ldap          syn-ack ttl 125 Microsoft Windows Active Directory LDAP (Domain: vault.offsec0., Site: Default-First-Site-Name)
+3269/tcp  open  tcpwrapped    syn-ack ttl 125
+3389/tcp  open  ms-wbt-server syn-ack ttl 125 Microsoft Terminal Services
+| rdp-ntlm-info: 
+|   Target_Name: VAULT
+|   NetBIOS_Domain_Name: VAULT
+|   NetBIOS_Computer_Name: DC
+|   DNS_Domain_Name: vault.offsec
+|   DNS_Computer_Name: DC.vault.offsec
+|   DNS_Tree_Name: vault.offsec
+|   Product_Version: 10.0.17763
+|_  System_Time: 2025-05-14T12:45:04+00:00
+| ssl-cert: Subject: commonName=DC.vault.offsec
+| Issuer: commonName=DC.vault.offsec
+| Public Key type: rsa
+| Public Key bits: 2048
+| Signature Algorithm: sha256WithRSAEncryption
+| Not valid before: 2025-05-13T07:13:04
+| Not valid after:  2025-11-12T07:13:04
+| MD5:   3a14:2c25:35a4:400e:0d44:e49e:c2e6:9e99
+| SHA-1: 67db:292b:cd1e:9116:38b6:9e36:51a5:b338:5987:43d8
+| -----BEGIN CERTIFICATE-----
+| MIIC4jCCAcqgAwIBAgIQZa+UzPTKbIBCcSYz5MiJoDANBgkqhkiG9w0BAQsFADAa
+| MRgwFgYDVQQDEw9EQy52YXVsdC5vZmZzZWMwHhcNMjUwNTEzMDcxMzA0WhcNMjUx
+| MTEyMDcxMzA0WjAaMRgwFgYDVQQDEw9EQy52YXVsdC5vZmZzZWMwggEiMA0GCSqG
+| SIb3DQEBAQUAA4IBDwAwggEKAoIBAQDLPBPi/lxJYQfoJQw42nFeMqBzO7EvxZMA
+| YF7Zr4u+sOY8Z8VPyHjQY+Fqa2hDrX6DGg9jfQq9J0sMo06JWr+TkyqIHMj7C7SQ
+| 42Z5PVKEuYPK0TwwKUNkjFE4syGcs3FEk0IBF7/8JgC6nTFDSsUIsbXS92z7nFfp
+| GnVsyE5Ca7d9w4e3eOQepiM2pWUMa2SO64JU3gG2ETn6OuomNuKr4KK0XgMF91f0
+| G/DFVj6dTWXK1XLGYlEApo1Ti/ci4cZms2bOZw6a0rTUpGqTMOnhhdioAIJBaQ8a
+| NL2eT7Wt+f2bwuB21vKoi7nJjo4rdW636Jlr0a4ddiOwPBJ04/EtAgMBAAGjJDAi
+| MBMGA1UdJQQMMAoGCCsGAQUFBwMBMAsGA1UdDwQEAwIEMDANBgkqhkiG9w0BAQsF
+| AAOCAQEAeFDjSitdu3h5mIt8AS2mt2BALghHcIy3H9+vYNMegowzoBdt0wpjm6vo
+| 0emmvzqXVrSveN7l+DrkOe357dDVIqudM/WtZs1b/A02Pe1/FdFx50/zqED75hCX
+| gdGqjdN3lEKtMyTizqucs7Yc/g3trjNlYKcrIbfg7pFdYxUgVdLzDpXXjCnXQ3gc
+| n2HhnJiSC1svtE1TREphhAIeMCPJnVLMUibKbUNqtB5nrd0VA2Y7PTQvvAWcee05
+| IlX8XazfOAdP92KwTNRpjerlxGBoo0iJ7xxg3KbAu1asmlU5RupOL6dkDuwokAxD
+| VskAK1TkDU6q9Z+aVNpGjhvr3McdZg==
+|_-----END CERTIFICATE-----
+|_ssl-date: 2025-05-14T12:45:43+00:00; -1m43s from scanner time.
+5985/tcp  open  http          syn-ack ttl 125 Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+|_http-title: Not Found
+|_http-server-header: Microsoft-HTTPAPI/2.0
+9389/tcp  open  mc-nmf        syn-ack ttl 125 .NET Message Framing
+49666/tcp open  msrpc         syn-ack ttl 125 Microsoft Windows RPC
+49668/tcp open  msrpc         syn-ack ttl 125 Microsoft Windows RPC
+49675/tcp open  ncacn_http    syn-ack ttl 125 Microsoft Windows RPC over HTTP 1.0
+49676/tcp open  msrpc         syn-ack ttl 125 Microsoft Windows RPC
+49681/tcp open  msrpc         syn-ack ttl 125 Microsoft Windows RPC
+49708/tcp open  msrpc         syn-ack ttl 125 Microsoft Windows RPC
+49831/tcp open  msrpc         syn-ack ttl 125 Microsoft Windows RPC
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Device type: general purpose
+Running (JUST GUESSING): Microsoft Windows 2019|10 (92%)
+OS CPE: cpe:/o:microsoft:windows_server_2019 cpe:/o:microsoft:windows_10
+OS fingerprint not ideal because: Missing a closed TCP port so results incomplete
+Aggressive OS guesses: Windows Server 2019 (92%), Microsoft Windows 10 1903 - 21H1 (85%), Microsoft Windows 10 1607 (85%)
+No exact OS matches for host (test conditions non-ideal).
+TCP/IP fingerprint:
+SCAN(V=7.95%E=4%D=5/14%OT=53%CT=%CU=%PV=Y%DS=4%DC=T%G=N%TM=682490DF%P=x86_64-pc-linux-gnu)
+SEQ(SP=105%GCD=1%ISR=10B%TI=I%TS=U)
+SEQ(SP=105%GCD=1%ISR=10B%TI=RD%TS=U)
+OPS(O1=M578NW8NNS%O2=M578NW8NNS%O3=M578NW8%O4=M578NW8NNS%O5=M578NW8NNS%O6=M578NNS)
+WIN(W1=FFFF%W2=FFFF%W3=FFFF%W4=FFFF%W5=FFFF%W6=FF70)
+ECN(R=Y%DF=Y%TG=80%W=FFFF%O=M578NW8NNS%CC=Y%Q=)
+T1(R=Y%DF=Y%TG=80%S=O%A=S+%F=AS%RD=0%Q=)
+T2(R=N)
+T3(R=N)
+T4(R=N)
+U1(R=N)
+IE(R=N)
+
+Network Distance: 4 hops
+TCP Sequence Prediction: Difficulty=261 (Good luck!)
+IP ID Sequence Generation: Randomized
+Service Info: Host: DC; OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+|_clock-skew: mean: -1m42s, deviation: 0s, median: -1m42s
+| smb2-time: 
+|   date: 2025-05-14T12:45:06
+|_  start_date: N/A
+| smb2-security-mode: 
+|   3:1:1: 
+|_    Message signing enabled and required
+| p2p-conficker: 
+|   Checking for Conficker.C or higher...
+|   Check 1 (port 40287/tcp): CLEAN (Timeout)
+|   Check 2 (port 62584/tcp): CLEAN (Timeout)
+|   Check 3 (port 47339/udp): CLEAN (Timeout)
+|   Check 4 (port 24509/udp): CLEAN (Timeout)
+|_  0/4 checks are positive: Host is CLEAN or ports are blocked
+
+TRACEROUTE (using port 139/tcp)
+HOP RTT      ADDRESS
+1   47.40 ms 192.168.45.1
+2   47.34 ms 192.168.45.254
+3   47.42 ms 192.168.251.1
+4   47.45 ms 192.168.174.172
+
+Read data files from: /usr/share/nmap
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Wed May 14 08:47:27 2025 -- 1 IP address (1 host up) scanned in 194.21 seconds

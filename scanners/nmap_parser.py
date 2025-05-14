@@ -12,7 +12,7 @@ def parse_nmap_xml(xml_data: str):
     Returns:
         dict: Structured scan results
     """
-    findings = []
+    errors = []
     structured_results = {
         'hosts': [],
         'raw_xml': xml_data
@@ -66,25 +66,39 @@ def parse_nmap_xml(xml_data: str):
                     product = service_elem.get('product', '')
                     version = service_elem.get('version', '')
                     tunnel = service_elem.get('tunnel', '')
+                    #extrainfo = service_elem.get('extrainfo', '')
                     port_data['service'] = {
                         'name': service_name,
                         'product': product,
                         'version': version,
                         'tunnel': tunnel,
+                        #'extrainfo': extrainfo, 
                     }
-
-                    if product and version:
-                        service_display = f"{service_name} ({product} {version})"
-                    elif product:
-                        service_display = f"{service_name} ({product})"
-                    else:
-                        service_display = service_name
-                else:
-                    service_display = "unknown"
-                    port_data['service'] = {'name': 'unknown'}
 
                 # Add port to host data
                 host_data['ports'].append(port_data)
+                # Parse all script outputs
+            scripts = {}
+            for script_elem in port.findall('./script'):
+                script_id = script_elem.get('id')
+                if not script_id:
+                    continue
+
+                script_data = {}
+                for elem in script_elem.findall('./elem'):
+                    key = elem.get('key')
+                    value = elem.text
+                    if key and value:
+                        script_data[key] = value
+
+                # If no structured elements, fall back to raw script output
+                if not script_data and script_elem.get('output'):
+                    scripts[script_id] = script_elem.get('output')
+                else:
+                    scripts[script_id] = script_data
+
+            if scripts:
+                port_data['scripts'] = scripts
 
             # Add host to results
             structured_results['hosts'].append(host_data)
@@ -102,5 +116,5 @@ def parse_nmap_xml(xml_data: str):
             'message': f"Error processing scan results: {e}"
         })
         
-    structured_results['findings'] = findings
+    structured_results['Errors'] = errors
     return structured_results

@@ -11,7 +11,7 @@ def enum_http_whatweb(self):
         # Build and execute nmap command for TCP scan
         # make it fetch the ports itself
         # Also it will append itself?
-        cmd = f"whatweb {self.options['target']} -p -a 3 -v --log-json={output_path}"
+        cmd = f"whatweb {self.options['target']}:{self.options['port_id']} -p -a 4 -v --log-json={output_path}"
         logging.info(f"Executing TCP nmap command: {cmd}")
         
         result = subprocess.run(

@@ -63,10 +63,12 @@ def parse_nmap_xml(xml_data: str):
                     service_name = service_elem.get('name', 'unknown')
                     product = service_elem.get('product', '')
                     version = service_elem.get('version', '')
+                    tunnel = service_elem.get('tunnel', '')
                     port_data['service'] = {
                         'name': service_name,
                         'product': product,
-                        'version': version
+                        'version': version,
+                        'tunnel': tunnel,
                     }
                     
                     if product and version:
@@ -81,34 +83,7 @@ def parse_nmap_xml(xml_data: str):
                 
                 # Add port to host data
                 host_data['ports'].append(port_data)
-                
-                # Generate findings for open ports
-                if state == 'open':
-                    finding = f"Host {ip_address} ({hostname}) has open {protocol} port {port_id} ({service_display})"
-                    findings.append({
-                        'type': 'info',
-                        'message': finding
-                    })
-                    
-                    # Add security findings based on service
-                    if service_name.startswith('http') and port_id not in ['80', '443']:
-                        findings.append({
-                            'type': 'warning',
-                            'message': f"Non-standard HTTP port {port_id} on {ip_address}"
-                        })
-                    
-                    if service_name.startswith('telnet'):
-                        findings.append({
-                            'type': 'critical',
-                            'message': f"Insecure Telnet service running on {ip_address}:{port_id}"
-                        })
-                        
-                    if service_name.startswith('ftp') and not service_name.lower().find('sftp'):
-                        findings.append({
-                            'type': 'high',
-                            'message': f"Insecure FTP service on {ip_address}:{port_id}"
-                        })
-            
+                            
             # Add host to results
             structured_results['hosts'].append(host_data)
     

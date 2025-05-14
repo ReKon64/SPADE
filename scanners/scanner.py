@@ -334,7 +334,6 @@ class Scanner:
         logging.info(f"[+] Completed all port-specific enumeration")
         return self.findings
 
-    @Scanner.extend
     def _scan_individual_port(self, port_data, options, max_workers=None):
         """
         Scan a specific port with the appropriate enumeration prefix.

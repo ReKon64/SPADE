@@ -87,7 +87,6 @@ class Scanner:
         except ValueError as e:
             logging.error(f"Invalid prefixes argument: {e}")
             return []
-
         return self.findings
     
     
@@ -215,6 +214,8 @@ class Scanner:
             self._cleanup_scan_files(result_path)
         except Exception as e:
             logging.error(f"Error processing results for {method_name}: {e}")
+        
+        return self.findings
 
 
     def scan_by_port_service(self, max_workers=None):

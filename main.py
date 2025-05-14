@@ -17,16 +17,13 @@ def main():
     parser.add_argument("-o", "--output", help="Output directory for reports and payloads")
     parser.add_argument('-at', "--tcp_options", help="Additional flags to inject into the TCP nmap command")
     parser.add_argument('-au', "--udp_options", help="Additional flags to inject into the UDP nmap command")
-    parser.add_argument("-m", "--memory", action="store_true", help="Include memory usage in log messages") 
-
     args = parser.parse_args()
+
 
     # Configure logging
     format='%(asctime)s - %(levelname)s - %(message)s'
     log_level = logging.DEBUG if args.verbose else logging.INFO
 
-    if args.memory:
-        format = format + ' - [Memory: %(memory_usage)s]'
     logging.basicConfig(level=log_level, format=format)
 
     # Options dictionary
@@ -39,7 +36,6 @@ def main():
         'udp_ports': args.udp_ports,
         'tcp_options': args.tcp_options,
         'udp_options': args.udp_options,
-        'memory_logging': args.memory,
     }
 
     # Load all scanner extensions
@@ -56,9 +52,9 @@ def main():
     findings = scanner.scan(
         max_workers=int(options['threads']),
         prioritized_methods=['scan_tcp_scan', 'scan_udp_scan'],
-        prefix=['scan_'],
+        prefixes=['scan_'],
     )
-    
+    logging.info(f"[?] Finding: {findings}")
     logging.info(f"[+] Initial scan complete.")
     
     # Get the count of discovered hosts and ports

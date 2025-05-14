@@ -3,99 +3,241 @@
         {
             "ports": [
                 {
-                    "id": "21",
+                    "id": "53",
                     "protocol": "tcp",
                     "state": "open",
                     "service": {
-                        "name": "ftp",
-                        "product": "vsftpd",
-                        "version": "2.2.2"
+                        "name": "domain",
+                        "product": "Simple DNS Plus",
+                        "version": "",
+                        "tunnel": ""
                     }
                 },
                 {
-                    "id": "22",
+                    "id": "88",
                     "protocol": "tcp",
                     "state": "open",
                     "service": {
-                        "name": "ssh",
-                        "product": "OpenSSH",
-                        "version": "5.3"
+                        "name": "kerberos-sec",
+                        "product": "Microsoft Windows Kerberos",
+                        "version": "",
+                        "tunnel": ""
                     }
                 },
                 {
-                    "id": "80",
+                    "id": "135",
+                    "protocol": "tcp",
+                    "state": "open",
+                    "service": {
+                        "name": "msrpc",
+                        "product": "Microsoft Windows RPC",
+                        "version": "",
+                        "tunnel": ""
+                    }
+                },
+                {
+                    "id": "139",
+                    "protocol": "tcp",
+                    "state": "open",
+                    "service": {
+                        "name": "netbios-ssn",
+                        "product": "Microsoft Windows netbios-ssn",
+                        "version": "",
+                        "tunnel": ""
+                    }
+                },
+                {
+                    "id": "389",
+                    "protocol": "tcp",
+                    "state": "open",
+                    "service": {
+                        "name": "ldap",
+                        "product": "Microsoft Windows Active Directory LDAP",
+                        "version": "",
+                        "tunnel": ""
+                    }
+                },
+                {
+                    "id": "445",
+                    "protocol": "tcp",
+                    "state": "open",
+                    "service": {
+                        "name": "microsoft-ds",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    }
+                },
+                {
+                    "id": "464",
+                    "protocol": "tcp",
+                    "state": "open",
+                    "service": {
+                        "name": "kpasswd5",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    }
+                },
+                {
+                    "id": "593",
+                    "protocol": "tcp",
+                    "state": "open",
+                    "service": {
+                        "name": "ncacn_http",
+                        "product": "Microsoft Windows RPC over HTTP",
+                        "version": "1.0",
+                        "tunnel": ""
+                    }
+                },
+                {
+                    "id": "636",
+                    "protocol": "tcp",
+                    "state": "open",
+                    "service": {
+                        "name": "tcpwrapped",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    }
+                },
+                {
+                    "id": "3268",
+                    "protocol": "tcp",
+                    "state": "open",
+                    "service": {
+                        "name": "ldap",
+                        "product": "Microsoft Windows Active Directory LDAP",
+                        "version": "",
+                        "tunnel": ""
+                    }
+                },
+                {
+                    "id": "3269",
+                    "protocol": "tcp",
+                    "state": "open",
+                    "service": {
+                        "name": "tcpwrapped",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    }
+                },
+                {
+                    "id": "3389",
+                    "protocol": "tcp",
+                    "state": "open",
+                    "service": {
+                        "name": "ms-wbt-server",
+                        "product": "Microsoft Terminal Services",
+                        "version": "",
+                        "tunnel": ""
+                    }
+                },
+                {
+                    "id": "5985",
                     "protocol": "tcp",
                     "state": "open",
                     "service": {
                         "name": "http",
-                        "product": "Apache httpd",
-                        "version": "2.2.15"
+                        "product": "Microsoft HTTPAPI httpd",
+                        "version": "2.0",
+                        "tunnel": ""
                     }
                 },
                 {
-                    "id": "111",
-                    "protocol": "tcp",
-                    "state": "filtered",
-                    "service": {
-                        "name": "rpcbind",
-                        "product": "",
-                        "version": ""
-                    }
-                },
-                {
-                    "id": "443",
+                    "id": "9389",
                     "protocol": "tcp",
                     "state": "open",
                     "service": {
-                        "name": "http",
-                        "product": "Apache httpd",
-                        "version": "2.2.15"
+                        "name": "mc-nmf",
+                        "product": ".NET Message Framing",
+                        "version": "",
+                        "tunnel": ""
                     }
                 },
                 {
-                    "id": "41436",
+                    "id": "49666",
                     "protocol": "tcp",
                     "state": "open",
                     "service": {
-                        "name": "status",
-                        "product": "",
-                        "version": "1"
+                        "name": "msrpc",
+                        "product": "Microsoft Windows RPC",
+                        "version": "",
+                        "tunnel": ""
                     }
                 },
                 {
-                    "id": "41602",
+                    "id": "49668",
                     "protocol": "tcp",
-                    "state": "filtered",
+                    "state": "open",
                     "service": {
-                        "name": "unknown"
+                        "name": "msrpc",
+                        "product": "Microsoft Windows RPC",
+                        "version": "",
+                        "tunnel": ""
+                    }
+                },
+                {
+                    "id": "49675",
+                    "protocol": "tcp",
+                    "state": "open",
+                    "service": {
+                        "name": "ncacn_http",
+                        "product": "Microsoft Windows RPC over HTTP",
+                        "version": "1.0",
+                        "tunnel": ""
+                    }
+                },
+                {
+                    "id": "49676",
+                    "protocol": "tcp",
+                    "state": "open",
+                    "service": {
+                        "name": "msrpc",
+                        "product": "Microsoft Windows RPC",
+                        "version": "",
+                        "tunnel": ""
+                    }
+                },
+                {
+                    "id": "49681",
+                    "protocol": "tcp",
+                    "state": "open",
+                    "service": {
+                        "name": "msrpc",
+                        "product": "Microsoft Windows RPC",
+                        "version": "",
+                        "tunnel": ""
+                    }
+                },
+                {
+                    "id": "49708",
+                    "protocol": "tcp",
+                    "state": "open",
+                    "service": {
+                        "name": "msrpc",
+                        "product": "Microsoft Windows RPC",
+                        "version": "",
+                        "tunnel": ""
+                    }
+                },
+                {
+                    "id": "49831",
+                    "protocol": "tcp",
+                    "state": "open",
+                    "service": {
+                        "name": "msrpc",
+                        "product": "Microsoft Windows RPC",
+                        "version": "",
+                        "tunnel": ""
                     }
                 }
             ],
-            "ip": "10.11.1.77",
+            "ip": "192.168.174.172",
             "hostname": "unknown"
         }
     ],
-    "raw_xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE nmaprun>\n<?xml-stylesheet href=\"file:///usr/share/nmap/nmap.xsl\" type=\"text/xsl\"?>\n<!-- Nmap 7.95 scan initiated Wed Apr 23 12:02:54 2025 as: /usr/lib/nmap/nmap -&#45;privileged -p- -A -T5 -vv -&#45;reason -Pn -n -oX /tmp/tmp5axpqrpr.xml 10.11.1.77 -->\n<nmaprun scanner=\"nmap\" args=\"/usr/lib/nmap/nmap -&#45;privileged -p- -A -T5 -vv -&#45;reason -Pn -n -oX /tmp/tmp5axpqrpr.xml 10.11.1.77\" start=\"1745424174\" startstr=\"Wed Apr 23 12:02:54 2025\" version=\"7.95\" xmloutputversion=\"1.05\">\n<scaninfo type=\"syn\" protocol=\"tcp\" numservices=\"65535\" services=\"1-65535\"/>\n<verbose level=\"2\"/>\n<debugging level=\"0\"/>\n<taskbegin task=\"NSE\" time=\"1745424175\"/>\n<taskend task=\"NSE\" time=\"1745424175\"/>\n<taskbegin task=\"NSE\" time=\"1745424175\"/>\n<taskend task=\"NSE\" time=\"1745424175\"/>\n<taskbegin task=\"NSE\" time=\"1745424175\"/>\n<taskend task=\"NSE\" time=\"1745424175\"/>\n<taskbegin task=\"SYN Stealth Scan\" time=\"1745424175\"/>\n<taskprogress task=\"SYN Stealth Scan\" time=\"1745424206\" percent=\"12.33\" remaining=\"221\" etc=\"1745424426\"/>\n<taskprogress task=\"SYN Stealth Scan\" time=\"1745424236\" percent=\"25.09\" remaining=\"183\" etc=\"1745424418\"/>\n<taskprogress task=\"SYN Stealth Scan\" time=\"1745424266\" percent=\"36.43\" remaining=\"159\" etc=\"1745424425\"/>\n<taskprogress task=\"SYN Stealth Scan\" time=\"1745424296\" percent=\"48.37\" remaining=\"130\" etc=\"1745424425\"/>\n<taskprogress task=\"SYN Stealth Scan\" time=\"1745424326\" percent=\"59.46\" remaining=\"103\" etc=\"1745424429\"/>\n<taskprogress task=\"SYN Stealth Scan\" time=\"1745424356\" percent=\"69.50\" remaining=\"80\" etc=\"1745424435\"/>\n<taskprogress task=\"SYN Stealth Scan\" time=\"1745424386\" percent=\"80.96\" remaining=\"50\" etc=\"1745424436\"/>\n<taskend task=\"SYN Stealth Scan\" time=\"1745424431\" extrainfo=\"65535 total ports\"/>\n<taskbegin task=\"Service scan\" time=\"1745424431\"/>\n<taskend task=\"Service scan\" time=\"1745424444\" extrainfo=\"5 services on 1 host\"/>\n<taskbegin task=\"NSE\" time=\"1745424445\"/>\n<taskend task=\"NSE\" time=\"1745424451\"/>\n<taskbegin task=\"NSE\" time=\"1745424451\"/>\n<taskend task=\"NSE\" time=\"1745424452\"/>\n<taskbegin task=\"NSE\" time=\"1745424452\"/>\n<taskend task=\"NSE\" time=\"1745424452\"/>\n<host starttime=\"1745424175\" endtime=\"1745424452\"><status state=\"up\" reason=\"user-set\" reason_ttl=\"0\"/>\n<address addr=\"10.11.1.77\" addrtype=\"ipv4\"/>\n<hostnames>\n</hostnames>\n<ports><extraports state=\"closed\" count=\"65528\">\n<extrareasons reason=\"reset\" count=\"65528\" proto=\"tcp\" ports=\"1-20,23-79,81-110,112-442,444-41435,41437-41601,41603-65535\"/>\n</extraports>\n<port protocol=\"tcp\" portid=\"21\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"63\"/><service name=\"ftp\" product=\"vsftpd\" version=\"2.2.2\" ostype=\"Unix\" method=\"probed\" conf=\"10\"><cpe>cpe:/a:vsftpd:vsftpd:2.2.2</cpe></service><script id=\"ftp-anon\" output=\"Anonymous FTP login allowed (FTP code 230)&#xa;drwxr-xr-x    2 0        0            4096 Mar 22  2017 pub\"/><script id=\"ftp-syst\" output=\"&#xa;  STAT: &#xa;FTP server status:&#xa;     Connected to 172.16.1.2&#xa;     Logged in as ftp&#xa;     TYPE: ASCII&#xa;     No session bandwidth limit&#xa;     Session timeout in seconds is 300&#xa;     Control connection is plain text&#xa;     Data connections will be plain text&#xa;     At session startup, client count was 2&#xa;     vsFTPd 2.2.2 - secure, fast, stable&#xa;End of status\"><elem key=\"STAT\">&#xa;FTP server status:&#xa;     Connected to 172.16.1.2&#xa;     Logged in as ftp&#xa;     TYPE: ASCII&#xa;     No session bandwidth limit&#xa;     Session timeout in seconds is 300&#xa;     Control connection is plain text&#xa;     Data connections will be plain text&#xa;     At session startup, client count was 2&#xa;     vsFTPd 2.2.2 - secure, fast, stable&#xa;End of status</elem>\n</script></port>\n<port protocol=\"tcp\" portid=\"22\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"63\"/><service name=\"ssh\" product=\"OpenSSH\" version=\"5.3\" extrainfo=\"protocol 2.0\" method=\"probed\" conf=\"10\"><cpe>cpe:/a:openbsd:openssh:5.3</cpe></service><script id=\"ssh-hostkey\" output=\"&#xa;  1024 68:6a:dc:e1:41:57:e1:0d:07:d6:69:cd:6f:da:17:bf (DSA)&#xa;ssh-dss AAAAB3NzaC1kc3MAAACBAN6QtF5Lp+fA3TcGzpOFu1luMbXq5ZiUBHKxdcnVZPch141kvvspzGnXNItj4KOQiIDCSxrCeV+LDZLMjltHkS2wYv3eGfuuYwiaa/AirlPwSv55R2JTwtrzpwbZiKQ/d6L7VqeJHnRN5/s0JogWsvRUQjx/vr4MSFEsVs36XDBDAAAAFQDBu31g2R2qJVMMKkRnA2WvvADWEwAAAIEAyLJEi5PtkhHL0PbYIOuMitrSAp1pCTx4Zxh4ZlFT7qEoquxZIkmUPd/gNxClm6akc3mEV2iVr9cWpYQ8Sg3HH2TzoQemx3/sWjEVbO8TXYtB9XNseR68VDVt/IkiNY16v3Z9LLv/3WZai/rTMrc1Od1w3w2CiEov1PJOkm1zCWwAAACAZn6VvFf38GhHJJx7d9FFXNbuk1OKArq+JYsvV/9T052AAviQMdnzaBbAnhsl0aIsDLDDivLH9H1XceBKUP8eGYn8oqYI/EqX6t4Dp/3bqc0Vk4uJVfY/GllL9dcfq2NOye83YRAVw7x3Ux85qHUjnU+yuTSmGzKxARo1/adoWVE=&#xa;  2048 ae:8d:d1:b5:ed:d3:e1:52:6b:d6:f7:95:ff:39:5d:e5 (RSA)&#xa;ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAwNObHJHk3xfxTYYSXw1mIqIgsl5QAmieHSwLBeUI/MbegwttcTbY7zGioiW45rAfhH73nLYArnbzG8UHP0T2pNGIGiH7nkvlLRV2w0yjPf9M6bllOLZ1fFjqUcXc77p6f0nwKwtFncxSMCbb5BjAKFPtdYW+NHZtG1+mrgwmITxkQgZk7SyrJz9df6mqaP81hLNRzgAXF6FOHht5mYFHqh06ynB3Gk/Xzs5bYKzGeWuPmoG1y/7ZSk5lfNGzsrixYMSdRn+xcuiqjJJrc0GAj7WX5V1bZlI6fcP14cAC4+Mq1ANHkRCOuYSE6rSDY5cYImbfle5fbQHHTJbdjDXabw==\"><table>\n<elem key=\"fingerprint\">686adce14157e10d07d669cd6fda17bf</elem>\n<elem key=\"bits\">1024</elem>\n<elem key=\"key\">AAAAB3NzaC1kc3MAAACBAN6QtF5Lp+fA3TcGzpOFu1luMbXq5ZiUBHKxdcnVZPch141kvvspzGnXNItj4KOQiIDCSxrCeV+LDZLMjltHkS2wYv3eGfuuYwiaa/AirlPwSv55R2JTwtrzpwbZiKQ/d6L7VqeJHnRN5/s0JogWsvRUQjx/vr4MSFEsVs36XDBDAAAAFQDBu31g2R2qJVMMKkRnA2WvvADWEwAAAIEAyLJEi5PtkhHL0PbYIOuMitrSAp1pCTx4Zxh4ZlFT7qEoquxZIkmUPd/gNxClm6akc3mEV2iVr9cWpYQ8Sg3HH2TzoQemx3/sWjEVbO8TXYtB9XNseR68VDVt/IkiNY16v3Z9LLv/3WZai/rTMrc1Od1w3w2CiEov1PJOkm1zCWwAAACAZn6VvFf38GhHJJx7d9FFXNbuk1OKArq+JYsvV/9T052AAviQMdnzaBbAnhsl0aIsDLDDivLH9H1XceBKUP8eGYn8oqYI/EqX6t4Dp/3bqc0Vk4uJVfY/GllL9dcfq2NOye83YRAVw7x3Ux85qHUjnU+yuTSmGzKxARo1/adoWVE=</elem>\n<elem key=\"type\">ssh-dss</elem>\n</table>\n<table>\n<elem key=\"fingerprint\">ae8dd1b5edd3e1526bd6f795ff395de5</elem>\n<elem key=\"bits\">2048</elem>\n<elem key=\"key\">AAAAB3NzaC1yc2EAAAABIwAAAQEAwNObHJHk3xfxTYYSXw1mIqIgsl5QAmieHSwLBeUI/MbegwttcTbY7zGioiW45rAfhH73nLYArnbzG8UHP0T2pNGIGiH7nkvlLRV2w0yjPf9M6bllOLZ1fFjqUcXc77p6f0nwKwtFncxSMCbb5BjAKFPtdYW+NHZtG1+mrgwmITxkQgZk7SyrJz9df6mqaP81hLNRzgAXF6FOHht5mYFHqh06ynB3Gk/Xzs5bYKzGeWuPmoG1y/7ZSk5lfNGzsrixYMSdRn+xcuiqjJJrc0GAj7WX5V1bZlI6fcP14cAC4+Mq1ANHkRCOuYSE6rSDY5cYImbfle5fbQHHTJbdjDXabw==</elem>\n<elem key=\"type\">ssh-rsa</elem>\n</table>\n</script></port>\n<port protocol=\"tcp\" portid=\"80\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"63\"/><service name=\"http\" product=\"Apache httpd\" version=\"2.2.15\" extrainfo=\"(CentOS)\" method=\"probed\" conf=\"10\"><cpe>cpe:/a:apache:http_server:2.2.15</cpe></service><script id=\"http-title\" output=\"Natural Design &amp; Development - Home\"><elem key=\"title\">Natural Design &amp; Development - Home</elem>\n</script><script id=\"http-server-header\" output=\"Apache/2.2.15 (CentOS)\"><elem>Apache/2.2.15 (CentOS)</elem>\n</script><script id=\"http-favicon\" output=\"Unknown favicon MD5: 129FB6EE5E0A90095DFBA15B6F15C324\"/><script id=\"http-methods\" output=\"&#xa;  Supported Methods: GET HEAD POST OPTIONS TRACE&#xa;  Potentially risky methods: TRACE\"><table key=\"Supported Methods\">\n<elem>GET</elem>\n<elem>HEAD</elem>\n<elem>POST</elem>\n<elem>OPTIONS</elem>\n<elem>TRACE</elem>\n</table>\n<table key=\"Potentially risky methods\">\n<elem>TRACE</elem>\n</table>\n</script></port>\n<port protocol=\"tcp\" portid=\"111\"><state state=\"filtered\" reason=\"no-response\" reason_ttl=\"0\"/><service name=\"rpcbind\" method=\"table\" conf=\"3\"/></port>\n<port protocol=\"tcp\" portid=\"443\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"63\"/><service name=\"http\" product=\"Apache httpd\" version=\"2.2.15\" extrainfo=\"(CentOS)\" tunnel=\"ssl\" method=\"probed\" conf=\"10\"><cpe>cpe:/a:apache:http_server:2.2.15</cpe></service><script id=\"http-title\" output=\"Natural Design &amp; Development - Home\"><elem key=\"title\">Natural Design &amp; Development - Home</elem>\n</script><script id=\"http-server-header\" output=\"Apache/2.2.15 (CentOS)\"><elem>Apache/2.2.15 (CentOS)</elem>\n</script><script id=\"ssl-date\" output=\"2025-04-23T15:59:07+00:00; -8m24s from scanner time.\"><elem key=\"date\">2025-04-23T15:59:07+00:00</elem>\n<elem key=\"delta\">-504.0</elem>\n</script><script id=\"ssl-cert\" output=\"Subject: commonName=natural/organizationName=SomeOrganization/stateOrProvinceName=SomeState/countryName=-&#45;/emailAddress=root@natural/organizationalUnitName=SomeOrganizationalUnit/localityName=SomeCity&#xa;Issuer: commonName=natural/organizationName=SomeOrganization/stateOrProvinceName=SomeState/countryName=-&#45;/emailAddress=root@natural/organizationalUnitName=SomeOrganizationalUnit/localityName=SomeCity&#xa;Public Key type: rsa&#xa;Public Key bits: 2048&#xa;Signature Algorithm: sha256WithRSAEncryption&#xa;Not valid before: 2017-10-02T15:23:02&#xa;Not valid after:  2018-10-02T15:23:02&#xa;MD5:   bffb:f292:8cb0:f86a:14df:d453:ea4c:01d2&#xa;SHA-1: e5f5:08a6:c590:f9ab:003f:cee8:ec83:bb8c:2267:94ca&#xa;-&#45;&#45;&#45;&#45;BEGIN CERTIFICATE-&#45;&#45;&#45;&#45;&#xa;MIID1jCCAr6gAwIBAgICLy8wDQYJKoZIhvcNAQELBQAwgZ8xCzAJBgNVBAYTAi0t&#xa;MRIwEAYDVQQIDAlTb21lU3RhdGUxETAPBgNVBAcMCFNvbWVDaXR5MRkwFwYDVQQK&#xa;DBBTb21lT3JnYW5pemF0aW9uMR8wHQYDVQQLDBZTb21lT3JnYW5pemF0aW9uYWxV&#xa;bml0MRAwDgYDVQQDDAduYXR1cmFsMRswGQYJKoZIhvcNAQkBFgxyb290QG5hdHVy&#xa;YWwwHhcNMTcxMDAyMTUyMzAyWhcNMTgxMDAyMTUyMzAyWjCBnzELMAkGA1UEBhMC&#xa;LS0xEjAQBgNVBAgMCVNvbWVTdGF0ZTERMA8GA1UEBwwIU29tZUNpdHkxGTAXBgNV&#xa;BAoMEFNvbWVPcmdhbml6YXRpb24xHzAdBgNVBAsMFlNvbWVPcmdhbml6YXRpb25h&#xa;bFVuaXQxEDAOBgNVBAMMB25hdHVyYWwxGzAZBgkqhkiG9w0BCQEWDHJvb3RAbmF0&#xa;dXJhbDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALRiIAAkWo4fhvmX&#xa;JrxWBNLdfoV5nqJL2rZlbzqLnXRCXb3HLGymzRXD5BpGG7EMMYi6S/hIckMGhPwI&#xa;MhjAwFuQB6+FL92qkPSJfi2CpxKB74eWGRz9kBIUbeT1TyIj+iDmTX7sEzrw+u59&#xa;BAf24pyzZkPdlthss8wATBuJrP5+GafFSX3aOIZlIEIkeew0+wJd3jH+f9Bjbsn1&#xa;EbbSTxKjiFejSmtZOEjpGWz66bXydSbAcA21mMiD4coG9k+zYkeN34T6l3lj9272&#xa;sqoJy47FiC2cet9OgU/IMA8jj/PhPZ5kWTlGy7vA2TS4vp97jqXq7P+m6VCWB1HU&#xa;XLJm2v0CAwEAAaMaMBgwCQYDVR0TBAIwADALBgNVHQ8EBAMCBeAwDQYJKoZIhvcN&#xa;AQELBQADggEBAKn678/aWvPtmQpZ8tA9/7RSKCsWMcWkCQeiK91zGy+JrZgVgUSE&#xa;OaJZoY+e6b5eg0KmhWIsiYqPynxmB7yRyBl9EjqCcpxosY3K7Y0RWtTGBH7UbmOy&#xa;pp0t+XQTLKDxjYfBNHegDw9d4L4Iu8vwbFsQxppaV7u7ouO/U9QIlmWDw7YYNj3x&#xa;b8Y3ZNFQAFlkRdA5hAb0CuqsHUkEOd0H22sIpFlmUu49GWLCQCHW9g4Y0YQOE15M&#xa;bf5AZMMwCrxlltOZMrIX6PrclZJlZGVnUB2j/xgd7jPt+0mV7GKuU6oriIsUtfCm&#xa;eLRuwlsCRDnXeR0+QR+w6FldGnIIGURNkEU=&#xa;-&#45;&#45;&#45;&#45;END CERTIFICATE-&#45;&#45;&#45;&#45;&#xa;\"><table key=\"subject\">\n<elem key=\"commonName\">natural</elem>\n<elem key=\"countryName\">-&#45;</elem>\n<elem key=\"emailAddress\">root@natural</elem>\n<elem key=\"localityName\">SomeCity</elem>\n<elem key=\"organizationName\">SomeOrganization</elem>\n<elem key=\"organizationalUnitName\">SomeOrganizationalUnit</elem>\n<elem key=\"stateOrProvinceName\">SomeState</elem>\n</table>\n<table key=\"issuer\">\n<elem key=\"commonName\">natural</elem>\n<elem key=\"countryName\">-&#45;</elem>\n<elem key=\"emailAddress\">root@natural</elem>\n<elem key=\"localityName\">SomeCity</elem>\n<elem key=\"organizationName\">SomeOrganization</elem>\n<elem key=\"organizationalUnitName\">SomeOrganizationalUnit</elem>\n<elem key=\"stateOrProvinceName\">SomeState</elem>\n</table>\n<table key=\"pubkey\">\n<elem key=\"type\">rsa</elem>\n<elem key=\"bits\">2048</elem>\n<elem key=\"modulus\">B4622000245A8E1F86F99726BC5604D2DD7E85799EA24BDAB6656F3A8B9D74425DBDC72C6CA6CD15C3E41A461BB10C3188BA4BF84872430684FC083218C0C05B9007AF852FDDAA90F4897E2D82A71281EF8796191CFD9012146DE4F54F2223FA20E64D7EEC133AF0FAEE7D0407F6E29CB36643DD96D86CB3CC004C1B89ACFE7E19A7C5497DDA38866520422479EC34FB025DDE31FE7FD0636EC9F511B6D24F12A38857A34A6B593848E9196CFAE9B5F27526C0700DB598C883E1CA06F64FB362478DDF84FA977963F76EF6B2AA09CB8EC5882D9C7ADF4E814FC8300F238FF3E13D9E64593946CBBBC0D934B8BE9F7B8EA5EAECFFA6E950960751D45CB266DAFD</elem>\n<elem key=\"exponent\">65537</elem>\n</table>\n<table key=\"extensions\">\n<table>\n<elem key=\"name\">X509v3 Basic Constraints</elem>\n<elem key=\"value\">CA:FALSE</elem>\n</table>\n<table>\n<elem key=\"name\">X509v3 Key Usage</elem>\n<elem key=\"value\">Digital Signature, Non Repudiation, Key Encipherment</elem>\n</table>\n</table>\n<elem key=\"sig_algo\">sha256WithRSAEncryption</elem>\n<table key=\"validity\">\n<elem key=\"notBefore\">2017-10-02T15:23:02</elem>\n<elem key=\"notAfter\">2018-10-02T15:23:02</elem>\n</table>\n<elem key=\"md5\">bffbf2928cb0f86a14dfd453ea4c01d2</elem>\n<elem key=\"sha1\">e5f508a6c590f9ab003fcee8ec83bb8c226794ca</elem>\n<elem key=\"pem\">-&#45;&#45;&#45;&#45;BEGIN CERTIFICATE-&#45;&#45;&#45;&#45;&#xa;MIID1jCCAr6gAwIBAgICLy8wDQYJKoZIhvcNAQELBQAwgZ8xCzAJBgNVBAYTAi0t&#xa;MRIwEAYDVQQIDAlTb21lU3RhdGUxETAPBgNVBAcMCFNvbWVDaXR5MRkwFwYDVQQK&#xa;DBBTb21lT3JnYW5pemF0aW9uMR8wHQYDVQQLDBZTb21lT3JnYW5pemF0aW9uYWxV&#xa;bml0MRAwDgYDVQQDDAduYXR1cmFsMRswGQYJKoZIhvcNAQkBFgxyb290QG5hdHVy&#xa;YWwwHhcNMTcxMDAyMTUyMzAyWhcNMTgxMDAyMTUyMzAyWjCBnzELMAkGA1UEBhMC&#xa;LS0xEjAQBgNVBAgMCVNvbWVTdGF0ZTERMA8GA1UEBwwIU29tZUNpdHkxGTAXBgNV&#xa;BAoMEFNvbWVPcmdhbml6YXRpb24xHzAdBgNVBAsMFlNvbWVPcmdhbml6YXRpb25h&#xa;bFVuaXQxEDAOBgNVBAMMB25hdHVyYWwxGzAZBgkqhkiG9w0BCQEWDHJvb3RAbmF0&#xa;dXJhbDCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBALRiIAAkWo4fhvmX&#xa;JrxWBNLdfoV5nqJL2rZlbzqLnXRCXb3HLGymzRXD5BpGG7EMMYi6S/hIckMGhPwI&#xa;MhjAwFuQB6+FL92qkPSJfi2CpxKB74eWGRz9kBIUbeT1TyIj+iDmTX7sEzrw+u59&#xa;BAf24pyzZkPdlthss8wATBuJrP5+GafFSX3aOIZlIEIkeew0+wJd3jH+f9Bjbsn1&#xa;EbbSTxKjiFejSmtZOEjpGWz66bXydSbAcA21mMiD4coG9k+zYkeN34T6l3lj9272&#xa;sqoJy47FiC2cet9OgU/IMA8jj/PhPZ5kWTlGy7vA2TS4vp97jqXq7P+m6VCWB1HU&#xa;XLJm2v0CAwEAAaMaMBgwCQYDVR0TBAIwADALBgNVHQ8EBAMCBeAwDQYJKoZIhvcN&#xa;AQELBQADggEBAKn678/aWvPtmQpZ8tA9/7RSKCsWMcWkCQeiK91zGy+JrZgVgUSE&#xa;OaJZoY+e6b5eg0KmhWIsiYqPynxmB7yRyBl9EjqCcpxosY3K7Y0RWtTGBH7UbmOy&#xa;pp0t+XQTLKDxjYfBNHegDw9d4L4Iu8vwbFsQxppaV7u7ouO/U9QIlmWDw7YYNj3x&#xa;b8Y3ZNFQAFlkRdA5hAb0CuqsHUkEOd0H22sIpFlmUu49GWLCQCHW9g4Y0YQOE15M&#xa;bf5AZMMwCrxlltOZMrIX6PrclZJlZGVnUB2j/xgd7jPt+0mV7GKuU6oriIsUtfCm&#xa;eLRuwlsCRDnXeR0+QR+w6FldGnIIGURNkEU=&#xa;-&#45;&#45;&#45;&#45;END CERTIFICATE-&#45;&#45;&#45;&#45;&#xa;</elem>\n</script><script id=\"http-methods\" output=\"&#xa;  Supported Methods: GET HEAD POST OPTIONS TRACE&#xa;  Potentially risky methods: TRACE\"><table key=\"Supported Methods\">\n<elem>GET</elem>\n<elem>HEAD</elem>\n<elem>POST</elem>\n<elem>OPTIONS</elem>\n<elem>TRACE</elem>\n</table>\n<table key=\"Potentially risky methods\">\n<elem>TRACE</elem>\n</table>\n</script></port>\n<port protocol=\"tcp\" portid=\"41436\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"63\"/><service name=\"status\" version=\"1\" extrainfo=\"RPC #100024\" method=\"probed\" conf=\"10\"/></port>\n<port protocol=\"tcp\" portid=\"41602\"><state state=\"filtered\" reason=\"no-response\" reason_ttl=\"0\"/></port>\n</ports>\n<os><portused state=\"open\" proto=\"tcp\" portid=\"21\"/>\n<portused state=\"closed\" proto=\"tcp\" portid=\"1\"/>\n<portused state=\"closed\" proto=\"udp\" portid=\"42302\"/>\n<osmatch name=\"Linux 2.6.32\" accuracy=\"100\" line=\"57632\">\n<osclass type=\"general purpose\" vendor=\"Linux\" osfamily=\"Linux\" osgen=\"2.6.X\" accuracy=\"100\"><cpe>cpe:/o:linux:linux_kernel:2.6.32</cpe></osclass>\n</osmatch>\n<osfingerprint fingerprint=\"OS:SCAN(V=7.95%E=4%D=4/23%OT=21%CT=1%CU=42302%PV=Y%DS=2%DC=I%G=N%TM=6809104&#xa;OS:4%P=x86_64-pc-linux-gnu)SEQ(SP=103%GCD=1%ISR=106%TI=Z%II=I%TS=A)OPS(O1=M&#xa;OS:5B4ST11NW6%O2=M5B4ST11NW6%O3=M5B4NNT11NW6%O4=M5B4ST11NW6%O5=M5B4ST11NW6%&#xa;OS:O6=M5B4ST11)WIN(W1=3890%W2=3890%W3=3890%W4=3890%W5=3890%W6=3890)ECN(R=Y%&#xa;OS:DF=Y%T=40%W=3908%O=M5B4NNSNW6%CC=Y%Q=)T1(R=Y%DF=Y%T=40%S=O%A=S+%F=AS%RD=&#xa;OS:0%Q=)T2(R=N)T3(R=N)T4(R=N)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)&#xa;OS:T6(R=N)T7(R=N)U1(R=Y%DF=N%T=40%IPL=164%UN=0%RIPL=G%RID=G%RIPCK=G%RUCK=G%&#xa;OS:RUD=G)IE(R=Y%DFI=N%T=40%CD=S)&#xa;\"/>\n</os>\n<uptime seconds=\"83102\" lastboot=\"Tue Apr 22 13:02:30 2025\"/>\n<distance value=\"2\"/>\n<tcpsequence index=\"259\" difficulty=\"Good luck!\" values=\"CE7AD48F,FAFE4BC6,84EB2B4,B3FD36EF,6ECE938D,765CF2E9\"/>\n<ipidsequence class=\"All zeros\" values=\"0,0,0,0,0,0\"/>\n<tcptssequence class=\"1000HZ\" values=\"4F3EC66,4F3ECD5,4F3ED42,4F3EDAF,4F3EDD5,4F3EE46\"/>\n<hostscript><script id=\"clock-skew\" output=\"-8m24s\"><elem key=\"median\">-504</elem>\n<elem key=\"count\">1</elem>\n<elem key=\"stddev\">0</elem>\n<elem key=\"mean\">-504</elem>\n</script></hostscript><trace>\n<hop ttl=\"1\" ipaddr=\"10.11.1.77\" rtt=\"63.08\"/>\n</trace>\n<times srtt=\"63076\" rttvar=\"17299\" to=\"132272\"/>\n</host>\n<taskbegin task=\"NSE\" time=\"1745424452\"/>\n<taskend task=\"NSE\" time=\"1745424452\"/>\n<taskbegin task=\"NSE\" time=\"1745424452\"/>\n<taskend task=\"NSE\" time=\"1745424452\"/>\n<taskbegin task=\"NSE\" time=\"1745424452\"/>\n<taskend task=\"NSE\" time=\"1745424452\"/>\n<runstats><finished time=\"1745424452\" timestr=\"Wed Apr 23 12:07:32 2025\" summary=\"Nmap done at Wed Apr 23 12:07:32 2025; 1 IP address (1 host up) scanned in 278.00 seconds\" elapsed=\"278.00\" exit=\"success\"/><hosts up=\"1\" down=\"0\" total=\"1\"/>\n</runstats>\n</nmaprun>\n",
-    "findings": [
-        {
-            "type": "info",
-            "message": "Host 10.11.1.77 (unknown) has open tcp port 21 (ftp (vsftpd 2.2.2))"
-        },
-        {
-            "type": "info",
-            "message": "Host 10.11.1.77 (unknown) has open tcp port 22 (ssh (OpenSSH 5.3))"
-        },
-        {
-            "type": "info",
-            "message": "Host 10.11.1.77 (unknown) has open tcp port 80 (http (Apache httpd 2.2.15))"
-        },
-        {
-            "type": "info",
-            "message": "Host 10.11.1.77 (unknown) has open tcp port 443 (http (Apache httpd 2.2.15))"
-        },
-        {
-            "type": "info",
-            "message": "Host 10.11.1.77 (unknown) has open tcp port 41436 (status)"
-        }
-    ]
+    "raw_xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE nmaprun>\n<?xml-stylesheet href=\"file:///usr/share/nmap/nmap.xsl\" type=\"text/xsl\"?>\n<!-- Nmap 7.95 scan initiated Wed May 14 04:03:30 2025 as: /usr/lib/nmap/nmap -&#45;privileged -p- -A -T4 -vv -&#45;reason -Pn -n -oX /tmp/tmpw_wsct2z.xml 192.168.174.172 -->\n<nmaprun scanner=\"nmap\" args=\"/usr/lib/nmap/nmap -&#45;privileged -p- -A -T4 -vv -&#45;reason -Pn -n -oX /tmp/tmpw_wsct2z.xml 192.168.174.172\" start=\"1747209810\" startstr=\"Wed May 14 04:03:30 2025\" version=\"7.95\" xmloutputversion=\"1.05\">\n<scaninfo type=\"syn\" protocol=\"tcp\" numservices=\"65535\" services=\"1-65535\"/>\n<verbose level=\"2\"/>\n<debugging level=\"0\"/>\n<taskbegin task=\"NSE\" time=\"1747209810\"/>\n<taskend task=\"NSE\" time=\"1747209810\"/>\n<taskbegin task=\"NSE\" time=\"1747209810\"/>\n<taskend task=\"NSE\" time=\"1747209810\"/>\n<taskbegin task=\"NSE\" time=\"1747209810\"/>\n<taskend task=\"NSE\" time=\"1747209810\"/>\n<taskbegin task=\"SYN Stealth Scan\" time=\"1747209810\"/>\n<taskprogress task=\"SYN Stealth Scan\" time=\"1747209841\" percent=\"22.94\" remaining=\"105\" etc=\"1747209945\"/>\n<taskprogress task=\"SYN Stealth Scan\" time=\"1747209871\" percent=\"58.52\" remaining=\"44\" etc=\"1747209914\"/>\n<taskend task=\"SYN Stealth Scan\" time=\"1747209899\" extrainfo=\"65535 total ports\"/>\n<taskbegin task=\"Service scan\" time=\"1747209899\"/>\n<taskend task=\"Service scan\" time=\"1747209953\" extrainfo=\"21 services on 1 host\"/>\n<taskbegin task=\"Traceroute\" time=\"1747209958\"/>\n<taskend task=\"Traceroute\" time=\"1747209958\"/>\n<taskbegin task=\"NSE\" time=\"1747209958\"/>\n<taskprogress task=\"NSE\" time=\"1747209989\" percent=\"99.97\" remaining=\"1\" etc=\"1747209989\"/>\n<taskend task=\"NSE\" time=\"1747209998\"/>\n<taskbegin task=\"NSE\" time=\"1747209998\"/>\n<taskend task=\"NSE\" time=\"1747209999\"/>\n<taskbegin task=\"NSE\" time=\"1747209999\"/>\n<taskend task=\"NSE\" time=\"1747209999\"/>\n<host starttime=\"1747209810\" endtime=\"1747209999\"><status state=\"up\" reason=\"user-set\" reason_ttl=\"0\"/>\n<address addr=\"192.168.174.172\" addrtype=\"ipv4\"/>\n<hostnames>\n</hostnames>\n<ports><extraports state=\"filtered\" count=\"65514\">\n<extrareasons reason=\"no-response\" count=\"65514\" proto=\"tcp\" ports=\"1-52,54-87,89-134,136-138,140-388,390-444,446-463,465-592,594-635,637-3267,3270-3388,3390-5984,5986-9388,9390-49665,49667,49669-49674,49677-49680,49682-49707,49709-49830,49832-65535\"/>\n</extraports>\n<port protocol=\"tcp\" portid=\"53\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"domain\" product=\"Simple DNS Plus\" ostype=\"Windows\" method=\"probed\" conf=\"10\"><cpe>cpe:/a:jh_software:simple_dns_plus</cpe><cpe>cpe:/o:microsoft:windows</cpe></service></port>\n<port protocol=\"tcp\" portid=\"88\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"kerberos-sec\" product=\"Microsoft Windows Kerberos\" extrainfo=\"server time: 2025-05-14 08:03:24Z\" ostype=\"Windows\" method=\"probed\" conf=\"10\"><cpe>cpe:/a:microsoft:kerberos</cpe><cpe>cpe:/o:microsoft:windows</cpe></service></port>\n<port protocol=\"tcp\" portid=\"135\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"msrpc\" product=\"Microsoft Windows RPC\" ostype=\"Windows\" method=\"probed\" conf=\"10\"><cpe>cpe:/o:microsoft:windows</cpe></service></port>\n<port protocol=\"tcp\" portid=\"139\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"netbios-ssn\" product=\"Microsoft Windows netbios-ssn\" ostype=\"Windows\" method=\"probed\" conf=\"10\"><cpe>cpe:/o:microsoft:windows</cpe></service></port>\n<port protocol=\"tcp\" portid=\"389\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"ldap\" product=\"Microsoft Windows Active Directory LDAP\" extrainfo=\"Domain: vault.offsec0., Site: Default-First-Site-Name\" hostname=\"DC\" ostype=\"Windows\" method=\"probed\" conf=\"10\"><cpe>cpe:/o:microsoft:windows</cpe></service></port>\n<port protocol=\"tcp\" portid=\"445\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"microsoft-ds\" method=\"table\" conf=\"3\"/></port>\n<port protocol=\"tcp\" portid=\"464\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"kpasswd5\" method=\"table\" conf=\"3\"/></port>\n<port protocol=\"tcp\" portid=\"593\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"ncacn_http\" product=\"Microsoft Windows RPC over HTTP\" version=\"1.0\" ostype=\"Windows\" method=\"probed\" conf=\"10\"><cpe>cpe:/o:microsoft:windows</cpe></service></port>\n<port protocol=\"tcp\" portid=\"636\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"tcpwrapped\" method=\"probed\" conf=\"8\"/></port>\n<port protocol=\"tcp\" portid=\"3268\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"ldap\" product=\"Microsoft Windows Active Directory LDAP\" extrainfo=\"Domain: vault.offsec0., Site: Default-First-Site-Name\" hostname=\"DC\" ostype=\"Windows\" method=\"probed\" conf=\"10\"><cpe>cpe:/o:microsoft:windows</cpe></service></port>\n<port protocol=\"tcp\" portid=\"3269\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"tcpwrapped\" method=\"probed\" conf=\"8\"/></port>\n<port protocol=\"tcp\" portid=\"3389\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"ms-wbt-server\" product=\"Microsoft Terminal Services\" ostype=\"Windows\" method=\"probed\" conf=\"10\"><cpe>cpe:/o:microsoft:windows</cpe></service><script id=\"ssl-date\" output=\"2025-05-14T08:04:57+00:00; -1m41s from scanner time.\"><elem key=\"delta\">-101.0</elem>\n<elem key=\"date\">2025-05-14T08:04:57+00:00</elem>\n</script><script id=\"rdp-ntlm-info\" output=\"&#xa;  Target_Name: VAULT&#xa;  NetBIOS_Domain_Name: VAULT&#xa;  NetBIOS_Computer_Name: DC&#xa;  DNS_Domain_Name: vault.offsec&#xa;  DNS_Computer_Name: DC.vault.offsec&#xa;  DNS_Tree_Name: vault.offsec&#xa;  Product_Version: 10.0.17763&#xa;  System_Time: 2025-05-14T08:04:18+00:00\"><elem key=\"Target_Name\">VAULT</elem>\n<elem key=\"NetBIOS_Domain_Name\">VAULT</elem>\n<elem key=\"NetBIOS_Computer_Name\">DC</elem>\n<elem key=\"DNS_Domain_Name\">vault.offsec</elem>\n<elem key=\"DNS_Computer_Name\">DC.vault.offsec</elem>\n<elem key=\"DNS_Tree_Name\">vault.offsec</elem>\n<elem key=\"Product_Version\">10.0.17763</elem>\n<elem key=\"System_Time\">2025-05-14T08:04:18+00:00</elem>\n</script><script id=\"ssl-cert\" output=\"Subject: commonName=DC.vault.offsec&#xa;Issuer: commonName=DC.vault.offsec&#xa;Public Key type: rsa&#xa;Public Key bits: 2048&#xa;Signature Algorithm: sha256WithRSAEncryption&#xa;Not valid before: 2025-05-13T07:13:04&#xa;Not valid after:  2025-11-12T07:13:04&#xa;MD5:   3a14:2c25:35a4:400e:0d44:e49e:c2e6:9e99&#xa;SHA-1: 67db:292b:cd1e:9116:38b6:9e36:51a5:b338:5987:43d8&#xa;-&#45;&#45;&#45;&#45;BEGIN CERTIFICATE-&#45;&#45;&#45;&#45;&#xa;MIIC4jCCAcqgAwIBAgIQZa+UzPTKbIBCcSYz5MiJoDANBgkqhkiG9w0BAQsFADAa&#xa;MRgwFgYDVQQDEw9EQy52YXVsdC5vZmZzZWMwHhcNMjUwNTEzMDcxMzA0WhcNMjUx&#xa;MTEyMDcxMzA0WjAaMRgwFgYDVQQDEw9EQy52YXVsdC5vZmZzZWMwggEiMA0GCSqG&#xa;SIb3DQEBAQUAA4IBDwAwggEKAoIBAQDLPBPi/lxJYQfoJQw42nFeMqBzO7EvxZMA&#xa;YF7Zr4u+sOY8Z8VPyHjQY+Fqa2hDrX6DGg9jfQq9J0sMo06JWr+TkyqIHMj7C7SQ&#xa;42Z5PVKEuYPK0TwwKUNkjFE4syGcs3FEk0IBF7/8JgC6nTFDSsUIsbXS92z7nFfp&#xa;GnVsyE5Ca7d9w4e3eOQepiM2pWUMa2SO64JU3gG2ETn6OuomNuKr4KK0XgMF91f0&#xa;G/DFVj6dTWXK1XLGYlEApo1Ti/ci4cZms2bOZw6a0rTUpGqTMOnhhdioAIJBaQ8a&#xa;NL2eT7Wt+f2bwuB21vKoi7nJjo4rdW636Jlr0a4ddiOwPBJ04/EtAgMBAAGjJDAi&#xa;MBMGA1UdJQQMMAoGCCsGAQUFBwMBMAsGA1UdDwQEAwIEMDANBgkqhkiG9w0BAQsF&#xa;AAOCAQEAeFDjSitdu3h5mIt8AS2mt2BALghHcIy3H9+vYNMegowzoBdt0wpjm6vo&#xa;0emmvzqXVrSveN7l+DrkOe357dDVIqudM/WtZs1b/A02Pe1/FdFx50/zqED75hCX&#xa;gdGqjdN3lEKtMyTizqucs7Yc/g3trjNlYKcrIbfg7pFdYxUgVdLzDpXXjCnXQ3gc&#xa;n2HhnJiSC1svtE1TREphhAIeMCPJnVLMUibKbUNqtB5nrd0VA2Y7PTQvvAWcee05&#xa;IlX8XazfOAdP92KwTNRpjerlxGBoo0iJ7xxg3KbAu1asmlU5RupOL6dkDuwokAxD&#xa;VskAK1TkDU6q9Z+aVNpGjhvr3McdZg==&#xa;-&#45;&#45;&#45;&#45;END CERTIFICATE-&#45;&#45;&#45;&#45;&#xa;\"><table key=\"subject\">\n<elem key=\"commonName\">DC.vault.offsec</elem>\n</table>\n<table key=\"issuer\">\n<elem key=\"commonName\">DC.vault.offsec</elem>\n</table>\n<table key=\"pubkey\">\n<elem key=\"type\">rsa</elem>\n<elem key=\"bits\">2048</elem>\n<elem key=\"modulus\">CB3C13E2FE5C496107E8250C38DA715E32A0733BB12FC59300605ED9AF8BBEB0E63C67C54FC878D063E16A6B6843AD7E831A0F637D0ABD274B0CA34E895ABF93932A881CC8FB0BB490E366793D5284B983CAD13C302943648C5138B3219CB3714493420117BFFC2600BA9D31434AC508B1B5D2F76CFB9C57E91A756CC84E426BB77DC387B778E41EA62336A5650C6B648EEB8254DE01B61139FA3AEA2636E2ABE0A2B45E0305F757F41BF0C5563E9D4D65CAD572C6625100A68D538BF722E1C666B366CE670E9AD2B4D4A46A9330E9E185D8A8008241690F1A34BD9E4FB5ADF9FD9BC2E076D6F2A88BB9C98E8E2B756EB7E8996BD1AE1D7623B03C1274E3F12D</elem>\n<elem key=\"exponent\">65537</elem>\n</table>\n<table key=\"extensions\">\n<table>\n<elem key=\"name\">X509v3 Extended Key Usage</elem>\n<elem key=\"value\">TLS Web Server Authentication</elem>\n</table>\n<table>\n<elem key=\"name\">X509v3 Key Usage</elem>\n<elem key=\"value\">Key Encipherment, Data Encipherment</elem>\n</table>\n</table>\n<elem key=\"sig_algo\">sha256WithRSAEncryption</elem>\n<table key=\"validity\">\n<elem key=\"notBefore\">2025-05-13T07:13:04</elem>\n<elem key=\"notAfter\">2025-11-12T07:13:04</elem>\n</table>\n<elem key=\"md5\">3a142c2535a4400e0d44e49ec2e69e99</elem>\n<elem key=\"sha1\">67db292bcd1e911638b69e3651a5b338598743d8</elem>\n<elem key=\"pem\">-&#45;&#45;&#45;&#45;BEGIN CERTIFICATE-&#45;&#45;&#45;&#45;&#xa;MIIC4jCCAcqgAwIBAgIQZa+UzPTKbIBCcSYz5MiJoDANBgkqhkiG9w0BAQsFADAa&#xa;MRgwFgYDVQQDEw9EQy52YXVsdC5vZmZzZWMwHhcNMjUwNTEzMDcxMzA0WhcNMjUx&#xa;MTEyMDcxMzA0WjAaMRgwFgYDVQQDEw9EQy52YXVsdC5vZmZzZWMwggEiMA0GCSqG&#xa;SIb3DQEBAQUAA4IBDwAwggEKAoIBAQDLPBPi/lxJYQfoJQw42nFeMqBzO7EvxZMA&#xa;YF7Zr4u+sOY8Z8VPyHjQY+Fqa2hDrX6DGg9jfQq9J0sMo06JWr+TkyqIHMj7C7SQ&#xa;42Z5PVKEuYPK0TwwKUNkjFE4syGcs3FEk0IBF7/8JgC6nTFDSsUIsbXS92z7nFfp&#xa;GnVsyE5Ca7d9w4e3eOQepiM2pWUMa2SO64JU3gG2ETn6OuomNuKr4KK0XgMF91f0&#xa;G/DFVj6dTWXK1XLGYlEApo1Ti/ci4cZms2bOZw6a0rTUpGqTMOnhhdioAIJBaQ8a&#xa;NL2eT7Wt+f2bwuB21vKoi7nJjo4rdW636Jlr0a4ddiOwPBJ04/EtAgMBAAGjJDAi&#xa;MBMGA1UdJQQMMAoGCCsGAQUFBwMBMAsGA1UdDwQEAwIEMDANBgkqhkiG9w0BAQsF&#xa;AAOCAQEAeFDjSitdu3h5mIt8AS2mt2BALghHcIy3H9+vYNMegowzoBdt0wpjm6vo&#xa;0emmvzqXVrSveN7l+DrkOe357dDVIqudM/WtZs1b/A02Pe1/FdFx50/zqED75hCX&#xa;gdGqjdN3lEKtMyTizqucs7Yc/g3trjNlYKcrIbfg7pFdYxUgVdLzDpXXjCnXQ3gc&#xa;n2HhnJiSC1svtE1TREphhAIeMCPJnVLMUibKbUNqtB5nrd0VA2Y7PTQvvAWcee05&#xa;IlX8XazfOAdP92KwTNRpjerlxGBoo0iJ7xxg3KbAu1asmlU5RupOL6dkDuwokAxD&#xa;VskAK1TkDU6q9Z+aVNpGjhvr3McdZg==&#xa;-&#45;&#45;&#45;&#45;END CERTIFICATE-&#45;&#45;&#45;&#45;&#xa;</elem>\n</script></port>\n<port protocol=\"tcp\" portid=\"5985\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"http\" product=\"Microsoft HTTPAPI httpd\" version=\"2.0\" extrainfo=\"SSDP/UPnP\" ostype=\"Windows\" method=\"probed\" conf=\"10\"><cpe>cpe:/o:microsoft:windows</cpe></service><script id=\"http-server-header\" output=\"Microsoft-HTTPAPI/2.0\"><elem>Microsoft-HTTPAPI/2.0</elem>\n</script><script id=\"http-title\" output=\"Not Found\"><elem key=\"title\">Not Found</elem>\n</script></port>\n<port protocol=\"tcp\" portid=\"9389\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"mc-nmf\" product=\".NET Message Framing\" ostype=\"Windows\" method=\"probed\" conf=\"10\"><cpe>cpe:/o:microsoft:windows</cpe></service></port>\n<port protocol=\"tcp\" portid=\"49666\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"msrpc\" product=\"Microsoft Windows RPC\" ostype=\"Windows\" method=\"probed\" conf=\"10\"><cpe>cpe:/o:microsoft:windows</cpe></service></port>\n<port protocol=\"tcp\" portid=\"49668\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"msrpc\" product=\"Microsoft Windows RPC\" ostype=\"Windows\" method=\"probed\" conf=\"10\"><cpe>cpe:/o:microsoft:windows</cpe></service></port>\n<port protocol=\"tcp\" portid=\"49675\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"ncacn_http\" product=\"Microsoft Windows RPC over HTTP\" version=\"1.0\" ostype=\"Windows\" method=\"probed\" conf=\"10\"><cpe>cpe:/o:microsoft:windows</cpe></service></port>\n<port protocol=\"tcp\" portid=\"49676\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"msrpc\" product=\"Microsoft Windows RPC\" ostype=\"Windows\" method=\"probed\" conf=\"10\"><cpe>cpe:/o:microsoft:windows</cpe></service></port>\n<port protocol=\"tcp\" portid=\"49681\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"msrpc\" product=\"Microsoft Windows RPC\" ostype=\"Windows\" method=\"probed\" conf=\"10\"><cpe>cpe:/o:microsoft:windows</cpe></service></port>\n<port protocol=\"tcp\" portid=\"49708\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"msrpc\" product=\"Microsoft Windows RPC\" ostype=\"Windows\" method=\"probed\" conf=\"10\"><cpe>cpe:/o:microsoft:windows</cpe></service></port>\n<port protocol=\"tcp\" portid=\"49831\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"msrpc\" product=\"Microsoft Windows RPC\" ostype=\"Windows\" method=\"probed\" conf=\"10\"><cpe>cpe:/o:microsoft:windows</cpe></service></port>\n</ports>\n<os><portused state=\"open\" proto=\"tcp\" portid=\"53\"/>\n<osmatch name=\"Windows Server 2019\" accuracy=\"92\" line=\"82021\">\n<osclass type=\"general purpose\" vendor=\"Microsoft\" osfamily=\"Windows\" osgen=\"2019\" accuracy=\"92\"><cpe>cpe:/o:microsoft:windows_server_2019</cpe></osclass>\n</osmatch>\n<osmatch name=\"Microsoft Windows 10 1903 - 21H1\" accuracy=\"85\" line=\"75123\">\n<osclass type=\"general purpose\" vendor=\"Microsoft\" osfamily=\"Windows\" osgen=\"10\" accuracy=\"85\"><cpe>cpe:/o:microsoft:windows_10</cpe></osclass>\n</osmatch>\n<osmatch name=\"Microsoft Windows 10 1607\" accuracy=\"85\" line=\"74752\">\n<osclass type=\"general purpose\" vendor=\"Microsoft\" osfamily=\"Windows\" osgen=\"10\" accuracy=\"85\"><cpe>cpe:/o:microsoft:windows_10</cpe></osclass>\n</osmatch>\n<osfingerprint fingerprint=\"SCAN(V=7.95%E=4%D=5/14%OT=53%CT=%CU=%PV=Y%DS=4%DC=T%G=N%TM=68244F0F%P=x86_64-pc-linux-gnu)&#xa;SEQ(SP=103%GCD=1%ISR=106%TI=I%TS=U)&#xa;SEQ(SP=107%GCD=1%ISR=10A%TI=I%TS=U)&#xa;OPS(O1=M578NW8NNS%O2=M578NW8NNS%O3=M578NW8%O4=M578NW8NNS%O5=M578NW8NNS%O6=M578NNS)&#xa;WIN(W1=FFFF%W2=FFFF%W3=FFFF%W4=FFFF%W5=FFFF%W6=FF70)&#xa;ECN(R=Y%DF=Y%TG=80%W=FFFF%O=M578NW8NNS%CC=Y%Q=)&#xa;T1(R=Y%DF=Y%TG=80%S=O%A=S+%F=AS%RD=0%Q=)&#xa;T2(R=N)&#xa;T3(R=N)&#xa;T4(R=N)&#xa;U1(R=N)&#xa;IE(R=N)&#xa;\"/>\n</os>\n<distance value=\"4\"/>\n<tcpsequence index=\"263\" difficulty=\"Good luck!\" values=\"B0A3DD8D,B3BDFF31,786CA67D,E1ECD677,C166EC56,2E769A7D\"/>\n<ipidsequence class=\"Incremental\" values=\"F7B4,F7B5,F7B6,F7B7,F7B8,F7B9\"/>\n<tcptssequence class=\"none returned (unsupported)\"/>\n<hostscript><script id=\"smb2-security-mode\" output=\"&#xa;  3:1:1: &#xa;    Message signing enabled and required\"><table key=\"3:1:1\">\n<elem>Message signing enabled and required</elem>\n</table>\n</script><script id=\"clock-skew\" output=\"mean: -1m41s, deviation: 0s, median: -1m41s\"><elem key=\"stddev\">0</elem>\n<elem key=\"median\">-101</elem>\n<elem key=\"mean\">-101</elem>\n<elem key=\"count\">3</elem>\n</script><script id=\"smb2-time\" output=\"&#xa;  date: 2025-05-14T08:04:22&#xa;  start_date: N/A\"><elem key=\"date\">2025-05-14T08:04:22</elem>\n<elem key=\"start_date\">N/A</elem>\n</script><script id=\"p2p-conficker\" output=\"&#xa;  Checking for Conficker.C or higher...&#xa;  Check 1 (port 40287/tcp): CLEAN (Timeout)&#xa;  Check 2 (port 62584/tcp): CLEAN (Timeout)&#xa;  Check 3 (port 47339/udp): CLEAN (Timeout)&#xa;  Check 4 (port 24509/udp): CLEAN (Timeout)&#xa;  0/4 checks are positive: Host is CLEAN or ports are blocked&#xa;\"/></hostscript><trace port=\"135\" proto=\"tcp\">\n<hop ttl=\"1\" ipaddr=\"192.168.45.1\" rtt=\"55.49\"/>\n<hop ttl=\"2\" ipaddr=\"192.168.45.254\" rtt=\"55.37\"/>\n<hop ttl=\"3\" ipaddr=\"192.168.251.1\" rtt=\"55.48\"/>\n<hop ttl=\"4\" ipaddr=\"192.168.174.172\" rtt=\"55.48\"/>\n</trace>\n<times srtt=\"51158\" rttvar=\"4904\" to=\"100000\"/>\n</host>\n<taskbegin task=\"NSE\" time=\"1747209999\"/>\n<taskend task=\"NSE\" time=\"1747209999\"/>\n<taskbegin task=\"NSE\" time=\"1747209999\"/>\n<taskend task=\"NSE\" time=\"1747209999\"/>\n<taskbegin task=\"NSE\" time=\"1747209999\"/>\n<taskend task=\"NSE\" time=\"1747209999\"/>\n<runstats><finished time=\"1747209999\" timestr=\"Wed May 14 04:06:39 2025\" summary=\"Nmap done at Wed May 14 04:06:39 2025; 1 IP address (1 host up) scanned in 189.64 seconds\" elapsed=\"189.64\" exit=\"success\"/><hosts up=\"1\" down=\"0\" total=\"1\"/>\n</runstats>\n</nmaprun>\n",
+    "findings": []
 }

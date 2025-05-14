@@ -214,7 +214,7 @@ class Scanner:
             self._cleanup_scan_files(result_path)
         except Exception as e:
             logging.error(f"Error processing results for {method_name}: {e}")
-        
+        self.findings.append(parsed_results)
         return self.findings
 
 

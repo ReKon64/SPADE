@@ -16,7 +16,9 @@ def scan_tcp_scan(self):
     
     try:
         # Build and execute nmap command for TCP scan
-        cmd = f"nmap {self.options['target']} {self.options['tcp_ports']} {self.options.get('tcp_options') or '-A -T4'} -vv --reason -Pn -n -oX {xml_output_path}"
+        #cmd = f"nmap {self.options['target']} {self.options['tcp_ports']} {self.options.get('tcp_options') or '-A -T4'} -vv --reason -Pn -n -oX {xml_output_path}"
+        cmd = f"nmap {self.options['target']} --top-ports=1000 {self.options.get('tcp_options') or '-A -T4'} -vv --reason -Pn -n -oX {xml_output_path}"
+
         logging.info(f"Executing TCP nmap command: {cmd}")
         
         result = subprocess.run(

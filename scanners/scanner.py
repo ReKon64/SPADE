@@ -17,7 +17,7 @@ class Scanner:
     _extensions = {}
     
     def __init__(self, options: dict):
-        self.findings = []
+        self.findings = {}
         self.options = options
         self._findings_lock = threading.Lock()
         
@@ -214,7 +214,7 @@ class Scanner:
             self._cleanup_scan_files(result_path)
         except Exception as e:
             logging.error(f"Error processing results for {method_name}: {e}")
-        self.findings.append(parsed_results)
+        self.findings.update(parsed_results)
         return self.findings
 
 
@@ -233,13 +233,13 @@ class Scanner:
         
         # Define a map of service names to their enum prefixes
         service_prefix_map = {
-            "ftp": "enum_ftp",
-            "http": "enum_http", 
-            "https": "enum_http",
-            "smb": "enum_smb",
-            "ssh": "enum_ssh",
-            "rpc": "enum_rpc",
-            # Add more services as needed
+            re.compile(r"^ftp$"):      "enum_ftp",
+            re.compile(r"^http.*"):     "enum_http",
+            re.compile(r"^(smb|netbios)"): "enum_smb",
+            re.compile(r"^ssh$"):      "enum_ssh",
+            re.compile(r"^(rpc|msrpc)"):   "enum_rpc",
+            re.compile(r"^(dns|domain)$"): "enum_dns",
+            re.compile(r"ldap") : "enum_ldap",
         }
         
         # Track services that need to be enumerated
@@ -248,26 +248,31 @@ class Scanner:
         
         # First, find all port:service pairs from the findings
         hosts = self.findings.get("hosts", [])
+        logging.debug(f"[*] Service scan used entry data : {hosts}")
         for host in hosts:
             for port in host.get("ports", []):
                 service_name = port.get("service", {}).get("name", "").lower()
-                
+                logging.debug(f"[*] Checking service name : {service_name}")
                 # Check if this service has a matching prefix
                 for key in service_prefix_map:
                     if service_name == key or service_name.startswith(key):
                         enum_prefix = service_prefix_map[key]
                         services_to_scan.add(enum_prefix)
-                        
+                        logging.debug(f"Services to scan: {services_to_scan}")
                         # Store the port details and service name for later use
                         port_data = {
-                            "host": host.get("addr", ""),
-                            "port_id": port.get("portid", ""),
+                            "host": host.get("ip", ""),
+                            "port_id": port.get("id", ""),
                             "protocol": port.get("protocol", ""),
                             "service": service_name,
                             "enum_prefix": enum_prefix
                         }
+                        logging.debug(f"[*] Port Data: {port_data}")
                         port_service_pairs.append(port_data)
                         logging.debug(f"Will scan {service_name} on {host.get('addr')}:{port.get('portid')}")
+                        
+                        # Break so we don’t match multiple prefixes for the same svc
+                        break
         
         # If no services found, return early
         if not services_to_scan:
@@ -310,6 +315,7 @@ class Scanner:
                         if service_name not in all_results["services"]:
                             all_results["services"][service_name] = []
                         
+                        # Does this dupe host and port id?
                         all_results["services"][service_name].append({
                             "host": port_data["host"],
                             "port": port_data["port_id"],

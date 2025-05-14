@@ -1,6 +1,8 @@
 {
     "hosts": [
         {
+            "ip": "192.168.174.172",
+            "hostname": "unknown",
             "ports": [
                 {
                     "id": "53",
@@ -8,7 +10,7 @@
                     "state": "open",
                     "service": {
                         "name": "domain",
-                        "product": "Simple DNS Plus",
+                        "product": "",
                         "version": "",
                         "tunnel": ""
                     }
@@ -19,7 +21,7 @@
                     "state": "open",
                     "service": {
                         "name": "kerberos-sec",
-                        "product": "Microsoft Windows Kerberos",
+                        "product": "",
                         "version": "",
                         "tunnel": ""
                     }
@@ -30,7 +32,7 @@
                     "state": "open",
                     "service": {
                         "name": "msrpc",
-                        "product": "Microsoft Windows RPC",
+                        "product": "",
                         "version": "",
                         "tunnel": ""
                     }
@@ -41,7 +43,7 @@
                     "state": "open",
                     "service": {
                         "name": "netbios-ssn",
-                        "product": "Microsoft Windows netbios-ssn",
+                        "product": "",
                         "version": "",
                         "tunnel": ""
                     }
@@ -52,7 +54,7 @@
                     "state": "open",
                     "service": {
                         "name": "ldap",
-                        "product": "Microsoft Windows Active Directory LDAP",
+                        "product": "",
                         "version": "",
                         "tunnel": ""
                     }
@@ -69,175 +71,19 @@
                     }
                 },
                 {
-                    "id": "464",
-                    "protocol": "tcp",
-                    "state": "open",
-                    "service": {
-                        "name": "kpasswd5",
-                        "product": "",
-                        "version": "",
-                        "tunnel": ""
-                    }
-                },
-                {
-                    "id": "593",
-                    "protocol": "tcp",
-                    "state": "open",
-                    "service": {
-                        "name": "ncacn_http",
-                        "product": "Microsoft Windows RPC over HTTP",
-                        "version": "1.0",
-                        "tunnel": ""
-                    }
-                },
-                {
-                    "id": "636",
-                    "protocol": "tcp",
-                    "state": "open",
-                    "service": {
-                        "name": "tcpwrapped",
-                        "product": "",
-                        "version": "",
-                        "tunnel": ""
-                    }
-                },
-                {
-                    "id": "3268",
-                    "protocol": "tcp",
-                    "state": "open",
-                    "service": {
-                        "name": "ldap",
-                        "product": "Microsoft Windows Active Directory LDAP",
-                        "version": "",
-                        "tunnel": ""
-                    }
-                },
-                {
-                    "id": "3269",
-                    "protocol": "tcp",
-                    "state": "open",
-                    "service": {
-                        "name": "tcpwrapped",
-                        "product": "",
-                        "version": "",
-                        "tunnel": ""
-                    }
-                },
-                {
                     "id": "3389",
                     "protocol": "tcp",
                     "state": "open",
                     "service": {
                         "name": "ms-wbt-server",
-                        "product": "Microsoft Terminal Services",
-                        "version": "",
-                        "tunnel": ""
-                    }
-                },
-                {
-                    "id": "5985",
-                    "protocol": "tcp",
-                    "state": "open",
-                    "service": {
-                        "name": "http",
-                        "product": "Microsoft HTTPAPI httpd",
-                        "version": "2.0",
-                        "tunnel": ""
-                    }
-                },
-                {
-                    "id": "9389",
-                    "protocol": "tcp",
-                    "state": "open",
-                    "service": {
-                        "name": "mc-nmf",
-                        "product": ".NET Message Framing",
-                        "version": "",
-                        "tunnel": ""
-                    }
-                },
-                {
-                    "id": "49666",
-                    "protocol": "tcp",
-                    "state": "open",
-                    "service": {
-                        "name": "msrpc",
-                        "product": "Microsoft Windows RPC",
-                        "version": "",
-                        "tunnel": ""
-                    }
-                },
-                {
-                    "id": "49668",
-                    "protocol": "tcp",
-                    "state": "open",
-                    "service": {
-                        "name": "msrpc",
-                        "product": "Microsoft Windows RPC",
-                        "version": "",
-                        "tunnel": ""
-                    }
-                },
-                {
-                    "id": "49675",
-                    "protocol": "tcp",
-                    "state": "open",
-                    "service": {
-                        "name": "ncacn_http",
-                        "product": "Microsoft Windows RPC over HTTP",
-                        "version": "1.0",
-                        "tunnel": ""
-                    }
-                },
-                {
-                    "id": "49676",
-                    "protocol": "tcp",
-                    "state": "open",
-                    "service": {
-                        "name": "msrpc",
-                        "product": "Microsoft Windows RPC",
-                        "version": "",
-                        "tunnel": ""
-                    }
-                },
-                {
-                    "id": "49681",
-                    "protocol": "tcp",
-                    "state": "open",
-                    "service": {
-                        "name": "msrpc",
-                        "product": "Microsoft Windows RPC",
-                        "version": "",
-                        "tunnel": ""
-                    }
-                },
-                {
-                    "id": "49708",
-                    "protocol": "tcp",
-                    "state": "open",
-                    "service": {
-                        "name": "msrpc",
-                        "product": "Microsoft Windows RPC",
-                        "version": "",
-                        "tunnel": ""
-                    }
-                },
-                {
-                    "id": "49831",
-                    "protocol": "tcp",
-                    "state": "open",
-                    "service": {
-                        "name": "msrpc",
-                        "product": "Microsoft Windows RPC",
+                        "product": "",
                         "version": "",
                         "tunnel": ""
                     }
                 }
-            ],
-            "ip": "192.168.174.172",
-            "hostname": "unknown"
+            ]
         }
     ],
-    "raw_xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE nmaprun>\n<?xml-stylesheet href=\"file:///usr/share/nmap/nmap.xsl\" type=\"text/xsl\"?>\n<!-- Nmap 7.95 scan initiated Wed May 14 04:03:30 2025 as: /usr/lib/nmap/nmap -&#45;privileged -p- -A -T4 -vv -&#45;reason -Pn -n -oX /tmp/tmpw_wsct2z.xml 192.168.174.172 -->\n<nmaprun scanner=\"nmap\" args=\"/usr/lib/nmap/nmap -&#45;privileged -p- -A -T4 -vv -&#45;reason -Pn -n -oX /tmp/tmpw_wsct2z.xml 192.168.174.172\" start=\"1747209810\" startstr=\"Wed May 14 04:03:30 2025\" version=\"7.95\" xmloutputversion=\"1.05\">\n<scaninfo type=\"syn\" protocol=\"tcp\" numservices=\"65535\" services=\"1-65535\"/>\n<verbose level=\"2\"/>\n<debugging level=\"0\"/>\n<taskbegin task=\"NSE\" time=\"1747209810\"/>\n<taskend task=\"NSE\" time=\"1747209810\"/>\n<taskbegin task=\"NSE\" time=\"1747209810\"/>\n<taskend task=\"NSE\" time=\"1747209810\"/>\n<taskbegin task=\"NSE\" time=\"1747209810\"/>\n<taskend task=\"NSE\" time=\"1747209810\"/>\n<taskbegin task=\"SYN Stealth Scan\" time=\"1747209810\"/>\n<taskprogress task=\"SYN Stealth Scan\" time=\"1747209841\" percent=\"22.94\" remaining=\"105\" etc=\"1747209945\"/>\n<taskprogress task=\"SYN Stealth Scan\" time=\"1747209871\" percent=\"58.52\" remaining=\"44\" etc=\"1747209914\"/>\n<taskend task=\"SYN Stealth Scan\" time=\"1747209899\" extrainfo=\"65535 total ports\"/>\n<taskbegin task=\"Service scan\" time=\"1747209899\"/>\n<taskend task=\"Service scan\" time=\"1747209953\" extrainfo=\"21 services on 1 host\"/>\n<taskbegin task=\"Traceroute\" time=\"1747209958\"/>\n<taskend task=\"Traceroute\" time=\"1747209958\"/>\n<taskbegin task=\"NSE\" time=\"1747209958\"/>\n<taskprogress task=\"NSE\" time=\"1747209989\" percent=\"99.97\" remaining=\"1\" etc=\"1747209989\"/>\n<taskend task=\"NSE\" time=\"1747209998\"/>\n<taskbegin task=\"NSE\" time=\"1747209998\"/>\n<taskend task=\"NSE\" time=\"1747209999\"/>\n<taskbegin task=\"NSE\" time=\"1747209999\"/>\n<taskend task=\"NSE\" time=\"1747209999\"/>\n<host starttime=\"1747209810\" endtime=\"1747209999\"><status state=\"up\" reason=\"user-set\" reason_ttl=\"0\"/>\n<address addr=\"192.168.174.172\" addrtype=\"ipv4\"/>\n<hostnames>\n</hostnames>\n<ports><extraports state=\"filtered\" count=\"65514\">\n<extrareasons reason=\"no-response\" count=\"65514\" proto=\"tcp\" ports=\"1-52,54-87,89-134,136-138,140-388,390-444,446-463,465-592,594-635,637-3267,3270-3388,3390-5984,5986-9388,9390-49665,49667,49669-49674,49677-49680,49682-49707,49709-49830,49832-65535\"/>\n</extraports>\n<port protocol=\"tcp\" portid=\"53\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"domain\" product=\"Simple DNS Plus\" ostype=\"Windows\" method=\"probed\" conf=\"10\"><cpe>cpe:/a:jh_software:simple_dns_plus</cpe><cpe>cpe:/o:microsoft:windows</cpe></service></port>\n<port protocol=\"tcp\" portid=\"88\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"kerberos-sec\" product=\"Microsoft Windows Kerberos\" extrainfo=\"server time: 2025-05-14 08:03:24Z\" ostype=\"Windows\" method=\"probed\" conf=\"10\"><cpe>cpe:/a:microsoft:kerberos</cpe><cpe>cpe:/o:microsoft:windows</cpe></service></port>\n<port protocol=\"tcp\" portid=\"135\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"msrpc\" product=\"Microsoft Windows RPC\" ostype=\"Windows\" method=\"probed\" conf=\"10\"><cpe>cpe:/o:microsoft:windows</cpe></service></port>\n<port protocol=\"tcp\" portid=\"139\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"netbios-ssn\" product=\"Microsoft Windows netbios-ssn\" ostype=\"Windows\" method=\"probed\" conf=\"10\"><cpe>cpe:/o:microsoft:windows</cpe></service></port>\n<port protocol=\"tcp\" portid=\"389\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"ldap\" product=\"Microsoft Windows Active Directory LDAP\" extrainfo=\"Domain: vault.offsec0., Site: Default-First-Site-Name\" hostname=\"DC\" ostype=\"Windows\" method=\"probed\" conf=\"10\"><cpe>cpe:/o:microsoft:windows</cpe></service></port>\n<port protocol=\"tcp\" portid=\"445\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"microsoft-ds\" method=\"table\" conf=\"3\"/></port>\n<port protocol=\"tcp\" portid=\"464\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"kpasswd5\" method=\"table\" conf=\"3\"/></port>\n<port protocol=\"tcp\" portid=\"593\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"ncacn_http\" product=\"Microsoft Windows RPC over HTTP\" version=\"1.0\" ostype=\"Windows\" method=\"probed\" conf=\"10\"><cpe>cpe:/o:microsoft:windows</cpe></service></port>\n<port protocol=\"tcp\" portid=\"636\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"tcpwrapped\" method=\"probed\" conf=\"8\"/></port>\n<port protocol=\"tcp\" portid=\"3268\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"ldap\" product=\"Microsoft Windows Active Directory LDAP\" extrainfo=\"Domain: vault.offsec0., Site: Default-First-Site-Name\" hostname=\"DC\" ostype=\"Windows\" method=\"probed\" conf=\"10\"><cpe>cpe:/o:microsoft:windows</cpe></service></port>\n<port protocol=\"tcp\" portid=\"3269\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"tcpwrapped\" method=\"probed\" conf=\"8\"/></port>\n<port protocol=\"tcp\" portid=\"3389\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"ms-wbt-server\" product=\"Microsoft Terminal Services\" ostype=\"Windows\" method=\"probed\" conf=\"10\"><cpe>cpe:/o:microsoft:windows</cpe></service><script id=\"ssl-date\" output=\"2025-05-14T08:04:57+00:00; -1m41s from scanner time.\"><elem key=\"delta\">-101.0</elem>\n<elem key=\"date\">2025-05-14T08:04:57+00:00</elem>\n</script><script id=\"rdp-ntlm-info\" output=\"&#xa;  Target_Name: VAULT&#xa;  NetBIOS_Domain_Name: VAULT&#xa;  NetBIOS_Computer_Name: DC&#xa;  DNS_Domain_Name: vault.offsec&#xa;  DNS_Computer_Name: DC.vault.offsec&#xa;  DNS_Tree_Name: vault.offsec&#xa;  Product_Version: 10.0.17763&#xa;  System_Time: 2025-05-14T08:04:18+00:00\"><elem key=\"Target_Name\">VAULT</elem>\n<elem key=\"NetBIOS_Domain_Name\">VAULT</elem>\n<elem key=\"NetBIOS_Computer_Name\">DC</elem>\n<elem key=\"DNS_Domain_Name\">vault.offsec</elem>\n<elem key=\"DNS_Computer_Name\">DC.vault.offsec</elem>\n<elem key=\"DNS_Tree_Name\">vault.offsec</elem>\n<elem key=\"Product_Version\">10.0.17763</elem>\n<elem key=\"System_Time\">2025-05-14T08:04:18+00:00</elem>\n</script><script id=\"ssl-cert\" output=\"Subject: commonName=DC.vault.offsec&#xa;Issuer: commonName=DC.vault.offsec&#xa;Public Key type: rsa&#xa;Public Key bits: 2048&#xa;Signature Algorithm: sha256WithRSAEncryption&#xa;Not valid before: 2025-05-13T07:13:04&#xa;Not valid after:  2025-11-12T07:13:04&#xa;MD5:   3a14:2c25:35a4:400e:0d44:e49e:c2e6:9e99&#xa;SHA-1: 67db:292b:cd1e:9116:38b6:9e36:51a5:b338:5987:43d8&#xa;-&#45;&#45;&#45;&#45;BEGIN CERTIFICATE-&#45;&#45;&#45;&#45;&#xa;MIIC4jCCAcqgAwIBAgIQZa+UzPTKbIBCcSYz5MiJoDANBgkqhkiG9w0BAQsFADAa&#xa;MRgwFgYDVQQDEw9EQy52YXVsdC5vZmZzZWMwHhcNMjUwNTEzMDcxMzA0WhcNMjUx&#xa;MTEyMDcxMzA0WjAaMRgwFgYDVQQDEw9EQy52YXVsdC5vZmZzZWMwggEiMA0GCSqG&#xa;SIb3DQEBAQUAA4IBDwAwggEKAoIBAQDLPBPi/lxJYQfoJQw42nFeMqBzO7EvxZMA&#xa;YF7Zr4u+sOY8Z8VPyHjQY+Fqa2hDrX6DGg9jfQq9J0sMo06JWr+TkyqIHMj7C7SQ&#xa;42Z5PVKEuYPK0TwwKUNkjFE4syGcs3FEk0IBF7/8JgC6nTFDSsUIsbXS92z7nFfp&#xa;GnVsyE5Ca7d9w4e3eOQepiM2pWUMa2SO64JU3gG2ETn6OuomNuKr4KK0XgMF91f0&#xa;G/DFVj6dTWXK1XLGYlEApo1Ti/ci4cZms2bOZw6a0rTUpGqTMOnhhdioAIJBaQ8a&#xa;NL2eT7Wt+f2bwuB21vKoi7nJjo4rdW636Jlr0a4ddiOwPBJ04/EtAgMBAAGjJDAi&#xa;MBMGA1UdJQQMMAoGCCsGAQUFBwMBMAsGA1UdDwQEAwIEMDANBgkqhkiG9w0BAQsF&#xa;AAOCAQEAeFDjSitdu3h5mIt8AS2mt2BALghHcIy3H9+vYNMegowzoBdt0wpjm6vo&#xa;0emmvzqXVrSveN7l+DrkOe357dDVIqudM/WtZs1b/A02Pe1/FdFx50/zqED75hCX&#xa;gdGqjdN3lEKtMyTizqucs7Yc/g3trjNlYKcrIbfg7pFdYxUgVdLzDpXXjCnXQ3gc&#xa;n2HhnJiSC1svtE1TREphhAIeMCPJnVLMUibKbUNqtB5nrd0VA2Y7PTQvvAWcee05&#xa;IlX8XazfOAdP92KwTNRpjerlxGBoo0iJ7xxg3KbAu1asmlU5RupOL6dkDuwokAxD&#xa;VskAK1TkDU6q9Z+aVNpGjhvr3McdZg==&#xa;-&#45;&#45;&#45;&#45;END CERTIFICATE-&#45;&#45;&#45;&#45;&#xa;\"><table key=\"subject\">\n<elem key=\"commonName\">DC.vault.offsec</elem>\n</table>\n<table key=\"issuer\">\n<elem key=\"commonName\">DC.vault.offsec</elem>\n</table>\n<table key=\"pubkey\">\n<elem key=\"type\">rsa</elem>\n<elem key=\"bits\">2048</elem>\n<elem key=\"modulus\">CB3C13E2FE5C496107E8250C38DA715E32A0733BB12FC59300605ED9AF8BBEB0E63C67C54FC878D063E16A6B6843AD7E831A0F637D0ABD274B0CA34E895ABF93932A881CC8FB0BB490E366793D5284B983CAD13C302943648C5138B3219CB3714493420117BFFC2600BA9D31434AC508B1B5D2F76CFB9C57E91A756CC84E426BB77DC387B778E41EA62336A5650C6B648EEB8254DE01B61139FA3AEA2636E2ABE0A2B45E0305F757F41BF0C5563E9D4D65CAD572C6625100A68D538BF722E1C666B366CE670E9AD2B4D4A46A9330E9E185D8A8008241690F1A34BD9E4FB5ADF9FD9BC2E076D6F2A88BB9C98E8E2B756EB7E8996BD1AE1D7623B03C1274E3F12D</elem>\n<elem key=\"exponent\">65537</elem>\n</table>\n<table key=\"extensions\">\n<table>\n<elem key=\"name\">X509v3 Extended Key Usage</elem>\n<elem key=\"value\">TLS Web Server Authentication</elem>\n</table>\n<table>\n<elem key=\"name\">X509v3 Key Usage</elem>\n<elem key=\"value\">Key Encipherment, Data Encipherment</elem>\n</table>\n</table>\n<elem key=\"sig_algo\">sha256WithRSAEncryption</elem>\n<table key=\"validity\">\n<elem key=\"notBefore\">2025-05-13T07:13:04</elem>\n<elem key=\"notAfter\">2025-11-12T07:13:04</elem>\n</table>\n<elem key=\"md5\">3a142c2535a4400e0d44e49ec2e69e99</elem>\n<elem key=\"sha1\">67db292bcd1e911638b69e3651a5b338598743d8</elem>\n<elem key=\"pem\">-&#45;&#45;&#45;&#45;BEGIN CERTIFICATE-&#45;&#45;&#45;&#45;&#xa;MIIC4jCCAcqgAwIBAgIQZa+UzPTKbIBCcSYz5MiJoDANBgkqhkiG9w0BAQsFADAa&#xa;MRgwFgYDVQQDEw9EQy52YXVsdC5vZmZzZWMwHhcNMjUwNTEzMDcxMzA0WhcNMjUx&#xa;MTEyMDcxMzA0WjAaMRgwFgYDVQQDEw9EQy52YXVsdC5vZmZzZWMwggEiMA0GCSqG&#xa;SIb3DQEBAQUAA4IBDwAwggEKAoIBAQDLPBPi/lxJYQfoJQw42nFeMqBzO7EvxZMA&#xa;YF7Zr4u+sOY8Z8VPyHjQY+Fqa2hDrX6DGg9jfQq9J0sMo06JWr+TkyqIHMj7C7SQ&#xa;42Z5PVKEuYPK0TwwKUNkjFE4syGcs3FEk0IBF7/8JgC6nTFDSsUIsbXS92z7nFfp&#xa;GnVsyE5Ca7d9w4e3eOQepiM2pWUMa2SO64JU3gG2ETn6OuomNuKr4KK0XgMF91f0&#xa;G/DFVj6dTWXK1XLGYlEApo1Ti/ci4cZms2bOZw6a0rTUpGqTMOnhhdioAIJBaQ8a&#xa;NL2eT7Wt+f2bwuB21vKoi7nJjo4rdW636Jlr0a4ddiOwPBJ04/EtAgMBAAGjJDAi&#xa;MBMGA1UdJQQMMAoGCCsGAQUFBwMBMAsGA1UdDwQEAwIEMDANBgkqhkiG9w0BAQsF&#xa;AAOCAQEAeFDjSitdu3h5mIt8AS2mt2BALghHcIy3H9+vYNMegowzoBdt0wpjm6vo&#xa;0emmvzqXVrSveN7l+DrkOe357dDVIqudM/WtZs1b/A02Pe1/FdFx50/zqED75hCX&#xa;gdGqjdN3lEKtMyTizqucs7Yc/g3trjNlYKcrIbfg7pFdYxUgVdLzDpXXjCnXQ3gc&#xa;n2HhnJiSC1svtE1TREphhAIeMCPJnVLMUibKbUNqtB5nrd0VA2Y7PTQvvAWcee05&#xa;IlX8XazfOAdP92KwTNRpjerlxGBoo0iJ7xxg3KbAu1asmlU5RupOL6dkDuwokAxD&#xa;VskAK1TkDU6q9Z+aVNpGjhvr3McdZg==&#xa;-&#45;&#45;&#45;&#45;END CERTIFICATE-&#45;&#45;&#45;&#45;&#xa;</elem>\n</script></port>\n<port protocol=\"tcp\" portid=\"5985\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"http\" product=\"Microsoft HTTPAPI httpd\" version=\"2.0\" extrainfo=\"SSDP/UPnP\" ostype=\"Windows\" method=\"probed\" conf=\"10\"><cpe>cpe:/o:microsoft:windows</cpe></service><script id=\"http-server-header\" output=\"Microsoft-HTTPAPI/2.0\"><elem>Microsoft-HTTPAPI/2.0</elem>\n</script><script id=\"http-title\" output=\"Not Found\"><elem key=\"title\">Not Found</elem>\n</script></port>\n<port protocol=\"tcp\" portid=\"9389\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"mc-nmf\" product=\".NET Message Framing\" ostype=\"Windows\" method=\"probed\" conf=\"10\"><cpe>cpe:/o:microsoft:windows</cpe></service></port>\n<port protocol=\"tcp\" portid=\"49666\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"msrpc\" product=\"Microsoft Windows RPC\" ostype=\"Windows\" method=\"probed\" conf=\"10\"><cpe>cpe:/o:microsoft:windows</cpe></service></port>\n<port protocol=\"tcp\" portid=\"49668\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"msrpc\" product=\"Microsoft Windows RPC\" ostype=\"Windows\" method=\"probed\" conf=\"10\"><cpe>cpe:/o:microsoft:windows</cpe></service></port>\n<port protocol=\"tcp\" portid=\"49675\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"ncacn_http\" product=\"Microsoft Windows RPC over HTTP\" version=\"1.0\" ostype=\"Windows\" method=\"probed\" conf=\"10\"><cpe>cpe:/o:microsoft:windows</cpe></service></port>\n<port protocol=\"tcp\" portid=\"49676\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"msrpc\" product=\"Microsoft Windows RPC\" ostype=\"Windows\" method=\"probed\" conf=\"10\"><cpe>cpe:/o:microsoft:windows</cpe></service></port>\n<port protocol=\"tcp\" portid=\"49681\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"msrpc\" product=\"Microsoft Windows RPC\" ostype=\"Windows\" method=\"probed\" conf=\"10\"><cpe>cpe:/o:microsoft:windows</cpe></service></port>\n<port protocol=\"tcp\" portid=\"49708\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"msrpc\" product=\"Microsoft Windows RPC\" ostype=\"Windows\" method=\"probed\" conf=\"10\"><cpe>cpe:/o:microsoft:windows</cpe></service></port>\n<port protocol=\"tcp\" portid=\"49831\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"msrpc\" product=\"Microsoft Windows RPC\" ostype=\"Windows\" method=\"probed\" conf=\"10\"><cpe>cpe:/o:microsoft:windows</cpe></service></port>\n</ports>\n<os><portused state=\"open\" proto=\"tcp\" portid=\"53\"/>\n<osmatch name=\"Windows Server 2019\" accuracy=\"92\" line=\"82021\">\n<osclass type=\"general purpose\" vendor=\"Microsoft\" osfamily=\"Windows\" osgen=\"2019\" accuracy=\"92\"><cpe>cpe:/o:microsoft:windows_server_2019</cpe></osclass>\n</osmatch>\n<osmatch name=\"Microsoft Windows 10 1903 - 21H1\" accuracy=\"85\" line=\"75123\">\n<osclass type=\"general purpose\" vendor=\"Microsoft\" osfamily=\"Windows\" osgen=\"10\" accuracy=\"85\"><cpe>cpe:/o:microsoft:windows_10</cpe></osclass>\n</osmatch>\n<osmatch name=\"Microsoft Windows 10 1607\" accuracy=\"85\" line=\"74752\">\n<osclass type=\"general purpose\" vendor=\"Microsoft\" osfamily=\"Windows\" osgen=\"10\" accuracy=\"85\"><cpe>cpe:/o:microsoft:windows_10</cpe></osclass>\n</osmatch>\n<osfingerprint fingerprint=\"SCAN(V=7.95%E=4%D=5/14%OT=53%CT=%CU=%PV=Y%DS=4%DC=T%G=N%TM=68244F0F%P=x86_64-pc-linux-gnu)&#xa;SEQ(SP=103%GCD=1%ISR=106%TI=I%TS=U)&#xa;SEQ(SP=107%GCD=1%ISR=10A%TI=I%TS=U)&#xa;OPS(O1=M578NW8NNS%O2=M578NW8NNS%O3=M578NW8%O4=M578NW8NNS%O5=M578NW8NNS%O6=M578NNS)&#xa;WIN(W1=FFFF%W2=FFFF%W3=FFFF%W4=FFFF%W5=FFFF%W6=FF70)&#xa;ECN(R=Y%DF=Y%TG=80%W=FFFF%O=M578NW8NNS%CC=Y%Q=)&#xa;T1(R=Y%DF=Y%TG=80%S=O%A=S+%F=AS%RD=0%Q=)&#xa;T2(R=N)&#xa;T3(R=N)&#xa;T4(R=N)&#xa;U1(R=N)&#xa;IE(R=N)&#xa;\"/>\n</os>\n<distance value=\"4\"/>\n<tcpsequence index=\"263\" difficulty=\"Good luck!\" values=\"B0A3DD8D,B3BDFF31,786CA67D,E1ECD677,C166EC56,2E769A7D\"/>\n<ipidsequence class=\"Incremental\" values=\"F7B4,F7B5,F7B6,F7B7,F7B8,F7B9\"/>\n<tcptssequence class=\"none returned (unsupported)\"/>\n<hostscript><script id=\"smb2-security-mode\" output=\"&#xa;  3:1:1: &#xa;    Message signing enabled and required\"><table key=\"3:1:1\">\n<elem>Message signing enabled and required</elem>\n</table>\n</script><script id=\"clock-skew\" output=\"mean: -1m41s, deviation: 0s, median: -1m41s\"><elem key=\"stddev\">0</elem>\n<elem key=\"median\">-101</elem>\n<elem key=\"mean\">-101</elem>\n<elem key=\"count\">3</elem>\n</script><script id=\"smb2-time\" output=\"&#xa;  date: 2025-05-14T08:04:22&#xa;  start_date: N/A\"><elem key=\"date\">2025-05-14T08:04:22</elem>\n<elem key=\"start_date\">N/A</elem>\n</script><script id=\"p2p-conficker\" output=\"&#xa;  Checking for Conficker.C or higher...&#xa;  Check 1 (port 40287/tcp): CLEAN (Timeout)&#xa;  Check 2 (port 62584/tcp): CLEAN (Timeout)&#xa;  Check 3 (port 47339/udp): CLEAN (Timeout)&#xa;  Check 4 (port 24509/udp): CLEAN (Timeout)&#xa;  0/4 checks are positive: Host is CLEAN or ports are blocked&#xa;\"/></hostscript><trace port=\"135\" proto=\"tcp\">\n<hop ttl=\"1\" ipaddr=\"192.168.45.1\" rtt=\"55.49\"/>\n<hop ttl=\"2\" ipaddr=\"192.168.45.254\" rtt=\"55.37\"/>\n<hop ttl=\"3\" ipaddr=\"192.168.251.1\" rtt=\"55.48\"/>\n<hop ttl=\"4\" ipaddr=\"192.168.174.172\" rtt=\"55.48\"/>\n</trace>\n<times srtt=\"51158\" rttvar=\"4904\" to=\"100000\"/>\n</host>\n<taskbegin task=\"NSE\" time=\"1747209999\"/>\n<taskend task=\"NSE\" time=\"1747209999\"/>\n<taskbegin task=\"NSE\" time=\"1747209999\"/>\n<taskend task=\"NSE\" time=\"1747209999\"/>\n<taskbegin task=\"NSE\" time=\"1747209999\"/>\n<taskend task=\"NSE\" time=\"1747209999\"/>\n<runstats><finished time=\"1747209999\" timestr=\"Wed May 14 04:06:39 2025\" summary=\"Nmap done at Wed May 14 04:06:39 2025; 1 IP address (1 host up) scanned in 189.64 seconds\" elapsed=\"189.64\" exit=\"success\"/><hosts up=\"1\" down=\"0\" total=\"1\"/>\n</runstats>\n</nmaprun>\n",
+    "raw_xml": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!DOCTYPE nmaprun>\n<?xml-stylesheet href=\"file:///usr/share/nmap/nmap.xsl\" type=\"text/xsl\"?>\n<!-- Nmap 7.95 scan initiated Wed May 14 05:32:45 2025 as: /usr/lib/nmap/nmap -&#45;privileged -&#45;top-ports=1000 -&#45;top-ports=100 -vv -&#45;reason -Pn -n -oX /tmp/tmp6dok5k1d.xml 192.168.174.172 -->\n<nmaprun scanner=\"nmap\" args=\"/usr/lib/nmap/nmap -&#45;privileged -&#45;top-ports=1000 -&#45;top-ports=100 -vv -&#45;reason -Pn -n -oX /tmp/tmp6dok5k1d.xml 192.168.174.172\" start=\"1747215165\" startstr=\"Wed May 14 05:32:45 2025\" version=\"7.95\" xmloutputversion=\"1.05\">\n<scaninfo type=\"syn\" protocol=\"tcp\" numservices=\"100\" services=\"7,9,13,21-23,25-26,37,53,79-81,88,106,110-111,113,119,135,139,143-144,179,199,389,427,443-445,465,513-515,543-544,548,554,587,631,646,873,990,993,995,1025-1029,1110,1433,1720,1723,1755,1900,2000-2001,2049,2121,2717,3000,3128,3306,3389,3986,4899,5000,5009,5051,5060,5101,5190,5357,5432,5631,5666,5800,5900,6000-6001,6646,7070,8000,8008-8009,8080-8081,8443,8888,9100,9999-10000,32768,49152-49157\"/>\n<verbose level=\"2\"/>\n<debugging level=\"0\"/>\n<taskbegin task=\"SYN Stealth Scan\" time=\"1747215165\"/>\n<taskend task=\"SYN Stealth Scan\" time=\"1747215167\" extrainfo=\"100 total ports\"/>\n<host starttime=\"1747215165\" endtime=\"1747215167\"><status state=\"up\" reason=\"user-set\" reason_ttl=\"0\"/>\n<address addr=\"192.168.174.172\" addrtype=\"ipv4\"/>\n<hostnames>\n</hostnames>\n<ports><extraports state=\"filtered\" count=\"93\">\n<extrareasons reason=\"no-response\" count=\"93\" proto=\"tcp\" ports=\"7,9,13,21-23,25-26,37,79-81,106,110-111,113,119,143-144,179,199,427,443-444,465,513-515,543-544,548,554,587,631,646,873,990,993,995,1025-1029,1110,1433,1720,1723,1755,1900,2000-2001,2049,2121,2717,3000,3128,3306,3986,4899,5000,5009,5051,5060,5101,5190,5357,5432,5631,5666,5800,5900,6000-6001,6646,7070,8000,8008-8009,8080-8081,8443,8888,9100,9999-10000,32768,49152-49157\"/>\n</extraports>\n<port protocol=\"tcp\" portid=\"53\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"domain\" method=\"table\" conf=\"3\"/></port>\n<port protocol=\"tcp\" portid=\"88\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"kerberos-sec\" method=\"table\" conf=\"3\"/></port>\n<port protocol=\"tcp\" portid=\"135\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"msrpc\" method=\"table\" conf=\"3\"/></port>\n<port protocol=\"tcp\" portid=\"139\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"netbios-ssn\" method=\"table\" conf=\"3\"/></port>\n<port protocol=\"tcp\" portid=\"389\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"ldap\" method=\"table\" conf=\"3\"/></port>\n<port protocol=\"tcp\" portid=\"445\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"microsoft-ds\" method=\"table\" conf=\"3\"/></port>\n<port protocol=\"tcp\" portid=\"3389\"><state state=\"open\" reason=\"syn-ack\" reason_ttl=\"125\"/><service name=\"ms-wbt-server\" method=\"table\" conf=\"3\"/></port>\n</ports>\n<times srtt=\"47844\" rttvar=\"8200\" to=\"100000\"/>\n</host>\n<runstats><finished time=\"1747215167\" timestr=\"Wed May 14 05:32:47 2025\" summary=\"Nmap done at Wed May 14 05:32:47 2025; 1 IP address (1 host up) scanned in 2.01 seconds\" elapsed=\"2.01\" exit=\"success\"/><hosts up=\"1\" down=\"0\" total=\"1\"/>\n</runstats>\n</nmaprun>\n",
     "findings": []
 }

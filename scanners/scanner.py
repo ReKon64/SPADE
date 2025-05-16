@@ -251,7 +251,6 @@ class Scanner:
         }
         
         # Track services that need to be enumerated
-        services_to_scan = set()
         port_service_pairs = []
         
         # First, find all port:service pairs from the findings
@@ -260,18 +259,15 @@ class Scanner:
         for host in hosts:
             for port in host.get("ports", []):
                 service_name = port.get("service", {}).get("name", "").lower()
-                logging.debug(f"[*] Checking service name : {service_name}")
-                # Check if this service has a matching prefix
                 for pattern, enum_prefix in service_prefix_map.items():
                     if pattern.search(service_name):
-                        services_to_scan.add(enum_prefix)
-
                         port_data = {
-                            "host":        host.get("ip", ""),
-                            "port_id":     port.get("id", ""),
-                            "protocol":    port.get("protocol", ""),
-                            "service":     service_name,
-                            "enum_prefix": enum_prefix
+                            "host": host.get("ip", ""),
+                            "port_id": port.get("id", ""),
+                            "protocol": port.get("protocol", ""),
+                            "service": service_name,
+                            "enum_prefix": enum_prefix,
+                            "port_obj": port, # Reference to port dict
                         }
                         port_service_pairs.append(port_data)
                         logging.debug(f"[*] Will scan with prefix {enum_prefix} on {port_data['host']}:{port_data['port_id']} with {enum_prefix}")
@@ -279,68 +275,43 @@ class Scanner:
                         break
         
         # If no services found, return early
-        if not services_to_scan:
+        if not port_service_pairs:
             logging.info("[+] No services found to enumerate")
             return self.findings
+
         
-        logging.info(f"[+] Services to scan: {services_to_scan}")
         logging.info(f"[+] Found {len(port_service_pairs)} port:service pairs")
-        
-        # Create a placeholder for results
-        all_results = {"findings": [], "services": {}}
         
         # For each port:service pair, run a targeted scan
         with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers or 10) as executor:
             futures = {}
-            
             for port_data in port_service_pairs:
-                # Create a copy of the port data to avoid race conditions
                 current_port_data = copy.deepcopy(port_data)
-                
-                # Update the options with the current port data
                 temp_options = copy.deepcopy(self.options)
                 temp_options["current_port"] = current_port_data
-                
-                # Submit the job to scan this port
                 futures[executor.submit(
-                    self._scan_individual_port, 
-                    port_data=current_port_data, 
-                    options=temp_options, 
+                    self._scan_individual_port,
+                    port_data=current_port_data,
+                    options=temp_options,
                     max_workers=max_workers
                 )] = current_port_data
-            
-            # Process results as they complete
+                
+                # Process results as they complete
             for future in concurrent.futures.as_completed(futures):
                 port_data = futures[future]
                 try:
-                    port_result = future.result()
-                    if port_result:
-                        service_name = port_data["service"]
-                        if service_name not in all_results["services"]:
-                            all_results["services"][service_name] = []
-                        
-                        # Does this dupe host and port id?
-                        all_results["services"][service_name].append({
-                            "host": port_data["host"],
-                            "port": port_data["port_id"],
-                            "results": port_result
-                        })
-                        
-                        # Also add to the overall findings
-                        #all_results["findings"].extend(port_result.get("findings", []))
+                    plugin_results = future.result()
+                    port_obj = port_data["port_obj"]
+                    with self._findings_lock:
+                        if "plugins" not in port_obj:
+                            port_obj["plugins"] = {}
+                        for plugin_name, result in plugin_results.items():
+                            port_obj["plugins"][plugin_name] = result
                 except Exception as e:
                     logging.error(f"Error processing scan for {port_data['service']} on {port_data['host']}:{port_data['port_id']}: {e}")
-        
-        # Combine the results with the main findings
-        with self._findings_lock:
-            # Update findings with service-specific results
-            if "services" not in self.findings:
-                self.findings["services"] = {}
-            
-            for service_name, results in all_results["services"].items():
-                if service_name not in self.findings["services"]:
-                    self.findings["services"][service_name] = []
-                self.findings["services"][service_name].extend(results)
+                        
+                except Exception as e:
+                    logging.error(f"Error processing scan for {port_data['service']} on {port_data['host']}:{port_data['port_id']}: {e}")
         
         logging.info(f"[+] Completed all port-specific enumeration")
         return self.findings
@@ -380,32 +351,25 @@ class Scanner:
         logging.debug(f"Found methods for {enum_prefix}: {methods}")
         
         # Run the methods against this specific port
-        results = {"findings": []}
+        plugin_results = {}
         
         # Run each method (could be parallelized further if needed)
         with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers or 5) as executor:
-            futures = {}
-            for method_name in methods:
-                futures[executor.submit(temp_scanner._reflection_execute_method, method_name)] = method_name
-                
-            for future in concurrent.futures.as_completed(futures):
-                method_name = futures[future]
-                try:
-                    result = future.result()
-                    if result:
-                        logging.info(f"Scan {method_name} completed for {service} on {host}:{port_id}")
-                        # Process result if needed
-                        if isinstance(result, dict):
-                            results["findings"].extend(result.get("findings", []))
-                        elif isinstance(result, list):
-                            results["findings"].extend(result)
-                        elif isinstance(result, str) and os.path.exists(result):
-                            # It's a file path, try to process it
-                            temp_scanner._process_scan_results(result, method_name)
-                except Exception as e:
-                    logging.error(f"Error in method {method_name} for {service} on {host}:{port_id}: {e}")
-        
-        return results
+                futures = {}
+                for method_name in methods:
+                    futures[executor.submit(temp_scanner._reflection_execute_method, method_name)] = method_name
+
+                for future in concurrent.futures.as_completed(futures):
+                    method_name = futures[future]
+                    try:
+                        result = future.result()
+                        if result:
+                            logging.info(f"Scan {method_name} completed for {service} on {host}:{port_id}")
+                            plugin_results[method_name] = result
+                    except Exception as e:
+                        logging.error(f"Error in method {method_name} for {service} on {host}:{port_id}: {e}")
+
+        return plugin_results
 
     @classmethod
     def extend(cls, func):

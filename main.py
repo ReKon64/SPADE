@@ -96,10 +96,13 @@ def main():
         for service_name, service_results in findings.get("services", {}).items():
             logging.info(f"[+] Testing service output {service_name} : {service_results}")
             logging.info(f"{findings}")
+    else:
+        logging.info("[!!!] if services failed")
             
     
     # Optional: Save the final results to a JSON file
     output_file = os.path.join(options['output_dir'], "spade_results.json")
+    logging.debug(f"[!!!] Final Findings : {findings}")
     with open(output_file, 'w') as f:
         json.dump(findings, f, indent=4)
     logging.info(f"[+] Saved final results to {output_file}")

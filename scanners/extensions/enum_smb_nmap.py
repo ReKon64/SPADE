@@ -25,7 +25,7 @@ def enum_smb_nmap(self):
         "smb-vuln*"
     ]
     script_arg = "--script=" + ",".join(smb_scripts)
-    cmd = f"nmap -p {port} {script_arg} -Pn -n -oX {xml_output_path} {host}"
+    cmd = f"nmap -p {port} {script_arg} -Pn -vv -n -oX {xml_output_path} {host}"
 
     #very_verbose = getattr(self.options, "very_verbose", False) or self.options.get("very_verbose", False)
     try:

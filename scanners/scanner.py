@@ -24,7 +24,8 @@ class Scanner:
         # Bind registered extension methods to the instance
         for name, func in self._extensions.items():
             bound_method = func.__get__(self, self.__class__)
-            logging.debug(f"Loaded Bound: {bound_method}")
+            # Commented since it clutters a lot and each time
+            #logging.debug(f"Loaded Bound: {bound_method}")
             setattr(self, name, bound_method)
     
     @classmethod

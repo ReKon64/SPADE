@@ -124,11 +124,16 @@ class Scanner:
     def _execute_methods(self, method_names, max_workers=None):
         """
         Execute the specified methods, either sequentially or in parallel, and process results if applicable.
-        
+
         Args:
             method_names (list): List of method names to execute.
             max_workers (int, optional): If specified, methods are executed in parallel.
+
+        Returns:
+            dict: Mapping of method_name to result (for plugin aggregation).
         """
+        plugin_results = {}
+
         if max_workers:
             # Execute in parallel
             with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
@@ -136,31 +141,37 @@ class Scanner:
                     executor.submit(self._reflection_execute_method, method_name): method_name
                     for method_name in method_names
                 }
-                
+
                 # Process results as they complete
                 for future in concurrent.futures.as_completed(futures):
                     method_name = futures[future]
                     try:
-                        result_path = future.result()  # Get result to catch any exceptions
+                        result = future.result()  # Get result to catch any exceptions
                         logging.info(f"Completed scan: {method_name}")
-                        
+
                         # Process results if the method produces output
-                        if result_path and os.path.exists(result_path):
-                            self._process_scan_results(result_path, method_name)
+                        if isinstance(result, str) and os.path.exists(result):
+                            self._process_scan_results(result, method_name)
+                            # Optionally, you could parse and store results here if needed
+                        elif isinstance(result, dict):
+                            plugin_results[method_name] = result
                     except Exception as e:
                         logging.error(f"Error in {method_name}: {e}")
         else:
             # Execute sequentially
             for method_name in method_names:
                 try:
-                    result_path = self._reflection_execute_method(method_name)
+                    result = self._reflection_execute_method(method_name)
                     logging.info(f"Completed scan: {method_name}")
-                    
-                    # Process results if the method produces output
-                    if result_path and os.path.exists(result_path):
-                        self._process_scan_results(result_path, method_name)
+
+                    if isinstance(result, str) and os.path.exists(result):
+                        self._process_scan_results(result, method_name)
+                    elif isinstance(result, dict):
+                        plugin_results[method_name] = result
                 except Exception as e:
                     logging.error(f"Error in {method_name}: {e}")
+
+        return plugin_results
     # seperate prefix for tcp 
     def _store_findings(self, parsed_results):
         """
@@ -364,8 +375,11 @@ class Scanner:
                     method_name = futures[future]
                     try:
                         result = future.result()
-                        if result:
-                            logging.info(f"Scan {method_name} completed for {service} on {host}:{port_id}")
+                        logging.info(f"Completed scan: {method_name}")
+
+                        if isinstance(result, str) and os.path.exists(result):
+                            self._process_scan_results(result, method_name)
+                        elif isinstance(result, dict):
                             plugin_results[method_name] = result
                     except Exception as e:
                         logging.error(f"Error in method {method_name} for {service} on {host}:{port_id}: {e}")

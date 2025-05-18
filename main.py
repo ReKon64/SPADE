@@ -17,14 +17,30 @@ def main():
     parser.add_argument("-o", "--output", help="Output directory for reports and payloads")
     parser.add_argument('-at', "--tcp_options", help="Additional flags to inject into the TCP nmap command")
     parser.add_argument('-au', "--udp_options", help="Additional flags to inject into the UDP nmap command")
+    parser.add_argument('-m', "--memory", action="store_true", help="Add memory usage to logging")
+
     args = parser.parse_args()
 
 
     # Configure logging
-    format='%(asctime)s - %(levelname)s - %(message)s'
-    log_level = logging.DEBUG if args.verbose else logging.INFO
-
-    logging.basicConfig(level=log_level, format=format)
+    if args.memory:
+        from core.memorylogger import MemoryUsageFormatter
+        format = '%(asctime)s - %(levelname)s - [MEM: %(memory_usage)s] - %(message)s'
+        log_level = logging.DEBUG if args.verbose else logging.INFO
+        
+        # Create handler and formatter
+        handler = logging.StreamHandler()
+        formatter = MemoryUsageFormatter(format)
+        handler.setFormatter(formatter)
+        
+        # Configure root logger
+        root_logger = logging.getLogger()
+        root_logger.setLevel(log_level)
+        root_logger.addHandler(handler)
+    else:
+        format = '%(asctime)s - %(levelname)s - %(message)s'
+        log_level = logging.DEBUG if args.verbose else logging.INFO
+        logging.basicConfig(level=log_level, format=format)
 
     # Options dictionary
     options = {

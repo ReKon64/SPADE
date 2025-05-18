@@ -300,13 +300,13 @@ class Scanner:
             for port_data in port_service_pairs:
                 current_port_data = copy.deepcopy(port_data)
                 temp_options = copy.deepcopy(self.options)
-                temp_options["current_port"] = current_port_data
+                temp_options["current_port"] = port_data  # Use original, not deepcopy!
                 futures[executor.submit(
                     self._scan_individual_port,
-                    port_data=current_port_data,
+                    port_data=port_data,
                     options=temp_options,
                     max_workers=max_workers
-                )] = current_port_data
+                )] = port_data
                 
                 # Process results as they complete
             for future in concurrent.futures.as_completed(futures):

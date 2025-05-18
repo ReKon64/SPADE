@@ -105,13 +105,13 @@ def parse_nmap_xml(xml_data: str):
     
     except ET.ParseError as e:
         logging.error(f"Error parsing nmap XML output: {e}")
-        findings.append({
+        structured_results.append({
             'type': 'error',
             'message': f"Failed to parse scan results: {e}"
         })
     except Exception as e:
         logging.error(f"Error processing nmap findings: {e}")
-        findings.append({
+        structured_results.append({
             'type': 'error',
             'message': f"Error processing scan results: {e}"
         })

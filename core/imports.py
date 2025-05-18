@@ -15,4 +15,3 @@ from sys import getsizeof
 import copy
 import re
 import psutil
-from logger import *

@@ -1,15 +1,12 @@
 from core.imports import *
+from core.logging import *
 from scanners.scanner import Scanner
 
 @Scanner.extend
 def enum_smb_nmap(self):
-    """
-    Run Nmap SMB scripts against the target host/port.
-    Returns:
-        dict: Parsed results of SMB Nmap scripts
-    """
     host = self.options["current_port"]["host"]
     port = self.options["current_port"]["port_id"]
+    verbosity = self.options["realtime"]
 
     with tempfile.NamedTemporaryFile(delete=False, suffix='.xml') as tmp_file:
         xml_output_path = tmp_file.name
@@ -28,27 +25,15 @@ def enum_smb_nmap(self):
         "smb-vuln*"
     ]
     script_arg = "--script=" + ",".join(smb_scripts)
-    cmd = (
-        f"nmap -p {port} {script_arg} -Pn -n -oX {xml_output_path} {host}"
-    )
+    cmd = f"nmap -p {port} {script_arg} -Pn -n -oX {xml_output_path} {host}"
 
+    #very_verbose = getattr(self.options, "very_verbose", False) or self.options.get("very_verbose", False)
     try:
         logging.info(f"Executing SMB Nmap scripts: {cmd}")
-        result = subprocess.run(
-            cmd,
-            shell=True,
-            capture_output=True,
-            text=True,
-            check=True
-        )
-        # Parse the XML output into a dict
+        run_and_log(cmd, very_verbose=verbosity)
         with open(xml_output_path, "r") as f:
             xml_data = f.read()
         parsed = _parse_smb_nmap_xml(xml_data)
-    except subprocess.CalledProcessError as e:
-        logging.error(f"SMB Nmap scripts failed: {e}")
-        logging.error(f"Stderr: {e.stderr}")
-        parsed = {"error": str(e), "stderr": e.stderr}
     except Exception as e:
         logging.error(f"Error during SMB Nmap scripts: {e}")
         parsed = {"error": str(e)}

@@ -12,19 +12,23 @@ def main():
     parser.add_argument("-tp", "--tcp_ports", default="-p-", help="Ports to scan. Passed directly to nmap. Default -p-")
     parser.add_argument("-up", "--udp_ports", default="--top-ports=100", help="WIP")
 
-    parser.add_argument("-T", "--threads", default=16, help="Number of threads scanner will use. I suggest 64")
-    parser.add_argument("-v", "--verbose", action="store_true", help="Enable verbose output")
-    parser.add_argument("-o", "--output", help="Output directory for reports and payloads")
     parser.add_argument('-at', "--tcp_options", help="Additional flags to inject into the TCP nmap command")
     parser.add_argument('-au', "--udp_options", help="Additional flags to inject into the UDP nmap command")
-    parser.add_argument('-m', "--memory", action="store_true", help="Add memory usage to logging")
 
+    parser.add_argument("-T", "--threads", default=16, help="Number of threads scanner will use. I suggest 64")
+    
+    parser.add_argument("-v", "--verbose", action="store_true", help="Enable verbose output")
+    parser.add_argument("-rt", "--realtime", action="store_true", help="Enable real time STDOUT for modules")
+    parser.add_argument("-m", "--memory", action="store_true", help="Add memory usage to logging")
+
+    parser.add_argument("-o", "--output", help="Output directory for reports and payloads")
+    
     args = parser.parse_args()
 
 
     # Configure logging
     if args.memory:
-        from core.memorylogger import MemoryUsageFormatter
+        from core.logging import MemoryUsageFormatter
         format = '%(asctime)s - %(levelname)s - [MEM: %(memory_usage)s] - %(message)s'
         log_level = logging.DEBUG if args.verbose else logging.INFO
         
@@ -46,6 +50,7 @@ def main():
     options = {
         'output_dir': args.output or os.getcwd(),
         'verbose': args.verbose,
+        'realtime': args.realtime,
         'threads': args.threads,
         'target': args.target,
         'tcp_ports': args.tcp_ports,

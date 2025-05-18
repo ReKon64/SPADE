@@ -1,4 +1,4 @@
-from imports import *
+from core.imports import *
 
 VERBOSE_LEVEL_NUM = 15
 logging.addLevelName(VERBOSE_LEVEL_NUM, "VERBOSE")

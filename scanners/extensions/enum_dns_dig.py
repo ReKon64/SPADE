@@ -58,5 +58,5 @@ def enum_dns_dig(self):
                 results["rdp_ntlm_resolves"][name] = resolve_result.stdout
             except Exception as e:
                 results["rdp_ntlm_resolves"][name] = f"Error: {e}"
-
+    logging.debug(f"enum_dns_dig results: {results}")
     return results

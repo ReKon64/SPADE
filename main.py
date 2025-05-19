@@ -30,7 +30,12 @@ def main():
     if args.memory:
         from core.logging import MemoryUsageFormatter
         format = '%(asctime)s - %(levelname)s - [MEM: %(memory_usage)s] - %(message)s'
-        log_level = logging.DEBUG if args.verbose else logging.INFO
+        if args.realtime:
+            log_level = 15  # REAL-TIME
+        elif args.verbose:
+            log_level = logging.DEBUG
+        else:
+            log_level = logging.INFO
         
         # Create handler and formatter
         handler = logging.StreamHandler()
@@ -43,7 +48,12 @@ def main():
         root_logger.addHandler(handler)
     else:
         format = '%(asctime)s - %(levelname)s - %(message)s'
-        log_level = logging.DEBUG if args.verbose else logging.INFO
+        if args.realtime:
+            log_level = 15
+        elif args.verbose:
+            log_level = logging.DEBUG
+        else:
+            log_level = logging.INFO
         logging.basicConfig(level=log_level, format=format)
 
     # Options dictionary

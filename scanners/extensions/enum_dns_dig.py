@@ -40,7 +40,8 @@ def enum_dns_dig(self):
     except Exception as e:
         results["any"] = f"Error: {e}"
 
-    # If RDP NTLM info is present, try to resolve those names
+    # If RDP NTLM info is present, try to resolve those names.
+    # TODO doesn't work yet
     rdp_info = findings.get("rdp-ntlm-info", {})
     logging.debug(f"[*] Will attempt to resolve against {rdp_info}")
     if isinstance(rdp_info, dict):

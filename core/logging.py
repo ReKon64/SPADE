@@ -1,12 +1,11 @@
 from core.imports import *
 
 VERBOSE_LEVEL_NUM = 15
-logging.addLevelName(VERBOSE_LEVEL_NUM, "VERBOSE")
-
-def verbose(self, message, *args, **kws):
+logging.addLevelName(VERBOSE_LEVEL_NUM, "REAL-TIME") 
+def realtime(self, message, *args, **kws):
     if self.isEnabledFor(VERBOSE_LEVEL_NUM):
         self._log(VERBOSE_LEVEL_NUM, message, args, **kws)
-logging.Logger.verbose = verbose
+logging.Logger.realtime = realtime
 
 
 class MemoryUsageFormatter(logging.Formatter):

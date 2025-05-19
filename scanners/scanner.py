@@ -317,14 +317,11 @@ class Scanner:
                 try:
                     plugin_results = future.result()
                     port_obj = port_data["port_obj"]
-                    with self._findings_lock:
+                    with port_obj["_plugin_lock"]:
                         if "plugins" not in port_obj:
                             port_obj["plugins"] = {}
                         for plugin_name, result in plugin_results.items():
                             port_obj["plugins"][plugin_name] = result
-                except Exception as e:
-                    logging.error(f"Error processing scan for {port_data['service']} on {port_data['host']}:{port_data['port_id']}: {e}")
-                        
                 except Exception as e:
                     logging.error(f"Error processing scan for {port_data['service']} on {port_data['host']}:{port_data['port_id']}: {e}")
         

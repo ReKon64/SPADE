@@ -1,5 +1,6 @@
 # File: scanners/tcp_scanner.py
 from core.imports import *
+from core.logging import run_and_log
 from scanners.scanner import Scanner
 
 @Scanner.extend
@@ -16,18 +17,13 @@ def scan_tcp_scan(self):
     
     try:
         # Build and execute nmap command for TCP scan
-        #cmd = f"nmap {self.options['target']} {self.options['tcp_ports']} {self.options.get('tcp_options') or '-A -T4'} -vv --reason -Pn -n -oX {xml_output_path}"
         cmd = f"nmap {self.options['target']} {self.options.get('tcp_options') or '-A -T4 -p-'} -vv --reason -Pn -n -oX {xml_output_path}"
 
         logging.info(f"Executing TCP nmap command: {cmd}")
-        
-        result = subprocess.run(
-            cmd, 
-            shell=True, 
-            capture_output=True, 
-            text=True, 
-            check=True
-        )
+
+        # Use real time logging if enabled in options
+        realtime = self.options.get("realtime", False)
+        run_and_log(cmd, very_verbose=realtime)
         
         # Store the output path in the options for later processing
         self.options['tcp_output_path'] = xml_output_path

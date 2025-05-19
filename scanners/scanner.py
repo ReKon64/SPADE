@@ -270,6 +270,9 @@ class Scanner:
         logging.debug(f"[*] Service scan used entry data : {hosts}")
         for host in hosts:
             for port in host.get("ports", []):
+                # Add a per-port lock if not already present
+                if "_plugin_lock" not in port:
+                    port["_plugin_lock"] = threading.Lock()
                 service_name = port.get("service", {}).get("name", "").lower()
                 for pattern, enum_prefix in service_prefix_map.items():
                     if pattern.search(service_name):
@@ -298,9 +301,9 @@ class Scanner:
         with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers or 10) as executor:
             futures = {}
             for port_data in port_service_pairs:
-                current_port_data = copy.deepcopy(port_data)
+                #current_port_data = copy.deepcopy(port_data)
                 temp_options = copy.deepcopy(self.options)
-                temp_options["current_port"] = port_data  # Use original, not deepcopy!
+                temp_options["current_port"] = port_data
                 futures[executor.submit(
                     self._scan_individual_port,
                     port_data=port_data,

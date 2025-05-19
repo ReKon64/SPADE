@@ -378,6 +378,7 @@ class Scanner:
                         logging.info(f"Completed scan: {method_name}")
 
                         if isinstance(result, str) and os.path.exists(result):
+                            logging.debug(f"[PROCESS] Processing scan file of {os.path(result)}")
                             self._process_scan_results(result, method_name)
                         elif isinstance(result, dict):
                             plugin_results[method_name] = result

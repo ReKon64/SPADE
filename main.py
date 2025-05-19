@@ -103,6 +103,13 @@ def main():
     # Optional: Save the final results to a JSON file
     output_file = os.path.join(options['output_dir'], "spade_results.json")
     logging.debug(f"[!!!] Final Findings : {findings}")
+
+    # Remove the _plugin_lock object
+    for host in findings.get("hosts", []):
+        for port in host.get("ports", []):
+            if "_plugin_lock" in port:
+                del port["_plugin_lock"]
+
     with open(output_file, 'w') as f:
         json.dump(findings, f, indent=4)
     logging.info(f"[+] Saved final results to {output_file}")

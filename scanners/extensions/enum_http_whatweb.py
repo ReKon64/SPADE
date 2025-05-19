@@ -13,7 +13,7 @@ def enum_http_whatweb(self):
         # Also it will append itself?
         cmd = f"whatweb {self.options['target']}:{self.options['port_id']} -p -a 4 -v --log-json={output_path}"
         logging.info(f"Executing TCP nmap command: {cmd}")
-        
+        logging.debug(f"[WhatWeb] Command : {cmd}")
         result = subprocess.run(
             cmd, 
             shell=True, 

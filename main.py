@@ -7,8 +7,12 @@ from scanners.scanner import Scanner
 
 def main():
     parser = argparse.ArgumentParser(description="SPADE - Scalable Plug-and-play Auto Detection Engine")
-    parser.add_argument("-t", "--target", help="One or more IP / Domain", required=True)
-    
+
+    # Create mutually exclusive group for -t and -x
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument("-t", "--target", help="One or more IP / Domain")
+    group.add_argument("-x", "--xml-input", help="Path to existing Nmap XML file to use as input (skips scanning and uses this for enumeration)")
+
     parser.add_argument("-tp", "--tcp_ports", default="-p-", help="Ports to scan. Passed directly to nmap. Default -p-")
     parser.add_argument("-up", "--udp_ports", default="--top-ports=100", help="WIP")
 
@@ -21,7 +25,7 @@ def main():
     parser.add_argument("-rt", "--realtime", action="store_true", help="Enable real time STDOUT for modules")
     parser.add_argument("-m", "--memory", action="store_true", help="Add memory usage to logging")
 
-    parser.add_argument("-o", "--output", help="Output directory for reports and payloads")
+    parser.add_argument("-o", "--output", help="Output directory for reports and payloads. Defaults to CWD")
     
     args = parser.parse_args()
 
@@ -31,7 +35,7 @@ def main():
         from core.logging import MemoryUsageFormatter
         format = '%(asctime)s - %(levelname)s - [MEM: %(memory_usage)s] - %(message)s'
         if args.realtime:
-            log_level = 15  # REAL-TIME
+            log_level = 15
         elif args.verbose:
             log_level = logging.DEBUG
         else:
@@ -73,25 +77,35 @@ def main():
     Scanner.load_extensions()
     scanner = Scanner(options)
 
-    ####################
-    ### INITIAL SCAN ###
-    ####################
-    logging.info(f"[+] Starting initial scans against {options['target']}")
-    logging.debug(f"Scanner initialized with options: {scanner.options}")
-    
-    # Run the initial TCP and UDP scans
-    findings = scanner.scan(
-        max_workers=int(options['threads']),
-        prioritized_methods=['scan_tcp_scan', 'scan_udp_scan'],
-        prefixes=['scan_'],
-    )
-    logging.info(f"[?] Finding: {findings}")
-    logging.info(f"[+] Initial scan complete.")
-    
-    # Get the count of discovered hosts and ports
-    hosts_count = len(findings.get("hosts", []))
-    ports_count = sum(len(host.get("ports", [])) for host in findings.get("hosts", []))
-    logging.info(f"[+] Found {hosts_count} hosts with {ports_count} open ports.")
+    # If --xml-input is provided, parse the XML and skip initial scans
+    if args.xml_input:
+        logging.info(f"[+] Parsing Nmap XML input file: {args.xml_input}")
+        with open(args.xml_input, 'r') as f:
+            xml_data = f.read()
+        from scanners.nmap_parser import parse_nmap_xml
+        findings = parse_nmap_xml(xml_data)
+        scanner.findings = findings  # Set findings for service enumeration
+        logging.info(f"[+] Parsed {len(findings.get('hosts', []))} hosts from XML input.")
+    else:
+        # Normal scan flow
+        if not args.target:
+            parser.error("the following arguments are required: -t/--target (unless --xml-input is used)")
+        logging.info(f"[+] Starting initial scans against {options['target']}")
+        logging.debug(f"Scanner initialized with options: {scanner.options}")
+        
+        # Run the initial TCP and UDP scans
+        findings = scanner.scan(
+            max_workers=int(options['threads']),
+            prioritized_methods=['scan_tcp_scan', 'scan_udp_scan'],
+            prefixes=['scan_'],
+        )
+        logging.info(f"[?] Finding: {findings}")
+        logging.info(f"[+] Initial scan complete.")
+        
+        # Get the count of discovered hosts and ports
+        hosts_count = len(findings.get("hosts", []))
+        ports_count = sum(len(host.get("ports", [])) for host in findings.get("hosts", []))
+        logging.info(f"[+] Found {hosts_count} hosts with {ports_count} open ports.")
 
     ##########################
     ### SERVICE-BASED SCAN ###

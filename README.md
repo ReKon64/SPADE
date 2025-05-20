@@ -22,6 +22,10 @@ SPADE is a modular vulnerability scanning framework that leverages external tool
 3. Create the report class
 
 # Establish a uniform schema for plugin results
+# ?
+# 1. Plugins key -> plugin name -> command -> result 1, result 2 
+
+# Realtime overwrites DEBUG FUCK
 # Add OS type at the head where hostname etc. lies
 # Ferox
 # Fingerprint

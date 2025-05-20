@@ -6,46 +6,46 @@ import re
 def enum_ldap_get_user_desc(self):
     """
     Enumerate LDAP user descriptions using ldapsearch.
-    Uses rdp-ntlm-info:DNS_Tree_Name as the domain if available.
-    Runs: ldapsearch -x -H ldap://{host} -LLL -b "dc=<dn1>,dc=<dn2>" "(sAMAccountName=*)" sAMAccountName description | awk ...
+    Uses rdp-ntlm-info:DNS_Tree_Name or host-level ldap_info as the domain if available.
     Returns:
-        dict: Results of the ldapsearch user description command
+        dict: { "command": ..., "results": ... }
     """
     host = self.options["current_port"]["host"]
     port = self.options["current_port"]["port_id"]
     verbosity = self.options.get("realtime", False)
     results = {}
 
-    # Attempt to fetch the domain name from rdp-ntlm-info:DNS_Tree_Name first
-    domain = None
+    # Try to get the domain from host_json['ldap_info'] or rdp-ntlm-info
     port_obj = self.options["current_port"].get("port_obj", {})
-    findings = port_obj.get("scripts", {}) if port_obj else {}
+    host_json = self.options["current_port"].get("host_json", {})
+    domain = None
 
     # Prefer rdp-ntlm-info:DNS_Tree_Name if available
+    findings = port_obj.get("scripts", {}) if port_obj else {}
     rdp_ntlm = findings.get("rdp-ntlm-info", {})
     if isinstance(rdp_ntlm, dict):
         domain = rdp_ntlm.get("DNS_Tree_Name")
 
-    # Fallback to other common keys if not found
-    if not domain:
-        for key in ["DNS_Domain_Name", "dns_domain", "domain"]:
-            domain = findings.get(key) or self.options.get(key)
-            logging.debug(f"[DIG] Domain : {domain}")
-            if domain:
+    # Fallback to host-level ldap_info
+    if not domain and "ldap_info" in host_json and isinstance(host_json["ldap_info"], dict):
+        for extrainfo in host_json["ldap_info"].values():
+            m = re.search(r"Domain:\s*([a-zA-Z0-9\.\-_]+)", extrainfo)
+            if m:
+                domain = m.group(1).strip().rstrip(".")
                 break
 
     if not domain:
-        results["error"] = "Domain name not found in rdp-ntlm-info or findings/options."
-        return results
+        results["error"] = "Domain name not found in rdp-ntlm-info or ldap_info."
+        return {"command": None, "results": results}
 
     # Extract dn parts
     dn_parts = [f"dc={part}" for part in domain.split(".") if part]
     base_dn = ",".join(dn_parts)
-    logging.debug(f"[DIG] base_dn {base_dn}")
+    logging.debug(f"[LDAP_USER_DESC] base_dn {base_dn}")
     cmd = (
         f'ldapsearch -x -H ldap://{host} -LLL -b "{base_dn}" '
         f'"(sAMAccountName=*)" sAMAccountName description | '
-        "awk 'BEGIN{ORS=\"\";} /^sAMAccountName:/ {user=$0} /^description:/ {print user \"\\n\" $0 \"\\n\\n\"}'"
+        "awk 'BEGIN{RS=\"\";FS=\"\\n\"}{user=\"\";desc=\"[no description]\";for(i=1;i<=NF;i++){if($i~/^sAMAccountName:/){user=substr($i,index($i,\":\")+2)}else if($i~/^description:/){desc=substr($i,index($i,\":\")+2);for(j=i+1;j<=NF&&$j~/^ /;j++){desc=desc\" \"substr($j,2);i=j}}}if(user!=\"\"){print user\": \"desc\"\\n\"}}'"
     )
 
     try:
@@ -71,4 +71,4 @@ def enum_ldap_get_user_desc(self):
     except Exception as e:
         results["error"] = str(e)
 
-    return results
+    return {"command": cmd, "results": results}

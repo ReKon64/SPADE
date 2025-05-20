@@ -35,6 +35,23 @@ def _extract_rdp_ntlm_info(host_elem):
                     return info
     return {}
 
+def _extract_ldap_info(host_elem):
+    """
+    Helper to extract extrainfo fields from LDAP ports and return as a dict.
+    Looks for ports with service name 'ldap' and collects their extrainfo fields.
+    Returns a dict {portid: extrainfo, ...} or an empty dict if none found.
+    """
+    ldap_info = {}
+    for port in host_elem.findall('.//port'):
+        service_elem = port.find('./service')
+        if service_elem is not None:
+            service_name = service_elem.get('name', '').lower()
+            extrainfo = service_elem.get('extrainfo', '')
+            portid = port.get('portid')
+            if service_name == "ldap" and extrainfo:
+                ldap_info[portid] = extrainfo
+    return {}
+
 def parse_nmap_xml(xml_data: str):
     logging.debug(f"[Parse_NMAP_XML] Data : {xml_data}")
     """
@@ -54,6 +71,12 @@ def parse_nmap_xml(xml_data: str):
     
     try:
         root = ET.fromstring(xml_data)
+
+        # Extract the nmap command from the <nmaprun> element's 'args' attribute
+        nmap_command = None
+        nmaprun_elem = root.find('.')
+        if nmaprun_elem is not None:
+            nmap_command = nmaprun_elem.get('args')
         
         # Process each host
         for host in root.findall('.//host'):
@@ -80,11 +103,23 @@ def parse_nmap_xml(xml_data: str):
                 'ip': ip_address,
                 'hostname': hostname,
             }
+            if nmap_command:
+                host_data["nmap_command"] = nmap_command
             if domain:
                 host_data["domain"] = domain
             if computername:
                 host_data["computername"] = computername
             host_data["ports"] = []
+
+            # Add extrainfo if present at the host level
+            extrainfo_elem = host.find('./extrainfo')
+            if extrainfo_elem is not None and extrainfo_elem.text:
+                host_data["extrainfo"] = extrainfo_elem.text
+
+            # Extract LDAP extrainfo if present
+            ldap_info = _extract_ldap_info(host)
+            if ldap_info:
+                host_data["ldap_info"] = ldap_info
 
             # Process ports
             for port in host.findall('.//port'):
@@ -115,6 +150,10 @@ def parse_nmap_xml(xml_data: str):
                         'version': version,
                         'tunnel': tunnel,
                     }
+                    # Add extrainfo if present at the port/service level
+                    extrainfo = service_elem.get('extrainfo', '')
+                    if extrainfo:
+                        port_data['extrainfo'] = extrainfo
 
                 # Parse all script outputs
                 scripts = {}

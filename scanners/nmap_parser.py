@@ -32,6 +32,7 @@ def _extract_rdp_ntlm_info(host_elem):
                             info["domain"] = value
                         if key == "DNS_Computer_Name":
                             info["computername"] = value
+                    logging.debug(f"[Parse_NMAP_XML] rdp-ntlm-info : {info}")
                     return info
     return {}
 
@@ -51,10 +52,17 @@ def _extract_ldap_info(host_elem):
             portid = port.get('portid')
             if service_name == "ldap" and extrainfo:
                 # Extract value between 'Domain: ' and '0.'
-                m = re.search(r"Domain:\s*([^.]+)0\.", extrainfo)
+                m = re.search(r"Domain:\s*([a-zA-Z0-9\.\-_]+)0\.", extrainfo)
+                logging.debug(f"LDAP extrainfo: {extrainfo} | Match: {m.group(1) if m else None}")
                 if m:
-                    domain_value = m.group(1).strip()
+                    domain_value = m.group(1)
+                    # Remove trailing 0 and dot if present (nmap bug)
+                    if domain_value.endswith("0"):
+                        domain_value = domain_value[:-1]
+                    if domain_value.endswith("."):
+                        domain_value = domain_value[:-1]
                     ldap_info[portid] = domain_value
+                    logging.debug(f"[Parse_NMAP_XML] ldap_info : {ldap_info}")
     return ldap_info
 
 def parse_nmap_xml(xml_data: str):

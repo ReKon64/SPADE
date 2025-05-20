@@ -37,10 +37,11 @@ def _extract_rdp_ntlm_info(host_elem):
 
 def _extract_ldap_info(host_elem):
     """
-    Helper to extract extrainfo fields from LDAP ports and return as a dict.
-    Looks for ports with service name 'ldap' and collects their extrainfo fields.
-    Returns a dict {portid: extrainfo, ...} or an empty dict if none found.
+    Helper to extract the domain value from LDAP ports' extrainfo fields.
+    Looks for ports with service name 'ldap' and extracts the value between 'Domain: ' and '0.'.
+    Returns a dict {portid: domain_value, ...} or an empty dict if none found.
     """
+    import re
     ldap_info = {}
     for port in host_elem.findall('.//port'):
         service_elem = port.find('./service')
@@ -49,7 +50,11 @@ def _extract_ldap_info(host_elem):
             extrainfo = service_elem.get('extrainfo', '')
             portid = port.get('portid')
             if service_name == "ldap" and extrainfo:
-                ldap_info[portid] = extrainfo
+                # Extract value between 'Domain: ' and '0.'
+                m = re.search(r"Domain:\s*([^.]+)0\.", extrainfo)
+                if m:
+                    domain_value = m.group(1).strip()
+                    ldap_info[portid] = domain_value
     return ldap_info
 
 def parse_nmap_xml(xml_data: str):

@@ -20,19 +20,29 @@ def enum_ldap_get_user_desc(self):
     host_json = self.options["current_port"].get("host_json", {})
     domain = None
 
-    # Prefer rdp-ntlm-info:DNS_Tree_Name if available
-    findings = port_obj.get("scripts", {}) if port_obj else {}
-    rdp_ntlm = findings.get("rdp-ntlm-info", {})
-    if isinstance(rdp_ntlm, dict):
-        domain = rdp_ntlm.get("DNS_Tree_Name")
+    # Prefer rdp-ntlm-info:DNS_Tree_Name if available in port's scripts
+    # findings = port_obj.get("scripts", {}) if port_obj else {}
+    # rdp_ntlm = findings.get("rdp-ntlm-info", {})
+    # if isinstance(rdp_ntlm, dict):
+    #     domain = rdp_ntlm.get("DNS_Tree_Name")
 
-    # Fallback to host-level ldap_info
+    # Fallback to host-level DNS_Tree_Name, DNS_Domain_Name, or ldap_info
+    # This might be bad code
+    # if not domain:
+    #     for key in ("DNS_Tree_Name", "DNS_Domain_Name"):
+    #         if key in host_json and host_json[key]:
+    #             domain = host_json[key].strip().rstrip(".")
+    #             break
+
     if not domain and "ldap_info" in host_json and isinstance(host_json["ldap_info"], dict):
+        logging.debug(f"[LDAP_USER_DESC] Will use {domain}")
         for value in host_json["ldap_info"].values():
             domain = value.strip().rstrip(".")
+            
             break
 
     if not domain:
+        logging.error(f"[LDAP_USER_DESC] Domain name not found in rdp-ntlm-info or ldap_info.")
         results["error"] = "Domain name not found in rdp-ntlm-info or ldap_info."
         return {"command": None, "results": results}
 

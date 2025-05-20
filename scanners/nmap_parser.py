@@ -116,6 +116,11 @@ def parse_nmap_xml(xml_data: str):
                 'ip': ip_address,
                 'hostname': hostname,
             }
+            # Insert ldap_info right after hostname
+            ldap_info = _extract_ldap_info(host)
+            if ldap_info:
+                host_data["ldap_info"] = ldap_info
+
             if nmap_command:
                 host_data["nmap_command"] = nmap_command
             if domain:
@@ -128,11 +133,6 @@ def parse_nmap_xml(xml_data: str):
             extrainfo_elem = host.find('./extrainfo')
             if extrainfo_elem is not None and extrainfo_elem.text:
                 host_data["extrainfo"] = extrainfo_elem.text
-
-            # Extract LDAP extrainfo if present
-            ldap_info = _extract_ldap_info(host)
-            if ldap_info:
-                host_data["ldap_info"] = ldap_info
 
             # Process ports
             for port in host.findall('.//port'):

@@ -50,7 +50,7 @@ def _extract_ldap_info(host_elem):
             portid = port.get('portid')
             if service_name == "ldap" and extrainfo:
                 ldap_info[portid] = extrainfo
-    return {}
+    return ldap_info
 
 def parse_nmap_xml(xml_data: str):
     logging.debug(f"[Parse_NMAP_XML] Data : {xml_data}")
@@ -139,6 +139,12 @@ def parse_nmap_xml(xml_data: str):
                 # Get service info if available
                 service_name = "unknown"
                 service_elem = port.find('./service')
+                extrainfo = ""
+                if service_elem is not None:
+                    extrainfo = service_elem.get('extrainfo', '')
+                if extrainfo:
+                    port_data['extrainfo'] = extrainfo
+
                 if service_elem is not None:
                     service_name = service_elem.get('name', 'unknown')
                     product = service_elem.get('product', '')
@@ -150,10 +156,6 @@ def parse_nmap_xml(xml_data: str):
                         'version': version,
                         'tunnel': tunnel,
                     }
-                    # Add extrainfo if present at the port/service level
-                    extrainfo = service_elem.get('extrainfo', '')
-                    if extrainfo:
-                        port_data['extrainfo'] = extrainfo
 
                 # Parse all script outputs
                 scripts = {}

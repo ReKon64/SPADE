@@ -1,6 +1,40 @@
 # File: scanners/nmap_parser.py
 from core.imports import *
 
+def _extract_rdp_ntlm_info(host_elem):
+    """
+    Helper to extract RDP NTLM info (domain and computername) from a host element.
+    Returns a dict with 'domain' and 'computername' if found, else empty dict.
+    Matches if:
+      - protocol is tcp
+      - and (portid is 3389 OR service name is ms-wbt-server OR product contains "Microsoft Terminal Services")
+    """
+    for port in host_elem.findall('.//port'):
+        port_id = port.get('portid')
+        protocol = port.get('protocol')
+        service_elem = port.find('./service')
+        service_name = service_elem.get('name', '').lower() if service_elem is not None else ''
+        product = service_elem.get('product', '').lower() if service_elem is not None else ''
+        if (
+            protocol == "tcp" and (
+                port_id == "3389" or
+                service_name == "ms-wbt-server" or
+                "microsoft terminal services" in product
+            )
+        ):
+            for script_elem in port.findall('./script'):
+                if script_elem.get('id') == "rdp-ntlm-info":
+                    info = {}
+                    for elem in script_elem.findall('./elem'):
+                        key = elem.get('key')
+                        value = elem.text
+                        if key == "DNS_Tree_Name":
+                            info["domain"] = value
+                        if key == "DNS_Computer_Name":
+                            info["computername"] = value
+                    return info
+    return {}
+
 def parse_nmap_xml(xml_data: str):
     logging.debug(f"[Parse_NMAP_XML] Data : {xml_data}")
     """
@@ -36,12 +70,21 @@ def parse_nmap_xml(xml_data: str):
             if hostname_elem is not None:
                 hostname = hostname_elem.get('name', 'unknown')
             
+            # Extract RDP NTLM info (domain/computername) if present
+            rdp_info = _extract_rdp_ntlm_info(host)
+            domain = rdp_info.get("domain")
+            computername = rdp_info.get("computername")
+
             # Initialize host_data with desired key order
             host_data = {
                 'ip': ip_address,
                 'hostname': hostname,
-                'ports': []
             }
+            if domain:
+                host_data["domain"] = domain
+            if computername:
+                host_data["computername"] = computername
+            host_data["ports"] = []
 
             # Process ports
             for port in host.findall('.//port'):
@@ -66,39 +109,37 @@ def parse_nmap_xml(xml_data: str):
                     product = service_elem.get('product', '')
                     version = service_elem.get('version', '')
                     tunnel = service_elem.get('tunnel', '')
-                    #extrainfo = service_elem.get('extrainfo', '')
                     port_data['service'] = {
                         'name': service_name,
                         'product': product,
                         'version': version,
                         'tunnel': tunnel,
-                        #'extrainfo': extrainfo, 
                     }
+
+                # Parse all script outputs
+                scripts = {}
+                for script_elem in port.findall('./script'):
+                    script_id = script_elem.get('id')
+                    if not script_id:
+                        continue
+
+                    script_data = {}
+                    for elem in script_elem.findall('./elem'):
+                        key = elem.get('key')
+                        value = elem.text
+                        if key and value:
+                            script_data[key] = value
+
+                    if not script_data and script_elem.get('output'):
+                        scripts[script_id] = script_elem.get('output')
+                    else:
+                        scripts[script_id] = script_data
+
+                if scripts:
+                    port_data['scripts'] = scripts
 
                 # Add port to host data
                 host_data['ports'].append(port_data)
-                # Parse all script outputs
-            scripts = {}
-            for script_elem in port.findall('./script'):
-                script_id = script_elem.get('id')
-                if not script_id:
-                    continue
-
-                script_data = {}
-                for elem in script_elem.findall('./elem'):
-                    key = elem.get('key')
-                    value = elem.text
-                    if key and value:
-                        script_data[key] = value
-
-                # If no structured elements, fall back to raw script output
-                if not script_data and script_elem.get('output'):
-                    scripts[script_id] = script_elem.get('output')
-                else:
-                    scripts[script_id] = script_data
-
-            if scripts:
-                port_data['scripts'] = scripts
 
             # Add host to results
             structured_results['hosts'].append(host_data)

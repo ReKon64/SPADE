@@ -4,17 +4,18 @@ from scanners.scanner import Scanner
 @Scanner.extend
 def enum_smb_get_shares(self):
     """
-    Enumerate SMB shares using nxc.
-    Runs: nxc smb <host> -u ' ' -p ' ' --shares
+    List SMB shares using smbclient.
+    Runs: smbclient -N -L \\host -p port
     Returns:
-        dict: Results of the nxc SMB shares command
+        dict: Results of the smbclient shares command
     """
     host = self.options["current_port"]["host"]
+    port = self.options["current_port"]["port_id"]
     verbosity = self.options.get("realtime", False)
     results = {}
 
     try:
-        cmd = f"nxc smb {host} -u '' -p '' --shares"
+        cmd = f"smbclient -N -L \\\\{host} -p {port}"
         logging.info(f"Executing: {cmd}")
         if verbosity:
             from core.logging import run_and_log

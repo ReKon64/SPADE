@@ -10,12 +10,15 @@ def enum_curl_confirmation(self):
     """
     host = self.options["current_port"]["host"]
     port = self.options["current_port"]["port_id"]
-    protocol = self.options["current_port"].get("protocol", "tcp")
+    port_obj = self.options["current_port"].get("port_obj", {})
+    service = port_obj.get("service", {}) if port_obj else {}
+    tunnel = service.get("tunnel", "")
+    protocol = "https" if tunnel else "http"
     verbosity = self.options.get("realtime", False)
     results = {}
 
-    url = f"http://{host}:{port}/"
-    cmd = f"curl -i --max-time 10 {url}"
+    url = f"{protocol}://{host}:{port}/"
+    cmd = f"curl -i --insecure --max-time 15 {url}"
 
     try:
         logging.info(f"Executing: {cmd}")
@@ -50,12 +53,6 @@ def enum_curl_confirmation(self):
         results["status_line"] = status_line
         results["headers"] = headers
         results["body_snippet"] = "\n".join(body[:10])  # First 10 lines of body
-
-        # Heuristic: Check for "IIS", "Windows", or empty body
-        if ("IIS" in output or "Windows" in output or not "".join(body).strip()):
-            results["likely_fake"] = True
-        else:
-            results["likely_fake"] = False
 
     except Exception as e:
         results["error"] = str(e)

@@ -35,6 +35,6 @@ def run_and_log(cmd, very_verbose=False):
     for line in process.stdout:
         output += line
         if very_verbose:
-            logger.verbose(line.rstrip())
+            logger.realtime(line.rstrip())
     process.wait()
     return output

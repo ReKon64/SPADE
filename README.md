@@ -21,6 +21,7 @@ SPADE is a modular vulnerability scanning framework that leverages external tool
 2. Provide clear documentation for writing scanners and finding returning cleaner
 3. Create the report class
 
+# Add domainname, hostname to head where IP is, argparse
 # HTTP verify plugin (avoid bullshit windows ports)
 # Ferox
 # Fingerprint

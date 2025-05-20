@@ -5,6 +5,8 @@
 # Allow directories containing "results"
 !*/results/
 
+# Nmap XML
+*.xml
 
 ### MANUAL END
 

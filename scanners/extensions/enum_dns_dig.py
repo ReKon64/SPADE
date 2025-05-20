@@ -43,6 +43,8 @@ def enum_dns_dig(self):
     # If RDP NTLM info is present, try to resolve those names.
     # TODO doesn't work yet
     rdp_info = findings.get("rdp-ntlm-info", {})
+
+    logging.debug(f"[*] rdp_info : {rdp_info}")
     logging.debug(f"[*] Will attempt to resolve against {rdp_info}")
     if isinstance(rdp_info, dict):
         names_to_resolve = []

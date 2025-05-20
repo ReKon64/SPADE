@@ -27,6 +27,8 @@ SPADE is a modular vulnerability scanning framework that leverages external tool
 
 # Realtime overwrites DEBUG FUCK
 # Add OS type at the head where hostname etc. lies
+# FIX THREADING IT USES 16 THREADS PER PORT FUCKKK
+# Test SMB crawling
 # Ferox
 # Fingerprint
 # Brute all the things !11!

@@ -28,11 +28,9 @@ def enum_ldap_get_user_desc(self):
 
     # Fallback to host-level ldap_info
     if not domain and "ldap_info" in host_json and isinstance(host_json["ldap_info"], dict):
-        for extrainfo in host_json["ldap_info"].values():
-            m = re.search(r"Domain:\s*([a-zA-Z0-9\.\-_]+)", extrainfo)
-            if m:
-                domain = m.group(1).strip().rstrip(".")
-                break
+        for value in host_json["ldap_info"].values():
+            domain = value.strip().rstrip(".")
+            break
 
     if not domain:
         results["error"] = "Domain name not found in rdp-ntlm-info or ldap_info."

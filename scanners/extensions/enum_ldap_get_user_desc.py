@@ -35,10 +35,8 @@ def enum_ldap_get_user_desc(self):
     #             break
 
     if not domain and "ldap_info" in host_json and isinstance(host_json["ldap_info"], dict):
-        logging.debug(f"[LDAP_USER_DESC] Will use {domain}")
         for value in host_json["ldap_info"].values():
             domain = value.strip().rstrip(".")
-            
             break
 
     if not domain:
@@ -47,6 +45,7 @@ def enum_ldap_get_user_desc(self):
         return {"command": None, "results": results}
 
     # Extract dn parts
+    logging.debug(f"[LDAP_USER_DESC] Will use domain : {domain}")
     dn_parts = [f"dc={part}" for part in domain.split(".") if part]
     base_dn = ",".join(dn_parts)
     logging.debug(f"[LDAP_USER_DESC] base_dn {base_dn}")
@@ -76,6 +75,7 @@ def enum_ldap_get_user_desc(self):
         results["output"] = output_text
         results["domain"] = domain
         results["base_dn"] = base_dn
+        logging.debug(f"[LDAP_USER_DESC] results : {results}")
     except Exception as e:
         results["error"] = str(e)
 

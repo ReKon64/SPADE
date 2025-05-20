@@ -25,6 +25,8 @@ SPADE is a modular vulnerability scanning framework that leverages external tool
 # ?
 # 1. Plugins key -> plugin name -> command -> result 1, result 2 
 
+# Default IIS still gets isreal = false against hutch.offsec : 80
+# Dedupe ldap_info 
 # Realtime overwrites DEBUG FUCK
 # Add OS type at the head where hostname etc. lies
 # FIX THREADING IT USES 16 THREADS PER PORT FUCKKK
@@ -35,5 +37,6 @@ SPADE is a modular vulnerability scanning framework that leverages external tool
 # Credentialed enumeration...
 # Guest enumeration ...
 # If HTTP returns a domain name / vhost , bruteforce
+# Write a github copilot prompt schema on how to write commit msgs
 NMAP -> Results -> NMAP Protocol Specific Scanners (SMB TOO) -> BruteForce -> FeroxBust -> FingerPrint -> Check Exploits -> Build into one "big" NMAP report
 -> Create to do list for the tester -> Add AI fingerprinting magic for git clout

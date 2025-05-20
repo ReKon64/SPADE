@@ -8,20 +8,19 @@ def enum_dns_dig(self):
     Perform DNS queries using dig.
     1. AXFR Zone Transfer
     2. ANY Query
-    3. If RDP NTLM info is present, attempt to resolve those names
+    3. If host-level info is present (domain, computername, hostname, etc.), attempt to resolve those names
 
     Returns:
         dict: Results of DNS queries
     """
     port = self.options["current_port"]["port_id"]
     host = self.options["current_port"]["host"]
-    port_obj = self.options["current_port"].get("port_obj", {})
-    findings = port_obj.get("scripts", {}) if port_obj else {}
+    host_json = self.options["current_port"].get("host_json", {})
 
     results = {
         "axfr": None,
         "any": None,
-        "rdp_ntlm_resolves": {}
+        "resolves": {}
     }
 
     # AXFR Zone Transfer
@@ -40,28 +39,26 @@ def enum_dns_dig(self):
     except Exception as e:
         results["any"] = f"Error: {e}"
 
-    # If RDP NTLM info is present, try to resolve those names.
-    # TODO doesn't work yet
-    rdp_info = findings.get("rdp-ntlm-info", {})
+    # Collect names to resolve from host-level info
+    names_to_resolve = []
+    for key in [
+        "domain", "computername", "hostname",
+        "DNS_Domain_Name", "DNS_Computer_Name", "DNS_Tree_Name",
+        "NetBIOS_Domain_Name", "NetBIOS_Computer_Name", "Target_Name"
+    ]:
+        value = host_json.get(key)
+        if value and value not in names_to_resolve and value != "unknown":
+            names_to_resolve.append(value)
 
-    logging.debug(f"[*] rdp_info : {rdp_info}")
-    logging.debug(f"[*] Will attempt to resolve against {rdp_info}")
-    if isinstance(rdp_info, dict):
-        names_to_resolve = []
-        for key in [
-            "DNS_Domain_Name", "DNS_Computer_Name", "DNS_Tree_Name",
-            "NetBIOS_Domain_Name", "NetBIOS_Computer_Name", "Target_Name"
-        ]:
-            value = rdp_info.get(key)
-            if value and value not in names_to_resolve:
-                names_to_resolve.append(value)
-        for name in names_to_resolve:
-            try:
-                logging.debug(f"[*] Trying to resolve {name}")
-                resolve_cmd = ["dig", name]
-                resolve_result = subprocess.run(resolve_cmd, capture_output=True, text=True, timeout=10)
-                results["rdp_ntlm_resolves"][name] = resolve_result.stdout
-            except Exception as e:
-                results["rdp_ntlm_resolves"][name] = f"Error: {e}"
+    # I'm honestly not sure what I wanted to achieve with writing this.
+    for name in names_to_resolve:
+        try:
+            logging.debug(f"[*] Trying to resolve {name}")
+            resolve_cmd = ["dig", name]
+            resolve_result = subprocess.run(resolve_cmd, capture_output=True, text=True, timeout=10)
+            results["resolves"][name] = resolve_result.stdout
+        except Exception as e:
+            results["resolves"][name] = f"Error: {e}"
+
     logging.debug(f"enum_dns_dig results: {results}")
     return results

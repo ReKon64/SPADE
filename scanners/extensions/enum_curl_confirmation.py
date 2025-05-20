@@ -6,7 +6,7 @@ def enum_curl_confirmation(self):
     """
     Use curl to check if an HTTP port is a real web service or a default Windows/IIS/empty response.
     Returns:
-        dict: Contains HTTP status code, headers, and a snippet of the body.
+        dict: Contains 'isreal', HTTP status code, headers, a snippet of the body, and WinRM heuristic if applicable.
     """
     host = self.options["current_port"]["host"]
     port = self.options["current_port"]["port_id"]
@@ -21,7 +21,6 @@ def enum_curl_confirmation(self):
     cmd = f"curl -i --insecure --max-time 15 {url}"
 
     try:
-        logging.info(f"Executing: {cmd}")
         if verbosity:
             from core.logging import run_and_log
             output = run_and_log(cmd, very_verbose=True)
@@ -54,7 +53,24 @@ def enum_curl_confirmation(self):
         results["headers"] = headers
         results["body_snippet"] = "\n".join(body[:10])  # First 10 lines of body
 
+        # Heuristic for real HTTP service
+        output_lc = output.lower()
+        isreal = True
+        if (
+            "iis" in output_lc or
+            "windows" in output_lc or
+            "not found" in output_lc or
+            not "".join(body).strip()
+        ):
+            isreal = True
+        results = {"isreal": isreal, **results}
+
+        # Special check for WinRM (port 5985)
+        if port == "5985" and not isreal:
+            results["isreal"] = "Heuristic WinRM"
+
     except Exception as e:
+        logging.error(f"[!] Exception occured in enum_curl_confirmation: {e}")
         results["error"] = str(e)
 
     return results

@@ -283,6 +283,7 @@ class Scanner:
                             "service": service_name,
                             "enum_prefix": enum_prefix,
                             "port_obj": port, # Reference to port dict
+                            "host_json": host,
                         }
                         port_service_pairs.append(port_data)
                         logging.debug(f"[*] Will scan with prefix {enum_prefix} on {port_data['host']}:{port_data['port_id']} with {enum_prefix}")
@@ -299,6 +300,7 @@ class Scanner:
         
         # For each port:service pair, run a targeted scan
         with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers or 10) as executor:
+            logging.debug(f"[THREADS] scan_by_port_service using {max_workers or 10} threads for port/service enumeration")
             futures = {}
             for port_data in port_service_pairs:
                 #current_port_data = copy.deepcopy(port_data)
@@ -367,9 +369,10 @@ class Scanner:
         
         # Run each method (could be parallelized further if needed)
         with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers or 5) as executor:
-                futures = {}
-                for method_name in methods:
-                    futures[executor.submit(temp_scanner._reflection_execute_method, method_name)] = method_name
+            logging.debug(f"[THREADS] _scan_individual_port using {max_workers or 5} threads for plugins on {host}:{port_id} ({service})")
+            futures = {}
+            for method_name in methods:
+                futures[executor.submit(temp_scanner._reflection_execute_method, method_name)] = method_name
 
                 for future in concurrent.futures.as_completed(futures):
                     method_name = futures[future]

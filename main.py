@@ -13,11 +13,11 @@ def main():
     group.add_argument("-t", "--target", help="One or more IP / Domain")
     group.add_argument("-x", "--xml-input", help="Path to existing Nmap XML file to use as input (skips scanning and uses this for enumeration)")
 
-    parser.add_argument("-tp", "--tcp_ports", default="-p-", help="Ports to scan. Passed directly to nmap. Default -p-")
-    parser.add_argument("-up", "--udp_ports", default="--top-ports=100", help="WIP")
+    parser.add_argument("-tp", "--tcp-ports", default="-p-", help="Ports to scan. Passed directly to nmap. Default -p-")
+    parser.add_argument("-up", "--udp-ports", default="--top-ports=100", help="WIP")
 
-    parser.add_argument('-at', "--tcp_options", help="Additional flags to inject into the TCP nmap command")
-    parser.add_argument('-au', "--udp_options", help="Additional flags to inject into the UDP nmap command")
+    parser.add_argument('-at', "--tcp-options", help="Additional flags to inject into the TCP nmap command")
+    parser.add_argument('-au', "--udp-options", help="Additional flags to inject into the UDP nmap command")
 
     parser.add_argument("-T", "--threads", default=16, help="Number of threads scanner will use. I suggest 64")
     
@@ -27,8 +27,17 @@ def main():
 
     parser.add_argument("-o", "--output", help="Output directory for reports and payloads. Defaults to CWD")
     
+    parser.add_argument("--ferox-wordlists", nargs="+", help="One or more wordlists to use for feroxbuster (space separated not quoted).")
+
     args = parser.parse_args()
 
+    # Idiot-proof ferox_wordlists: split if user quoted the list
+    if args.ferox_wordlists and len(args.ferox_wordlists) == 1 and " " in args.ferox_wordlists[0]:
+        logging.warning(
+            "[!] You provided --ferox-wordlists as a quoted string. "
+            "Splitting into multiple wordlists. Next time, do NOT quote the list!"
+        )
+        args.ferox_wordlists = args.ferox_wordlists[0].split()
 
     # Configure logging
     if args.memory:
@@ -71,6 +80,7 @@ def main():
         'udp_ports': args.udp_ports,
         'tcp_options': args.tcp_options,
         'udp_options': args.udp_options,
+        'ferox_wordlists': args.ferox_wordlists,
     }
 
     # Load all scanner extensions

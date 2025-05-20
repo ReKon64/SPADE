@@ -21,12 +21,13 @@ SPADE is a modular vulnerability scanning framework that leverages external tool
 2. Provide clear documentation for writing scanners and finding returning cleaner
 3. Create the report class
 
-# Add domainname, hostname to head where IP is, argparse
-# HTTP verify plugin (avoid bullshit windows ports)
+# Establish a uniform schema for plugin results
+# Add OS type at the head where hostname etc. lies
 # Ferox
 # Fingerprint
 # Brute all the things !11!
 # Credentialed enumeration...
 # Guest enumeration ...
+# If HTTP returns a domain name / vhost , bruteforce
 NMAP -> Results -> NMAP Protocol Specific Scanners (SMB TOO) -> BruteForce -> FeroxBust -> FingerPrint -> Check Exploits -> Build into one "big" NMAP report
 -> Create to do list for the tester -> Add AI fingerprinting magic for git clout

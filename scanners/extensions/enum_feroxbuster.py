@@ -6,9 +6,8 @@ def enum_feroxbuster(self):
     """
     Run feroxbuster against the current HTTP(S) port using one or more wordlists.
     Returns:
-        dict: Results of the feroxbuster scan (output file paths and summaries for each wordlist).
+        dict: { "cmd": [list of commands], "results": { ... } }
     """
-    import tempfile
 
     port_obj = self.options["current_port"].get("port_obj", {})
     plugins = port_obj.get("plugins", {})
@@ -30,6 +29,7 @@ def enum_feroxbuster(self):
         "/usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-files.txt"
     ]
     results = {}
+    cmds = []
 
     for wordlist in wordlists:
         with tempfile.NamedTemporaryFile(delete=False, suffix='.ferox') as tmp_file:
@@ -39,6 +39,7 @@ def enum_feroxbuster(self):
             f"feroxbuster --url {url} --extract-links -B --auto-tune "
             f"-w {wordlist} --threads 32 --insecure -o {output_path} -C 404 --scan-dir-listings"
         )
+        cmds.append(cmd)
         logging.info(f"[*] Executing: {cmd}")
 
         try:
@@ -72,4 +73,4 @@ def enum_feroxbuster(self):
             logging.error(f"[!] Error during enum_feroxbuster scan against {host} with {wordlist}: {e}")
             results[wordlist] = {"error": str(e)}
 
-    return results
+    return {"cmd": cmds, "results": results}

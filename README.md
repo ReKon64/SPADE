@@ -25,13 +25,10 @@ SPADE is a modular vulnerability scanning framework that leverages external tool
 # ?
 # 1. Plugins key -> plugin name -> command -> result 1, result 2 
 
-# Default IIS still gets isreal = false against hutch.offsec : 80
-# Dedupe ldap_info 
-# Realtime overwrites DEBUG FUCK
+# Dedupe ldap_info (???)
 # Add OS type at the head where hostname etc. lies
 # FIX THREADING IT USES 16 THREADS PER PORT FUCKKK
 # Test SMB crawling
-# Ferox
 # Fingerprint
 # Brute all the things !11!
 # Credentialed enumeration...

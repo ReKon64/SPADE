@@ -43,7 +43,9 @@ def main():
     if args.memory:
         from core.logging import MemoryUsageFormatter
         format = '%(asctime)s - %(levelname)s - [MEM: %(memory_usage)s] - %(message)s'
-        if args.realtime:
+        if args.realtime and args.verbose:
+            log_level = min(logging.DEBUG, 15)  # 10
+        elif args.realtime:
             log_level = 15
         elif args.verbose:
             log_level = logging.DEBUG
@@ -61,7 +63,9 @@ def main():
         root_logger.addHandler(handler)
     else:
         format = '%(asctime)s - %(levelname)s - %(message)s'
-        if args.realtime:
+        if args.realtime and args.verbose:
+            log_level = min(logging.DEBUG, 15)  # 10
+        elif args.realtime:
             log_level = 15
         elif args.verbose:
             log_level = logging.DEBUG

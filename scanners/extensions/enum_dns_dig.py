@@ -11,7 +11,7 @@ def enum_dns_dig(self):
     3. If host-level info is present (domain, computername, hostname, etc.), attempt to resolve those names
 
     Returns:
-        dict: Results of DNS queries
+        dict: { "cmd": [list of commands], "results": { ... } }
     """
     port = self.options["current_port"]["port_id"]
     host = self.options["current_port"]["host"]
@@ -22,10 +22,12 @@ def enum_dns_dig(self):
         "any": None,
         "resolves": {}
     }
+    cmds = []
 
     # AXFR Zone Transfer
     try:
         axfr_cmd = ["dig", "@"+host, "axfr"]
+        cmds.append(" ".join(axfr_cmd))
         axfr_result = subprocess.run(axfr_cmd, capture_output=True, text=True, timeout=10)
         results["axfr"] = axfr_result.stdout
     except Exception as e:
@@ -34,6 +36,7 @@ def enum_dns_dig(self):
     # ANY Query
     try:
         any_cmd = ["dig", host, "any"]
+        cmds.append(" ".join(any_cmd))
         any_result = subprocess.run(any_cmd, capture_output=True, text=True, timeout=10)
         results["any"] = any_result.stdout
     except Exception as e:
@@ -55,10 +58,11 @@ def enum_dns_dig(self):
         try:
             logging.debug(f"[*] Trying to resolve {name}")
             resolve_cmd = ["dig", name]
+            cmds.append(" ".join(resolve_cmd))
             resolve_result = subprocess.run(resolve_cmd, capture_output=True, text=True, timeout=10)
             results["resolves"][name] = resolve_result.stdout
         except Exception as e:
             results["resolves"][name] = f"Error: {e}"
 
     logging.debug(f"enum_dns_dig results: {results}")
-    return results
+    return {"cmd": cmds, "results": results}

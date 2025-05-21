@@ -8,7 +8,7 @@ def enum_http_whatweb(self):
     Run WhatWeb against the current host/port and return parsed results.
     Only runs if the port's plugins['enum_curl_confirmation']['isreal'] is True.
     Returns:
-        dict: Results of the WhatWeb scan (parsed JSON if possible, else error or output path).
+        dict: { "cmd": ..., "results": ... }
     """
     import tempfile
     import json
@@ -50,8 +50,8 @@ def enum_http_whatweb(self):
 
         with open(output_path, "r") as f:
             whatweb_data = json.load(f)
-        return whatweb_data
+        return {"cmd": cmd, "results": whatweb_data}
 
     except Exception as e:
         logging.error(f"[enum_http_whatweb] Error during WhatWeb scan: {e}")
-        return {"error": str(e)}
+        return {"cmd": cmd, "error": str(e)}

@@ -7,7 +7,7 @@ from scanners.scanner import Scanner
 def scan_tcp_scan(self):
     """
     Perform a TCP network scan using nmap.
-    
+    Currently parser appends the CMD
     Returns:
         str: Path to XML output file
     """

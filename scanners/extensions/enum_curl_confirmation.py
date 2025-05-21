@@ -54,15 +54,10 @@ def enum_curl_confirmation(self):
         results["body_snippet"] = "\n".join(body[:10])  # First 10 lines of body
 
         # Heuristic for real HTTP service
-        output_lc = output.lower()
         isreal = True
-        if (
-            "iis" in output_lc or
-            "windows" in output_lc or
-            "not found" in output_lc or
-            not "".join(body).strip()
-        ):
-            isreal = True
+        # Only flag as not real if output is empty (likely a timeout)
+        if not output.strip():
+            isreal = False
         results = {"isreal": isreal, **results}
 
         # Special check for WinRM (port 5985)

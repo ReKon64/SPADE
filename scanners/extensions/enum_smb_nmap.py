@@ -27,7 +27,6 @@ def enum_smb_nmap(self):
     script_arg = "--script=" + ",".join(smb_scripts)
     cmd = f"nmap -p {port} {script_arg} -Pn -vv -n -oX {xml_output_path} {host}"
 
-    #very_verbose = getattr(self.options, "very_verbose", False) or self.options.get("very_verbose", False)
     try:
         logging.info(f"Executing SMB Nmap scripts: {cmd}")
         run_and_log(cmd, very_verbose=verbosity)
@@ -46,7 +45,7 @@ def enum_smb_nmap(self):
         except Exception as e:
             logging.error(f"Failed to delete file {xml_output_path}: {e}")
 
-    return parsed
+    return {"cmd": cmd, "results": parsed}
 
 def _parse_smb_nmap_xml(xml_data):
     """

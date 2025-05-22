@@ -254,12 +254,13 @@ class Scanner:
         # Define a map of service names to their enum prefixes
         service_prefix_map = {
             re.compile(r"^ftp$"):      "enum_ftp",
-            re.compile(r"^http.*"):     "enum_http",
+            re.compile(r"^http.*"):    "enum_http",
             re.compile(r"^(smb|netbios)"): "enum_smb",
             re.compile(r"^ssh$"):      "enum_ssh",
             re.compile(r"^(rpc|msrpc)"):   "enum_rpc",
             re.compile(r"^(dns|domain)$"): "enum_dns",
             re.compile(r"ldap") : "enum_ldap",
+            re.compile(r".*"):         "enum_generic",
         }
         
         # Track services that need to be enumerated

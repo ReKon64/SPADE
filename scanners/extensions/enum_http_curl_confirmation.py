@@ -6,7 +6,7 @@ def enum_http_curl_confirmation(self):
     """
     Use curl to check if an HTTP port is a real web service or a default Windows/IIS/empty response.
     Returns:
-        dict: Contains 'isreal', HTTP status code, headers, a snippet of the body, and WinRM heuristic if applicable.
+        dict: Contains 'cmd' and 'results' keys. 'results' contains 'isreal', HTTP status code, headers, a snippet of the body, and WinRM heuristic if applicable.
     """
     host = self.options["current_port"]["host"]
     port = self.options["current_port"]["port_id"]
@@ -32,7 +32,7 @@ def enum_http_curl_confirmation(self):
                 text=True,
                 timeout=15
             ).stdout
-    
+
         # Parse HTTP status and headers
         lines = output.splitlines()
         status_line = next((line for line in lines if line.startswith("HTTP/")), "")
@@ -58,7 +58,7 @@ def enum_http_curl_confirmation(self):
         # Only flag as not real if output is empty (likely a timeout)
         if not output.strip():
             isreal = False
-        results = {"isreal": isreal, **results}
+        results["isreal"] = isreal
 
         # Special check for WinRM (port 5985)
         if port == "5985" and not isreal:
@@ -67,5 +67,6 @@ def enum_http_curl_confirmation(self):
     except Exception as e:
         logging.error(f"[!] Exception occured in enum_curl_confirmation: {e}")
         results["error"] = str(e)
+        results["isreal"] = False
 
-    return results
+    return {"cmd": cmd, "results": results}

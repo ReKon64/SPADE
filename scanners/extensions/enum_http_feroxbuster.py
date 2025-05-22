@@ -1,10 +1,12 @@
 from core.imports import *
 from scanners.scanner import Scanner
+import tempfile
 
 @Scanner.extend
 def enum_http_feroxbuster(self):
     """
     Run feroxbuster against the current HTTP(S) port using one or more wordlists.
+    Adds -x php for Apache, -x asp,x for Windows IIS.
     Returns:
         dict: { "cmd": [list of commands], "results": { ... } }
     """
@@ -13,6 +15,7 @@ def enum_http_feroxbuster(self):
     plugins = port_obj.get("plugins", {})
     curl_result = plugins.get("enum_curl_confirmation", {})
     if not (isinstance(curl_result, dict) and curl_result.get("isreal") is True):
+        logging.debug(f"[enum_http_feroxbuster] Checked {curl_result} for isreal")
         return {"skipped": "Not a real HTTP(S) service (isreal != True)"}
 
     host = self.options["current_port"]["host"]
@@ -23,6 +26,14 @@ def enum_http_feroxbuster(self):
     verbosity = self.options.get("realtime", False)
 
     url = f"{protocol}://{host}:{port}"
+
+    # Detect product for extension guessing
+    product = port_obj.get("product", "").lower()
+    ferox_ext = ""
+    if "apache" in product:
+        ferox_ext = "-x php"
+    elif "iis" in product or "windows" in product:
+        ferox_ext = "-x asp,aspx"
 
     # Support multiple wordlists
     wordlists = self.options.get("ferox_wordlists") or [
@@ -37,8 +48,8 @@ def enum_http_feroxbuster(self):
 
         cmd = (
             f"feroxbuster --url {url} --extract-links -B --auto-tune "
-            f"-w {wordlist} --threads 32 --insecure -o {output_path} -C 404 --scan-dir-listings"
-        )
+            f"-w {wordlist} --threads 32 --insecure -o {output_path} -C 404 --scan-dir-listings {ferox_ext}"
+        ).strip()
         cmds.append(cmd)
         logging.info(f"[*] Executing: {cmd}")
 

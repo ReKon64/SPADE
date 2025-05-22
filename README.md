@@ -27,6 +27,7 @@ SPADE is a modular vulnerability scanning framework that leverages external tool
 
 # Dedupe ldap_info (???)
 # Add OS type at the head where hostname etc. lies
+# Create plugin execution order mechanism. Maybe a config file even
 # FIX THREADING IT USES 16 THREADS PER PORT FUCKKK
 # Test SMB crawling
 # Fingerprint

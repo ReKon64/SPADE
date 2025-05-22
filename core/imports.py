@@ -15,3 +15,6 @@ from sys import getsizeof
 import copy
 import re
 import psutil
+import requests
+from bs4 import BeautifulSoup
+import urllib.parse

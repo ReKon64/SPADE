@@ -2,7 +2,7 @@ from core.imports import *
 from scanners.scanner import Scanner
 
 @Scanner.extend
-def enum_curl_confirmation(self):
+def enum_http_curl_confirmation(self):
     """
     Use curl to check if an HTTP port is a real web service or a default Windows/IIS/empty response.
     Returns:
@@ -19,7 +19,7 @@ def enum_curl_confirmation(self):
 
     url = f"{protocol}://{host}:{port}/"
     cmd = f"curl -i --insecure --max-time 15 {url}"
-
+    logging.info(f"[enum_curl_confirm] Using: {cmd}")
     try:
         if verbosity:
             from core.logging import run_and_log
@@ -32,7 +32,7 @@ def enum_curl_confirmation(self):
                 text=True,
                 timeout=15
             ).stdout
-
+    
         # Parse HTTP status and headers
         lines = output.splitlines()
         status_line = next((line for line in lines if line.startswith("HTTP/")), "")

@@ -2,7 +2,7 @@ from core.imports import *
 from scanners.scanner import Scanner
 
 @Scanner.extend
-def enum_feroxbuster(self):
+def enum_http_feroxbuster(self):
     """
     Run feroxbuster against the current HTTP(S) port using one or more wordlists.
     Returns:

@@ -2,7 +2,7 @@
 # from scanners.scanner import Scanner
 
 # @Scanner.extend
-# def enum_rpc_rpcclient(self):
+# def enum_rpc_rpcclient(self, plugin_results=None):
 #     """
 #     Enumerate RPC info using rpcclient with a null session.
 #     Attempts:
@@ -14,6 +14,8 @@
 #     Returns:
 #         dict: { "cmd": [list of commands], "results": { ... } }
 #     """
+#    if plugin_results is None:
+#       plugin_results = {}
 #     host = self.options["current_port"]["host"]
 #     port = self.options["current_port"]["port_id"]
 #     results = {}

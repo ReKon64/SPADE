@@ -2,12 +2,14 @@ from core.imports import *
 from scanners.scanner import Scanner
 
 @Scanner.extend
-def enum_http_curl_confirmation(self):
+def enum_http_curl_confirmation(self, plugin_results=None):
     """
     Use curl to check if an HTTP port is a real web service or a default Windows/IIS/empty response.
     Returns:
         dict: Contains 'cmd' and 'results' keys. 'results' contains 'isreal', HTTP status code, headers, a snippet of the body, and WinRM heuristic if applicable.
     """
+    if plugin_results is None:
+        plugin_results = {}
     host = self.options["current_port"]["host"]
     port = self.options["current_port"]["port_id"]
     port_obj = self.options["current_port"].get("port_obj", {})

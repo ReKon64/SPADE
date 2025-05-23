@@ -6,7 +6,7 @@ from scanners.scanner import Scanner
 def enum_http_whatweb(self, plugin_results=None):
     """
     Run WhatWeb against the current host/port and return parsed results.
-    Only runs if the port's plugins['enum_curl_confirmation']['isreal'] is True.
+    Only runs if the port's plugins['enum_http_curl_confirmation']['isreal'] is True.
     Returns:
         dict: { "cmd": ..., "results": ... }
     """

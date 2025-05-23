@@ -2,13 +2,15 @@ from core.imports import *
 from scanners.scanner import Scanner
 
 @Scanner.extend
-def enum_generic_product_search(self):
+def enum_generic_product_search(self, plugin_results=None):
     """
     For each port, grab the product name and run searchsploit, GitHub, and Google searches.
     Uses only the product name and the first major.minor version (e.g., Apache 2.14 from Apache 2.14.2.2).
     Returns:
         dict: { "cmd": [], "results": {product, version, search_version, searchsploit, github, google} }
     """
+    if plugin_results is None:
+        plugin_results = {}
     port_obj = self.options["current_port"].get("port_obj", {})
     product = port_obj.get("product")
     version = port_obj.get("version", "")

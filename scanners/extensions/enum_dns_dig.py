@@ -3,7 +3,7 @@ from core.imports import *
 from scanners.scanner import Scanner
 
 @Scanner.extend
-def enum_dns_dig(self):
+def enum_dns_dig(self, plugin_results=None):
     """
     Perform DNS queries using dig.
     1. AXFR Zone Transfer
@@ -13,6 +13,9 @@ def enum_dns_dig(self):
     Returns:
         dict: { "cmd": [list of commands], "results": { ... } }
     """
+    if plugin_results is None:
+        plugin_results = {}
+        
     port = self.options["current_port"]["port_id"]
     host = self.options["current_port"]["host"]
     host_json = self.options["current_port"].get("host_json", {})

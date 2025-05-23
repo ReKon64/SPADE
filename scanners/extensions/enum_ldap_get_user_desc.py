@@ -3,13 +3,15 @@ from scanners.scanner import Scanner
 import re
 
 @Scanner.extend
-def enum_ldap_get_user_desc(self):
+def enum_ldap_get_user_desc(self, plugin_results=None):
     """
     Enumerate LDAP user descriptions using ldapsearch.
     Uses rdp-ntlm-info:DNS_Tree_Name or host-level ldap_info as the domain if available.
     Returns:
         dict: { "command": ..., "results": ... }
     """
+    if plugin_results is None:
+        plugin_results = {}
     host = self.options["current_port"]["host"]
     port = self.options["current_port"]["port_id"]
     verbosity = self.options.get("realtime", False)

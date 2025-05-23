@@ -4,12 +4,16 @@ import ftplib
 import os
 
 @Scanner.extend
-def enum_ftp_gather(self):
+def enum_ftp_gather(self,  plugin_results=None):
     """
     Attempts anonymous FTP login, recursively lists all files/dirs, and downloads all files to a temp dir in /tmp.
     Returns:
         dict: { "cmd": [actions], "results": { ... } }
     """
+
+    if plugin_results is None:
+        plugin_results = {}
+        
     host = self.options["current_port"]["host"]
     port = int(self.options["current_port"]["port_id"])
     # Create a unique temp directory in /tmp for this session

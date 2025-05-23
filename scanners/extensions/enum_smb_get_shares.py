@@ -3,12 +3,14 @@ from scanners.scanner import Scanner
 import re
 
 @Scanner.extend
-def enum_smb_get_shares(self):
+def enum_smb_get_shares(self, plugin_results=None):
     """
     List SMB shares using smbclient, then recursively enumerate contents and check read/write privileges.
     Returns:
         dict: Results of the smbclient shares command and per-share content/privileges.
     """
+    if plugin_results is None:
+        plugin_results = {}
     host = self.options["current_port"]["host"]
     port = self.options["current_port"]["port_id"]
     verbosity = self.options.get("realtime", False)

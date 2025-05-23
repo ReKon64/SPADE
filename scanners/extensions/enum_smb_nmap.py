@@ -3,7 +3,11 @@ from core.logging import *
 from scanners.scanner import Scanner
 
 @Scanner.extend
-def enum_smb_nmap(self):
+def enum_smb_nmap(self, plugin_results=None):
+    
+    if plugin_results is None:
+        plugin_results = {}
+        
     host = self.options["current_port"]["host"]
     port = self.options["current_port"]["port_id"]
     verbosity = self.options["realtime"]

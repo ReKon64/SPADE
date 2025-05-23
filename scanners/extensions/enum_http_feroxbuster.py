@@ -14,7 +14,11 @@ def enum_http_feroxbuster(self):
     port_obj = self.options["current_port"].get("port_obj", {})
     plugins = port_obj.get("plugins", {})
     curl_result = plugins.get("enum_curl_confirmation", {})
-    if not (isinstance(curl_result, dict) and curl_result.get("isreal") is True):
+    isreal = False
+    if isinstance(curl_result, dict):
+        if isinstance(curl_result.get("results"), dict):
+            isreal = curl_result["results"].get("isreal") is True
+    if not isreal:
         logging.debug(f"[enum_http_feroxbuster] Checked enum_curl_confirmation {curl_result} for isreal")
         return {"skipped": "Not a real HTTP(S) service (isreal != True)"}
 
@@ -51,7 +55,7 @@ def enum_http_feroxbuster(self):
             f"-w {wordlist} --threads 32 --insecure -o {output_path} -C 404 --scan-dir-listings {ferox_ext}"
         ).strip()
         cmds.append(cmd)
-        logging.info(f"[*] Executing: {cmd}")
+        logging.info(f"[enum_http_feroxbuster] Executing: {cmd}")
 
         try:
             if verbosity:

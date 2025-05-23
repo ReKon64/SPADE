@@ -25,6 +25,7 @@ SPADE is a modular vulnerability scanning framework that leverages external tool
 # ?
 # 1. Plugins key -> plugin name -> command -> result 1, result 2 
 
+# Maybe use topology for everything? Would solve the issue of udp blocking tcp
 # Generic product is broken
 # Add OS type at the head where hostname etc. lies
 # Create plugin execution order mechanism. Maybe a config file even

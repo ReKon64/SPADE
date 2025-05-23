@@ -15,8 +15,12 @@ def enum_http_whatweb(self):
     # Check if curl confirmation plugin ran and isreal is True
     plugins = port_obj.get("plugins", {})
     curl_result = plugins.get("enum_curl_confirmation", {})
-    if not (isinstance(curl_result, dict) and curl_result.get("isreal") is True):
-        logging.debug(f"[enum_http_feroxbuster] Checked {curl_result} for isreal")
+    isreal = False
+    if isinstance(curl_result, dict):
+        if isinstance(curl_result.get("results"), dict):
+            isreal = curl_result["results"].get("isreal") is True
+    if not isreal:
+        logging.debug(f"[enum_http_whatweb] Checked {curl_result} for isreal")
         return {"skipped": "Not a real HTTP(S) service (isreal != True)"}
 
     host = self.options["current_port"]["host"]

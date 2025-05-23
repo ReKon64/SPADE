@@ -10,7 +10,6 @@ def enum_http_feroxbuster(self):
     Returns:
         dict: { "cmd": [list of commands], "results": { ... } }
     """
-    enum_http_feroxbuster.depends_on = ["enum_http_curl_confirmation"]
 
     port_obj = self.options["current_port"].get("port_obj", {})
     plugins = port_obj.get("plugins", {})
@@ -86,3 +85,4 @@ def enum_http_feroxbuster(self):
             results[wordlist] = {"error": str(e)}
 
     return {"cmd": cmds, "results": results}
+enum_http_feroxbuster.depends_on = ["enum_http_curl_confirmation"]

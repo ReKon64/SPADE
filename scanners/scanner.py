@@ -417,6 +417,7 @@ class Scanner:
         for method in methods:
             func = getattr(temp_scanner, method)
             deps = getattr(func, "depends_on", [])
+            logging.debug(f"[PLUGIN DEP GRAPH] Logging deps : {deps}")
             graph[method] = deps
         logging.debug(f"[PLUGIN DEP GRAPH] Built dependency graph: {graph}")
         return graph

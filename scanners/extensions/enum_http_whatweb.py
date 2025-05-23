@@ -10,7 +10,6 @@ def enum_http_whatweb(self):
     Returns:
         dict: { "cmd": ..., "results": ... }
     """
-    enum_http_whatweb.depends_on = ["enum_http_curl_confirmation"]
 
     port_obj = self.options["current_port"].get("port_obj", {})
     # Check if curl confirmation plugin ran and isreal is True
@@ -55,3 +54,5 @@ def enum_http_whatweb(self):
     except Exception as e:
         logging.error(f"[enum_http_whatweb] Error during WhatWeb scan: {e}")
         return {"cmd": cmd, "error": str(e)}
+
+enum_http_whatweb.depends_on = ["enum_http_curl_confirmation"]

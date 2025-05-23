@@ -1,6 +1,8 @@
 # SPADE Plugin Development Guide
 
-This guide explains how to write robust, dependency-aware plugins for SPADE, using the `enum_http_whatweb` plugin as a template. It covers plugin structure, best practices, and the rationale behind key design decisions — especially the use of `plugin_results` vs `port_obj["plugins"]`.
+This guide explains how to write robust, dependency-aware plugins for SPADE, using the `enum_http_whatweb` plugin as a template. 
+
+It covers plugin structure, best practices, and the rationale behind key design decisions; especially the use of `plugin_results` vs `port_obj["plugins"]`.
 
 ---
 

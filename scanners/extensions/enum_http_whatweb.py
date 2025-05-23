@@ -10,8 +10,7 @@ def enum_http_whatweb(self):
     Returns:
         dict: { "cmd": ..., "results": ... }
     """
-    import tempfile
-    import json
+    enum_http_whatweb.depends_on = ["enum_http_curl_confirmation"]
 
     port_obj = self.options["current_port"].get("port_obj", {})
     # Check if curl confirmation plugin ran and isreal is True

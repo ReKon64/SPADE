@@ -344,34 +344,15 @@ class Scanner:
             dict: Results from the scan
         """
         enum_prefix = port_data["enum_prefix"]
-        host = port_data["host"]
-        port_id = port_data["port_id"]
-        service = port_data["service"]
-
-        logging.info(f"[+] Scanning {service} on {host}:{port_id} with prefix {enum_prefix}")
-
-        # Create a temporary Scanner instance with the specific port options
         temp_scanner = Scanner(options)
-
-        # Get all methods with the specified enum prefix
         methods = [
             method for method in dir(temp_scanner)
             if method.startswith(enum_prefix) and callable(getattr(temp_scanner, method))
         ]
-
         if not methods:
             logging.warning(f"No methods found with prefix {enum_prefix}")
             return {}
-
-        logging.debug(f"Found methods for {enum_prefix}: {methods}")
-
-        plugin_results = {}
-
-        # Run each method, respecting dependencies
-        for method_name in methods:
-            self._run_plugin_with_deps(method_name, temp_scanner, plugin_results)
-
-        return plugin_results
+        return self._execute_plugins_with_scheduler(temp_scanner, methods, max_workers=max_workers)
 
     @classmethod
     def extend(cls, func):
@@ -397,3 +378,67 @@ class Scanner:
         # Now run the plugin itself
         if plugin_name not in plugin_results:
             plugin_results[plugin_name] = plugin_func()
+
+    def _execute_plugins_with_scheduler(self, temp_scanner, methods, max_workers=None):
+        import concurrent.futures
+        graph = self._build_plugin_dependency_graph(temp_scanner, methods)
+        # Reverse graph for dependents
+        dependents = {k: set() for k in graph}
+        for k, deps in graph.items():
+            for dep in deps:
+                dependents.setdefault(dep, set()).add(k)
+        # Track completed plugins
+        completed = set()
+        results = {}
+        # Plugins with no dependencies
+        ready = [m for m in methods if not graph[m]]
+
+        with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers or 4) as executor:
+            futures = {}
+            while ready or futures:
+                # Submit all ready plugins
+                for plugin in ready:
+                    futures[executor.submit(getattr(temp_scanner, plugin))] = plugin
+                ready = []
+                # Wait for any to finish
+                for future in concurrent.futures.as_completed(futures):
+                    plugin = futures.pop(future)
+                    results[plugin] = future.result()
+                    completed.add(plugin)
+                    # Check dependents
+                    for dep in dependents.get(plugin, []):
+                        if all(d in completed for d in graph[dep]) and dep not in completed and dep not in ready:
+                            ready.append(dep)
+                    break  # Only process one at a time to allow new ready plugins
+        return results
+
+    def _build_plugin_dependency_graph(self, temp_scanner, methods):
+        graph = {}
+        for method in methods:
+            func = getattr(temp_scanner, method)
+            deps = getattr(func, "depends_on", [])
+            graph[method] = deps
+        return graph
+
+    def _topo_sort_plugins(self, graph):
+        from collections import deque, defaultdict
+
+        in_degree = defaultdict(int)
+        for node, deps in graph.items():
+            for dep in deps:
+                in_degree[node] += 1
+
+        queue = deque([node for node in graph if in_degree[node] == 0])
+        sorted_plugins = []
+
+        while queue:
+            node = queue.popleft()
+            sorted_plugins.append(node)
+            for n, deps in graph.items():
+                if node in deps:
+                    in_degree[n] -= 1
+                    if in_degree[n] == 0:
+                        queue.append(n)
+        if len(sorted_plugins) != len(graph):
+            raise Exception("Cycle detected in plugin dependencies!")
+        return sorted_plugins

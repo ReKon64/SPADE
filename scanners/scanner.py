@@ -418,6 +418,7 @@ class Scanner:
             func = getattr(temp_scanner, method)
             deps = getattr(func, "depends_on", [])
             graph[method] = deps
+        logging.debug(f"[PLUGIN DEP GRAPH] Built dependency graph: {graph}")
         return graph
 
     def _topo_sort_plugins(self, graph):
@@ -426,19 +427,21 @@ class Scanner:
         in_degree = defaultdict(int)
         for node, deps in graph.items():
             for dep in deps:
-                in_degree[node] += 1
+                in_degree[dep] += 1  # increment in-degree for dependency
 
+        # Nodes with no dependencies (in-degree 0)
         queue = deque([node for node in graph if in_degree[node] == 0])
         sorted_plugins = []
 
         while queue:
             node = queue.popleft()
             sorted_plugins.append(node)
-            for n, deps in graph.items():
-                if node in deps:
-                    in_degree[n] -= 1
-                    if in_degree[n] == 0:
-                        queue.append(n)
+            for dependent in graph:
+                if node in graph[dependent]:
+                    in_degree[dependent] -= 1
+                    if in_degree[dependent] == 0:
+                        queue.append(dependent)
+
         if len(sorted_plugins) != len(graph):
             raise Exception("Cycle detected in plugin dependencies!")
         return sorted_plugins

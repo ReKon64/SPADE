@@ -3,18 +3,18 @@ from core.imports import *
 from scanners.scanner import Scanner
 
 @Scanner.extend
-def enum_http_whatweb(self):
+def enum_http_whatweb(self, plugin_results=None):
     """
     Run WhatWeb against the current host/port and return parsed results.
     Only runs if the port's plugins['enum_curl_confirmation']['isreal'] is True.
     Returns:
         dict: { "cmd": ..., "results": ... }
     """
+    if plugin_results is None:
+        plugin_results = {}
 
     port_obj = self.options["current_port"].get("port_obj", {})
-    # Check if curl confirmation plugin ran and isreal is True
-    plugins = port_obj.get("plugins", {})
-    curl_result = plugins.get("enum_curl_confirmation", {})
+    curl_result = plugin_results.get("enum_http_curl_confirmation", {})
     isreal = False
     if isinstance(curl_result, dict):
         if isinstance(curl_result.get("results"), dict):

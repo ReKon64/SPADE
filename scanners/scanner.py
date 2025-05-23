@@ -382,34 +382,32 @@ class Scanner:
     def _execute_plugins_with_scheduler(self, temp_scanner, methods, max_workers=None):
         import concurrent.futures
         graph = self._build_plugin_dependency_graph(temp_scanner, methods)
-        # Reverse graph for dependents
         dependents = {k: set() for k in graph}
         for k, deps in graph.items():
             for dep in deps:
                 dependents.setdefault(dep, set()).add(k)
-        # Track completed plugins
         completed = set()
         results = {}
-        # Plugins with no dependencies
+        plugin_results = {}  # <-- In-memory results dict
         ready = [m for m in methods if not graph[m]]
 
         with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers or 4) as executor:
             futures = {}
             while ready or futures:
-                # Submit all ready plugins
                 for plugin in ready:
-                    futures[executor.submit(getattr(temp_scanner, plugin))] = plugin
+                    # Pass plugin_results to each plugin
+                    futures[executor.submit(getattr(temp_scanner, plugin), plugin_results)] = plugin
                 ready = []
-                # Wait for any to finish
                 for future in concurrent.futures.as_completed(futures):
                     plugin = futures.pop(future)
-                    results[plugin] = future.result()
+                    result = future.result()
+                    results[plugin] = result
+                    plugin_results[plugin] = result  # <-- Store result in-memory
                     completed.add(plugin)
-                    # Check dependents
                     for dep in dependents.get(plugin, []):
                         if all(d in completed for d in graph[dep]) and dep not in completed and dep not in ready:
                             ready.append(dep)
-                    break  # Only process one at a time to allow new ready plugins
+                    break
         return results
 
     def _build_plugin_dependency_graph(self, temp_scanner, methods):
@@ -417,7 +415,6 @@ class Scanner:
         for method in methods:
             func = getattr(temp_scanner, method)
             deps = getattr(func, "depends_on", [])
-            logging.debug(f"[PLUGIN DEP GRAPH] Logging deps : {deps}")
             graph[method] = deps
         logging.debug(f"[PLUGIN DEP GRAPH] Built dependency graph: {graph}")
         return graph

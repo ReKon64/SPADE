@@ -3,23 +3,24 @@ from scanners.scanner import Scanner
 import tempfile
 
 @Scanner.extend
-def enum_http_feroxbuster(self):
+def enum_http_feroxbuster(self, plugin_results=None):
     """
     Run feroxbuster against the current HTTP(S) port using one or more wordlists.
     Adds -x php for Apache, -x asp,x for Windows IIS.
     Returns:
         dict: { "cmd": [list of commands], "results": { ... } }
     """
+    if plugin_results is None:
+        plugin_results = {}
 
     port_obj = self.options["current_port"].get("port_obj", {})
-    plugins = port_obj.get("plugins", {})
-    curl_result = plugins.get("enum_curl_confirmation", {})
+    curl_result = plugin_results.get("enum_http_curl_confirmation", {})
     isreal = False
     if isinstance(curl_result, dict):
         if isinstance(curl_result.get("results"), dict):
             isreal = curl_result["results"].get("isreal") is True
     if not isreal:
-        logging.debug(f"[enum_http_feroxbuster] Checked enum_curl_confirmation {curl_result} for isreal")
+        logging.debug(f"[enum_http_feroxbuster] Checked enum_http_curl_confirmation {curl_result} for isreal")
         return {"skipped": "Not a real HTTP(S) service (isreal != True)"}
 
     host = self.options["current_port"]["host"]
@@ -89,4 +90,5 @@ def enum_http_feroxbuster(self):
             results[wordlist] = {"error": str(e)}
 
     return {"cmd": cmds, "results": results}
+
 enum_http_feroxbuster.depends_on = ["enum_http_curl_confirmation"]

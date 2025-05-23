@@ -1,10 +1,5 @@
 from core.imports import *
 from scanners.scanner import Scanner
-import re
-import urllib.parse
-import subprocess
-import requests
-from bs4 import BeautifulSoup
 
 @Scanner.extend
 def enum_generic_product_search(self):
@@ -45,11 +40,14 @@ def enum_generic_product_search(self):
             text=True,
             timeout=15
         )
-        # Get first 5 non-header, non-empty lines
         lines = [line for line in proc.stdout.splitlines() if line.strip() and not line.startswith(("-", "=", "Exploit Title"))]
         results["searchsploit"] = lines[:5]
+        logging.debug(f"[GENERIC_SEARCH] Searchsploit query: {search_query} | Results: {lines[:5]}")
+        results["searchsploit_debug"] = {"query": search_query, "results": lines[:5]}
     except Exception as e:
         results["searchsploit"] = [f"Error running searchsploit: {e}"]
+        logging.debug(f"[GENERIC_SEARCH] Searchsploit query: {search_query} | Error: {e}")
+        results["searchsploit_debug"] = {"query": search_query, "results": [f"Error running searchsploit: {e}"]}
 
     # --- GitHub ---
     github_url = f"https://github.com/search?q={encoded_query}"
@@ -68,8 +66,12 @@ def enum_generic_product_search(self):
             if len(github_links) >= 5:
                 break
         results["github"] = [github_links, github_titles]
+        logging.debug(f"[GENERIC_SEARCH] GitHub query: {search_query} | Results: {github_links}")
+        results["github_debug"] = {"query": search_query, "results": github_links}
     except Exception as e:
         results["github"] = [[f"Error searching GitHub: {e}"], []]
+        logging.debug(f"[GENERIC_SEARCH] GitHub query: {search_query} | Error: {e}")
+        results["github_debug"] = {"query": search_query, "results": [f"Error searching GitHub: {e}"]}
 
     # --- Google ---
     google_url = f"https://www.google.com/search?q={encoded_query}"
@@ -84,15 +86,18 @@ def enum_generic_product_search(self):
             if href and href.startswith("/url?q="):
                 url = href.split("/url?q=")[1].split("&")[0]
                 if not url.startswith("https://webcache.googleusercontent.com"):
-                    # Try to get the title from the next sibling or parent
                     title = g.get_text(strip=True)
                     google_links.append(url)
                     google_titles.append(title)
             if len(google_links) >= 5:
                 break
         results["google"] = [google_links, google_titles]
+        logging.debug(f"[GENERIC_SEARCH] Google query: {search_query} | Results: {google_links}")
+        results["google_debug"] = {"query": search_query, "results": google_links}
     except Exception as e:
         results["google"] = [[f"Error searching Google: {e}"], []]
+        logging.debug(f"[GENERIC_SEARCH] Google query: {search_query} | Error: {e}")
+        results["google_debug"] = {"query": search_query, "results": [f"Error searching Google: {e}"]}
 
     results.update({
         "product": product,

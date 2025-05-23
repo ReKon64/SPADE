@@ -6,16 +6,16 @@ import os
 @Scanner.extend
 def enum_ftp_gather(self):
     """
-    Attempts anonymous FTP login, recursively lists all files/dirs, and downloads all files to output dir.
+    Attempts anonymous FTP login, recursively lists all files/dirs, and downloads all files to a temp dir in /tmp.
     Returns:
         dict: { "cmd": [actions], "results": { ... } }
     """
     host = self.options["current_port"]["host"]
     port = int(self.options["current_port"]["port_id"])
-    output_dir = self.options.get("output_dir") or os.getcwd()
-    os.makedirs(output_dir, exist_ok=True)
+    # Create a unique temp directory in /tmp for this session
+    output_dir = tempfile.mkdtemp(prefix="ftp_", dir="/tmp")
     cmds = []
-    results = {"success": False, "files_downloaded": [], "errors": []}
+    results = {"success": False, "files_downloaded": [], "errors": [], "output_dir": output_dir}
 
     def ftp_recursive_list(ftp, path, file_list):
         try:

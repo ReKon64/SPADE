@@ -11,12 +11,12 @@ def enum_http_feroxbuster(self):
         dict: { "cmd": [list of commands], "results": { ... } }
     """
     enum_http_feroxbuster.depends_on = ["enum_http_curl_confirmation"]
-    
+
     port_obj = self.options["current_port"].get("port_obj", {})
     plugins = port_obj.get("plugins", {})
     curl_result = plugins.get("enum_curl_confirmation", {})
     if not (isinstance(curl_result, dict) and curl_result.get("isreal") is True):
-        logging.debug(f"[enum_http_feroxbuster] Checked {curl_result} for isreal")
+        logging.debug(f"[enum_http_feroxbuster] Checked enum_curl_confirmation {curl_result} for isreal")
         return {"skipped": "Not a real HTTP(S) service (isreal != True)"}
 
     host = self.options["current_port"]["host"]

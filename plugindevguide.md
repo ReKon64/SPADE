@@ -1,4 +1,4 @@
-# SPADE Plugin Development Guide
+# SPADE Plugin Development / Style Guide
 
 This guide explains how to write robust, dependency-aware plugins for SPADE, using the `enum_http_whatweb` plugin as a template. 
 
@@ -6,26 +6,59 @@ It covers plugin structure, best practices, and the rationale behind key design 
 
 ---
 
-## 1. Plugin Structure
+## 1. Plugin Naming Convention
+To ensure SPADE can auto-discover your plugins correctly, **all plugin functions must follow a strict naming convention**:
+- Each plugin function name must start with a prefix that identifies its target protocol or service, followed by a descriptive action.
+**Example:**
+
+```python
+@Scanner.extend
+def enum_http_whatweb(self, plugin_results=None):
+```
+
+*Why is this required?*
+**- Auto-discovery and Service Mapping:**
+SPADE uses reflection to find all methods whose names start with a given prefix (like `enum_http`) for a specific service.
+
+The prefix (e.g., `enum_http`) is mapped to service types (like HTTP, FTP, SMB) in the scanner logic.
+This allows SPADE to run only relevant plugins for each detected service.
+
+**Exception**
+As a catch all solution there's a `enum_generic` prefix that runs against ALL services.
+
+**Best Practices**
+- Use lowercase letters and underscores.
+- Start with the appropriate prefix for your plugin's purpose and target protocol/service.
+- Make the rest of the function name descriptive of the action or tool (e.g., enum_http_curl_confirmation, enum_smb_enumshares).
+
+
+## 2. Plugin Structure
 
 A SPADE plugin is a Python function registered with the `@Scanner.extend` decorator. It should:
 
+- Have imports declared at the start of the file after common imports
 - Accept `self` and `plugin_results=None` as arguments.
 - Use `plugin_results` to access results from other plugins (dependencies).
 - Return a dictionary with at least `"cmd"` and `"results"` keys.
 - Optionally declare dependencies via a `depends_on` attribute.
+- If you prefer to write multiple function instead of a singular for a plugin , use the `_func` convention for helper functions.
 
 **Example:**
 ```python
+from core.imports import *
+from scanners.scanner import Scanner
+# ... module not included in imports ...
 @Scanner.extend
 def enum_http_whatweb(self, plugin_results=None):
     # ...plugin logic...
     return {"cmd": cmd, "results": whatweb_data}
 
+def _helper_function(args)
+# See enum_smb_nmap.py for an example.
 enum_http_whatweb.depends_on = ["enum_http_curl_confirmation"]
 ```
 
-## 2. Arguments
+## 3. Arguments
 ### self
 The plugin is a method bound to a Scanner instance, giving access to scan options and the current port context via self.options.
 
@@ -40,7 +73,7 @@ During parallel execution, results in the main port object `port_obj["plugins"]`
 
 Dependency safety:
 When your plugin depends on another (e.g., `enum_http_whatweb` depends on `enum_http_curl_confirmation`), you can safely access its result from plugin_results and be sure it is available.
-## 3. Accessing Port and Service Data
+## 4. Accessing Port and Service Data
 Use `self.options["current_port"]` and its `port_obj` key to access static port/service information:
 ```python
 port_obj = self.options["current_port"].get("port_obj", {})
@@ -49,7 +82,7 @@ port = self.options["current_port"]["port_id"]
 service = port_obj.get("service", {}) if port_obj else {}
 ```
 
-## 4. Accessing Dependency Results
+## 5. Accessing Dependency Results
 Use `plugin_results.get("dependency_plugin_name", {})` to access the results of a dependency:
 ```python
 curl_result = plugin_results.get("enum_http_curl_confirmation", {})
@@ -58,7 +91,7 @@ if isinstance(curl_result, dict):
     if isinstance(curl_result.get("results"), dict):
         isreal = curl_result["results"].get("isreal") is True
 ```
-## 5. Returning Results
+## 6. Returning Results
 Always return a dictionary with:
 
 "cmd": The command(s) or action(s) performed (for traceability).
@@ -75,7 +108,7 @@ If your plugin is skipped due to a dependency:
 return {"cmd": [], "results": {"skipped": "Reason for skipping"}}
 ```
 
-## 6. Declaring Dependencies
+## 7. Declaring Dependencies
 If your plugin requires another plugin to run first, declare this with a depends_on attribute after the function body:
 ```python
 enum_http_whatweb.depends_on = ["enum_http_curl_confirmation"]

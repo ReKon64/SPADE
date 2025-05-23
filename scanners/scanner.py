@@ -333,13 +333,13 @@ class Scanner:
 
     def _scan_individual_port(self, port_data, options, max_workers=None):
         """
-        Scan a specific port with the appropriate enumeration prefix.
-        
+        Scan a specific port with the appropriate enumeration prefix, respecting plugin dependencies.
+
         Args:
             port_data (dict): Information about the port to scan
             options (dict): Scanner options with port-specific data
             max_workers (int, optional): Maximum number of worker threads
-            
+
         Returns:
             dict: Results from the scan
         """
@@ -347,47 +347,29 @@ class Scanner:
         host = port_data["host"]
         port_id = port_data["port_id"]
         service = port_data["service"]
-        
+
         logging.info(f"[+] Scanning {service} on {host}:{port_id} with prefix {enum_prefix}")
-        
+
         # Create a temporary Scanner instance with the specific port options
         temp_scanner = Scanner(options)
-        
+
         # Get all methods with the specified enum prefix
         methods = [
             method for method in dir(temp_scanner)
             if method.startswith(enum_prefix) and callable(getattr(temp_scanner, method))
         ]
-        
+
         if not methods:
             logging.warning(f"No methods found with prefix {enum_prefix}")
             return {}
-        
+
         logging.debug(f"Found methods for {enum_prefix}: {methods}")
-        
-        # Run the methods against this specific port
+
         plugin_results = {}
-        
-        # Run each method (could be parallelized further if needed)
-        with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers or 5) as executor:
-            logging.debug(f"[THREADS] _scan_individual_port using {max_workers or 5} threads for plugins on {host}:{port_id} ({service})")
-            futures = {}
-            for method_name in methods:
-                futures[executor.submit(temp_scanner._reflection_execute_method, method_name)] = method_name
 
-                for future in concurrent.futures.as_completed(futures):
-                    method_name = futures[future]
-                    try:
-                        result = future.result()
-                        logging.info(f"Completed scan: {method_name}")
-
-                        if isinstance(result, str) and os.path.exists(result):
-                            logging.debug(f"[PROCESS] Processing scan file of {os.path(result)}")
-                            self._process_scan_results(result, method_name)
-                        elif isinstance(result, dict):
-                            plugin_results[method_name] = result
-                    except Exception as e:
-                        logging.error(f"Error in method {method_name} for {service} on {host}:{port_id}: {e}")
+        # Run each method, respecting dependencies
+        for method_name in methods:
+            self._run_plugin_with_deps(method_name, temp_scanner, plugin_results)
 
         return plugin_results
 
@@ -405,3 +387,13 @@ class Scanner:
         logging.debug(f"Registering extension: {func.__name__}")
 
         return func
+    
+    def _run_plugin_with_deps(self, plugin_name, temp_scanner, plugin_results):
+        plugin_func = getattr(temp_scanner, plugin_name)
+        depends_on = getattr(plugin_func, "depends_on", [])
+        for dep in depends_on:
+            if dep not in plugin_results:
+                self._run_plugin_with_deps(dep, temp_scanner, plugin_results)
+        # Now run the plugin itself
+        if plugin_name not in plugin_results:
+            plugin_results[plugin_name] = plugin_func()

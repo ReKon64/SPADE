@@ -109,3 +109,4 @@ def enum_generic_product_search(self, plugin_results=None):
     })
 
     return {"cmd": cmds, "results": results}
+enum_generic_product_search.depends_on = ["scan_tcp_scanner"]

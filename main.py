@@ -110,7 +110,6 @@ def main():
         # Run the initial TCP and UDP scans
         findings = scanner.scan(
             max_workers=int(options['threads']),
-            prioritized_methods=['scan_tcp_scan', 'scan_udp_scan'],
             prefixes=['scan_'],
         )
         logging.info(f"[?] Finding: {findings}")

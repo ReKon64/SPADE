@@ -59,4 +59,4 @@ def enum_http_whatweb(self, plugin_results=None):
         logging.error(f"[enum_http_whatweb] Error during WhatWeb scan: {e}")
         return {"cmd": cmd, "error": str(e)}
 
-enum_http_whatweb.depends_on = ["enum_http_curl_confirmation"]
+enum_http_whatweb.depends_on = ["scan_tcp_scanner","enum_http_curl_confirmation"]

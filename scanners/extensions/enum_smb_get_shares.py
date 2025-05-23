@@ -131,3 +131,5 @@ def enum_smb_get_shares(self, plugin_results=None):
         results["error"] = str(e)
 
     return results
+
+enum_smb_get_shares.depends_on = ["scan_tcp_scanner"]

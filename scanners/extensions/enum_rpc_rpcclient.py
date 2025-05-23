@@ -77,3 +77,5 @@
 #         results["srvinfo"] = f"Error: {e}"
 
 #     return {"cmd": cmds, "results": results}
+
+# enum_rpc_rpcclient.depends_on = ["scan_tcp_scanner"]

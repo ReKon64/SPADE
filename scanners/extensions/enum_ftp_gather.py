@@ -75,3 +75,5 @@ def _ftp_download_file(ftp, ftp_path, local_path, results, cmds):
         results["files_downloaded"].append(local_path)
     except Exception as e:
         results["errors"].append(f"Failed to download {ftp_path}")
+
+enum_ftp_gather.depends_on = ["scan_tcp_scanner"]

@@ -69,3 +69,5 @@ def enum_dns_dig(self, plugin_results=None):
 
     logging.debug(f"enum_dns_dig results: {results}")
     return {"cmd": cmds, "results": results}
+
+enum_dns_dig.depends_on = ["scan_tcp_scanner"]

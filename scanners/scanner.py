@@ -74,6 +74,8 @@ class Scanner:
                 method for method in dir(self)
                 if any(method.startswith(prefix) for prefix in prefixes) and callable(getattr(self, method))
             ]
+            # Sort so brute_ plugins are last
+            discovered_methods.sort(key=lambda m: m.startswith("brute_"))
             logging.debug(f"Discovered methods with prefixes {prefixes}: {discovered_methods}")
 
             # Execute all discovered methods (scan plugins and others)
@@ -344,6 +346,8 @@ class Scanner:
             if (method.startswith(enum_prefix) or method == "enum_generic_product_search")
             and callable(getattr(temp_scanner, method))
         ]
+        # Sort so brute_ plugins are last
+        methods.sort(key=lambda m: m.startswith("brute_"))
         if not methods:
             logging.warning(f"No methods found with prefix {enum_prefix} or enum_generic_product_search")
             return {}

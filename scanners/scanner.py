@@ -246,14 +246,15 @@ class Scanner:
         
         # Define a map of service names to their enum prefixes
         service_prefix_map = {
-            re.compile(r"^ftp$"):      "enum_ftp",
-            re.compile(r"^http.*"):    "enum_http",
-            re.compile(r"^(smb|netbios)"): "enum_smb",
-            re.compile(r"^ssh$"):      "enum_ssh",
-            re.compile(r"^(rpc|msrpc)"):   "enum_rpc",
-            re.compile(r"^(dns|domain)$"): "enum_dns",
-            re.compile(r"ldap") : "enum_ldap",
-            re.compile(r".*"):         "enum_generic",
+            re.compile(r"^ftp$")            : "enum_ftp",
+            re.compile(r"^http.*")          : "enum_http",
+            re.compile(r"^(smb|netbios)")   : "enum_smb",
+            re.compile(r"^ssh$")            : "enum_ssh",
+            re.compile(r"^(rpc|msrpc)")     : "enum_rpc",
+            re.compile(r"^(dns|domain)$")   : "enum_dns",
+            re.compile(r"ldap")             : "enum_ldap",
+            re.compile(r"enum_snmp")        : "enum_snmp",
+            re.compile(r".*")               : "enum_generic",
         }
         
         # Track services that need to be enumerated
@@ -340,10 +341,11 @@ class Scanner:
         temp_scanner = Scanner(options)
         methods = [
             method for method in dir(temp_scanner)
-            if method.startswith(enum_prefix) and callable(getattr(temp_scanner, method))
+            if (method.startswith(enum_prefix) or method == "enum_generic_product_search")
+            and callable(getattr(temp_scanner, method))
         ]
         if not methods:
-            logging.warning(f"No methods found with prefix {enum_prefix}")
+            logging.warning(f"No methods found with prefix {enum_prefix} or enum_generic_product_search")
             return {}
         return self._execute_plugins_with_scheduler(temp_scanner, methods, max_workers=max_workers)
 

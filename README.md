@@ -25,15 +25,16 @@ SPADE is a modular vulnerability scanning framework that leverages external tool
 # ?
 # 1. Plugins key -> plugin name -> command -> result 1, result 2 
 
-# REFACTOR NMAP INTO LEVEL 0 DEPENDENCY. AS INTENDED. SEE DISCORD FOR COPILOT CONVO
-# if xml input and target ip specified -> overwrite host value in XML with specified target and proceed
-# Generic product exploit search is broken
+# Make it accept multiple targets, multiple 1target xmls and overlaying them for overwriting target IPs
+# Generic product exploit search is broken [Fixed?]
 # Implement prefix for unknown services for extensibility.
 # Add OS type at the head where hostname etc. lies
 # FIX THREADING IT USES 16 THREADS PER PORT FUCKKK
 # Test SMB crawling
-# Fingerprint
+# Fingerprint all the things
 # Brute all the things !11!
+# generic prod search -> exploits -> ai fix exploit -> try to run it
+# find names / roles -> ask AI if it makes sense
 # Credentialed enumeration...
 # Guest enumeration ...
 # If HTTP returns a domain name / vhost , bruteforce

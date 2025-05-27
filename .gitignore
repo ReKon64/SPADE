@@ -8,6 +8,9 @@
 # Nmap XML
 *.xml
 
+# Ferox
+*.state
+
 ### MANUAL END
 
 # Byte-compiled / optimized / DLL files

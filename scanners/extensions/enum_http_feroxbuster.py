@@ -91,4 +91,4 @@ def enum_http_feroxbuster(self, plugin_results=None):
 
     return {"cmd": cmds, "results": results}
 
-enum_http_feroxbuster.depends_on = ["enum_http_curl_confirmation"]
+enum_http_feroxbuster.depends_on = ["scan_tcp_scanner","enum_http_curl_confirmation"]

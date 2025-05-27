@@ -40,7 +40,8 @@ A SPADE plugin is a Python function registered with the `@Scanner.extend` decora
 - Accept `self` and `plugin_results=None` as arguments.
 - Use `plugin_results` to access results from other plugins (dependencies).
 - Return a dictionary with at least `"cmd"` and `"results"` keys.
-- Optionally declare dependencies via a `depends_on` attribute.
+- Declare dependencies via a `depends_on` attribute.
+- Dependencies that cannot run will be skipped. This allows for "optional" dependencies. (Look at DNS Dig + LDAP / RDP relationship)
 - If you prefer to write multiple function instead of a singular for a plugin , use the `_func` convention for helper functions.
 
 **Example:**

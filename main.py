@@ -8,10 +8,9 @@ from scanners.scanner import Scanner
 def main():
     parser = argparse.ArgumentParser(description="SPADE - Scalable Plug-and-play Auto Detection Engine")
 
-    # Create mutually exclusive group for -t and -x
-    group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument("-t", "--target", help="One or more IP / Domain")
-    group.add_argument("-x", "--xml-input", help="Path to existing Nmap XML file to use as input (skips scanning and uses this for enumeration)")
+    #group = parser.add_mutually_exclusive_group(required=True)
+    parser.add_argument("-t", "--target", help="One or more IP / Domain")
+    parser.add_argument("-x", "--xml-input", help="Path to existing Nmap XML file to use as input (skips scanning and uses this for enumeration)")
 
     parser.add_argument("-tp", "--tcp-ports", default="-p-", help="Ports to scan. Passed directly to nmap. Default -p-")
     parser.add_argument("-up", "--udp-ports", default="--top-ports=100", help="WIP")
@@ -98,6 +97,11 @@ def main():
             xml_data = f.read()
         from scanners.nmap_parser import parse_nmap_xml
         findings = parse_nmap_xml(xml_data)
+        # If both --xml-input and --target are provided, override host IPs
+        if args.target:
+            logging.info(f"[+] Overriding parsed host IPs with target: {args.target}")
+            for host in findings.get("hosts", []):
+                host["ip"] = args.target
         scanner.findings = findings  # Set findings for service enumeration
         logging.info(f"[+] Parsed {len(findings.get('hosts', []))} hosts from XML input.")
     else:
@@ -110,7 +114,6 @@ def main():
         # Run the initial TCP and UDP scans
         findings = scanner.scan(
             max_workers=int(options['threads']),
-            prioritized_methods=['scan_tcp_scan', 'scan_udp_scan'],
             prefixes=['scan_'],
         )
         logging.info(f"[?] Finding: {findings}")

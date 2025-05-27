@@ -96,3 +96,5 @@ def _parse_smb_nmap_xml(xml_data):
     except Exception as e:
         results["parse_error"] = str(e)
     return results
+
+enum_smb_nmap.depends_on = ["scan_tcp_scanner"]

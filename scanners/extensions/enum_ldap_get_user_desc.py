@@ -82,3 +82,5 @@ def enum_ldap_get_user_desc(self, plugin_results=None):
         results["error"] = str(e)
 
     return {"command": cmd, "results": results}
+
+enum_ldap_get_user_desc.depends_on = ["scan_tcp_scanner"]

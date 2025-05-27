@@ -56,17 +56,14 @@ class Scanner:
 # I'd have to pass a different string that "scanners.extensions" for example for bruteforce etc.
 
 
-    def scan(self, max_workers=None, prioritized_methods=None, prefixes=None):
+    def scan(self, max_workers=None, prefixes=None):
         """
         Discover and execute methods matching any of the specified prefixes in a controlled order.
-        
         Args:
             max_workers (int, optional): Maximum number of worker threads.
-            prioritized_methods (list, optional): List of method names to execute first and process results.
             prefixes (list): A list of prefixes used to identify methods to be executed (e.g., ['scan_', 'brute_']).
-        
         Returns:
-            list: Collected findings from all scan methods.
+            dict: Collected findings from all scan methods.
         """
         try:
             if not prefixes or not isinstance(prefixes, list):
@@ -77,21 +74,19 @@ class Scanner:
                 method for method in dir(self)
                 if any(method.startswith(prefix) for prefix in prefixes) and callable(getattr(self, method))
             ]
+            # Sort so brute_ plugins are last
+            discovered_methods.sort(key=lambda m: m.startswith("brute_"))
             logging.debug(f"Discovered methods with prefixes {prefixes}: {discovered_methods}")
 
-            # Separate prioritized methods from remaining methods
-            prioritized_methods = prioritized_methods or []
-            valid_prioritized_methods = [m for m in prioritized_methods if m in discovered_methods]
-            remaining_methods = [m for m in discovered_methods if m not in valid_prioritized_methods]
+            # Execute all discovered methods (scan plugins and others)
+            plugin_results = self._execute_methods(method_names=discovered_methods, max_workers=max_workers)
 
-            # Execute prioritized methods first
-            if valid_prioritized_methods:
-                self._execute_methods(method_names=valid_prioritized_methods, max_workers=max_workers)
-
-            # Execute remaining methods
-            if remaining_methods:
-                logging.info(f"Executing remaining methods: {remaining_methods}")
-                self._execute_methods(method_names=remaining_methods, max_workers=max_workers)
+            # After scan plugins, parse their XML output and update self.findings
+            for method_name, result in plugin_results.items():
+                if isinstance(result, dict) and "xml_output_path" in result["results"]:
+                    xml_path = result["results"]["xml_output_path"]
+                    if os.path.exists(xml_path):
+                        self._process_scan_results(xml_path, method_name)
 
         except ValueError as e:
             logging.error(f"Invalid prefixes argument: {e}")
@@ -253,14 +248,15 @@ class Scanner:
         
         # Define a map of service names to their enum prefixes
         service_prefix_map = {
-            re.compile(r"^ftp$"):      "enum_ftp",
-            re.compile(r"^http.*"):    "enum_http",
-            re.compile(r"^(smb|netbios)"): "enum_smb",
-            re.compile(r"^ssh$"):      "enum_ssh",
-            re.compile(r"^(rpc|msrpc)"):   "enum_rpc",
-            re.compile(r"^(dns|domain)$"): "enum_dns",
-            re.compile(r"ldap") : "enum_ldap",
-            re.compile(r".*"):         "enum_generic",
+            re.compile(r"^ftp$")            : "enum_ftp",
+            re.compile(r"^http.*")          : "enum_http",
+            re.compile(r"^(smb|netbios)")   : "enum_smb",
+            re.compile(r"^ssh$")            : "enum_ssh",
+            re.compile(r"^(rpc|msrpc)")     : "enum_rpc",
+            re.compile(r"^(dns|domain)$")   : "enum_dns",
+            re.compile(r"ldap")             : "enum_ldap",
+            re.compile(r"enum_snmp")        : "enum_snmp",
+            re.compile(r".*")               : "enum_generic",
         }
         
         # Track services that need to be enumerated
@@ -347,10 +343,13 @@ class Scanner:
         temp_scanner = Scanner(options)
         methods = [
             method for method in dir(temp_scanner)
-            if method.startswith(enum_prefix) and callable(getattr(temp_scanner, method))
+            if (method.startswith(enum_prefix) or method == "enum_generic_product_search")
+            and callable(getattr(temp_scanner, method))
         ]
+        # Sort so brute_ plugins are last
+        methods.sort(key=lambda m: m.startswith("brute_"))
         if not methods:
-            logging.warning(f"No methods found with prefix {enum_prefix}")
+            logging.warning(f"No methods found with prefix {enum_prefix} or enum_generic_product_search")
             return {}
         return self._execute_plugins_with_scheduler(temp_scanner, methods, max_workers=max_workers)
 

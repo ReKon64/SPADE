@@ -133,7 +133,7 @@ def main():
                     if isinstance(result, str) and os.path.exists(result):
                         scanner._process_scan_results(result, f"scan_{proto}_scan")
                     # Enumerate only for this protocol
-                    scanner.scan_by_port_service(max_workers=args.threads, protocol=proto)
+                    scanner.scan_by_port_service(max_workers=int(options['threads']), protocol=proto)
                     logging.info(f"[+] Completed {proto.upper()} port-specific enumeration")
                 except Exception as e:
                     logging.error(f"Error in {proto.upper()} scan: {e}")
@@ -151,9 +151,9 @@ def main():
     ##########################
     logging.info(f"[+] Starting service-specific enumeration")
     
-    # Use our new extension to scan by port/service
-    findings = scanner.scan_by_port_service(max_workers=int(options['threads']))
-    
+    # Use the findings already populated by per-protocol enumeration
+    findings = scanner.findings
+
     # Output findings summary
     if "services" in findings:
         for service_name, service_results in findings.get("services", {}).items():
@@ -161,8 +161,7 @@ def main():
             logging.info(f"{findings}")
     else:
         logging.info("[!!!] if services failed")
-            
-    
+        
     # Optional: Save the final results to a JSON file
     output_file = os.path.join(options['output_dir'], "spade_results.json")
     logging.debug(f"[!!!] Final Findings : {findings}")

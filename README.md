@@ -25,6 +25,18 @@ SPADE is a modular vulnerability scanning framework that leverages external tool
 # ?
 # 1. Plugins key -> plugin name -> command -> result 1, result 2 
 
+# UDP fails to pass scan entry data even if the plugin res are empty
+# But TCP and UDP are finally decoupled in execution. Dunno about result handling though
+2025-05-27 16:51:23,670 - INFO - UDP scan completed. Results saved to /tmp/tmppfx8jkw7.xml
+2025-05-27 16:51:23,670 - INFO - [+] Starting port-specific enumeration
+2025-05-27 16:51:23,670 - DEBUG - [*] Service scan used entry data : []
+2025-05-27 16:51:23,670 - INFO - [+] No services found to enumerate
+2025-05-27 16:51:23,670 - INFO - [+] Completed UDP port-specific enumeration
+2025-05-27 16:51:26,033 - REAL-TIME - SYN Stealth Scan Timing: About 51.44% don
+#
+2025-05-27 16:51:23,670 - INFO - UDP scan completed. Results saved to /tmp/tmppfx8jkw7.xml
+#
+
 # Make it accept multiple targets, multiple 1target xmls and overlaying them for overwriting target IPs
 # Generic product exploit search is broken [Fixed?]
 # Implement prefix for unknown services for extensibility.

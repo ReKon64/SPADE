@@ -97,6 +97,7 @@ def main():
             xml_data = f.read()
         from scanners.nmap_parser import parse_nmap_xml
         findings = parse_nmap_xml(xml_data)
+        scanner._virtual_scan_plugins = ["scan_tcp_scanner", "scan_udp_scanner"]
         # If both --xml-input and --target are provided, override host IPs
         if args.target:
             logging.info(f"[+] Overriding parsed host IPs with target: {args.target}")
@@ -110,15 +111,43 @@ def main():
             parser.error("the following arguments are required: -t/--target (unless --xml-input is used)")
         logging.info(f"[+] Starting initial scans against {options['target']}")
         logging.debug(f"Scanner initialized with options: {scanner.options}")
-        
-        # Run the initial TCP and UDP scans
-        findings = scanner.scan(
-            max_workers=int(options['threads']),
-            prefixes=['scan_'],
-        )
-        logging.info(f"[?] Finding: {findings}")
-        logging.info(f"[+] Initial scan complete.")
-        
+
+        # Run TCP and UDP scans in parallel
+        scan_methods = []
+        if hasattr(scanner, "scan_tcp_scan"):
+            scan_methods.append("scan_tcp_scan")
+        if hasattr(scanner, "scan_udp_scan"):
+            scan_methods.append("scan_udp_scan")
+
+        scan_results = {}
+        with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
+            futures = {
+                executor.submit(getattr(scanner, method)): method
+                for method in scan_methods
+            }
+            for future in concurrent.futures.as_completed(futures):
+                method = futures[future]
+                try:
+                    result = future.result()
+                    logging.info(f"[+] {method} finished.")
+                    # Parse scan results and update findings
+                    if isinstance(result, str) and os.path.exists(result):
+                        scanner._process_scan_results(result, method)
+                    elif isinstance(result, dict):
+                        # If your scan plugins return dicts with XML paths, handle here
+                        xml_path = result.get("results", {}).get("xml_output_path")
+                        if xml_path and os.path.exists(xml_path):
+                            scanner._process_scan_results(xml_path, method)
+                    # After processing, enumerate services for this protocol
+                    proto = "tcp" if "tcp" in method else "udp"
+                    logging.info(f"[+] Starting {proto.upper()} service-specific enumeration")
+                    scanner.scan_by_port_service(max_workers=int(options['threads']))
+                except Exception as e:
+                    logging.error(f"Error in {method}: {e}")
+
+        findings = scanner.findings
+        logging.info(f"[+] Initial scan and per-protocol enumeration complete.")
+
         # Get the count of discovered hosts and ports
         hosts_count = len(findings.get("hosts", []))
         ports_count = sum(len(host.get("ports", [])) for host in findings.get("hosts", []))

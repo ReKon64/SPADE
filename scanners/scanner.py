@@ -72,7 +72,9 @@ class Scanner:
             # Discover all methods matching any of the prefixes
             discovered_methods = [
                 method for method in dir(self)
-                if any(method.startswith(prefix) for prefix in prefixes) and callable(getattr(self, method))
+                if any(method.startswith(prefix) for prefix in prefixes)
+                and callable(getattr(self, method))
+                and method != "scan_by_port_service"  # <-- Add this line
             ]
             # Sort so brute_ plugins are last
             discovered_methods.sort(key=lambda m: m.startswith("brute_"))
@@ -83,10 +85,17 @@ class Scanner:
 
             # After scan plugins, parse their XML output and update self.findings
             for method_name, result in plugin_results.items():
-                if isinstance(result, dict) and "xml_output_path" in result["results"]:
+                if (
+                    isinstance(result, dict)
+                    and "results" in result
+                    and isinstance(result["results"], dict)
+                    and "xml_output_path" in result["results"]
+                ):
                     xml_path = result["results"]["xml_output_path"]
                     if os.path.exists(xml_path):
                         self._process_scan_results(xml_path, method_name)
+                else:
+                    logging.warning(f"[WARNING] {method_name} did not return a valid XML output path in results: {result}")
 
         except ValueError as e:
             logging.error(f"Invalid prefixes argument: {e}")
@@ -165,6 +174,11 @@ class Scanner:
                         plugin_results[method_name] = result
                 except Exception as e:
                     logging.error(f"Error in {method_name}: {e}")
+
+        # Add this before the main scheduling loop
+        if hasattr(self, "_virtual_scan_plugins"):
+            for scan_plugin in self._virtual_scan_plugins:
+                plugin_results[scan_plugin] = {"virtual": True}
 
         return plugin_results
     # seperate prefix for tcp 
@@ -392,6 +406,10 @@ class Scanner:
 
         with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers or 4) as executor:
             futures = {}
+            # Add this before the main scheduling loop
+            if hasattr(self, "_virtual_scan_plugins"):
+                for scan_plugin in self._virtual_scan_plugins:
+                    plugin_results[scan_plugin] = {"virtual": True}
             while ready or futures:
                 for plugin in ready:
                     # Pass plugin_results to each plugin

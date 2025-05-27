@@ -122,28 +122,21 @@ def main():
         scan_results = {}
         with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
             futures = {
-                executor.submit(getattr(scanner, method)): method
-                for method in scan_methods
+                executor.submit(scanner.scan_tcp_scan): "tcp",
+                executor.submit(scanner.scan_udp_scan): "udp"
             }
             for future in concurrent.futures.as_completed(futures):
-                method = futures[future]
+                proto = futures[future]
                 try:
                     result = future.result()
-                    logging.info(f"[+] {method} finished.")
-                    # Parse scan results and update findings
+                    # Parse and merge results
                     if isinstance(result, str) and os.path.exists(result):
-                        scanner._process_scan_results(result, method)
-                    elif isinstance(result, dict):
-                        # If your scan plugins return dicts with XML paths, handle here
-                        xml_path = result.get("results", {}).get("xml_output_path")
-                        if xml_path and os.path.exists(xml_path):
-                            scanner._process_scan_results(xml_path, method)
-                    # After processing, enumerate services for this protocol
-                    proto = "tcp" if "tcp" in method else "udp"
-                    logging.info(f"[+] Starting {proto.upper()} service-specific enumeration")
-                    scanner.scan_by_port_service(max_workers=int(options['threads']))
+                        scanner._process_scan_results(result, f"scan_{proto}_scan")
+                    # Enumerate only for this protocol
+                    scanner.scan_by_port_service(max_workers=args.threads, protocol=proto)
+                    logging.info(f"[+] Completed {proto.upper()} port-specific enumeration")
                 except Exception as e:
-                    logging.error(f"Error in {method}: {e}")
+                    logging.error(f"Error in {proto.upper()} scan: {e}")
 
         findings = scanner.findings
         logging.info(f"[+] Initial scan and per-protocol enumeration complete.")

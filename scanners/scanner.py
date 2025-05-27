@@ -247,13 +247,14 @@ class Scanner:
         return self.findings
 
 
-    def scan_by_port_service(self, max_workers=None):
+    def scan_by_port_service(self, max_workers=None, protocol=None):
         """
         Scan and enumerate services by port and service type.
-        This method overrides the default scan behavior to handle port-specific enumeration.
+        Optionally filter by protocol ('tcp' or 'udp').
         
         Args:
             max_workers (int, optional): Maximum number of worker threads.
+            protocol (str, optional): Protocol to filter by ('tcp' or 'udp').
         
         Returns:
             dict: Combined findings from all port-specific scans.
@@ -281,6 +282,9 @@ class Scanner:
         logging.debug(f"[*] Service scan used entry data : {hosts}")
         for host in hosts:
             for port in host.get("ports", []):
+                # Filter by protocol if specified
+                if protocol and port.get("protocol", "").lower() != protocol:
+                    continue
                 # Add a per-port lock if not already present
                 if "_plugin_lock" not in port:
                     port["_plugin_lock"] = threading.Lock()

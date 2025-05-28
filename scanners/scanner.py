@@ -481,19 +481,21 @@ class Scanner:
         completed = set()
         results = {}
         plugin_results = {}
+        # --- MOVE THIS BLOCK UP ---
+        if hasattr(self, "_virtual_scan_plugins"):
+            for scan_plugin in self._virtual_scan_plugins:
+                plugin_results[scan_plugin] = {"virtual": True}
+                completed.add(scan_plugin)
+        # -------------------------
         ready = [m for m in methods if not graph[m]]
         with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers or 4) as executor:
             futures = {}
-            if hasattr(self, "_virtual_scan_plugins"):
-                for scan_plugin in self._virtual_scan_plugins:
-                    plugin_results[scan_plugin] = {"virtual": True}
-                    completed.add(scan_plugin)
-                    logging.debug(f"[PLUGIN SCHEDULER] Initial ready plugins: {ready}")
-                    if not ready:
-                        logging.warning(
-                            f"[PLUGIN SCHEDULER] No plugins ready to run for {temp_scanner.options.get('current_port', {}).get('host')}:{temp_scanner.options.get('current_port', {}).get('port_id')}. "
-                            f"Check dependencies and _virtual_scan_plugins."
-                        )
+            logging.debug(f"[PLUGIN SCHEDULER] Initial ready plugins: {ready}")
+            if not ready:
+                logging.warning(
+                    f"[PLUGIN SCHEDULER] No plugins ready to run for {temp_scanner.options.get('current_port', {}).get('host')}:{temp_scanner.options.get('current_port', {}).get('port_id')}. "
+                    f"Check dependencies and _virtual_scan_plugins."
+                )
 
             while ready or futures:
                 for plugin in ready:

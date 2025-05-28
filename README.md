@@ -37,8 +37,10 @@ SPADE is a modular vulnerability scanning framework that leverages external tool
 2025-05-27 16:51:23,670 - INFO - UDP scan completed. Results saved to /tmp/tmppfx8jkw7.xml
 #
 
+# Pararell execution achieved I can die in peace now.
+# Generic product exploit search is broken. MOAR LOGGING.
+# STD - REALTIME is confusing. Force name of the method to be attached to it.
 # Make it accept multiple targets, multiple 1target xmls and overlaying them for overwriting target IPs
-# Generic product exploit search is broken [Fixed?]
 # Implement prefix for unknown services for extensibility.
 # Add OS type at the head where hostname etc. lies
 # FIX THREADING IT USES 16 THREADS PER PORT FUCKKK

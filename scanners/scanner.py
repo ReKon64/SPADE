@@ -292,6 +292,14 @@ class Scanner:
             re.compile(r".*")               : "enum_generic",
         }
         
+        brute_prefix_map = {
+            re.compile(r"^ssh$")   : "brute_ssh",
+            re.compile(r"^ftp$")   : "brute_ftp",
+            re.compile(r"^mysql$") : "brute_mysql",
+            re.compile(r"^smb$")   : "brute_smb",
+            # Add more as needed
+        }
+        
         # Track services that need to be enumerated
         port_service_pairs = []
         
@@ -318,9 +326,16 @@ class Scanner:
                             "port_obj": port, # Reference to port dict
                             "host_json": host,
                         }
+                        # Attach brute_prefix
+                        for brute_pattern, brute_prefix in brute_prefix_map.items():
+                            if brute_pattern.search(service_name):
+                                port_data["brute_prefix"] = brute_prefix
+                                break
+                        else:
+                            port_data["brute_prefix"] = None
+
                         port_service_pairs.append(port_data)
                         logging.debug(f"[*] Will scan with prefix {enum_prefix} on {port_data['host']}:{port_data['port_id']} with {enum_prefix}")
-                        # Break so you don’t match multiple prefixes for the same svc
                         break
         
         # If no services found, return early
@@ -376,11 +391,14 @@ class Scanner:
             dict: Results from the scan
         """
         enum_prefix = port_data["enum_prefix"]
+        brute_prefix = port_data.get("brute_prefix")
         temp_scanner = Scanner(options)
-        # Find all methods matching the prefix
         all_methods = [
             method for method in dir(temp_scanner)
-            if (method.startswith(enum_prefix) or method == "enum_generic_product_search" or method.startswith("brute_"))
+            if (
+                (method.startswith(enum_prefix) or method == "enum_generic_product_search") or
+                (brute_prefix and method.startswith(brute_prefix))
+            )
             and callable(getattr(temp_scanner, method))
         ]
         # Only include methods whose dependencies are also present in all_methods or are scan plugins

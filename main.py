@@ -138,7 +138,27 @@ def main():
                         if xml_path and not os.path.exists(xml_path):
                             xml_path = None
                     if xml_path:
-                        scanner._process_scan_results(xml_path, f"scan_{proto}_scan")
+                        parsed_results = scanner._process_scan_results(xml_path, f"scan_{proto}_scan")
+                        # Merge parsed_results into scanner.findings instead of overwriting
+                        if "hosts" in parsed_results:
+                            if "hosts" not in scanner.findings:
+                                scanner.findings["hosts"] = []
+                            # Merge hosts by IP
+                            for new_host in parsed_results["hosts"]:
+                                ip = new_host.get("ip")
+                                existing_host = next((h for h in scanner.findings["hosts"] if h.get("ip") == ip), None)
+                                if not existing_host:
+                                    scanner.findings["hosts"].append(new_host)
+                                else:
+                                    # Merge ports
+                                    existing_ports = existing_host.get("ports", [])
+                                    for new_port in new_host.get("ports", []):
+                                        if not any(
+                                            p.get("id") == new_port.get("id") and p.get("protocol") == new_port.get("protocol")
+                                            for p in existing_ports
+                                        ):
+                                            existing_ports.append(new_port)
+                                    existing_host["ports"] = existing_ports
                     # Enumerate only for this protocol
                     scanner.scan_by_port_service(max_workers=int(options['threads']), protocol=proto)
                     logging.info(f"[+] Completed {proto.upper()} port-specific enumeration")

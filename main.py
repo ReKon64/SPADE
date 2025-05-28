@@ -130,8 +130,15 @@ def main():
                 try:
                     result = future.result()
                     # Parse and merge results
+                    xml_path = None
                     if isinstance(result, str) and os.path.exists(result):
-                        scanner._process_scan_results(result, f"scan_{proto}_scan")
+                        xml_path = result
+                    elif isinstance(result, dict):
+                        xml_path = result.get("results", {}).get("xml_output_path")
+                        if xml_path and not os.path.exists(xml_path):
+                            xml_path = None
+                    if xml_path:
+                        scanner._process_scan_results(xml_path, f"scan_{proto}_scan")
                     # Enumerate only for this protocol
                     scanner.scan_by_port_service(max_workers=int(options['threads']), protocol=proto)
                     logging.info(f"[+] Completed {proto.upper()} port-specific enumeration")
@@ -153,14 +160,6 @@ def main():
     
     # Use the findings already populated by per-protocol enumeration
     findings = scanner.findings
-
-    # Output findings summary
-    if "services" in findings:
-        for service_name, service_results in findings.get("services", {}).items():
-            logging.info(f"[+] Testing service output {service_name} : {service_results}")
-            logging.info(f"{findings}")
-    else:
-        logging.info("[!!!] if services failed")
         
     # Optional: Save the final results to a JSON file
     output_file = os.path.join(options['output_dir'], "spade_results.json")

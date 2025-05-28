@@ -103,7 +103,7 @@ def main():
             logging.info(f"[+] Overriding parsed host IPs with target: {args.target}")
             for host in findings.get("hosts", []):
                 host["ip"] = args.target
-        scanner.findings = findings  # Set findings for service enumeration
+        scanner._store_findings(findings)
         logging.info(f"[+] Parsed {len(findings.get('hosts', []))} hosts from XML input.")
     else:
         # Normal scan flow
@@ -125,6 +125,7 @@ def main():
                 executor.submit(scanner.scan_tcp_scan): "tcp",
                 executor.submit(scanner.scan_udp_scan): "udp"
             }
+            enum_futures = {}
             for future in concurrent.futures.as_completed(futures):
                 proto = futures[future]
                 try:
@@ -159,11 +160,24 @@ def main():
                                         ):
                                             existing_ports.append(new_port)
                                     existing_host["ports"] = existing_ports
-                    # Enumerate only for this protocol
-                    scanner.scan_by_port_service(max_workers=int(options['threads']), protocol=proto)
-                    logging.info(f"[+] Completed {proto.upper()} port-specific enumeration")
+                    # Instead of calling scan_by_port_service here, submit it to the executor:
+                    enum_futures[executor.submit(
+                        scanner.scan_by_port_service,
+                        max_workers=int(options['threads']),
+                        protocol=proto
+                    )] = proto
+                    logging.info(f"[+] Submitted {proto.upper()} port-specific enumeration")
                 except Exception as e:
                     logging.error(f"Error in {proto.upper()} scan: {e}")
+
+            # Wait for all enumerations to finish
+            for future in concurrent.futures.as_completed(enum_futures):
+                proto = enum_futures[future]
+                try:
+                    future.result()
+                    logging.info(f"[+] Completed {proto.upper()} port-specific enumeration")
+                except Exception as e:
+                    logging.error(f"Error in {proto.upper()} enumeration: {e}")
 
         findings = scanner.findings
         logging.info(f"[+] Initial scan and per-protocol enumeration complete.")

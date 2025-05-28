@@ -263,7 +263,6 @@ class Scanner:
             self._cleanup_scan_files(result_path)
         except Exception as e:
             logging.error(f"Error processing results for {method_name}: {e}")
-        self.findings.update(parsed_results)
         return self.findings
 
 
@@ -414,6 +413,18 @@ class Scanner:
                 logging.debug(f"[FILTERED OUT] {method} (unsatisfiable deps: {deps}) for {port_data['host']}:{port_data['port_id']}")
         # Sort so brute_ plugins are last
         filtered_methods.sort(key=lambda m: m.startswith("brute_"))
+
+        # Ensure brute plugins depend on all enum_ plugins for this port
+        enum_methods = [m for m in filtered_methods if m.startswith("enum_")]
+        brute_methods = [m for m in filtered_methods if m.startswith("brute_")]
+        for brute in brute_methods:
+            func = getattr(temp_scanner, brute)
+            # Only add if not already declared
+            deps = getattr(func, "depends_on", [])
+            for enum in enum_methods:
+                if enum not in deps:
+                    deps.append(enum)
+            func.depends_on = deps
         if not filtered_methods:
             logging.warning(f"No methods found with prefix {enum_prefix} or enum_generic_product_search")
             return {}

@@ -90,6 +90,9 @@ def main():
     Scanner.load_extensions()
     scanner = Scanner(options)
 
+    # Set virtual scan plugins for all scan modes (not just XML input)
+    scanner._virtual_scan_plugins = ["scan_tcp_scanner", "scan_udp_scanner"]
+
     # If --xml-input is provided, parse the XML and skip initial scans
     if args.xml_input:
         logging.info(f"[+] Parsing Nmap XML input file: {args.xml_input}")
@@ -97,7 +100,6 @@ def main():
             xml_data = f.read()
         from scanners.nmap_parser import parse_nmap_xml
         findings = parse_nmap_xml(xml_data)
-        scanner._virtual_scan_plugins = ["scan_tcp_scanner", "scan_udp_scanner"]
         # If both --xml-input and --target are provided, override host IPs
         if args.target:
             logging.info(f"[+] Overriding parsed host IPs with target: {args.target}")

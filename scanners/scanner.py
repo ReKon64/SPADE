@@ -489,6 +489,11 @@ class Scanner:
                     plugin_results[scan_plugin] = {"virtual": True}
                     completed.add(scan_plugin)
                     logging.debug(f"[PLUGIN SCHEDULER] Initial ready plugins: {ready}")
+                    if not ready:
+                        logging.warning(
+                            f"[PLUGIN SCHEDULER] No plugins ready to run for {temp_scanner.options.get('current_port', {}).get('host')}:{temp_scanner.options.get('current_port', {}).get('port_id')}. "
+                            f"Check dependencies and _virtual_scan_plugins."
+                        )
 
             while ready or futures:
                 for plugin in ready:

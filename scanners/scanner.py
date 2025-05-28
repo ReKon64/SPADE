@@ -402,7 +402,11 @@ class Scanner:
             )
             and callable(getattr(temp_scanner, method))
         ]
-        # Only include methods whose dependencies are also present in all_methods or are scan plugins
+        if not all_methods:
+            logging.warning(
+                f"[PLUGIN DISCOVERY] No plugins found for {port_data['service']} on {port_data['host']}:{port_data['port_id']} "
+                f"(enum_prefix: {enum_prefix}, brute_prefix: {brute_prefix})"
+            )
         filtered_methods = []
         for method in all_methods:
             func = getattr(temp_scanner, method)
@@ -415,6 +419,14 @@ class Scanner:
                     f"[PLUGIN FILTER] Filtering OUT plugin '{method}' for {port_data['host']}:{port_data['port_id']} "
                     f"(unsatisfiable deps: {unsatisfiable}, all deps: {deps}, available: {all_methods})"
                 )
+        if all_methods and not filtered_methods:
+            logging.warning(
+                f"[PLUGIN FILTER] All discovered plugins were filtered out for {port_data['service']} on {port_data['host']}:{port_data['port_id']} "
+                f"(discovered: {all_methods})"
+            )
+        if not filtered_methods:
+            logging.warning(f"No methods found with prefix {enum_prefix} or enum_generic_product_search")
+            return {}
         # Sort so brute_ plugins are last
         filtered_methods.sort(key=lambda m: m.startswith("brute_"))
 
@@ -430,7 +442,6 @@ class Scanner:
                 if enum not in deps:
                     deps.append(enum)
             setattr(func_obj, "depends_on", deps)
-            func.depends_on = deps
         if not filtered_methods:
             logging.warning(f"No methods found with prefix {enum_prefix} or enum_generic_product_search")
             return {}

@@ -4,7 +4,7 @@
 from core.imports import *
 from scanners.scanner import Scanner
 # from reporter import Reporter
-
+# Fking errors mate
 def main():
     parser = argparse.ArgumentParser(description="SPADE - Scalable Plug-and-play Auto Detection Engine")
 

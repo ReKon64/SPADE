@@ -1,6 +1,8 @@
 # File: scanners/scanner.py
 from core.imports import *
 from scanners.nmap_parser import parse_nmap_xml
+## Fking errors mate
+
 class Scanner:
     """
     Base Scanner class supporting auto-discovery of scan methods with threaded execution.

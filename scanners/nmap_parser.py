@@ -66,7 +66,8 @@ def _extract_ldap_info(host_elem):
     return ldap_info
 
 def parse_nmap_xml(xml_data: str):
-    logging.debug(f"[Parse_NMAP_XML] Data : {xml_data}")
+    # Disable for now
+    #logging.debug(f"[Parse_NMAP_XML] Data : {xml_data}")
     """
     Parse nmap XML output and extract structured findings.
     

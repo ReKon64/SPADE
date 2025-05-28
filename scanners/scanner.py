@@ -419,11 +419,13 @@ class Scanner:
         brute_methods = [m for m in filtered_methods if m.startswith("brute_")]
         for brute in brute_methods:
             func = getattr(temp_scanner, brute)
-            # Only add if not already declared
-            deps = getattr(func, "depends_on", [])
+            # Get the underlying function object
+            func_obj = func.__func__ if hasattr(func, "__func__") else func
+            deps = getattr(func_obj, "depends_on", [])
             for enum in enum_methods:
                 if enum not in deps:
                     deps.append(enum)
+            setattr(func_obj, "depends_on", deps)
             func.depends_on = deps
         if not filtered_methods:
             logging.warning(f"No methods found with prefix {enum_prefix} or enum_generic_product_search")

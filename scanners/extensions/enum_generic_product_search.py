@@ -15,7 +15,7 @@ def enum_generic_product_search(self, plugin_results=None):
     product = port_obj.get("product")
     cmds = []
     results = {}
-
+    logging.debug(f"[GENERIC_SEARCH] Running generic product search for port: {self.options['current_port']['port_id']}")
     if not product:
         logging.warning("[GENERIC_SEARCH] No product info found for this port.")
         return {

@@ -468,7 +468,7 @@ class Scanner:
         results = {}
         plugin_results = {}
         ready = [m for m in methods if not graph[m]]
-
+        logging.debug(f"[PLUGIN SCHEDULER] Initial ready plugins: {ready}")
         with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers or 4) as executor:
             futures = {}
             if hasattr(self, "_virtual_scan_plugins"):
@@ -476,6 +476,7 @@ class Scanner:
                     plugin_results[scan_plugin] = {"virtual": True}
             while ready or futures:
                 for plugin in ready:
+                    logging.info(f"[PLUGIN EXEC] Executing {plugin} plugin now for {temp_scanner.options.get('current_port', {}).get('host')}:{temp_scanner.options.get('current_port', {}).get('port_id')}")
                     futures[executor.submit(getattr(temp_scanner, plugin), plugin_results)] = plugin
                 ready = []
                 for future in concurrent.futures.as_completed(futures):

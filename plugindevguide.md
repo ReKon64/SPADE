@@ -149,5 +149,25 @@ A: Yes, set `depends_on` to a list of plugin names.
 *Q: What if my plugin doesn't access data returned by other plugins?*
 A: The task scheduler requires all plugins to accept `plugin_results` even if you don't use it.
 
+## 10. Skipping Plugins: The Standard
+# Clear this up with results return standard
+If your plugin cannot or should not run (e.g., a dependency result means it’s not applicable), **always return a dictionary with a `"skipped"` key**:
+
+```python
+return {"skipped": "Reason for skipping"}
+```
+
+- This allows the scheduler to recognize that the plugin was intentionally skipped and to propagate this status to dependent plugins.
+- Do **not** just return an empty dict or a non-standard structure.
+
+**Example:**
+```python
+if not isreal:
+    return {"skipped": "Not a real HTTP(S) service (isreal != True)"}
+```
+
+**Why?**  
+This prevents deadlocks and ensures dependents can be skipped or handled gracefully.
+
 Happy plugin writing!
 

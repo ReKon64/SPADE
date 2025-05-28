@@ -185,14 +185,32 @@ class Scanner:
     def _store_findings(self, parsed_results):
         """
         Store parsed findings into the findings list.
-        
+
         Args:
             parsed_results (dict): Parsed results from Nmap XML.
         """
-        findings = parsed_results.get('findings', [])
+        hosts = parsed_results.get('hosts', [])
         with self._findings_lock:
-            for finding in findings:
-                self.findings.append(finding['message'])
+            if "hosts" not in self.findings:
+                self.findings["hosts"] = []
+            # Merge hosts by IP, merge ports by id/protocol
+            for new_host in hosts:
+                ip = new_host.get("ip")
+                existing_host = next((h for h in self.findings["hosts"] if h.get("ip") == ip), None)
+                if not existing_host:
+                    logging.debug(f"[MERGE] Adding new host: {ip}")
+                    self.findings["hosts"].append(new_host)
+                else:
+                    # Merge ports
+                    existing_ports = existing_host.get("ports", [])
+                    for new_port in new_host.get("ports", []):
+                        if not any(
+                            p.get("id") == new_port.get("id") and p.get("protocol") == new_port.get("protocol")
+                            for p in existing_ports
+                        ):
+                            logging.debug(f"[MERGE] Adding new port {new_port.get('id')}/{new_port.get('protocol')} to host {ip}")
+                            existing_ports.append(new_port)
+                    existing_host["ports"] = existing_ports
         logging.debug(f"Findings size: {getsizeof(self.findings)}")
 
     def _cleanup_scan_files(self, *file_paths):
@@ -269,8 +287,8 @@ class Scanner:
             re.compile(r"^ssh$")            : "enum_ssh",
             re.compile(r"^(rpc|msrpc)")     : "enum_rpc",
             re.compile(r"^(dns|domain)$")   : "enum_dns",
-            re.compile(r"ldap")             : "enum_ldap",
-            re.compile(r"enum_snmp")        : "enum_snmp",
+            re.compile(r"^ldap$")           : "enum_ldap",
+            re.compile(r"^snmp$")           : "enum_snmp",
             re.compile(r".*")               : "enum_generic",
         }
         
@@ -359,17 +377,27 @@ class Scanner:
         """
         enum_prefix = port_data["enum_prefix"]
         temp_scanner = Scanner(options)
-        methods = [
+        # Find all methods matching the prefix
+        all_methods = [
             method for method in dir(temp_scanner)
-            if (method.startswith(enum_prefix) or method == "enum_generic_product_search")
+            if (method.startswith(enum_prefix) or method == "enum_generic_product_search" or method.startswith("brute_"))
             and callable(getattr(temp_scanner, method))
         ]
+        # Only include methods whose dependencies are also present in all_methods or are scan plugins
+        filtered_methods = []
+        for method in all_methods:
+            func = getattr(temp_scanner, method)
+            deps = getattr(func, "depends_on", [])
+            if all(dep in all_methods or dep.startswith("scan_") for dep in deps):
+                filtered_methods.append(method)
+            else:
+                logging.debug(f"[FILTERED OUT] {method} (unsatisfiable deps: {deps}) for {port_data['host']}:{port_data['port_id']}")
         # Sort so brute_ plugins are last
-        methods.sort(key=lambda m: m.startswith("brute_"))
-        if not methods:
+        filtered_methods.sort(key=lambda m: m.startswith("brute_"))
+        if not filtered_methods:
             logging.warning(f"No methods found with prefix {enum_prefix} or enum_generic_product_search")
             return {}
-        return self._execute_plugins_with_scheduler(temp_scanner, methods, max_workers=max_workers)
+        return self._execute_plugins_with_scheduler(temp_scanner, filtered_methods, max_workers=max_workers)
 
     @classmethod
     def extend(cls, func):
@@ -405,26 +433,35 @@ class Scanner:
                 dependents.setdefault(dep, set()).add(k)
         completed = set()
         results = {}
-        plugin_results = {}  # <-- In-memory results dict
+        plugin_results = {}
         ready = [m for m in methods if not graph[m]]
 
         with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers or 4) as executor:
             futures = {}
-            # Add this before the main scheduling loop
             if hasattr(self, "_virtual_scan_plugins"):
                 for scan_plugin in self._virtual_scan_plugins:
                     plugin_results[scan_plugin] = {"virtual": True}
             while ready or futures:
                 for plugin in ready:
-                    # Pass plugin_results to each plugin
                     futures[executor.submit(getattr(temp_scanner, plugin), plugin_results)] = plugin
                 ready = []
                 for future in concurrent.futures.as_completed(futures):
                     plugin = futures.pop(future)
-                    result = future.result()
+                    try:
+                        result = future.result()
+                    except Exception as e:
+                        logging.error(f"[PLUGIN ERROR] {plugin} raised: {e}")
+                        result = {"skipped": f"Exception: {e}"}
                     results[plugin] = result
-                    plugin_results[plugin] = result  # <-- Store result in-memory
+                    plugin_results[plugin] = result
                     completed.add(plugin)
+                    # If this plugin was skipped, propagate skip to dependents
+                    if isinstance(result, dict) and "skipped" in result:
+                        for dep in dependents.get(plugin, []):
+                            if dep not in completed and dep not in ready:
+                                logging.debug(f"[SKIP PROPAGATE] Skipping {dep} because dependency {plugin} was skipped.")
+                                plugin_results[dep] = {"skipped": f"Dependency {plugin} was skipped: {result['skipped']}"}
+                                completed.add(dep)
                     for dep in dependents.get(plugin, []):
                         if all(d in completed for d in graph[dep]) and dep not in completed and dep not in ready:
                             ready.append(dep)

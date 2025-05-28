@@ -407,10 +407,14 @@ class Scanner:
         for method in all_methods:
             func = getattr(temp_scanner, method)
             deps = getattr(func, "depends_on", [])
-            if all(dep in all_methods or dep.startswith("scan_") for dep in deps):
+            unsatisfiable = [dep for dep in deps if dep not in all_methods and not dep.startswith("scan_")]
+            if not unsatisfiable:
                 filtered_methods.append(method)
             else:
-                logging.debug(f"[FILTERED OUT] {method} (unsatisfiable deps: {deps}) for {port_data['host']}:{port_data['port_id']}")
+                logging.warning(
+                    f"[PLUGIN FILTER] Filtering OUT plugin '{method}' for {port_data['host']}:{port_data['port_id']} "
+                    f"(unsatisfiable deps: {unsatisfiable}, all deps: {deps}, available: {all_methods})"
+                )
         # Sort so brute_ plugins are last
         filtered_methods.sort(key=lambda m: m.startswith("brute_"))
 
@@ -458,7 +462,6 @@ class Scanner:
             plugin_results[plugin_name] = plugin_func()
 
     def _execute_plugins_with_scheduler(self, temp_scanner, methods, max_workers=None):
-        import concurrent.futures
         graph = self._build_plugin_dependency_graph(temp_scanner, methods)
         dependents = {k: set() for k in graph}
         for k, deps in graph.items():
@@ -468,12 +471,14 @@ class Scanner:
         results = {}
         plugin_results = {}
         ready = [m for m in methods if not graph[m]]
-        logging.debug(f"[PLUGIN SCHEDULER] Initial ready plugins: {ready}")
         with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers or 4) as executor:
             futures = {}
             if hasattr(self, "_virtual_scan_plugins"):
                 for scan_plugin in self._virtual_scan_plugins:
                     plugin_results[scan_plugin] = {"virtual": True}
+                    completed.add(scan_plugin)
+                    logging.debug(f"[PLUGIN SCHEDULER] Initial ready plugins: {ready}")
+
             while ready or futures:
                 for plugin in ready:
                     logging.info(f"[PLUGIN EXEC] Executing {plugin} plugin now for {temp_scanner.options.get('current_port', {}).get('host')}:{temp_scanner.options.get('current_port', {}).get('port_id')}")

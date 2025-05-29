@@ -17,9 +17,9 @@ def enum_generic_product_search(self, plugin_results=None):
     results = {}
     port_id = self.options['current_port'].get('port_id')
     host = self.options['current_port'].get('host')
-    logging.debug(f"[GENERIC_SEARCH] Running generic product search for {host}:{port_id} | port_obj: {port_obj}")
+    logging.debug(f"[GENERIC_SEARCH] Running generic product search for {host}:{port_id} | {product}:{version}")
     if not product:
-        logging.warning("[GENERIC_SEARCH] No product info found for this port.")
+        logging.warning(f"[GENERIC_SEARCH] No product info found for {host}:{port_id}:{product}.")
         return {
             "cmd": cmds,
             "results": {"error": "No product info found for this port."}
@@ -45,8 +45,9 @@ def enum_generic_product_search(self, plugin_results=None):
     logging.info(f"[GENERIC_SEARCH] Search query for {host}:{port_id}: {search_query}")
 
     # --- Searchsploit ---
-    searchsploit_cmd = f"searchsploit \"{search_query}\""
+    searchsploit_cmd = f"searchsploit {product} {search_version}"
     cmds.append(searchsploit_cmd)
+    logging.debug(f"[GENERIC_SEARCH] Built Searchsploit command: {searchsploit_cmd}")
     try:
         logging.debug(f"[GENERIC_SEARCH] Running Searchsploit command: {searchsploit_cmd}")
         proc = subprocess.run(
@@ -70,6 +71,7 @@ def enum_generic_product_search(self, plugin_results=None):
     # --- GitHub ---
     github_url = f"https://github.com/search?q={encoded_query}"
     cmds.append(github_url)
+    logging.debug(f"[GENERIC_SEARCH] Built GitHub URL: {github_url}")
     github_links = []
     github_titles = []
     github_status = None
@@ -102,6 +104,7 @@ def enum_generic_product_search(self, plugin_results=None):
     # --- Google ---
     google_url = f"https://www.google.com/search?q={encoded_query}"
     cmds.append(google_url)
+    logging.debug(f"[GENERIC_SEARCH] Built Google URL: {google_url}")
     google_links = []
     google_titles = []
     google_status = None

@@ -2,6 +2,8 @@
 
 # Ignore files containing "results" in their name
 *results*
+scan*
+
 # Allow directories containing "results"
 !*/results/
 

@@ -431,17 +431,7 @@ class Scanner:
         filtered_methods.sort(key=lambda m: m.startswith("brute_"))
 
         # Ensure brute plugins depend on all enum_ plugins for this port
-        enum_methods = [m for m in filtered_methods if m.startswith("enum_")]
-        brute_methods = [m for m in filtered_methods if m.startswith("brute_")]
-        for brute in brute_methods:
-            func = getattr(temp_scanner, brute)
-            # Get the underlying function object
-            func_obj = func.__func__ if hasattr(func, "__func__") else func
-            deps = getattr(func_obj, "depends_on", [])
-            for enum in enum_methods:
-                if enum not in deps:
-                    deps.append(enum)
-            setattr(func_obj, "depends_on", deps)
+        filtered_methods.sort(key=lambda m: m.startswith("brute_"))
         if not filtered_methods:
             logging.warning(f"No methods found with prefix {enum_prefix} or enum_generic_product_search")
             return {}

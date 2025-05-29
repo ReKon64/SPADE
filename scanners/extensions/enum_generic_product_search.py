@@ -9,6 +9,9 @@ def enum_generic_product_search(self, plugin_results=None):
     Returns:
         dict: { "cmd": [], "results": {product, version, search_version, searchsploit, github, google} }
     """
+    version = port_obj.get("version", "")
+    search_version = ""
+
     if plugin_results is None:
         plugin_results = {}
     port_obj = self.options["current_port"].get("port_obj", {})
@@ -25,9 +28,7 @@ def enum_generic_product_search(self, plugin_results=None):
             "results": {"error": "No product info found for this port."}
         }
 
-    version = port_obj.get("version", "")
     # Extract the first digit-dot-digit sequence for version (e.g., 2.14 from 2.14.2.2)
-    search_version = ""
     m = re.search(r"(\d+\.\d+)", version)
     if m:
         search_version = m.group(1)

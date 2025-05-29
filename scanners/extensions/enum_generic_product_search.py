@@ -10,8 +10,9 @@ def enum_generic_product_search(self, plugin_results=None):
         dict: { "cmd": [], "results": {product, version, search_version, searchsploit, github, google} }
     """
     port_obj = self.options["current_port"].get("port_obj", {})
-    product = port_obj.get("product")
-    version = port_obj.get("version", "")
+    service = port_obj.get("service", {})
+    product = service.get("product")
+    version = service.get("version", "")
     search_version = ""
 
     if plugin_results is None:

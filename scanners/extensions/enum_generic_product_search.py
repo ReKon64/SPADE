@@ -15,7 +15,9 @@ def enum_generic_product_search(self, plugin_results=None):
     product = port_obj.get("product")
     cmds = []
     results = {}
-    logging.debug(f"[GENERIC_SEARCH] Running generic product search for port: {self.options['current_port']['port_id']}")
+    port_id = self.options['current_port'].get('port_id')
+    host = self.options['current_port'].get('host')
+    logging.debug(f"[GENERIC_SEARCH] Running generic product search for {host}:{port_id} | port_obj: {port_obj}")
     if not product:
         logging.warning("[GENERIC_SEARCH] No product info found for this port.")
         return {
@@ -30,20 +32,23 @@ def enum_generic_product_search(self, plugin_results=None):
     if m:
         search_version = m.group(1)
         search_query = f"{product} {search_version} exploit"
+        logging.debug(f"[GENERIC_SEARCH] Using search_version '{search_version}' for product '{product}' on {host}:{port_id}")
     else:
         if version:
             logging.debug(f"[GENERIC_SEARCH] Unexpected version format: '{version}' for product '{product}'. Falling back to product + version.")
             search_query = f"{product} {version} exploit"
         else:
-            logging.debug(f"[GENERIC_SEARCH] No version info for product '{product}'. Using product only.")
+            logging.debug(f"[GENERIC_SEARCH] No version info for product '{product}' on {host}:{port_id}. Using product only.")
             search_query = f"{product} exploit"
 
     encoded_query = urllib.parse.quote_plus(search_query)
+    logging.info(f"[GENERIC_SEARCH] Search query for {host}:{port_id}: {search_query}")
 
     # --- Searchsploit ---
     searchsploit_cmd = f"searchsploit \"{search_query}\""
     cmds.append(searchsploit_cmd)
     try:
+        logging.debug(f"[GENERIC_SEARCH] Running Searchsploit command: {searchsploit_cmd}")
         proc = subprocess.run(
             searchsploit_cmd,
             shell=True,
@@ -51,9 +56,11 @@ def enum_generic_product_search(self, plugin_results=None):
             text=True,
             timeout=15
         )
+        logging.debug(f"[GENERIC_SEARCH] Searchsploit stdout: {proc.stdout}")
+        logging.debug(f"[GENERIC_SEARCH] Searchsploit stderr: {proc.stderr}")
         lines = [line for line in proc.stdout.splitlines() if line.strip() and not line.startswith(("-", "=", "Exploit Title"))]
         results["searchsploit"] = lines[:5]
-        logging.debug(f"[GENERIC_SEARCH] Searchsploit query: {search_query} | Results: {lines[:5]}")
+        logging.info(f"[GENERIC_SEARCH] Searchsploit results for {host}:{port_id}: {lines[:5]}")
         results["searchsploit_debug"] = {"query": search_query, "results": lines[:5]}
     except Exception as e:
         results["searchsploit"] = [f"Error running searchsploit: {e}"]
@@ -67,8 +74,10 @@ def enum_generic_product_search(self, plugin_results=None):
     github_titles = []
     github_status = None
     try:
+        logging.debug(f"[GENERIC_SEARCH] Sending GitHub request: {github_url}")
         resp = requests.get(github_url, timeout=15, headers={"User-Agent": "Mozilla/5.0"})
         github_status = resp.status_code
+        logging.debug(f"[GENERIC_SEARCH] GitHub HTTP status: {github_status}")
         if resp.status_code != 200:
             logging.debug(f"[GENERIC_SEARCH] GitHub query: {search_query} | HTTP status: {resp.status_code}")
         soup = BeautifulSoup(resp.text, "html.parser")
@@ -97,8 +106,10 @@ def enum_generic_product_search(self, plugin_results=None):
     google_titles = []
     google_status = None
     try:
+        logging.debug(f"[GENERIC_SEARCH] Sending Google request: {google_url}")
         resp = requests.get(google_url, timeout=15, headers={"User-Agent": "Mozilla/5.0"})
         google_status = resp.status_code
+        logging.debug(f"[GENERIC_SEARCH] Google HTTP status: {google_status}")
         if resp.status_code != 200:
             logging.warning(f"[GENERIC_SEARCH] Google query: {search_query} | HTTP status: {resp.status_code}")
         soup = BeautifulSoup(resp.text, "html.parser")
@@ -128,6 +139,8 @@ def enum_generic_product_search(self, plugin_results=None):
         "search_version": search_version,
         "search_query": search_query
     })
+
+    logging.info(f"[GENERIC_SEARCH] Final results for {host}:{port_id}: {results}")
 
     return {"cmd": cmds, "results": results}
 

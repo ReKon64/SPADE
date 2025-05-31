@@ -3,8 +3,9 @@
 # Import components
 from core.imports import *
 from scanners.scanner import Scanner
+from core.logging import ContextPrefixFilter
 # from reporter import Reporter
-# Fking errors mate
+
 def main():
     parser = argparse.ArgumentParser(description="SPADE - Scalable Plug-and-play Auto Detection Engine")
 
@@ -43,7 +44,7 @@ def main():
     # Configure logging
     if args.memory:
         from core.logging import MemoryUsageFormatter
-        format = '%(asctime)s - %(levelname)s - [MEM: %(memory_usage)s] - %(message)s'
+        format = '%(asctime)s - %(levelname)s - [MEM: %(memory_usage)s] - %(prefix)s - %(message)s'
         if args.realtime and args.verbose:
             log_level = min(logging.DEBUG, 15)  # 10
         elif args.realtime:
@@ -62,8 +63,9 @@ def main():
         root_logger = logging.getLogger()
         root_logger.setLevel(log_level)
         root_logger.addHandler(handler)
+        root_logger.addFilter(ContextPrefixFilter())
     else:
-        format = '%(asctime)s - %(levelname)s - %(message)s'
+        format = '%(asctime)s - %(levelname)s - %(prefix)s - %(message)s'
         if args.realtime and args.verbose:
             log_level = min(logging.DEBUG, 15)  # 10
         elif args.realtime:
@@ -73,7 +75,8 @@ def main():
         else:
             log_level = logging.INFO
         logging.basicConfig(level=log_level, format=format)
-
+        logging.getLogger().addFilter(ContextPrefixFilter())
+    
     # Options dictionary
     options = {
         'output_dir': args.output or os.getcwd(),

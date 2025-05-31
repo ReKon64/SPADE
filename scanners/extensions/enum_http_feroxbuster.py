@@ -53,7 +53,7 @@ def enum_http_feroxbuster(self, plugin_results=None):
 
         cmd = (
             f"feroxbuster --url {url} --extract-links -B --auto-tune "
-            f"-w {wordlist} --threads 32 --insecure -o {output_path} -C 404 --scan-dir-listings {ferox_ext}"
+            f"-w {wordlist} --threads 32 --insecure -o {output_path} -C 404 --scan-dir-listings {ferox_ext} --silent"
         ).strip()
         cmds.append(cmd)
         logging.info(f"[enum_http_feroxbuster] Executing: {cmd}")
@@ -61,7 +61,7 @@ def enum_http_feroxbuster(self, plugin_results=None):
         try:
             if verbosity:
                 from core.logging import run_and_log
-                run_and_log(cmd, very_verbose=True, prefix="[FEROXBUSTER]")
+                run_and_log(cmd, very_verbose=True, prefix="FEROXBUSTER")
             else:
                 subprocess.run(
                     cmd,

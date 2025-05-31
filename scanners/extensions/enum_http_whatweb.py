@@ -41,7 +41,7 @@ def enum_http_whatweb(self, plugin_results=None):
     try:
         if verbosity:
             from core.logging import run_and_log
-            run_and_log(cmd, very_verbose=True, prefix="[WHATWEB]")
+            run_and_log(cmd, very_verbose=True, prefix="WHATWEB")
         else:
             subprocess.run(
                 cmd,

@@ -21,6 +21,30 @@ class MemoryUsageFormatter(logging.Formatter):
         
         # Call the original formatter
         return super().format(record)
+
+class ContextPrefixFilter(logging.Filter):
+    def filter(self, record):
+        # Walk up the stack to find host/port in locals
+        frame = inspect.currentframe()
+        while frame:
+            f_locals = frame.f_locals
+            host = f_locals.get("host")
+            port = f_locals.get("port") or f_locals.get("port_id")
+            func = frame.f_code.co_name
+            if host or port:
+                prefix = func.upper()
+                if host and port:
+                    prefix = f"{prefix} {host}:{port}"
+                elif host:
+                    prefix = f"{prefix} {host}"
+                elif port:
+                    prefix = f"{prefix} {port}"
+                record.prefix = f"[{prefix}]"
+                break
+            frame = frame.f_back
+        else:
+            record.prefix = ""
+        return True
     
 
 def run_and_log(cmd, very_verbose=False, prefix=None):
@@ -34,6 +58,15 @@ def run_and_log(cmd, very_verbose=False, prefix=None):
         frame = inspect.currentframe()
         caller_frame = frame.f_back
         prefix = caller_frame.f_code.co_name.upper()
+        # Try to extract host and port/port_id from caller's locals
+        host = caller_frame.f_locals.get("host")
+        port = caller_frame.f_locals.get("port") or caller_frame.f_locals.get("port_id")
+        if host and port:
+            prefix = f"{prefix} {host}:{port}"
+        elif host:
+            prefix = f"{prefix} {host}"
+        elif port:
+            prefix = f"{prefix} {port}"
     process = subprocess.Popen(
         cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True
     )

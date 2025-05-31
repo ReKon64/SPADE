@@ -61,7 +61,7 @@ def enum_http_feroxbuster(self, plugin_results=None):
         try:
             if verbosity:
                 from core.logging import run_and_log
-                run_and_log(cmd, very_verbose=True, prefix="FEROXBUSTER")
+                run_and_log(cmd, very_verbose=True)
             else:
                 subprocess.run(
                     cmd,

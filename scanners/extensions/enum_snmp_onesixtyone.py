@@ -43,7 +43,7 @@ def enum_snmp_onesixtyone(self, plugin_results=None):
     try:
         if self.options.get("realtime", False):
             from core.logging import run_and_log
-            run_and_log(cmd, very_verbose=True, prefix="[ONESIXTYONE]")
+            run_and_log(cmd, very_verbose=True)
         else:
             subprocess.run(
                 cmd,

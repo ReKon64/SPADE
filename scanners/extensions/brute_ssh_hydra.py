@@ -31,7 +31,7 @@ def brute_ssh_hydra(self, plugin_results=None):
     try:
         if self.options.get("realtime", False):
             from core.logging import run_and_log
-            run_and_log(cmd, very_verbose=True, prefix="HYDRA_SSH")
+            run_and_log(cmd, very_verbose=True)
         else:
             subprocess.run(
                 cmd,

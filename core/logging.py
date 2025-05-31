@@ -18,31 +18,43 @@ class MemoryUsageFormatter(logging.Formatter):
         
         # Add memory usage as a field to the record
         record.memory_usage = f"{memory_usage:.2f} MB"
-        
+        if not hasattr(record, "prefix"):
+            record.prefix = ""
+        if not hasattr(record, "hostport"):
+            record.hostport = ""
         # Call the original formatter
+        return super().format(record)
+
+class SafeFormatter(logging.Formatter):
+    def format(self, record):
+        if not hasattr(record, "prefix"):
+            record.prefix = ""
+        if not hasattr(record, "hostport"):
+            record.hostport = ""
         return super().format(record)
 
 class ContextPrefixFilter(logging.Filter):
     def filter(self, record):
-        # Walk up the stack to find host/port in locals
         frame = inspect.currentframe()
         while frame:
             f_locals = frame.f_locals
             host = f_locals.get("host")
             port = f_locals.get("port") or f_locals.get("port_id")
             func = frame.f_code.co_name
-            if host or port:
-                prefix = func.upper()
-                if host and port:
-                    prefix = f"{prefix} {host}:{port}"
-                elif host:
-                    prefix = f"{prefix} {host}"
-                elif port:
-                    prefix = f"{prefix} {port}"
-                record.prefix = f"[{prefix}]"
-                break
+            # Set hostport and prefix separately
+            if host and port:
+                record.hostport = f"{host}:{port}"
+            elif host:
+                record.hostport = f"{host}"
+            elif port:
+                record.hostport = f"{port}"
+            else:
+                record.hostport = ""
+            record.prefix = f"[{func.upper()}]"
+            break
             frame = frame.f_back
         else:
+            record.hostport = ""
             record.prefix = ""
         return True
     

@@ -25,7 +25,7 @@ def enum_http_curl_confirmation(self, plugin_results=None):
     try:
         if verbosity:
             from core.logging import run_and_log
-            output = run_and_log(cmd, very_verbose=True)
+            output = run_and_log(cmd, very_verbose=True, prefix="[CURL_CONFIRM]")
         else:
             output = subprocess.run(
                 cmd,

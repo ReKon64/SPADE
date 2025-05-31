@@ -22,12 +22,18 @@ class MemoryUsageFormatter(logging.Formatter):
         # Call the original formatter
         return super().format(record)
     
-def run_and_log(cmd, very_verbose=False):
+
+def run_and_log(cmd, very_verbose=False, prefix=None):
     """
     Run a shell command, streaming output in real time if very_verbose is enabled.
     Returns the full output as a string.
     """
     logger = logging.getLogger()
+    # Automatically set prefix to caller's function name in uppercase if not provided
+    if prefix is None:
+        frame = inspect.currentframe()
+        caller_frame = frame.f_back
+        prefix = caller_frame.f_code.co_name.upper()
     process = subprocess.Popen(
         cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True
     )
@@ -35,6 +41,6 @@ def run_and_log(cmd, very_verbose=False):
     for line in process.stdout:
         output += line
         if very_verbose:
-            logger.realtime(line.rstrip())
+            logger.realtime(f"[{prefix}] {line.rstrip()}")
     process.wait()
     return output

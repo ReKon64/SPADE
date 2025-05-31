@@ -1,8 +1,6 @@
 ### MANUAL START
 
-# Ignore files containing "results" in their name
-*results*
-scan*
+scan_*
 
 # Allow directories containing "results"
 !*/results/

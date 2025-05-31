@@ -3,7 +3,7 @@
 # Import components
 from core.imports import *
 from scanners.scanner import Scanner
-from core.logging import ContextPrefixFilter
+from core.logging import SafeFormatter, ContextPrefixFilter
 # from reporter import Reporter
 
 def main():
@@ -75,6 +75,9 @@ def main():
         else:
             log_level = logging.INFO
         logging.basicConfig(level=log_level, format=format)
+        # Handler patch
+        for handler in logging.getLogger().handlers:
+            handler.setFormatter(SafeFormatter(format))
         logging.getLogger().addFilter(ContextPrefixFilter())
     
     # Options dictionary

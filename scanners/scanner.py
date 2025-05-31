@@ -376,7 +376,7 @@ class Scanner:
                 except Exception as e:
                     logging.error(f"Error processing scan for {port_data['service']} on {port_data['host']}:{port_data['port_id']}: {e}")
         
-        logging.info(f"[+] Completed all port-specific enumeration")
+        logging.info(f"[+] Completed all {protocol} port-specific enumeration")
         return self.findings
 
     def _scan_individual_port(self, port_data, options, max_workers=None):

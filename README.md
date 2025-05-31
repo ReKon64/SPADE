@@ -21,32 +21,20 @@ SPADE is a modular vulnerability scanning framework that leverages external tool
 2. Provide clear documentation for writing scanners and finding returning cleaner
 3. Create the report class
 
-# Establish a uniform schema for plugin results
-# ?
+
 # 1. Plugins key -> plugin name -> command -> result 1, result 2 
-
-# UDP fails to pass scan entry data even if the plugin res are empty
-# But TCP and UDP are finally decoupled in execution. Dunno about result handling though
-2025-05-27 16:51:23,670 - INFO - UDP scan completed. Results saved to /tmp/tmppfx8jkw7.xml
-2025-05-27 16:51:23,670 - INFO - [+] Starting port-specific enumeration
-2025-05-27 16:51:23,670 - DEBUG - [*] Service scan used entry data : []
-2025-05-27 16:51:23,670 - INFO - [+] No services found to enumerate
-2025-05-27 16:51:23,670 - INFO - [+] Completed UDP port-specific enumeration
-2025-05-27 16:51:26,033 - REAL-TIME - SYN Stealth Scan Timing: About 51.44% don
-#
-2025-05-27 16:51:23,670 - INFO - UDP scan completed. Results saved to /tmp/tmppfx8jkw7.xml
-#
-
+# Per plugin imports and argparse options ?
+# Multi target.
+# Subnet scans / target "finding" via ping sweep arp etc
 # Pararell execution achieved I can die in peace now.
 # Generic product exploit search is broken. MOAR LOGGING.
-# STD - REALTIME is confusing. Force name of the method to be attached to it.
+# STD - REALTIME is confusing. Force name of the method to be attached to it. -UNDOABLE-
 # Make it accept multiple targets, multiple 1target xmls and overlaying them for overwriting target IPs
 # Implement prefix for unknown services for extensibility.
 # Add OS type at the head where hostname etc. lies
 # FIX THREADING IT USES 16 THREADS PER PORT FUCKKK
 # Test SMB crawling
 # Fingerprint all the things
-# Brute all the things !11!
 # generic prod search -> exploits -> ai fix exploit -> try to run it
 # find names / roles -> ask AI if it makes sense
 # Credentialed enumeration...

@@ -27,6 +27,8 @@ def main():
     parser.add_argument("-o", "--output", help="Output directory for reports and payloads. Defaults to CWD")
     
     parser.add_argument("--ferox-wordlists", nargs="+", help="One or more wordlists to use for feroxbuster (space separated not quoted).")
+    parser.add_argument("--google-api-key", help="Google Custom Search API key for product search plugins")
+    parser.add_argument("--google-cse-id", help="Google Custom Search Engine ID for product search plugins")
 
     args = parser.parse_args()
 
@@ -84,6 +86,8 @@ def main():
         'tcp_options': args.tcp_options,
         'udp_options': args.udp_options,
         'ferox_wordlists': args.ferox_wordlists,
+        'google_api_key': args.google_api_key,
+        'google_cse_id': args.google_cse_id,
     }
 
     # Load all scanner extensions

@@ -70,73 +70,116 @@ def enum_generic_product_search(self, plugin_results=None):
         logging.warning(f"[GENERIC_SEARCH] Searchsploit query: {search_query} | Error: {e}")
         results["searchsploit_debug"] = {"query": search_query, "results": [f"Error running searchsploit: {e}"]}
 
-    # --- GitHub ---
-    github_url = f"https://github.com/search?q={encoded_query}"
-    cmds.append(github_url)
-    logging.debug(f"[GENERIC_SEARCH] Built GitHub URL: {github_url}")
+    # --- GitHub (API only, skip if no API key) ---
     github_links = []
     github_titles = []
     github_status = None
-    try:
-        logging.debug(f"[GENERIC_SEARCH] Sending GitHub request: {github_url}")
-        resp = requests.get(github_url, timeout=15, headers={"User-Agent": "Mozilla/5.0"})
-        github_status = resp.status_code
-        logging.debug(f"[GENERIC_SEARCH] GitHub HTTP status: {github_status}")
-        if resp.status_code != 200:
-            logging.debug(f"[GENERIC_SEARCH] GitHub query: {search_query} | HTTP status: {resp.status_code}")
-        soup = BeautifulSoup(resp.text, "html.parser")
-        for a in soup.select('a.v-align-middle'):
-            href = a.get("href")
-            title = a.get_text(strip=True)
-            if href and href.startswith("/"):
-                github_links.append("https://github.com" + href)
-                github_titles.append(title)
-            if len(github_links) >= 5:
-                break
-        results["github"] = [github_links, github_titles]
-        results["github_status"] = github_status
-        logging.debug(f"[GENERIC_SEARCH] GitHub query: {search_query} | Results: {github_links} | Status: {github_status}")
-        results["github_debug"] = {"query": search_query, "results": github_links}
-    except Exception as e:
-        results["github"] = [[f"Error searching GitHub: {e}"], []]
-        results["github_status"] = github_status
-        logging.warning(f"[GENERIC_SEARCH] GitHub query: {search_query} | Error: {e} | Status: {github_status}")
-        results["github_debug"] = {"query": search_query, "results": [f"Error searching GitHub: {e}"]}
+    github_api_key = self.options.get("github_api_key")
+    github_url = f"https://github.com/search?q={encoded_query}"
+    cmds.append(github_url)
+    logging.debug(f"[GENERIC_SEARCH] Built GitHub URL: {github_url}")
+    logging.debug(f"[GENERIC_SEARCH] Using GitHub API key: {github_api_key}")
 
-    # --- Google ---
-    google_url = f"https://www.google.com/search?q={encoded_query}"
-    cmds.append(google_url)
-    logging.debug(f"[GENERIC_SEARCH] Built Google URL: {google_url}")
+    if github_api_key:
+        try:
+            headers = {
+                "Authorization": f"token {github_api_key}",
+                "Accept": "application/vnd.github+json",
+                "User-Agent": "Mozilla/5.0"
+            }
+            api_url = f"https://api.github.com/search/repositories?q={encoded_query}"
+            logging.debug(f"[GENERIC_SEARCH] Sending GitHub API request: {api_url}")
+            resp = requests.get(api_url, headers=headers, timeout=15)
+            github_status = resp.status_code
+            resp.raise_for_status()
+            items = resp.json().get("items", [])
+            for item in items[:5]:
+                github_links.append(item.get("html_url"))
+                github_titles.append(item.get("full_name"))
+            results["github"] = [github_links, github_titles]
+            results["github_status"] = github_status
+            logging.debug(f"[GENERIC_SEARCH] GitHub API query: {search_query} | Results: {github_links} | Status: {github_status}")
+            results["github_debug"] = {"query": search_query, "results": github_links}
+        except Exception as e:
+            logging.warning(f"[GENERIC_SEARCH] GitHub API failed: {e}")
+            results["github"] = [[f"Error searching GitHub API: {e}"], []]
+            results["github_status"] = github_status
+            results["github_debug"] = {"query": search_query, "results": [f"Error searching GitHub API: {e}"]}
+    else:
+        logging.warning("[GENERIC_SEARCH] No GitHub API key found, skipping GitHub search.")
+        results["github"] = {"skipped": "No GitHub API key provided, skipping GitHub search."}
+        results["github_status"] = None
+        results["github_debug"] = {"query": search_query, "results": ["No GitHub API key provided, skipping GitHub search."]}
+
+    # --- Google Custom Search JSON API with DuckDuckGo fallback ---
     google_links = []
     google_titles = []
     google_status = None
-    try:
-        logging.debug(f"[GENERIC_SEARCH] Sending Google request: {google_url}")
-        resp = requests.get(google_url, timeout=15, headers={"User-Agent": "Mozilla/5.0"})
-        google_status = resp.status_code
-        logging.debug(f"[GENERIC_SEARCH] Google HTTP status: {google_status}")
-        if resp.status_code != 200:
-            logging.warning(f"[GENERIC_SEARCH] Google query: {search_query} | HTTP status: {resp.status_code}")
-        soup = BeautifulSoup(resp.text, "html.parser")
-        for g in soup.select('a'):
-            href = g.get("href")
-            if href and href.startswith("/url?q="):
-                url = href.split("/url?q=")[1].split("&")[0]
-                if not url.startswith("https://webcache.googleusercontent.com"):
-                    title = g.get_text(strip=True)
-                    google_links.append(url)
-                    google_titles.append(title)
-            if len(google_links) >= 5:
-                break
-        results["google"] = [google_links, google_titles]
-        results["google_status"] = google_status
-        logging.debug(f"[GENERIC_SEARCH] Google query: {search_query} | Results: {google_links} | Status: {google_status}")
-        results["google_debug"] = {"query": search_query, "results": google_links}
-    except Exception as e:
-        results["google"] = [[f"Error searching Google: {e}"], []]
-        results["google_status"] = google_status
-        logging.warning(f"[GENERIC_SEARCH] Google query: {search_query} | Error: {e} | Status: {google_status}")
-        results["google_debug"] = {"query": search_query, "results": [f"Error searching Google: {e}"]}
+    google_api_key = self.options.get("google_api_key")
+    google_cse_id = self.options.get("google_cse_id")
+    google_url = f"https://www.googleapis.com/customsearch/v1"
+    cmds.append(f"Google Custom Search API: {search_query}")
+    logging.debug(f"[GENERIC_SEARCH] Using Google API key: {google_api_key} | CSE ID: {google_cse_id}")
+
+    if google_api_key and google_cse_id:
+        try:
+            params = {
+                "q": search_query,
+                "key": google_api_key,
+                "cx": google_cse_id,
+                "num": 5
+            }
+            logging.debug(f"[GENERIC_SEARCH] Sending Google Custom Search API request: {params}")
+            resp = requests.get(google_url, params=params, timeout=15)
+            google_status = resp.status_code
+            resp.raise_for_status()
+            items = resp.json().get("items", [])
+            for item in items:
+                google_links.append(item.get("link"))
+                google_titles.append(item.get("title"))
+            results["google"] = [google_links, google_titles]
+            results["google_status"] = google_status
+            logging.debug(f"[GENERIC_SEARCH] Google Custom Search API query: {search_query} | Results: {google_links} | Status: {google_status}")
+            results["google_debug"] = {"query": search_query, "results": google_links}
+        except Exception as e:
+            logging.warning(f"[GENERIC_SEARCH] Google Custom Search API failed: {e} | Falling back to DuckDuckGo.")
+            results["google"] = [[f"Error searching Google API: {e}"], []]
+            results["google_status"] = google_status
+            results["google_debug"] = {"query": search_query, "results": [f"Error searching Google API: {e}"]}
+    else:
+        logging.warning("[GENERIC_SEARCH] Google API key or CSE ID not set, using DuckDuckGo fallback.")
+        results["google"] = [["Google API key or CSE ID not set, using DuckDuckGo fallback."], []]
+        results["google_status"] = None
+        results["google_debug"] = {"query": search_query, "results": ["Google API key or CSE ID not set, using DuckDuckGo fallback."]}
+
+    # DuckDuckGo fallback if Google failed or returned no results
+    if not google_links:
+        duckduckgo_url = f"https://html.duckduckgo.com/html/?q={encoded_query}"
+        cmds.append(duckduckgo_url)
+        ddg_links = []
+        ddg_titles = []
+        try:
+            logging.debug(f"[GENERIC_SEARCH] Sending DuckDuckGo request: {duckduckgo_url}")
+            resp = requests.get(duckduckgo_url, timeout=15, headers={"User-Agent": "Mozilla/5.0"})
+            soup = BeautifulSoup(resp.text, "html.parser")
+            for result in soup.select('a.result__a'):
+                href = result.get("href")
+                title = result.get_text(strip=True)
+                if href and title:
+                    ddg_links.append(href)
+                    ddg_titles.append(title)
+                if len(ddg_links) >= 5:
+                    break
+            # Overwrite google results with DuckDuckGo fallback
+            results["google"] = [ddg_links, ddg_titles]
+            results["google_status"] = resp.status_code
+            results["google_debug"] = {"query": search_query, "results": ddg_links}
+            logging.debug(f"[GENERIC_SEARCH] DuckDuckGo fallback query: {search_query} | Results: {ddg_links} | Status: {resp.status_code}")
+        except Exception as e:
+            results["google"] = [[f"Error searching DuckDuckGo: {e}"], []]
+            results["google_status"] = None
+            results["google_debug"] = {"query": search_query, "results": [f"Error searching DuckDuckGo: {e}"]}
+            logging.warning(f"[GENERIC_SEARCH] DuckDuckGo fallback query: {search_query} | Error: {e}")
 
     results.update({
         "product": product,

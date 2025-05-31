@@ -3,7 +3,7 @@
 # Import components
 from core.imports import *
 from scanners.scanner import Scanner
-from core.logging import SafeFormatter, ContextPrefixFilter
+from core.logging import SafeFormatter
 # from reporter import Reporter
 
 def main():
@@ -44,7 +44,7 @@ def main():
     # Configure logging
     if args.memory:
         from core.logging import MemoryUsageFormatter
-        format = '%(asctime)s - %(levelname)s - [MEM: %(memory_usage)s] - %(hostport)s - %(prefix)s - %(message)s'
+        format = '%(asctime)s - %(levelname)s - [MEM: %(memory_usage)s] - %(prefix)s - %(message)s'
         if args.realtime and args.verbose:
             log_level = min(logging.DEBUG, 15)  # 10
         elif args.realtime:
@@ -63,9 +63,8 @@ def main():
         root_logger = logging.getLogger()
         root_logger.setLevel(log_level)
         root_logger.addHandler(handler)
-        root_logger.addFilter(ContextPrefixFilter())
     else:
-        format = '%(asctime)s - %(levelname)s - %(hostport)s - %(prefix)s - %(message)s'
+        format = '%(asctime)s - %(levelname)s - %(prefix)s - %(message)s'
         if args.realtime and args.verbose:
             log_level = min(logging.DEBUG, 15)  # 10
         elif args.realtime:
@@ -78,7 +77,6 @@ def main():
         # Handler patch
         for handler in logging.getLogger().handlers:
             handler.setFormatter(SafeFormatter(format))
-        logging.getLogger().addFilter(ContextPrefixFilter())
     
     # Options dictionary
     options = {

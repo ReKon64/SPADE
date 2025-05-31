@@ -10,54 +10,18 @@ logging.Logger.realtime = realtime
 
 class MemoryUsageFormatter(logging.Formatter):
     def format(self, record):
-        # Get the current process
         process = psutil.Process(os.getpid())
-        
-        # Get memory info in MB
         memory_usage = process.memory_info().rss / 1024 / 1024
-        
-        # Add memory usage as a field to the record
         record.memory_usage = f"{memory_usage:.2f} MB"
         if not hasattr(record, "prefix"):
             record.prefix = ""
-        if not hasattr(record, "hostport"):
-            record.hostport = ""
-        # Call the original formatter
         return super().format(record)
 
 class SafeFormatter(logging.Formatter):
     def format(self, record):
         if not hasattr(record, "prefix"):
             record.prefix = ""
-        if not hasattr(record, "hostport"):
-            record.hostport = ""
         return super().format(record)
-
-class ContextPrefixFilter(logging.Filter):
-    def filter(self, record):
-        frame = inspect.currentframe()
-        while frame:
-            f_locals = frame.f_locals
-            host = f_locals.get("host")
-            port = f_locals.get("port") or f_locals.get("port_id")
-            func = frame.f_code.co_name
-            # Set hostport and prefix separately
-            if host and port:
-                record.hostport = f"{host}:{port}"
-            elif host:
-                record.hostport = f"{host}"
-            elif port:
-                record.hostport = f"{port}"
-            else:
-                record.hostport = ""
-            record.prefix = f"[{func.upper()}]"
-            break
-            frame = frame.f_back
-        else:
-            record.hostport = ""
-            record.prefix = ""
-        return True
-    
 
 def run_and_log(cmd, very_verbose=False, prefix=None):
     """
@@ -74,11 +38,13 @@ def run_and_log(cmd, very_verbose=False, prefix=None):
         host = caller_frame.f_locals.get("host")
         port = caller_frame.f_locals.get("port") or caller_frame.f_locals.get("port_id")
         if host and port:
-            prefix = f"{prefix} {host}:{port}"
+            prefix = f"[{host}:{port}] - [{prefix}]"
         elif host:
-            prefix = f"{prefix} {host}"
+            prefix = f"[{host}] - [{prefix}]"
         elif port:
-            prefix = f"{prefix} {port}"
+            prefix = f"[{port}] - [{prefix}]"
+        else:
+            prefix = f"[{prefix}]"
     process = subprocess.Popen(
         cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True
     )
@@ -86,6 +52,7 @@ def run_and_log(cmd, very_verbose=False, prefix=None):
     for line in process.stdout:
         output += line
         if very_verbose:
-            logger.realtime(f"[{prefix}] {line.rstrip()}")
+            logger.realtime(f"{prefix} {line.rstrip()}")
+
     process.wait()
     return output

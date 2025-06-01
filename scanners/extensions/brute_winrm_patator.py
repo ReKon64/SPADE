@@ -2,9 +2,9 @@ from core.imports import *
 from scanners.scanner import Scanner
 
 @Scanner.extend
-def brute_ssh_hydra(self, plugin_results=None):
+def brute_winrm_patator(self, plugin_results=None):
     """
-    Attempt SSH brute-force using hydra.
+    Attempt WinRM brute-force using patator.
     Uses user and password wordlists from options or defaults.
     Returns:
         dict: { "cmd": ..., "results": ... }
@@ -17,16 +17,19 @@ def brute_ssh_hydra(self, plugin_results=None):
     port = self.options["current_port"]["port_id"]
 
     # Get wordlists from options or use defaults
-    userlist = self.options.get("ssh_userlist", "/usr/share/wordlists/user.txt")
-    passlist = self.options.get("ssh_passlist", "/usr/share/wordlists/rockyou.txt")
+    userlist = self.options.get("patator_userlist", "/usr/share/wordlists/user.txt")
+    passlist = self.options.get("patator_passlist", "/usr/share/wordlists/rockyou.txt")
 
     with tempfile.NamedTemporaryFile(delete=False, suffix='.txt') as tmp_file:
         output_path = tmp_file.name
 
     cmd = (
-        f"hydra -L {userlist} -P {passlist} -o {output_path} -t 4 -f -s {port} {host} ssh"
+        f"patator winrm_login host={host} port={port} "
+        f"user=FILE0 password=FILE1 0={userlist} 1={passlist} "
+        f"-x ignore:code=401 "
+        f"-o {output_path}"
     )
-    logging.info(f"[brute_ssh] Executing: {cmd}")
+    logging.info(f"[brute_winrm] Executing: {cmd}")
 
     try:
         if self.options.get("realtime", False):
@@ -41,15 +44,18 @@ def brute_ssh_hydra(self, plugin_results=None):
                 check=True
             )
 
-        # Parse hydra output for successful logins
+        # Parse patator output for successful logins
         results = []
         with open(output_path, "r") as f:
             for line in f:
-                if ":ssh:" in line and "login:" in line:
+                # Patator marks successful attempts with 'status=success' or similar
+                if "status=success" in line or "login succeeded" in line.lower():
                     results.append(line.strip())
 
         return {"cmd": cmd, "results": results}
 
     except Exception as e:
-        logging.error(f"[brute_ssh] Error during hydra brute-force: {e}")
+        logging.error(f"[brute_winrm] Error during patator brute-force: {e}")
         return {"cmd": cmd, "error": str(e)}
+
+brute_winrm_patator.depends_on = ["scan_tcp_scanner"]

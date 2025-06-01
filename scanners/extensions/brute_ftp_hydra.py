@@ -17,8 +17,8 @@ def brute_ftp_hydra(self, plugin_results=None):
     port = self.options["current_port"]["port_id"]
 
     # Get wordlists from options or use defaults
-    userlist = self.options.get("hydra_userlist", "/usr/share/wordlists/user.txt")
-    passlist = self.options.get("hydra_passlist", "/usr/share/wordlists/rockyou.txt")
+    userlist = self.options.get("ftp_userlist", "/usr/share/wordlists/user.txt")
+    passlist = self.options.get("ftp_passlist", "/usr/share/wordlists/rockyou.txt")
 
     with tempfile.NamedTemporaryFile(delete=False, suffix='.txt') as tmp_file:
         output_path = tmp_file.name

@@ -25,7 +25,7 @@ def enum_snmp_onesixtyone(self, plugin_results=None):
         return {"skipped": f"Service is not SNMP: {service_name}"}
 
     # Path to common SNMP community strings (adjust if needed)
-    seclists_path = os.path.join(
+    seclists_path = self.options.get("snmp_community_list") or os.path.join(
         os.environ.get("SECLISTS", "/usr/share/seclists"),
         "Discovery", "SNMP", "snmp.txt"
     )

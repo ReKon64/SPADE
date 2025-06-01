@@ -1,11 +1,10 @@
 from core.imports import *
 from scanners.scanner import Scanner
-import re
 
 @Scanner.extend
 def enum_smb_get_shares(self, plugin_results=None):
     """
-    List SMB shares using smbclient, then recursively enumerate contents and check read/write privileges.
+    List SMB shares using smbclient, then recursively enumerate contents and check read/write/append privileges.
     Returns:
         dict: Results of the smbclient shares command and per-share content/privileges.
     """
@@ -56,12 +55,13 @@ def enum_smb_get_shares(self, plugin_results=None):
 
         # For each share, recursively list contents and check privileges
         for share in shares:
-            share_info = {"files": [], "dirs": [], "readable": [], "writable": []}
+            share_info = {"files": [], "dirs": [], "readable": [], "writable": [], "appendable": [], "errors": []}
             # List all files/dirs recursively
             list_cmd = f"smbclient -N \\\\{host}\\{share} -p {port} -c 'recurse ON; ls'"
             logging.info(f"Listing contents of share {share}: {list_cmd}")
             try:
                 if verbosity:
+                    from core.logging import run_and_log
                     share_list_output = run_and_log(list_cmd, very_verbose=True)
                 else:
                     share_list_output = subprocess.run(
@@ -87,7 +87,7 @@ def enum_smb_get_shares(self, plugin_results=None):
                         else:
                             share_info["files"].append(name)
 
-                # Check read/write on each dir and file
+                # Check read/write/append on each dir and file
                 for path in share_info["dirs"] + share_info["files"]:
                     # Try to read (cat) the file/dir
                     read_cmd = f"smbclient -N \\\\{host}\\{share} -p {port} -c 'get \"{path}\" /dev/null'"
@@ -101,8 +101,8 @@ def enum_smb_get_shares(self, plugin_results=None):
                         )
                         if "NT_STATUS_OK" in read_proc.stdout or read_proc.returncode == 0:
                             share_info["readable"].append(path)
-                    except Exception:
-                        pass
+                    except Exception as e:
+                        share_info["errors"].append(f"Read error on {path}: {e}")
 
                     # Try to write a file in the dir (for dirs only)
                     if path in share_info["dirs"]:
@@ -118,13 +118,39 @@ def enum_smb_get_shares(self, plugin_results=None):
                             )
                             if "NT_STATUS_OK" in write_proc.stdout or write_proc.returncode == 0:
                                 share_info["writable"].append(path)
-                        except Exception:
-                            pass
+                        except Exception as e:
+                            share_info["errors"].append(f"Write error on {path}: {e}")
+
+                # Fine-grained append check for files
+                for file in share_info["files"]:
+                    # Create a temp file with a unique string to append
+                    with tempfile.NamedTemporaryFile("w+", delete=False) as tmpf:
+                        tmpf.write("SPADE_APPEND_TEST\n")
+                        tmpf.flush()
+                        tmpf_path = tmpf.name
+                    append_cmd = (
+                        f"smbclient -N \\\\{host}\\{share} -p {port} "
+                        f"-c 'prompt OFF; lcd {os.path.dirname(tmpf_path)}; append {os.path.basename(tmpf_path)} \"{file}\"'"
+                    )
+                    try:
+                        append_proc = subprocess.run(
+                            append_cmd,
+                            shell=True,
+                            capture_output=True,
+                            text=True,
+                            timeout=10
+                        )
+                        if "NT_STATUS_OK" in append_proc.stdout or append_proc.returncode == 0:
+                            share_info["appendable"].append(file)
+                    except Exception as e:
+                        share_info["errors"].append(f"Append error on {file}: {e}")
+                    finally:
+                        os.unlink(tmpf_path)
 
                 results["shares"][share] = share_info
 
             except Exception as e:
-                share_info["error"] = str(e)
+                share_info["errors"].append(str(e))
                 results["shares"][share] = share_info
 
     except Exception as e:

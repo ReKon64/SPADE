@@ -9,27 +9,54 @@ from core.logging import SafeFormatter
 def main():
     parser = argparse.ArgumentParser(description="SPADE - Scalable Plug-and-play Auto Detection Engine")
 
-    #group = parser.add_mutually_exclusive_group(required=True)
-    parser.add_argument("-t", "--target", help="One or more IP / Domain")
-    parser.add_argument("-x", "--xml-input", help="Path to existing Nmap XML file to use as input (skips scanning and uses this for enumeration)")
+    # Target Acquisition options group
+    target_group = parser.add_argument_group("Target Acquisition Options", "Options for acquiring targets")
+    target_group.add_argument("-t", "--target", help="One or more IP / Domain")
+    target_group.add_argument("-x", "--xml-input", help="Path to existing Nmap XML file to use as input (skips scanning and uses this for enumeration)")
 
-    parser.add_argument("-tp", "--tcp-ports", default="-p-", help="Ports to scan. Passed directly to nmap. Default -p-")
-    parser.add_argument("-up", "--udp-ports", default="--top-ports=100", help="WIP")
+    # Nmap/Scan options group
+    nmap_group = parser.add_argument_group("Nmap/Scan options", "Options for port scanning and threading")
+    nmap_group.add_argument("-tp", "--tcp-ports", default="-p-", help="Ports to scan. Passed directly to nmap. Default -p-")
+    nmap_group.add_argument("-up", "--udp-ports", default="--top-ports=100", help="WIP")
+    nmap_group.add_argument('-at', "--tcp-options", help="Additional flags to inject into the TCP nmap command")
+    nmap_group.add_argument('-au', "--udp-options", help="Additional flags to inject into the UDP nmap command")
+    nmap_group.add_argument("-T", "--threads", default=16, help="Number of threads scanner will use. I suggest 64")
 
-    parser.add_argument('-at', "--tcp-options", help="Additional flags to inject into the TCP nmap command")
-    parser.add_argument('-au', "--udp-options", help="Additional flags to inject into the UDP nmap command")
-
-    parser.add_argument("-T", "--threads", default=16, help="Number of threads scanner will use. I suggest 64")
+    # Logging control and output options group
+    logging_group = parser.add_argument_group("Logging and Output Options", "Options for controlling logging and output")
+    logging_group.add_argument("-v", "--verbose", action="store_true", help="Enable verbose output")
+    logging_group.add_argument("-rt", "--realtime", action="store_true", help="Enable real time STDOUT for modules")
+    logging_group.add_argument("-m", "--memory", action="store_true", help="Add memory usage to logging")
+    logging_group.add_argument("-o", "--output", help="Output directory for reports and payloads. Defaults to CWD")
     
-    parser.add_argument("-v", "--verbose", action="store_true", help="Enable verbose output")
-    parser.add_argument("-rt", "--realtime", action="store_true", help="Enable real time STDOUT for modules")
-    parser.add_argument("-m", "--memory", action="store_true", help="Add memory usage to logging")
-
-    parser.add_argument("-o", "--output", help="Output directory for reports and payloads. Defaults to CWD")
+    # HTTP/HTTPS options group
+    http_group = parser.add_argument_group("HTTP/HTTPS Options", "Options specific to HTTP/HTTPS enumeration")
+    http_group.add_argument("--ferox-wordlists", nargs="+", help="One or more wordlists to use for feroxbuster (space separated not quoted).")
     
-    parser.add_argument("--ferox-wordlists", nargs="+", help="One or more wordlists to use for feroxbuster (space separated not quoted).")
-    parser.add_argument("--google-api-key", help="Google Custom Search API key for product search plugins")
-    parser.add_argument("--google-cse-id", help="Google Custom Search Engine ID for product search plugins")
+    # API Tokens Group
+    api_group = parser.add_argument_group("API Tokens", "API tokens for plugins requiring them")
+    api_group.add_argument("--google-api-key", help="Google Custom Search API key for product search plugins")
+    api_group.add_argument("--google-cse-id", help="Google Custom Search Engine ID for product search plugins")
+
+    # Bruteforce Login options group
+    brute_login_group = parser.add_argument_group("Bruteforce options", "Options for bruteforce login attacks")
+    brute_login_group.add_argument("--ssh-userlist", help="User wordlist for SSH bruteforce (hydra)")
+    brute_login_group.add_argument("--ssh-passlist", help="Password wordlist for SSH bruteforce (hydra)")
+    brute_login_group.add_argument("--ftp-userlist", help="User wordlist for FTP bruteforce (hydra)")
+    brute_login_group.add_argument("--ftp-passlist", help="Password wordlist for FTP bruteforce (hydra)")
+    brute_login_group.add_argument("--smb-userlist", help="User wordlist for SMB bruteforce (hydra)")
+    brute_login_group.add_argument("--smb-passlist", help="Password wordlist for SMB bruteforce (hydra)")
+    brute_login_group.add_argument("--mysql-userlist", help="User wordlist for MySQL bruteforce (hydra)")
+    brute_login_group.add_argument("--mysql-passlist", help="Password wordlist for MySQL bruteforce (hydra)")
+    brute_login_group.add_argument("--rdp-userlist", help="User wordlist for RDP bruteforce (patator)")
+    brute_login_group.add_argument("--rdp-passlist", help="Password wordlist for RDP bruteforce (patator)")
+    brute_login_group.add_argument("--winrm-userlist", help="User wordlist for WinRM bruteforce (patator)")
+    brute_login_group.add_argument("--winrm-passlist", help="Password wordlist for WinRM bruteforce (patator)")
+    brute_login_group.add_argument("--kerbrute-userlist", help="User wordlist for Kerberos bruteforce (kerbrute)")
+    brute_login_group.add_argument("--kerbrute-passlist", help="Password wordlist for Kerberos bruteforce (kerbrute)")
+    brute_login_group.add_argument("--snmp-community-list", help="Community string wordlist for SNMP brute/enumeration (onesixtyone)")
+
+    # Add more as needed for other protocols/tools
 
     args = parser.parse_args()
 
@@ -92,6 +119,24 @@ def main():
         'ferox_wordlists': args.ferox_wordlists,
         'google_api_key': args.google_api_key,
         'google_cse_id': args.google_cse_id,
+        'patator_userlist': args.patator_userlist,
+        'patator_passlist': args.patator_passlist,
+        'ssh_userlist': args.ssh_userlist,
+        'ssh_passlist': args.ssh_passlist,
+        'ftp_userlist': args.ftp_userlist,
+        'ftp_passlist': args.ftp_passlist,
+        'smb_userlist': args.smb_userlist,
+        'smb_passlist': args.smb_passlist,
+        'mysql_userlist': args.mysql_userlist,
+        'mysql_passlist': args.mysql_passlist,
+        'rdp_userlist': args.rdp_userlist,
+        'rdp_passlist': args.rdp_passlist,
+        'winrm_userlist': args.winrm_userlist,
+        'winrm_passlist': args.winrm_passlist,
+        'kerbrute_userlist': args.kerbrute_userlist,
+        'kerbrute_passlist': args.kerbrute_passlist,
+        'snmp_community_list': args.snmp_community_list,
+
     }
 
     # Load all scanner extensions

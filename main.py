@@ -4,7 +4,7 @@
 from core.imports import *
 from scanners.scanner import Scanner
 from core.logging import SafeFormatter
-# from reporter import Reporter
+from core.reporter import Reporter
 
 def main():
     parser = argparse.ArgumentParser(description="SPADE - Scalable Plug-and-play Auto Detection Engine")
@@ -32,6 +32,7 @@ def main():
     logging_group.add_argument("-rt", "--realtime", action="store_true", help="Enable real time STDOUT for modules")
     logging_group.add_argument("-m", "--memory", action="store_true", help="Add memory usage to logging")
     logging_group.add_argument("-o", "--output", help="Output directory for reports and payloads. Defaults to CWD")
+    logging_group.add_argument("--report", nargs="?", const=True, default=False, help="Generate HTML report. Supply with a filepath to a jinja2 template to use custom report.")
     
     # HTTP/HTTPS options group
     http_group = parser.add_argument_group("HTTP/HTTPS Options", "Options specific to HTTP/HTTPS enumeration")
@@ -301,7 +302,20 @@ def main():
 
     with open(output_file, 'w') as f:
         json.dump(findings, f, indent=4)
-    logging.info(f"[+] Saved final results to {output_file}")
+    logging.info(f"[+] Saved final results to {output_file}")\
+    
+        # --- Reporter integration ---
+    if args.report:
+        # Determine template path
+        if isinstance(args.report, str):
+            template_path = args.report
+        else:
+            # Use default.html from templates folder
+            template_path = os.path.join(os.path.dirname(__file__), "templates", "default.html")
+        report_output = os.path.join(options['output_dir'], "spade_report.html")
+        reporter = Reporter(template_path=template_path)
+        reporter.generate_report(findings, output_file=report_output)
+        logging.info(f"[+] HTML report generated at {report_output}")
 
 if __name__ == "__main__":
     main()

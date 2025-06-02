@@ -17,33 +17,36 @@ def enum_ldap_get_user_desc(self, plugin_results=None):
     verbosity = self.options.get("realtime", False)
     results = {}
 
-    # Try to get the domain from host_json['ldap_info'] or rdp-ntlm-info
-    port_obj = self.options["current_port"].get("port_obj", {})
-    host_json = self.options["current_port"].get("host_json", {})
-    domain = None
+    # Domain override via argparse/option
+    domain = self.options.get("domain")
+    if not domain:
+        # Try to get the domain from host_json['ldap_info'] or rdp-ntlm-info
+        port_obj = self.options["current_port"].get("port_obj", {})
+        host_json = self.options["current_port"].get("host_json", {})
+        domain = None
 
-    # Prefer rdp-ntlm-info:DNS_Tree_Name if available in port's scripts
-    # findings = port_obj.get("scripts", {}) if port_obj else {}
-    # rdp_ntlm = findings.get("rdp-ntlm-info", {})
-    # if isinstance(rdp_ntlm, dict):
-    #     domain = rdp_ntlm.get("DNS_Tree_Name")
+        # Prefer rdp-ntlm-info:DNS_Tree_Name if available in port's scripts
+        # findings = port_obj.get("scripts", {}) if port_obj else {}
+        # rdp_ntlm = findings.get("rdp-ntlm-info", {})
+        # if isinstance(rdp_ntlm, dict):
+        #     domain = rdp_ntlm.get("DNS_Tree_Name")
 
-    # Fallback to host-level DNS_Tree_Name, DNS_Domain_Name, or ldap_info
-    # This might be bad code
-    # if not domain:
-    #     for key in ("DNS_Tree_Name", "DNS_Domain_Name"):
-    #         if key in host_json and host_json[key]:
-    #             domain = host_json[key].strip().rstrip(".")
-    #             break
+        # Fallback to host-level DNS_Tree_Name, DNS_Domain_Name, or ldap_info
+        # This might be bad code
+        # if not domain:
+        #     for key in ("DNS_Tree_Name", "DNS_Domain_Name"):
+        #         if key in host_json and host_json[key]:
+        #             domain = host_json[key].strip().rstrip(".")
+        #             break
 
-    if not domain and "ldap_info" in host_json and isinstance(host_json["ldap_info"], dict):
-        for value in host_json["ldap_info"].values():
-            domain = value.strip().rstrip(".")
-            break
+        if not domain and "ldap_info" in host_json and isinstance(host_json["ldap_info"], dict):
+            for value in host_json["ldap_info"].values():
+                domain = value.strip().rstrip(".")
+                break
 
     if not domain:
-        logging.error(f"[LDAP_USER_DESC] Domain name not found in rdp-ntlm-info or ldap_info.")
-        results["error"] = "Domain name not found in rdp-ntlm-info or ldap_info."
+        logging.error(f"[LDAP_USER_DESC] Domain name not found in options, rdp-ntlm-info or ldap_info. Skipping.")
+        results["error"] = "Domain name not found in options, rdp-ntlm-info or ldap_info."
         return {"command": None, "results": results}
 
     # Extract dn parts

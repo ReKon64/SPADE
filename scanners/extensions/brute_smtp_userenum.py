@@ -2,10 +2,10 @@ from core.imports import *
 from scanners.scanner import Scanner
 
 @Scanner.extend
-def enum_snmp_onesixtyone(self, plugin_results=None):
+def brute_smtp_userenum(self, plugin_results=None):
     """
-    Run onesixtyone SNMP scanner against the current host/port using one or more community string wordlists.
-    Accepts multiple wordlists (snmp_userlist and general_userlist).
+    Attempt SMTP user enumeration using patator.
+    Uses one or more user wordlists from options or defaults.
     Returns:
         dict: { "cmd": [...], "results": {...}, "all_found": [...] }
     """
@@ -16,25 +16,15 @@ def enum_snmp_onesixtyone(self, plugin_results=None):
     host = self.options["current_port"]["host"]
     port = self.options["current_port"]["port_id"]
 
-    # Check if the service name contains 'snmp'
-    service = port_obj.get("service", {}) if port_obj else {}
-    service_name = service.get("name", "").lower()
-    if "snmp" not in service_name:
-        logging.warning(f"[enum_snmp_onesixtyone] Skipping port {port}: service is not SNMP ({service_name})")
-        return {"skipped": f"Service is not SNMP: {service_name}"}
-
-    # Accept multiple wordlists, prepend general_userlist if present
-    userlists = self.options.get("snmp_communitylist") or [
-        os.path.join(
-            os.environ.get("SECLISTS", "/usr/share/seclists"),
-            "Discovery", "SNMP", "snmp.txt"
-        )
-    ]
+    # Accept multiple userlists, prepend general lists if present
+    userlists = self.options.get("smtp_userlist") or ["/usr/share/wordlists/user.txt"]
     general_userlists = self.options.get("general_userlist") or []
+
     if isinstance(userlists, str):
         userlists = [userlists]
     if isinstance(general_userlists, str):
         general_userlists = [general_userlists]
+    # Ensure general lists are sorted to the top
     userlists = sorted(set(general_userlists), key=lambda x: general_userlists.index(x)) + [u for u in userlists if u not in general_userlists]
 
     cmds = []
@@ -42,17 +32,15 @@ def enum_snmp_onesixtyone(self, plugin_results=None):
     all_found = []
 
     for userlist in userlists:
-        if not os.path.exists(userlist):
-            logging.warning(f"[enum_snmp_onesixtyone] Wordlist not found: {userlist}")
-            results[userlist] = {"error": f"Wordlist not found: {userlist}"}
-            continue
-
         with tempfile.NamedTemporaryFile(delete=False, suffix='.txt') as tmp_file:
             output_path = tmp_file.name
 
-        cmd = f"onesixtyone -c {userlist} -o {output_path} {host}"
+        cmd = (
+            f"patator smtp_user_enum host={host} port={port} user=FILE0 0={userlist} "
+            f"-x ignore:code=550 -o {output_path}"
+        )
         cmds.append(cmd)
-        logging.info(f"[enum_snmp_onesixtyone] Executing: {cmd}")
+        logging.info(f"[brute_smtp_userenum] Executing: {cmd}")
 
         try:
             if self.options.get("realtime", False):
@@ -67,13 +55,16 @@ def enum_snmp_onesixtyone(self, plugin_results=None):
                     check=True
                 )
 
-            # Parse onesixtyone output (simple text parsing)
             found = []
-            with open(output_path, "r") as f:
-                for line in f:
-                    line = line.strip()
-                    if line and not line.startswith("#"):
-                        found.append(line)
+            if os.path.exists(output_path):
+                with open(output_path, "r") as f:
+                    for line in f:
+                        # Patator marks valid users with "status=success" or similar
+                        if "status=success" in line or "User found" in line:
+                            found.append(line.strip())
+            else:
+                logging.warning(f"[brute_smtp_userenum] Output file not found: {output_path}")
+
             results[userlist] = {
                 "output_path": output_path,
                 "found": found
@@ -81,9 +72,9 @@ def enum_snmp_onesixtyone(self, plugin_results=None):
             all_found.extend(found)
 
         except Exception as e:
-            logging.error(f"[enum_snmp_onesixtyone] Error during onesixtyone scan: {e}")
+            logging.error(f"[brute_smtp_userenum] Error during patator SMTP user enum: {e}")
             results[userlist] = {"error": str(e)}
 
     return {"cmd": cmds, "results": results, "all_found": all_found}
 
-enum_snmp_onesixtyone.depends_on = ["scan_udp_scanner"]
+brute_smtp_userenum.depends_on = ["scan_tcp_scanner"]

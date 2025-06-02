@@ -4,10 +4,10 @@ from scanners.scanner import Scanner
 @Scanner.extend
 def brute_mysql_hydra(self, plugin_results=None):
     """
-    Attempt SMB brute-force using hydra.
-    Uses user and password wordlists from options or defaults.
+    Attempt MySQL brute-force using hydra.
+    Uses one or more user and password wordlists from options or defaults.
     Returns:
-        dict: { "cmd": ..., "results": ... }
+        dict: { "cmd": [...], "results": {...}, "all_found": [...] }
     """
     if plugin_results is None:
         plugin_results = {}
@@ -16,43 +16,69 @@ def brute_mysql_hydra(self, plugin_results=None):
     host = self.options["current_port"]["host"]
     port = self.options["current_port"]["port_id"]
 
-    # Get wordlists from options or use defaults
-    userlist = self.options.get("mysql_userlist", "/usr/share/wordlists/user.txt")
-    passlist = self.options.get("mysql_passlist", "/usr/share/wordlists/rockyou.txt")
+    # Accept multiple userlists and passlists, prepend general lists if present
+    userlists = self.options.get("mysql_userlist") or ["/usr/share/wordlists/user.txt"]
+    passlists = self.options.get("mysql_passlist") or ["/usr/share/wordlists/rockyou.txt"]
 
-    with tempfile.NamedTemporaryFile(delete=False, suffix='.txt') as tmp_file:
-        output_path = tmp_file.name
+    general_userlists = self.options.get("general_userlist") or []
+    general_passlists = self.options.get("general_passlist") or []
 
-    # Handle threads later...
-    cmd = (
-        f"hydra -L {userlist} -P {passlist} -o {output_path} -t 32 -f -s {port} {host} smb"
-    )
-    logging.info(f"[brute_mysql] Executing: {cmd}")
+    if isinstance(userlists, str):
+        userlists = [userlists]
+    if isinstance(passlists, str):
+        passlists = [passlists]
+    if isinstance(general_userlists, str):
+        general_userlists = [general_userlists]
+    if isinstance(general_passlists, str):
+        general_passlists = [general_passlists]
 
-    try:
-        if self.options.get("realtime", False):
-            from core.logging import run_and_log
-            run_and_log(cmd, very_verbose=True)
-        else:
-            subprocess.run(
-                cmd,
-                shell=True,
-                capture_output=True,
-                text=True,
-                check=True
+    # Ensure general lists are sorted to the top
+    userlists = sorted(set(general_userlists), key=lambda x: general_userlists.index(x)) + [u for u in userlists if u not in general_userlists]
+    passlists = sorted(set(general_passlists), key=lambda x: general_passlists.index(x)) + [p for p in passlists if p not in general_passlists]
+
+    cmds = []
+    results = {}
+    all_found = []
+
+    for userlist in userlists:
+        for passlist in passlists:
+            with tempfile.NamedTemporaryFile(delete=False, suffix='.txt') as tmp_file:
+                output_path = tmp_file.name
+
+            cmd = (
+                f"hydra -L {userlist} -P {passlist} -o {output_path} -t 32 -f -s {port} {host} mysql"
             )
+            cmds.append(cmd)
+            logging.info(f"[brute_mysql] Executing: {cmd}")
 
-        # Parse hydra output for successful logins
-        results = []
-        with open(output_path, "r") as f:
-            for line in f:
-                if ":ssh:" in line and "login:" in line:
-                    results.append(line.strip())
+            try:
+                if self.options.get("realtime", False):
+                    from core.logging import run_and_log
+                    run_and_log(cmd, very_verbose=True)
+                else:
+                    subprocess.run(
+                        cmd,
+                        shell=True,
+                        capture_output=True,
+                        text=True,
+                        check=True
+                    )
 
-        return {"cmd": cmd, "results": results}
+                found = []
+                with open(output_path, "r") as f:
+                    for line in f:
+                        if ":mysql:" in line and "login:" in line:
+                            found.append(line.strip())
+                results[f"{userlist}|{passlist}"] = {
+                    "output_path": output_path,
+                    "found": found
+                }
+                all_found.extend(found)
 
-    except Exception as e:
-        logging.error(f"[brute_mysql] Error during hydra brute-force: {e}")
-        return {"cmd": cmd, "error": str(e)}
+            except Exception as e:
+                logging.error(f"[brute_mysql] Error during hydra brute-force: {e}")
+                results[f"{userlist}|{passlist}"] = {"error": str(e)}
+
+    return {"cmd": cmds, "results": results, "all_found": all_found}
 
 brute_mysql_hydra.depends_on = ["scan_tcp_scanner"]

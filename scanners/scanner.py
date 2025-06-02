@@ -298,6 +298,7 @@ class Scanner:
             re.compile(r"^ftp$")   : "brute_ftp",
             re.compile(r"^mysql$") : "brute_mysql",
             re.compile(r"^smb$")   : "brute_smb",
+            re.compile(r"^smtp$")  : "brute_smtp",  # <-- added
             # Add more as needed
         }
         
@@ -427,14 +428,18 @@ class Scanner:
         if not filtered_methods:
             logging.warning(f"No methods found with prefix {enum_prefix} or enum_generic_product_search")
             return {}
+
+        # --- BRUTEFORCE FILTER ---
+        if not options.get("enable_bruteforce", False):
+            filtered_methods = [m for m in filtered_methods if not m.startswith("brute_")]
+
         # Sort so brute_ plugins are last
         filtered_methods.sort(key=lambda m: m.startswith("brute_"))
 
-        # Ensure brute plugins depend on all enum_ plugins for this port
-        filtered_methods.sort(key=lambda m: m.startswith("brute_"))
         if not filtered_methods:
             logging.warning(f"No methods found with prefix {enum_prefix} or enum_generic_product_search")
             return {}
+
         return self._execute_plugins_with_scheduler(temp_scanner, filtered_methods, max_workers=max_workers)
 
     @classmethod

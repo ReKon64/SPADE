@@ -5,9 +5,9 @@ from scanners.scanner import Scanner
 def brute_winrm_patator(self, plugin_results=None):
     """
     Attempt WinRM brute-force using patator.
-    Uses user and password wordlists from options or defaults.
+    Uses one or more user and password wordlists from options or defaults.
     Returns:
-        dict: { "cmd": ..., "results": ... }
+        dict: { "cmd": [...], "results": {...}, "all_found": [...] }
     """
     if plugin_results is None:
         plugin_results = {}
@@ -16,46 +16,72 @@ def brute_winrm_patator(self, plugin_results=None):
     host = self.options["current_port"]["host"]
     port = self.options["current_port"]["port_id"]
 
-    # Get wordlists from options or use defaults
-    userlist = self.options.get("patator_userlist", "/usr/share/wordlists/user.txt")
-    passlist = self.options.get("patator_passlist", "/usr/share/wordlists/rockyou.txt")
+    # Accept multiple userlists and passlists, prepend general lists if present
+    userlists = self.options.get("winrm_userlist") or ["/usr/share/wordlists/user.txt"]
+    passlists = self.options.get("winrm_passlist") or ["/usr/share/wordlists/rockyou.txt"]
 
-    with tempfile.NamedTemporaryFile(delete=False, suffix='.txt') as tmp_file:
-        output_path = tmp_file.name
+    general_userlists = self.options.get("general_userlist") or []
+    general_passlists = self.options.get("general_passlist") or []
 
-    cmd = (
-        f"patator winrm_login host={host} port={port} "
-        f"user=FILE0 password=FILE1 0={userlist} 1={passlist} "
-        f"-x ignore:code=401 "
-        f"-o {output_path}"
-    )
-    logging.info(f"[brute_winrm] Executing: {cmd}")
+    if isinstance(userlists, str):
+        userlists = [userlists]
+    if isinstance(passlists, str):
+        passlists = [passlists]
+    if isinstance(general_userlists, str):
+        general_userlists = [general_userlists]
+    if isinstance(general_passlists, str):
+        general_passlists = [general_passlists]
 
-    try:
-        if self.options.get("realtime", False):
-            from core.logging import run_and_log
-            run_and_log(cmd, very_verbose=True)
-        else:
-            subprocess.run(
-                cmd,
-                shell=True,
-                capture_output=True,
-                text=True,
-                check=True
+    # Ensure general lists are sorted to the top
+    userlists = sorted(set(general_userlists), key=lambda x: general_userlists.index(x)) + [u for u in userlists if u not in general_userlists]
+    passlists = sorted(set(general_passlists), key=lambda x: general_passlists.index(x)) + [p for p in passlists if p not in general_passlists]
+
+    cmds = []
+    results = {}
+    all_found = []
+
+    for userlist in userlists:
+        for passlist in passlists:
+            with tempfile.NamedTemporaryFile(delete=False, suffix='.txt') as tmp_file:
+                output_path = tmp_file.name
+
+            cmd = (
+                f"patator winrm_login host={host} port={port} "
+                f"user=FILE0 password=FILE1 0={userlist} 1={passlist} "
+                f"-x ignore:code=401 "
+                f"-o {output_path}"
             )
+            cmds.append(cmd)
+            logging.info(f"[brute_winrm] Executing: {cmd}")
 
-        # Parse patator output for successful logins
-        results = []
-        with open(output_path, "r") as f:
-            for line in f:
-                # Patator marks successful attempts with 'status=success' or similar
-                if "status=success" in line or "login succeeded" in line.lower():
-                    results.append(line.strip())
+            try:
+                if self.options.get("realtime", False):
+                    from core.logging import run_and_log
+                    run_and_log(cmd, very_verbose=True)
+                else:
+                    subprocess.run(
+                        cmd,
+                        shell=True,
+                        capture_output=True,
+                        text=True,
+                        check=True
+                    )
 
-        return {"cmd": cmd, "results": results}
+                found = []
+                with open(output_path, "r") as f:
+                    for line in f:
+                        if "status=success" in line or "login succeeded" in line.lower():
+                            found.append(line.strip())
+                results[f"{userlist}|{passlist}"] = {
+                    "output_path": output_path,
+                    "found": found
+                }
+                all_found.extend(found)
 
-    except Exception as e:
-        logging.error(f"[brute_winrm] Error during patator brute-force: {e}")
-        return {"cmd": cmd, "error": str(e)}
+            except Exception as e:
+                logging.error(f"[brute_winrm] Error during patator brute-force: {e}")
+                results[f"{userlist}|{passlist}"] = {"error": str(e)}
+
+    return {"cmd": cmds, "results": results, "all_found": all_found}
 
 brute_winrm_patator.depends_on = ["scan_tcp_scanner"]

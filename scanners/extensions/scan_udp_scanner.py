@@ -18,7 +18,6 @@ def scan_udp_scan(self, plugin_results=None):
 
     try:
         # Build and execute nmap command for UDP scan
-        #         cmd = f"nmap {self.options['target']} {self.options.get('tcp_options') or '-A -T4 -p-'} -vv --reason -Pn -n -oX {xml_output_path}"
 
         cmd = f"nmap {self.options['target']} {self.options['udp_ports']} -sU {self.options.get('udp_options') or '-sCV -T4'} -vv --reason -Pn -n -oX {xml_output_path}"
         logging.info(f"Executing UDP nmap command: {cmd}")

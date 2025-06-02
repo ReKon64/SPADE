@@ -14,6 +14,10 @@ def main():
     target_group.add_argument("-t", "--target", help="One or more IP / Domain")
     target_group.add_argument("-x", "--xml-input", help="Path to existing Nmap XML file to use as input (skips scanning and uses this for enumeration)")
 
+    # Domain options group
+    domain_group = parser.add_argument_group("Domain Options", "Options for domain-related operations")
+    domain_group.add_argument("-d", "--domain", help="Domain name to use for Kerberos and LDAP operations")
+
     # Nmap/Scan options group
     nmap_group = parser.add_argument_group("Nmap/Scan options", "Options for port scanning and threading")
     nmap_group.add_argument("-tp", "--tcp-ports", default="-p-", help="Ports to scan. Passed directly to nmap. Default -p-")
@@ -37,29 +41,35 @@ def main():
     api_group = parser.add_argument_group("API Tokens", "API tokens for plugins requiring them")
     api_group.add_argument("--google-api-key", help="Google Custom Search API key for product search plugins")
     api_group.add_argument("--google-cse-id", help="Google Custom Search Engine ID for product search plugins")
+    api_group.add_argument("--wpscan-api-token", help="WPScan API token for vulnerability database access")  # <-- added
 
     # Bruteforce Login options group
     brute_login_group = parser.add_argument_group("Bruteforce options", "Options for bruteforce login attacks")
-    brute_login_group.add_argument("--ssh-userlist", help="User wordlist for SSH bruteforce (hydra)")
-    brute_login_group.add_argument("--ssh-passlist", help="Password wordlist for SSH bruteforce (hydra)")
-    brute_login_group.add_argument("--ftp-userlist", help="User wordlist for FTP bruteforce (hydra)")
-    brute_login_group.add_argument("--ftp-passlist", help="Password wordlist for FTP bruteforce (hydra)")
-    brute_login_group.add_argument("--smb-userlist", help="User wordlist for SMB bruteforce (hydra)")
-    brute_login_group.add_argument("--smb-passlist", help="Password wordlist for SMB bruteforce (hydra)")
-    brute_login_group.add_argument("--mysql-userlist", help="User wordlist for MySQL bruteforce (hydra)")
-    brute_login_group.add_argument("--mysql-passlist", help="Password wordlist for MySQL bruteforce (hydra)")
-    brute_login_group.add_argument("--rdp-userlist", help="User wordlist for RDP bruteforce (patator)")
-    brute_login_group.add_argument("--rdp-passlist", help="Password wordlist for RDP bruteforce (patator)")
-    brute_login_group.add_argument("--winrm-userlist", help="User wordlist for WinRM bruteforce (patator)")
-    brute_login_group.add_argument("--winrm-passlist", help="Password wordlist for WinRM bruteforce (patator)")
-    brute_login_group.add_argument("--kerbrute-userlist", help="User wordlist for Kerberos bruteforce (kerbrute)")
-    brute_login_group.add_argument("--kerbrute-passlist", help="Password wordlist for Kerberos bruteforce (kerbrute)")
-    brute_login_group.add_argument("--snmp-community-list", help="Community string wordlist for SNMP brute/enumeration (onesixtyone)")
+    brute_login_group.add_argument("--enable-bruteforce", action="store_true", help="Enable bruteforce login attacks (default: off)")
+    brute_login_group.add_argument("--ssh-userlist", nargs="+", help="User wordlist(s) for SSH bruteforce (hydra)")
+    brute_login_group.add_argument("--ssh-passlist", nargs="+", help="Password wordlist(s) for SSH bruteforce (hydra)")
+    brute_login_group.add_argument("--ftp-userlist", nargs="+", help="User wordlist(s) for FTP bruteforce (hydra)")
+    brute_login_group.add_argument("--ftp-passlist", nargs="+", help="Password wordlist(s) for FTP bruteforce (hydra)")
+    brute_login_group.add_argument("--smb-userlist", nargs="+", help="User wordlist(s) for SMB bruteforce (hydra)")
+    brute_login_group.add_argument("--smb-passlist", nargs="+", help="Password wordlist(s) for SMB bruteforce (hydra)")
+    brute_login_group.add_argument("--mysql-userlist", nargs="+", help="User wordlist(s) for MySQL bruteforce (hydra)")
+    brute_login_group.add_argument("--mysql-passlist", nargs="+", help="Password wordlist(s) for MySQL bruteforce (hydra)")
+    brute_login_group.add_argument("--rdp-userlist", nargs="+", help="User wordlist(s) for RDP bruteforce (patator)")
+    brute_login_group.add_argument("--rdp-passlist", nargs="+", help="Password wordlist(s) for RDP bruteforce (patator)")
+    brute_login_group.add_argument("--winrm-userlist", nargs="+", help="User wordlist(s) for WinRM bruteforce (patator)")
+    brute_login_group.add_argument("--winrm-passlist", nargs="+", help="Password wordlist(s) for WinRM bruteforce (patator)")
+    brute_login_group.add_argument("--kerbrute-userlist", nargs="+", help="User wordlist(s) for Kerberos bruteforce (kerbrute)")
+    brute_login_group.add_argument("--kerbrute-passlist", nargs="+", help="Password wordlist(s) for Kerberos bruteforce (kerbrute)")
+    brute_login_group.add_argument("--snmp-communitylist", nargs="+", help="Community string wordlist(s) for SNMP brute/enumeration (onesixtyone)")
+    brute_login_group.add_argument("--general-userlist", nargs="+", help="General user wordlist(s) for all bruteforce plugins (space separated, not quoted)")
+    brute_login_group.add_argument("--general-passlist", nargs="+", help="General password wordlist(s) for all bruteforce plugins (space separated, not quoted)")
+    brute_login_group.add_argument("--smtp-userlist", nargs="+", help="User wordlist(s) for SMTP user enumeration (patator)")  # <-- added
 
     # Add more as needed for other protocols/tools
 
     args = parser.parse_args()
 
+    # make it for all brute user/passlist args
     # Idiot-proof ferox_wordlists: split if user quoted the list
     if args.ferox_wordlists and len(args.ferox_wordlists) == 1 and " " in args.ferox_wordlists[0]:
         logging.warning(
@@ -67,7 +77,33 @@ def main():
             "Splitting into multiple wordlists. Next time, do NOT quote the list!"
         )
         args.ferox_wordlists = args.ferox_wordlists[0].split()
-
+    # Idiot-proof general-userlist/passlist: split if user quoted the list
+    if args.general_userlist and len(args.general_userlist) == 1 and " " in args.general_userlist[0]:
+        logging.warning(
+            "[!] You provided --general-userlist as a quoted string. "
+            "Splitting into multiple wordlists. Next time, do NOT quote the list!"
+        )
+        args.general_userlist = args.general_userlist[0].split()
+    if args.general_passlist and len(args.general_passlist) == 1 and " " in args.general_passlist[0]:
+        logging.warning(
+            "[!] You provided --general-passlist as a quoted string. "
+            "Splitting into multiple wordlists. Next time, do NOT quote the list!"
+        )
+        args.general_passlist = args.general_passlist[0].split()
+    # Idiot-proof for all brute user/passlist args: split if quoted
+    for argname in [
+        "ssh_userlist", "ssh_passlist", "ftp_userlist", "ftp_passlist",
+        "smb_userlist", "smb_passlist", "mysql_userlist", "mysql_passlist",
+        "rdp_userlist", "rdp_passlist", "winrm_userlist", "winrm_passlist",
+        "kerbrute_userlist", "kerbrute_passlist", "snmp_communitylist"
+    ]:
+        val = getattr(args, argname, None)
+        if val and len(val) == 1 and " " in val[0]:
+            logging.warning(
+                f"[!] You provided --{argname.replace('_', '-')} as a quoted string. "
+                "Splitting into multiple wordlists. Next time, do NOT quote the list!"
+            )
+            setattr(args, argname, val[0].split())
     # Configure logging
     if args.memory:
         from core.logging import MemoryUsageFormatter
@@ -112,6 +148,7 @@ def main():
         'realtime': args.realtime,
         'threads': args.threads,
         'target': args.target,
+        'domain': args.domain,
         'tcp_ports': args.tcp_ports,
         'udp_ports': args.udp_ports,
         'tcp_options': args.tcp_options,
@@ -119,8 +156,8 @@ def main():
         'ferox_wordlists': args.ferox_wordlists,
         'google_api_key': args.google_api_key,
         'google_cse_id': args.google_cse_id,
-        'patator_userlist': args.patator_userlist,
-        'patator_passlist': args.patator_passlist,
+        'wpscan_api_token': args.wpscan_api_token,  # <-- added
+        'enable_bruteforce': args.enable_bruteforce,
         'ssh_userlist': args.ssh_userlist,
         'ssh_passlist': args.ssh_passlist,
         'ftp_userlist': args.ftp_userlist,
@@ -135,8 +172,10 @@ def main():
         'winrm_passlist': args.winrm_passlist,
         'kerbrute_userlist': args.kerbrute_userlist,
         'kerbrute_passlist': args.kerbrute_passlist,
-        'snmp_community_list': args.snmp_community_list,
-
+        'snmp_communitylist': args.snmp_communitylist,
+        'general_userlist': args.general_userlist,
+        'general_passlist': args.general_passlist,
+        'smtp_userlist': args.smtp_userlist,  # <-- added
     }
 
     # Load all scanner extensions

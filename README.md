@@ -15,18 +15,25 @@ SPADE is a modular vulnerability scanning framework that leverages external tool
 ## 🚀 Getting Started
 
 # TODO
-# Separate prefix for TCP ? How do I make the other methods wait for it? just que them and sleep em? 
+# Brute switch
+# Make all brutes accept a list of wordlists
+# Implement username as pass switch too
+# All brutes need to accept a list of wordlists
 
 1. Create a convention for findings. 
 2. Provide clear documentation for writing scanners and finding returning cleaner
+2.1 Write how to return skipped properly
 3. Create the report class
 
 
 # 1. Plugins key -> plugin name -> command -> result 1, result 2 
 # Per plugin imports and argparse options ?
+# NXC RID brute
+# Add wordlist generic to onesixtyone -Done-
 # Multi target.
+# ToC ( host -> port | service name )-> results
+# Eyewitness neo4j bh integration
 # Subnet scans / target "finding" via ping sweep arp etc
-# Pararell execution achieved I can die in peace now.
 # Generic product exploit search is broken. MOAR LOGGING.
 # STD - REALTIME is confusing. Force name of the method to be attached to it. -UNDOABLE-
 # Make it accept multiple targets, multiple 1target xmls and overlaying them for overwriting target IPs

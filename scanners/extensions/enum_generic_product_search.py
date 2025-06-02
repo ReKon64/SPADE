@@ -190,7 +190,24 @@ def enum_generic_product_search(self, plugin_results=None):
 
     logging.info(f"[GENERIC_SEARCH] Final results for {host}:{port_id}: {results}")
 
-    return {"cmd": cmds, "results": results}
+    # Only show these fields in the report
+    # For github and google, show only the second array (titles)
+
+    # Prepare filtered results for reporting
+    filtered_results = {
+        "searchsploit": results.get("searchsploit", []),
+        "github_titles": results.get("github", [[], []])[1] if isinstance(results.get("github"), list) and len(results.get("github")) > 1 else [],
+        "google_titles": results.get("google", [[], []])[1] if isinstance(results.get("google"), list) and len(results.get("google")) > 1 else [],
+    }
+
+    report_fields = [
+        "searchsploit",
+        "github_titles",
+        "google_titles",
+        "error",
+    ]
+
+    return {"cmd": cmds, "results": filtered_results, "report_fields": report_fields}
 
 # Add UDP Scanner once ready
 enum_generic_product_search.depends_on = ["scan_tcp_scanner"]

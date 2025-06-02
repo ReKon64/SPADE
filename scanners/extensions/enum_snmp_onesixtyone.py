@@ -21,7 +21,7 @@ def enum_snmp_onesixtyone(self, plugin_results=None):
     service_name = service.get("name", "").lower()
     if "snmp" not in service_name:
         logging.warning(f"[enum_snmp_onesixtyone] Skipping port {port}: service is not SNMP ({service_name})")
-        return {"skipped": f"Service is not SNMP: {service_name}"}
+        return {"skipped": f"Service is not SNMP: {service_name}", "report_fields": ["all_found", "error"]}
 
     # Accept multiple wordlists, prepend general_userlist if present
     userlists = self.options.get("snmp_communitylist") or [
@@ -84,6 +84,6 @@ def enum_snmp_onesixtyone(self, plugin_results=None):
             logging.error(f"[enum_snmp_onesixtyone] Error during onesixtyone scan: {e}")
             results[userlist] = {"error": str(e)}
 
-    return {"cmd": cmds, "results": results, "all_found": all_found}
+    return {"cmd": cmds, "results": results, "all_found": all_found, "report_fields": ["all_found", "error"]}
 
 enum_snmp_onesixtyone.depends_on = ["scan_udp_scanner"]

@@ -71,10 +71,10 @@ def enum_http_wpscan(self, plugin_results=None):
                     logging.warning(f"[enum_http_wpscan] Failed to parse JSON: {e}")
 
         wpscan_data["xmlrpc_enabled"] = xmlrpc_enabled
-        return {"cmd": cmd, "results": wpscan_data}
+        return {"cmd": cmd, "results": wpscan_data, "report_fields": ["xmlrpc_enabled", "error"]}
 
     except Exception as e:
         logging.error(f"[enum_http_wpscan] Error during wpscan: {e}")
-        return {"cmd": cmd, "error": str(e)}
+        return {"cmd": cmd, "error": str(e), "results": {}, "report_fields": ["xmlrpc_enabled", "error"]}
 
 enum_http_wpscan.depends_on = ["scan_tcp_scanner", "enum_http_curl_confirmation"]

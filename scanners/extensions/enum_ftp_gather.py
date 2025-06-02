@@ -39,7 +39,7 @@ def enum_ftp_gather(self, plugin_results=None):
     except Exception as e:
         results["errors"].append(f"FTP connection or login failed: {e}")
 
-    return {"cmd": cmds, "results": results}
+    return {"cmd": cmds, "results": results, "report_fields": ["success", "files_downloaded", "all_files", "errors"]}
 
 def _ftp_recursive_list(ftp, path, file_list, results):
     """

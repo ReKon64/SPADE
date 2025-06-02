@@ -75,20 +75,24 @@ def enum_http_feroxbuster(self, plugin_results=None):
             with open(output_path, "r") as f:
                 lines = f.readlines()
             found = [line for line in lines if line.strip() and not line.startswith("#")]
-            summary = {
-                "found_count": len(found),
-                "first_10_results": found[:10]
-            }
+            # summary = {
+            #     "found_count": len(found),
+            #     "first_10_results": found[:10]
+            # }
 
             results[wordlist] = {
                 "output_path": output_path,
-                "summary": summary
+                #"summary": summary,
+                "found": found,
+                "error": None
             }
 
         except Exception as e:
             logging.error(f"[!] Error during enum_feroxbuster scan against {host} with {wordlist}: {e}")
-            results[wordlist] = {"error": str(e)}
+            results[wordlist] = {"error": str(e), "summary": None}
 
-    return {"cmd": cmds, "results": results}
+    # Prepare report_fields for each wordlist
+    report_fields = ["summary", "error"]
+    return {"cmd": cmds, "results": results, "report_fields": report_fields}
 
 enum_http_feroxbuster.depends_on = ["scan_tcp_scanner","enum_http_curl_confirmation"]

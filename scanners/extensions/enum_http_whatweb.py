@@ -35,7 +35,7 @@ def enum_http_whatweb(self, plugin_results=None):
     with tempfile.NamedTemporaryFile(delete=False, suffix='.json') as tmp_file:
         output_path = tmp_file.name
 
-    cmd = f"whatweb {url} -p -a 4 -v --log-json={output_path}"
+    cmd = f"whatweb {url} -p -a=4 -v --log-json={output_path}"
     logging.info(f"[enum_http_whatweb] Executing: {cmd}")
 
     try:
@@ -53,10 +53,10 @@ def enum_http_whatweb(self, plugin_results=None):
 
         with open(output_path, "r") as f:
             whatweb_data = json.load(f)
-        return {"cmd": cmd, "results": whatweb_data}
+        return {"cmd": cmd, "results": whatweb_data, "report_fields": ["plugins", "error"]}
 
     except Exception as e:
         logging.error(f"[enum_http_whatweb] Error during WhatWeb scan: {e}")
-        return {"cmd": cmd, "error": str(e)}
+        return {"cmd": cmd, "error": str(e), "results": {}, "report_fields": ["plugins", "error"]}
 
 enum_http_whatweb.depends_on = ["scan_tcp_scanner","enum_http_curl_confirmation"]

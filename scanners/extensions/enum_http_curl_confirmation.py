@@ -71,5 +71,5 @@ def enum_http_curl_confirmation(self, plugin_results=None):
         results["error"] = str(e)
         results["isreal"] = False
 
-    return {"cmd": cmd, "results": results}
+    return {"cmd": cmd, "results": results, "report_fields": ["isreal", "status_line", "headers", "error"]}
 enum_http_curl_confirmation.depends_on = ["scan_tcp_scanner"]

@@ -3,7 +3,7 @@
         {
             "ip": "10.10.11.62",
             "hostname": "unknown",
-            "nmap_command": "/usr/lib/nmap/nmap --privileged --top-ports=300 -A -T4 -vv --reason -Pn -n -oX /tmp/tmp615r2gly.xml 10.10.11.62",
+            "nmap_command": "/usr/lib/nmap/nmap --privileged --top-ports=300 -A -T4 -vv --reason -Pn -n -oX /tmp/tmpgdk7fats.xml 10.10.11.62",
             "ports": [
                 {
                     "id": "22",
@@ -20,15 +20,12 @@
                         "ssh-hostkey": "\n  3072 b5:b9:7c:c4:50:32:95:bc:c2:65:17:df:51:a2:7a:bd (RSA)\nssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCrE0z9yLzAZQKDE2qvJju5kq0jbbwNh6GfBrBu20em8SE/I4jT4FGig2hz6FHEYryAFBNCwJ0bYHr3hH9IQ7ZZNcpfYgQhi8C+QLGg+j7U4kw4rh3Z9wbQdm9tsFrUtbU92CuyZKpFsisrtc9e7271kyJElcycTWntcOk38otajZhHnLPZfqH90PM+ISA93hRpyGyrxj8phjTGlKC1O0zwvFDn8dqeaUreN7poWNIYxhJ0ppfFiCQf3rqxPS1fJ0YvKcUeNr2fb49H6Fba7FchR8OYlinjJLs1dFrx0jNNW/m3XS3l2+QTULGxM5cDrKip2XQxKfeTj4qKBCaFZUzknm27vHDW3gzct5W0lErXbnDWQcQZKjKTPu4Z/uExpJkk1rDfr3JXoMHaT4zaOV9l3s3KfrRSjOrXMJIrImtQN1l08nzh/Xg7KqnS1N46PEJ4ivVxEGFGaWrtC1MgjMZ6FtUSs/8RNDn59Pxt0HsSr6rgYkZC2LNwrgtMyiiwyas=\n  256 94:b5:25:54:9b:68:af:be:40:e1:1d:a8:6b:85:0d:01 (ECDSA)\necdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBDiXZTkrXQPMXdU8ZTTQI45kkF2N38hyDVed+2fgp6nB3sR/mu/7K4yDqKQSDuvxiGe08r1b1STa/LZUjnFCfgg=\n  256 12:8c:dc:97:ad:86:00:b4:88:e2:29:cf:69:b5:65:96 (ED25519)\nssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP8Cwf2cBH9EDSARPML82QqjkV811d+Hsjrly11/PHfu"
                     },
                     "plugins": {
-                        "brute_ssh_hydra": {
-                            "cmd": "hydra -L /usr/share/wordlists/user.txt -P /usr/share/wordlists/rockyou.txt -o /tmp/tmpp7i04fh0.txt -t 4 -f -s 22 10.10.11.62 ssh",
-                            "results": []
-                        },
                         "enum_generic_product_search": {
                             "cmd": [
                                 "searchsploit OpenSSH 8.2",
                                 "https://github.com/search?q=OpenSSH+8.2+exploit",
-                                "https://www.google.com/search?q=OpenSSH+8.2+exploit"
+                                "Google Custom Search API: OpenSSH 8.2 exploit",
+                                "https://html.duckduckgo.com/html/?q=OpenSSH+8.2+exploit"
                             ],
                             "results": {
                                 "searchsploit": [
@@ -44,23 +41,42 @@
                                         "Papers: No Results"
                                     ]
                                 },
-                                "github": [
-                                    [],
-                                    []
-                                ],
-                                "github_status": 200,
+                                "github": {
+                                    "skipped": "No GitHub API key provided, skipping GitHub search."
+                                },
+                                "github_status": null,
                                 "github_debug": {
                                     "query": "OpenSSH 8.2 exploit",
-                                    "results": []
+                                    "results": [
+                                        "No GitHub API key provided, skipping GitHub search."
+                                    ]
                                 },
                                 "google": [
-                                    [],
-                                    []
+                                    [
+                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fgithub.com%2Fd0rb%2FCVE%2D2024%2D6387&rut=2e0da7e3d2b51b59daf98a94c7a14f6802c2730081394ea42eee965e887eac4b",
+                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fmedium.com%2F%40mane_csit2075%2Fcve%2D2023%2D38408%2Dopenssh%2Dvulnerability%2Dto%2Drce%2D9e756a0369fd&rut=78865e40ca6ebf90f45552f49bc5f9bac8ca428ee8a3483fb8b40b662b0fb8e3",
+                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.cvedetails.com%2Fversion%2F639204%2FOpenbsd%2DOpenssh%2D8.2.html&rut=04a308296b37f851d09289c2a8dbf4b5dde567cda30a934b2ad41f68ab3ac8c6",
+                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.rapid7.com%2Fdb%2Fvulnerabilities%2Fopenbsd%2Dopenssh%2Dcve%2D2020%2D12062%2F&rut=b6714d4625915c4264bd36b93d21ca2505db380bc23ddd73cdca84c9a772f427",
+                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fnvd.nist.gov%2Fvuln%2Fdetail%2FCVE%2D2020%2D12062&rut=d6a82bc3ccecf2dc2e426e3e12591a7e6e58df81e9e615ac2c9f1823857d1f48"
+                                    ],
+                                    [
+                                        "GitHub - d0rb/CVE-2024-6387: This Python script exploits a remote code ...",
+                                        "CVE-2023-38408 (OpenSSH Vulnerability to RCE) | by Manjil - Medium",
+                                        "Openbsd Openssh 8.2 security vulnerabilities, CVEs - CVEdetails.com",
+                                        "OpenSSH Vulnerability: CVE-2020-12062 - Rapid7",
+                                        "Cve-2020-12062 - Nvd"
+                                    ]
                                 ],
                                 "google_status": 200,
                                 "google_debug": {
                                     "query": "OpenSSH 8.2 exploit",
-                                    "results": []
+                                    "results": [
+                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fgithub.com%2Fd0rb%2FCVE%2D2024%2D6387&rut=2e0da7e3d2b51b59daf98a94c7a14f6802c2730081394ea42eee965e887eac4b",
+                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fmedium.com%2F%40mane_csit2075%2Fcve%2D2023%2D38408%2Dopenssh%2Dvulnerability%2Dto%2Drce%2D9e756a0369fd&rut=78865e40ca6ebf90f45552f49bc5f9bac8ca428ee8a3483fb8b40b662b0fb8e3",
+                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.cvedetails.com%2Fversion%2F639204%2FOpenbsd%2DOpenssh%2D8.2.html&rut=04a308296b37f851d09289c2a8dbf4b5dde567cda30a934b2ad41f68ab3ac8c6",
+                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.rapid7.com%2Fdb%2Fvulnerabilities%2Fopenbsd%2Dopenssh%2Dcve%2D2020%2D12062%2F&rut=b6714d4625915c4264bd36b93d21ca2505db380bc23ddd73cdca84c9a772f427",
+                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fnvd.nist.gov%2Fvuln%2Fdetail%2FCVE%2D2020%2D12062&rut=d6a82bc3ccecf2dc2e426e3e12591a7e6e58df81e9e615ac2c9f1823857d1f48"
+                                    ]
                                 },
                                 "product": "OpenSSH",
                                 "version": "8.2p1 Ubuntu 4ubuntu0.12",
@@ -81,11 +97,11 @@
                         "tunnel": ""
                     },
                     "scripts": {
+                        "http-methods": "\n  Supported Methods: OPTIONS HEAD GET",
+                        "http-server-header": "gunicorn/20.0.4",
                         "http-title": {
                             "title": "Python Code Editor"
-                        },
-                        "http-server-header": "gunicorn/20.0.4",
-                        "http-methods": "\n  Supported Methods: GET OPTIONS HEAD"
+                        }
                     },
                     "plugins": {
                         "enum_http_curl_confirmation": {
@@ -93,15 +109,20 @@
                             "results": {
                                 "status_line": "HTTP/1.1 200 OK",
                                 "headers": {},
-                                "body_snippet": "  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\n100  3435  100  3435    0     0  13736      0 --:--:-- --:--:-- --:--:-- 13795\nHTTP/1.1 200 OK\nServer: gunicorn/20.0.4\nDate: Sat, 31 May 2025 10:57:16 GMT\nConnection: close\nContent-Type: text/html; charset=utf-8\nContent-Length: 3435\nVary: Cookie\n",
+                                "body_snippet": "  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\n100  3435  100  3435    0     0  15111      0 --:--:-- --:--:-- --:--:-- 15199\nHTTP/1.1 200 OK\nServer: gunicorn/20.0.4\nDate: Mon, 02 Jun 2025 17:39:55 GMT\nConnection: close\nContent-Type: text/html; charset=utf-8\nContent-Length: 3435\nVary: Cookie\n",
                                 "isreal": true
                             }
+                        },
+                        "enum_http_gowitness": {
+                            "cmd": "gowitness single --url \"http://10.10.11.62:5000/\" --disable-db --destination \"/tmp/tmphzht0olm/screens\"",
+                            "error": "Command 'gowitness single --url \"http://10.10.11.62:5000/\" --disable-db --destination \"/tmp/tmphzht0olm/screens\"' returned non-zero exit status 1."
                         },
                         "enum_generic_product_search": {
                             "cmd": [
                                 "searchsploit Gunicorn 20.0",
                                 "https://github.com/search?q=Gunicorn+20.0+exploit",
-                                "https://www.google.com/search?q=Gunicorn+20.0+exploit"
+                                "Google Custom Search API: Gunicorn 20.0 exploit",
+                                "https://html.duckduckgo.com/html/?q=Gunicorn+20.0+exploit"
                             ],
                             "results": {
                                 "searchsploit": [
@@ -117,23 +138,42 @@
                                         "Papers: No Results"
                                     ]
                                 },
-                                "github": [
-                                    [],
-                                    []
-                                ],
-                                "github_status": 200,
+                                "github": {
+                                    "skipped": "No GitHub API key provided, skipping GitHub search."
+                                },
+                                "github_status": null,
                                 "github_debug": {
                                     "query": "Gunicorn 20.0 exploit",
-                                    "results": []
+                                    "results": [
+                                        "No GitHub API key provided, skipping GitHub search."
+                                    ]
                                 },
                                 "google": [
-                                    [],
-                                    []
+                                    [
+                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fgrenfeldt.dev%2F2021%2F04%2F01%2Fgunicorn%2D20.0.4%2Drequest%2Dsmuggling%2F&rut=89fded3a4db4f36aa1004ab1e5aa0e09a8406379c80d944f08a700d71771ce3c",
+                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.cve.news%2Fcve%2D2024%2D1135%2F&rut=cfb4c29cf701bf2d82807af4d108fe0ed3364e0bed54114cc75d2b207d90743a",
+                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fgithub.com%2Fp4k03n4t0r%2Fhttp%2Drequest%2Dsmuggling&rut=4c891052085be8d39dde76b3b9435f8c7fe5ee287e3bc636c77b1368612ed9f2",
+                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fsecurity.snyk.io%2Fpackage%2Fpip%2Fgunicorn%2F20.0.4&rut=6c8274d3367bf516631e7aaac85840120fb7ec5a1576f20f8e21eadeb84786fc",
+                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fnvd.nist.gov%2Fvuln%2Fdetail%2FCVE%2D2024%2D1135&rut=86dd5a46e01940458b051dbe7715a77c67a15bb0b83e155183950a53967c6060"
+                                    ],
+                                    [
+                                        "Gunicorn 20.0.4 Request Smuggling - grenfeldt.dev",
+                                        "CVE-2024-1135 - Gunicorn Vulnerability Allows HTTP Request Smuggling ...",
+                                        "GitHub - p4k03n4t0r/http-request-smuggling: Blog about HTTP Request ...",
+                                        "gunicorn 20.0.4 vulnerabilities - Snyk",
+                                        "Cve-2024-1135 - Nvd"
+                                    ]
                                 ],
                                 "google_status": 200,
                                 "google_debug": {
                                     "query": "Gunicorn 20.0 exploit",
-                                    "results": []
+                                    "results": [
+                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fgrenfeldt.dev%2F2021%2F04%2F01%2Fgunicorn%2D20.0.4%2Drequest%2Dsmuggling%2F&rut=89fded3a4db4f36aa1004ab1e5aa0e09a8406379c80d944f08a700d71771ce3c",
+                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.cve.news%2Fcve%2D2024%2D1135%2F&rut=cfb4c29cf701bf2d82807af4d108fe0ed3364e0bed54114cc75d2b207d90743a",
+                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fgithub.com%2Fp4k03n4t0r%2Fhttp%2Drequest%2Dsmuggling&rut=4c891052085be8d39dde76b3b9435f8c7fe5ee287e3bc636c77b1368612ed9f2",
+                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fsecurity.snyk.io%2Fpackage%2Fpip%2Fgunicorn%2F20.0.4&rut=6c8274d3367bf516631e7aaac85840120fb7ec5a1576f20f8e21eadeb84786fc",
+                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fnvd.nist.gov%2Fvuln%2Fdetail%2FCVE%2D2024%2D1135&rut=86dd5a46e01940458b051dbe7715a77c67a15bb0b83e155183950a53967c6060"
+                                    ]
                                 },
                                 "product": "Gunicorn",
                                 "version": "20.0.4",
@@ -141,13 +181,32 @@
                                 "search_query": "Gunicorn 20.0 exploit"
                             }
                         },
+                        "enum_http_wpscan": {
+                            "cmd": "wpscan --url http://10.10.11.62:5000/ --plugins-detection aggressive --enumerate ap,at,tt,cb,dbe,u,m --no-update --output /tmp/tmp4efjb483.wpscan.json --format json",
+                            "results": {
+                                "banner": {
+                                    "description": "WordPress Security Scanner by the WPScan Team",
+                                    "version": "3.8.27",
+                                    "authors": [
+                                        "@_WPScan_",
+                                        "@ethicalhack3r",
+                                        "@erwan_lr",
+                                        "@firefart"
+                                    ],
+                                    "sponsor": "Sponsored by Automattic - https://automattic.com/"
+                                },
+                                "scan_aborted": "The remote website is up, but does not seem to be running WordPress.",
+                                "target_url": "http://10.10.11.62:5000/",
+                                "xmlrpc_enabled": false
+                            }
+                        },
                         "enum_http_feroxbuster": {
                             "cmd": [
-                                "feroxbuster --url http://10.10.11.62:5000 --extract-links -B --auto-tune -w /usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-files.txt --threads 32 --insecure -o /tmp/tmprw0f_ra9.ferox -C 404 --scan-dir-listings"
+                                "feroxbuster --url http://10.10.11.62:5000 --extract-links -B --auto-tune -w /usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-files.txt --threads 32 --insecure -o /tmp/tmpnqajlmqt.ferox -C 404 --scan-dir-listings  --silent"
                             ],
                             "results": {
                                 "/usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-files.txt": {
-                                    "output_path": "/tmp/tmprw0f_ra9.ferox",
+                                    "output_path": "/tmp/tmpnqajlmqt.ferox",
                                     "summary": {
                                         "found_count": 268,
                                         "first_10_results": [
@@ -167,7 +226,7 @@
                             }
                         },
                         "enum_http_whatweb": {
-                            "cmd": "whatweb http://10.10.11.62:5000/ -p -a 4 -v --log-json=/tmp/tmpvwmdxhbp.json",
+                            "cmd": "whatweb http://10.10.11.62:5000/ -p -a 4 -v --log-json=/tmp/tmplh8cd12f.json",
                             "results": [
                                 {
                                     "target": "http://10.10.11.62:5000/",
@@ -215,9 +274,28 @@
                     }
                 },
                 {
+                    "id": "7",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "echo",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
                     "id": "9",
                     "protocol": "udp",
-                    "state": "open|filtered",
+                    "state": "closed",
                     "service": {
                         "name": "discard",
                         "product": "",
@@ -234,9 +312,271 @@
                     }
                 },
                 {
-                    "id": "120",
+                    "id": "17",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "qotd",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "19",
                     "protocol": "udp",
                     "state": "open|filtered",
+                    "service": {
+                        "name": "chargen",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "49",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "tacacs",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "53",
+                    "protocol": "udp",
+                    "state": "open|filtered",
+                    "service": {
+                        "name": "domain",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        },
+                        "enum_dns_dig": {
+                            "cmd": [
+                                "dig @10.10.11.62 axfr",
+                                "dig 10.10.11.62 any"
+                            ],
+                            "results": {
+                                "axfr": "Error: Command '['dig', '@10.10.11.62', 'axfr']' timed out after 10 seconds",
+                                "any": "\n; <<>> DiG 9.20.4-4-Debian <<>> 10.10.11.62 any\n;; global options: +cmd\n;; Got answer:\n;; ->>HEADER<<- opcode: QUERY, status: NXDOMAIN, id: 58423\n;; flags: qr rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version: 0, flags:; udp: 1232\n; COOKIE: 44e8615f9d618cbd01000000683de2c89cff8ee860efaba1 (good)\n;; QUESTION SECTION:\n;10.10.11.62.\t\t\tIN\tANY\n\n;; AUTHORITY SECTION:\n.\t\t\t10800\tIN\tSOA\ta.root-servers.net. nstld.verisign-grs.com. 2025060200 1800 900 604800 86400\n\n;; Query time: 100 msec\n;; SERVER: 192.168.188.2#53(192.168.188.2) (TCP)\n;; WHEN: Mon Jun 02 13:45:24 EDT 2025\n;; MSG SIZE  rcvd: 143\n\n",
+                                "resolves": {}
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "67",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "dhcps",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "68",
+                    "protocol": "udp",
+                    "state": "open|filtered",
+                    "service": {
+                        "name": "dhcpc",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "69",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "tftp",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "80",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "http",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        },
+                        "enum_http_curl_confirmation": {
+                            "cmd": "curl -i --insecure --max-time 15 http://10.10.11.62:80/",
+                            "results": {
+                                "status_line": "",
+                                "headers": {},
+                                "body_snippet": "  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\n  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\ncurl: (7) Failed to connect to 10.10.11.62 port 80 after 51 ms: Could not connect to server",
+                                "isreal": true
+                            }
+                        },
+                        "enum_http_gowitness": {
+                            "cmd": "gowitness single --url \"http://10.10.11.62:80/\" --disable-db --destination \"/tmp/tmpe05que65/screens\"",
+                            "error": "Command 'gowitness single --url \"http://10.10.11.62:80/\" --disable-db --destination \"/tmp/tmpe05que65/screens\"' returned non-zero exit status 1."
+                        },
+                        "enum_http_feroxbuster": {
+                            "cmd": [
+                                "feroxbuster --url http://10.10.11.62:80 --extract-links -B --auto-tune -w /usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-files.txt --threads 32 --insecure -o /tmp/tmp4wrph5bj.ferox -C 404 --scan-dir-listings  --silent"
+                            ],
+                            "results": {
+                                "/usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-files.txt": {
+                                    "output_path": "/tmp/tmp4wrph5bj.ferox",
+                                    "summary": {
+                                        "found_count": 262,
+                                        "first_10_results": [
+                                            "Configuration {\n",
+                                            "    kind: \"configuration\",\n",
+                                            "    wordlist: \"/usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-files.txt\",\n",
+                                            "    config: \"/etc/feroxbuster/ferox-config.toml\",\n",
+                                            "    proxy: \"\",\n",
+                                            "    replay_proxy: \"\",\n",
+                                            "    server_certs: [],\n",
+                                            "    client_cert: \"\",\n",
+                                            "    client_key: \"\",\n",
+                                            "    target_url: \"http://10.10.11.62:80\",\n"
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        "enum_http_wpscan": {
+                            "cmd": "wpscan --url http://10.10.11.62:80/ --plugins-detection aggressive --enumerate ap,at,tt,cb,dbe,u,m --no-update --output /tmp/tmplhjwdpp2.wpscan.json --format json",
+                            "results": {
+                                "banner": {
+                                    "description": "WordPress Security Scanner by the WPScan Team",
+                                    "version": "3.8.27",
+                                    "authors": [
+                                        "@_WPScan_",
+                                        "@ethicalhack3r",
+                                        "@erwan_lr",
+                                        "@firefart"
+                                    ],
+                                    "sponsor": "Sponsored by Automattic - https://automattic.com/"
+                                },
+                                "scan_aborted": "The url supplied 'http://10.10.11.62/' seems to be down (Could not connect to server)",
+                                "target_url": "http://10.10.11.62/",
+                                "xmlrpc_enabled": false
+                            }
+                        },
+                        "enum_http_whatweb": {
+                            "cmd": "whatweb http://10.10.11.62:80/ -p -a 4 -v --log-json=/tmp/tmp1jo7629l.json",
+                            "results": []
+                        }
+                    }
+                },
+                {
+                    "id": "88",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "kerberos-sec",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "111",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "rpcbind",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "120",
+                    "protocol": "udp",
+                    "state": "closed",
                     "service": {
                         "name": "cfdptkt",
                         "product": "",
@@ -253,9 +593,28 @@
                     }
                 },
                 {
+                    "id": "123",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "ntp",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
                     "id": "135",
                     "protocol": "udp",
-                    "state": "open|filtered",
+                    "state": "closed",
                     "service": {
                         "name": "msrpc",
                         "product": "",
@@ -272,11 +631,358 @@
                     }
                 },
                 {
+                    "id": "136",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "profile",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "137",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "netbios-ns",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        },
+                        "enum_smb_get_shares": {
+                            "shares_output": "WARNING: no network interfaces found\ndo_connect: Connection to 10.10.11.62 failed (Error NT_STATUS_CONNECTION_REFUSED)\n",
+                            "shares": {}
+                        },
+                        "enum_smb_nmap": {
+                            "cmd": "nmap -p 137 --script=smb-os-discovery,smb-enum-shares,smb-enum-users,smb-enum-domains,smb-enum-groups,smb-security-mode,smb2-security-mode,smb2-time,smb2-capabilities,smb-protocols,smb-vuln* -Pn -vv -n -oX /tmp/tmpvj8ncfm7.xml 10.10.11.62",
+                            "results": {}
+                        }
+                    }
+                },
+                {
+                    "id": "138",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "netbios-dgm",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        },
+                        "enum_smb_get_shares": {
+                            "shares_output": "WARNING: no network interfaces found\ndo_connect: Connection to 10.10.11.62 failed (Error NT_STATUS_CONNECTION_REFUSED)\n",
+                            "shares": {}
+                        },
+                        "enum_smb_nmap": {
+                            "cmd": "nmap -p 138 --script=smb-os-discovery,smb-enum-shares,smb-enum-users,smb-enum-domains,smb-enum-groups,smb-security-mode,smb2-security-mode,smb2-time,smb2-capabilities,smb-protocols,smb-vuln* -Pn -vv -n -oX /tmp/tmpiz7l7o49.xml 10.10.11.62",
+                            "results": {}
+                        }
+                    }
+                },
+                {
+                    "id": "139",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "netbios-ssn",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        },
+                        "enum_smb_get_shares": {
+                            "shares_output": "WARNING: no network interfaces found\ndo_connect: Connection to 10.10.11.62 failed (Error NT_STATUS_CONNECTION_REFUSED)\n",
+                            "shares": {}
+                        },
+                        "enum_smb_nmap": {
+                            "cmd": "nmap -p 139 --script=smb-os-discovery,smb-enum-shares,smb-enum-users,smb-enum-domains,smb-enum-groups,smb-security-mode,smb2-security-mode,smb2-time,smb2-capabilities,smb-protocols,smb-vuln* -Pn -vv -n -oX /tmp/tmp40hui45k.xml 10.10.11.62",
+                            "results": {}
+                        }
+                    }
+                },
+                {
+                    "id": "158",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "pcmail-srv",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "161",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "snmp",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        },
+                        "enum_snmp_onesixtyone": {
+                            "cmd": [
+                                "onesixtyone -c /usr/share/seclists/Discovery/SNMP/snmp.txt -o /tmp/tmp3w5v07i9.txt 10.10.11.62"
+                            ],
+                            "results": {
+                                "/usr/share/seclists/Discovery/SNMP/snmp.txt": {
+                                    "output_path": "/tmp/tmp3w5v07i9.txt",
+                                    "found": []
+                                }
+                            },
+                            "all_found": []
+                        },
+                        "enum_snmp_snmpwalk": {
+                            "skipped": "No SNMP community strings found by onesixtyone"
+                        }
+                    }
+                },
+                {
+                    "id": "162",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "snmptrap",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
                     "id": "177",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "xdmcp",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "427",
                     "protocol": "udp",
                     "state": "open|filtered",
                     "service": {
-                        "name": "xdmcp",
+                        "name": "svrloc",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "443",
+                    "protocol": "udp",
+                    "state": "open|filtered",
+                    "service": {
+                        "name": "https",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        },
+                        "enum_http_curl_confirmation": {
+                            "cmd": "curl -i --insecure --max-time 15 http://10.10.11.62:443/",
+                            "results": {
+                                "status_line": "",
+                                "headers": {},
+                                "body_snippet": "  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\n  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\ncurl: (7) Failed to connect to 10.10.11.62 port 443 after 138 ms: Could not connect to server",
+                                "isreal": true
+                            }
+                        },
+                        "enum_http_gowitness": {
+                            "cmd": "gowitness single --url \"http://10.10.11.62:443/\" --disable-db --destination \"/tmp/tmp1hvcge8q/screens\"",
+                            "error": "Command 'gowitness single --url \"http://10.10.11.62:443/\" --disable-db --destination \"/tmp/tmp1hvcge8q/screens\"' returned non-zero exit status 1."
+                        },
+                        "enum_http_feroxbuster": {
+                            "cmd": [
+                                "feroxbuster --url http://10.10.11.62:443 --extract-links -B --auto-tune -w /usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-files.txt --threads 32 --insecure -o /tmp/tmp8k5otq03.ferox -C 404 --scan-dir-listings  --silent"
+                            ],
+                            "results": {
+                                "/usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-files.txt": {
+                                    "output_path": "/tmp/tmp8k5otq03.ferox",
+                                    "summary": {
+                                        "found_count": 262,
+                                        "first_10_results": [
+                                            "Configuration {\n",
+                                            "    kind: \"configuration\",\n",
+                                            "    wordlist: \"/usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-files.txt\",\n",
+                                            "    config: \"/etc/feroxbuster/ferox-config.toml\",\n",
+                                            "    proxy: \"\",\n",
+                                            "    replay_proxy: \"\",\n",
+                                            "    server_certs: [],\n",
+                                            "    client_cert: \"\",\n",
+                                            "    client_key: \"\",\n",
+                                            "    target_url: \"http://10.10.11.62:443\",\n"
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        "enum_http_wpscan": {
+                            "cmd": "wpscan --url http://10.10.11.62:443/ --plugins-detection aggressive --enumerate ap,at,tt,cb,dbe,u,m --no-update --output /tmp/tmp1y396pxn.wpscan.json --format json",
+                            "results": {
+                                "banner": {
+                                    "description": "WordPress Security Scanner by the WPScan Team",
+                                    "version": "3.8.27",
+                                    "authors": [
+                                        "@_WPScan_",
+                                        "@ethicalhack3r",
+                                        "@erwan_lr",
+                                        "@firefart"
+                                    ],
+                                    "sponsor": "Sponsored by Automattic - https://automattic.com/"
+                                },
+                                "scan_aborted": "The url supplied 'http://10.10.11.62:443/' seems to be down (Could not connect to server)",
+                                "target_url": "http://10.10.11.62:443/",
+                                "xmlrpc_enabled": false
+                            }
+                        },
+                        "enum_http_whatweb": {
+                            "cmd": "whatweb http://10.10.11.62:443/ -p -a 4 -v --log-json=/tmp/tmpmhv5w6r5.json",
+                            "results": []
+                        }
+                    }
+                },
+                {
+                    "id": "445",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "microsoft-ds",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "497",
+                    "protocol": "udp",
+                    "state": "open|filtered",
+                    "service": {
+                        "name": "retrospect",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "500",
+                    "protocol": "udp",
+                    "state": "open|filtered",
+                    "service": {
+                        "name": "isakmp",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "514",
+                    "protocol": "udp",
+                    "state": "open|filtered",
+                    "service": {
+                        "name": "syslog",
                         "product": "",
                         "version": "",
                         "tunnel": ""
@@ -310,9 +1016,28 @@
                     }
                 },
                 {
+                    "id": "518",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "ntalk",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
                     "id": "520",
                     "protocol": "udp",
-                    "state": "open|filtered",
+                    "state": "closed",
                     "service": {
                         "name": "route",
                         "product": "",
@@ -329,9 +1054,127 @@
                     }
                 },
                 {
-                    "id": "631",
+                    "id": "593",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "http-rpc-epmap",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        },
+                        "enum_http_curl_confirmation": {
+                            "cmd": "curl -i --insecure --max-time 15 http://10.10.11.62:593/",
+                            "results": {
+                                "status_line": "",
+                                "headers": {},
+                                "body_snippet": "  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\n  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\ncurl: (7) Failed to connect to 10.10.11.62 port 593 after 103 ms: Could not connect to server",
+                                "isreal": true
+                            }
+                        },
+                        "enum_http_gowitness": {
+                            "cmd": "gowitness single --url \"http://10.10.11.62:593/\" --disable-db --destination \"/tmp/tmp4ajpe5ba/screens\"",
+                            "error": "Command 'gowitness single --url \"http://10.10.11.62:593/\" --disable-db --destination \"/tmp/tmp4ajpe5ba/screens\"' returned non-zero exit status 1."
+                        },
+                        "enum_http_feroxbuster": {
+                            "cmd": [
+                                "feroxbuster --url http://10.10.11.62:593 --extract-links -B --auto-tune -w /usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-files.txt --threads 32 --insecure -o /tmp/tmp9qy8yhgn.ferox -C 404 --scan-dir-listings  --silent"
+                            ],
+                            "results": {
+                                "/usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-files.txt": {
+                                    "output_path": "/tmp/tmp9qy8yhgn.ferox",
+                                    "summary": {
+                                        "found_count": 262,
+                                        "first_10_results": [
+                                            "Configuration {\n",
+                                            "    kind: \"configuration\",\n",
+                                            "    wordlist: \"/usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-files.txt\",\n",
+                                            "    config: \"/etc/feroxbuster/ferox-config.toml\",\n",
+                                            "    proxy: \"\",\n",
+                                            "    replay_proxy: \"\",\n",
+                                            "    server_certs: [],\n",
+                                            "    client_cert: \"\",\n",
+                                            "    client_key: \"\",\n",
+                                            "    target_url: \"http://10.10.11.62:593\",\n"
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        "enum_http_wpscan": {
+                            "cmd": "wpscan --url http://10.10.11.62:593/ --plugins-detection aggressive --enumerate ap,at,tt,cb,dbe,u,m --no-update --output /tmp/tmpy9fq6x_y.wpscan.json --format json",
+                            "results": {
+                                "banner": {
+                                    "description": "WordPress Security Scanner by the WPScan Team",
+                                    "version": "3.8.27",
+                                    "authors": [
+                                        "@_WPScan_",
+                                        "@ethicalhack3r",
+                                        "@erwan_lr",
+                                        "@firefart"
+                                    ],
+                                    "sponsor": "Sponsored by Automattic - https://automattic.com/"
+                                },
+                                "scan_aborted": "The url supplied 'http://10.10.11.62:593/' seems to be down (Could not connect to server)",
+                                "target_url": "http://10.10.11.62:593/",
+                                "xmlrpc_enabled": false
+                            }
+                        },
+                        "enum_http_whatweb": {
+                            "cmd": "whatweb http://10.10.11.62:593/ -p -a 4 -v --log-json=/tmp/tmprs0263iw.json",
+                            "results": []
+                        }
+                    }
+                },
+                {
+                    "id": "623",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "asf-rmcp",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "626",
                     "protocol": "udp",
                     "state": "open|filtered",
+                    "service": {
+                        "name": "serialnumberd",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "631",
+                    "protocol": "udp",
+                    "state": "closed",
                     "service": {
                         "name": "ipp",
                         "product": "",
@@ -348,9 +1191,174 @@
                     }
                 },
                 {
-                    "id": "1023",
+                    "id": "996",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "vsinet",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "997",
                     "protocol": "udp",
                     "state": "open|filtered",
+                    "service": {
+                        "name": "maitrd",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "998",
+                    "protocol": "udp",
+                    "state": "open|filtered",
+                    "service": {
+                        "name": "puparp",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "999",
+                    "protocol": "udp",
+                    "state": "open|filtered",
+                    "service": {
+                        "name": "applix",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "1022",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "exp2",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "1023",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "1025",
+                    "protocol": "udp",
+                    "state": "open|filtered",
+                    "service": {
+                        "name": "blackjack",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "1026",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "win-rpc",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "1027",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "1028",
+                    "protocol": "udp",
+                    "state": "open|filtered",
+                    "service": {
+                        "name": "ms-lsa",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
                     "plugins": {
                         "enum_generic_product_search": {
                             "cmd": [],
@@ -363,7 +1371,7 @@
                 {
                     "id": "1029",
                     "protocol": "udp",
-                    "state": "open|filtered",
+                    "state": "closed",
                     "service": {
                         "name": "solid-mux",
                         "product": "",
@@ -380,11 +1388,391 @@
                     }
                 },
                 {
+                    "id": "1030",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "iad1",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
                     "id": "1433",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "ms-sql-s",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "1434",
                     "protocol": "udp",
                     "state": "open|filtered",
                     "service": {
-                        "name": "ms-sql-s",
+                        "name": "ms-sql-m",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "1645",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "radius",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "1646",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "radacct",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "1701",
+                    "protocol": "udp",
+                    "state": "open|filtered",
+                    "service": {
+                        "name": "L2TP",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "1718",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "h225gatedisc",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "1719",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "h323gatestat",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "1812",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "radius",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "1813",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "radacct",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "1900",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "upnp",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "2000",
+                    "protocol": "udp",
+                    "state": "open|filtered",
+                    "service": {
+                        "name": "cisco-sccp",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "2048",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "dls-monitor",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "2049",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "nfs",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "2222",
+                    "protocol": "udp",
+                    "state": "open|filtered",
+                    "service": {
+                        "name": "msantipiracy",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "2223",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "rockwell-csp2",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "3283",
+                    "protocol": "udp",
+                    "state": "open|filtered",
+                    "service": {
+                        "name": "netassistant",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "3456",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "IISrpc-or-vat",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "3703",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "adobeserver-3",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "4444",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "krb524",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "4500",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "nat-t-ike",
                         "product": "",
                         "version": "",
                         "tunnel": ""
@@ -418,9 +1806,465 @@
                     }
                 },
                 {
-                    "id": "49194",
+                    "id": "5060",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "sip",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "5353",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "zeroconf",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "5632",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "pcanywherestat",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "9200",
                     "protocol": "udp",
                     "state": "open|filtered",
+                    "service": {
+                        "name": "wap-wsp",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "10000",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "ndmp",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "17185",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "wdbrpc",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "20031",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "bakbonenetvault",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "30718",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "31337",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "BackOrifice",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "32768",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "service": {
+                        "name": "omad",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "32769",
+                    "protocol": "udp",
+                    "state": "open|filtered",
+                    "service": {
+                        "name": "filenet-rpc",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "32771",
+                    "protocol": "udp",
+                    "state": "open|filtered",
+                    "service": {
+                        "name": "sometimes-rpc6",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "32815",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "33281",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "49152",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "49153",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "49154",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "49156",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "49181",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "49182",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "49185",
+                    "protocol": "udp",
+                    "state": "open|filtered",
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "49186",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "49188",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "49190",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "49191",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "49192",
+                    "protocol": "udp",
+                    "state": "open|filtered",
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "49193",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "49194",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "49200",
+                    "protocol": "udp",
+                    "state": "closed",
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "49201",
+                    "protocol": "udp",
+                    "state": "open|filtered",
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "65024",
+                    "protocol": "udp",
+                    "state": "closed",
                     "plugins": {
                         "enum_generic_product_search": {
                             "cmd": [],

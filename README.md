@@ -25,7 +25,7 @@ SPADE is a modular vulnerability scanning framework that leverages external tool
 2.1 Write how to return skipped properly
 3. Create the report class
 
-
+# Ferox returns dogshit
 # 1. Plugins key -> plugin name -> command -> result 1, result 2 
 # Per plugin imports and argparse options ?
 # NXC RID brute

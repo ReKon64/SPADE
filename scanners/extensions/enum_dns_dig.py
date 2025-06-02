@@ -68,6 +68,7 @@ def enum_dns_dig(self, plugin_results=None):
             results["resolves"][name] = f"Error: {e}"
 
     logging.debug(f"enum_dns_dig results: {results}")
-    return {"cmd": cmds, "results": results}
+    report_fields = ["axfr", "any", "resolves", "error"]
+    return {"cmd": cmds, "results": results, "report_fields": report_fields}
 
 enum_dns_dig.depends_on = ["scan_tcp_scanner"]

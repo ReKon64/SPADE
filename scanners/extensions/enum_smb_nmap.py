@@ -49,7 +49,7 @@ def enum_smb_nmap(self, plugin_results=None):
         except Exception as e:
             logging.error(f"Failed to delete file {xml_output_path}: {e}")
 
-    return {"cmd": cmd, "results": parsed}
+    return {"cmd": cmd, "results": parsed, "report_fields": ["results", "error"]}
 
 def _parse_smb_nmap_xml(xml_data):
     """

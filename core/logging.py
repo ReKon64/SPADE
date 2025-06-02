@@ -8,18 +8,18 @@ def realtime(self, message, *args, **kws):
 logging.Logger.realtime = realtime
 
 
+class SafeFormatter(logging.Formatter):
+    def format(self, record):
+        if not hasattr(record, "prefix") or not record.prefix:
+            record.prefix = ""
+        return super().format(record)
+
 class MemoryUsageFormatter(logging.Formatter):
     def format(self, record):
         process = psutil.Process(os.getpid())
         memory_usage = process.memory_info().rss / 1024 / 1024
         record.memory_usage = f"{memory_usage:.2f} MB"
-        if not hasattr(record, "prefix"):
-            record.prefix = ""
-        return super().format(record)
-
-class SafeFormatter(logging.Formatter):
-    def format(self, record):
-        if not hasattr(record, "prefix"):
+        if not hasattr(record, "prefix") or not record.prefix:
             record.prefix = ""
         return super().format(record)
 

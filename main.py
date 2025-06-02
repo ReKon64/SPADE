@@ -108,7 +108,7 @@ def main():
     # Configure logging
     if args.memory:
         from core.logging import MemoryUsageFormatter
-        format = '%(asctime)s - %(levelname)s - [MEM: %(memory_usage)s] - %(prefix)s - %(message)s'
+        format = '%(asctime)s - %(levelname)s - [MEM: %(memory_usage)s] %(prefix)s - %(message)s'
         if args.realtime and args.verbose:
             log_level = min(logging.DEBUG, 15)  # 10
         elif args.realtime:

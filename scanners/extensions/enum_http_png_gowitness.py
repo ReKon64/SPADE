@@ -44,9 +44,9 @@ def enum_http_gowitness(self, plugin_results=None):
                     with open(fpath, "rb") as imgf:
                         b64img = base64.b64encode(imgf.read()).decode("utf-8")
                     screenshots.append({"filename": fname, "b64": b64img})
-            return {"cmd": cmd, "results": {"screenshots": screenshots}}
+            return {"cmd": cmd, "results": {"screenshots": screenshots}, "report_fields": ["screenshots", "error"]}
         except Exception as e:
             logging.error(f"[enum_http_gowitness] Error during gowitness: {e}")
-            return {"cmd": cmd, "error": str(e)}
+            return {"cmd": cmd, "error": str(e), "results": {"screenshots": []}, "report_fields": ["screenshots", "error"]}
 
 enum_http_gowitness.depends_on = ["scan_tcp_scanner", "enum_http_curl_confirmation"]

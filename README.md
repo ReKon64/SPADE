@@ -25,13 +25,11 @@ SPADE is a modular vulnerability scanning framework that leverages external tool
 2.1 Write how to return skipped properly
 3. Create the report class
 
-# Ferox returns dogshit
-# 1. Plugins key -> plugin name -> command -> result 1, result 2 
-# Per plugin imports and argparse options ?
+# Maitain one official one community branch. Contribution guide that requires pocs + demo. Scanner dockerfile release can't include stuff like targets folder etc.
+# Update writing guide. Prepend all stuff you don't want to appear in the html report with "_" (underscore)
+# Per plugin imports and argparse options 
 # NXC RID brute
-# Add wordlist generic to onesixtyone -Done-
 # Multi target.
-# ToC ( host -> port | service name )-> results
 # Eyewitness neo4j bh integration
 # Subnet scans / target "finding" via ping sweep arp etc
 # Generic product exploit search is broken. MOAR LOGGING.
@@ -49,4 +47,4 @@ SPADE is a modular vulnerability scanning framework that leverages external tool
 # If HTTP returns a domain name / vhost , bruteforce
 # Write a github copilot prompt schema on how to write commit msgs
 NMAP -> Results -> NMAP Protocol Specific Scanners (SMB TOO) -> BruteForce -> FeroxBust -> FingerPrint -> Check Exploits -> Build into one "big" NMAP report
--> Create to do list for the tester -> Add AI fingerprinting magic for git clout
+-> Create to do list for the tester -> Add AI fingerprinting and summary magic for git clout

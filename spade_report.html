@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Scan Report</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            border-bottom: 3px solid #2c3e50;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        h1 {
+            color: #2c3e50;
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .subtitle {
+            color: #7f8c8d;
+            margin: 10px 0 0 0;
+            font-size: 1.1em;
+        }
+        .toc {
+            background: #ecf0f1;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        .toc h2 {
+            color: #2c3e50;
+            margin-top: 0;
+            border-bottom: 2px solid #bdc3c7;
+            padding-bottom: 10px;
+        }
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .toc li {
+            margin: 8px 0;
+        }
+        .toc a {
+            text-decoration: none;
+            color: #3498db;
+            font-weight: 500;
+        }
+        .toc a:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+        .host-entry {
+            margin-left: 0;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .port-entry {
+            margin-left: 20px;
+            font-size: 0.95em;
+        }
+        .host-section {
+            margin-bottom: 40px;
+            border: 1px solid #e1e8ed;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .host-header {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: white;
+            padding: 20px;
+            margin: 0;
+        }
+        .host-header h2 {
+            margin: 0;
+            font-size: 1.8em;
+        }
+        .host-info {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+        .summary-section {
+            background: #f8f9fa;
+            border-left: 4px solid #17a2b8;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .summary-section h3 {
+            color: #17a2b8;
+            margin-top: 0;
+        }
+        .port-section {
+            border-top: 1px solid #e1e8ed;
+            padding: 25px;
+        }
+        .port-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .port-number {
+            background: #3498db;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+        .service-info {
+            flex-grow: 1;
+        }
+        .service-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .service-details {
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        .state-badge {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        .state-open {
+            background: #d4edda;
+            color: #155724;
+        }
+        .state-filtered {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .state-closed {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .plugin-results {
+            margin-top: 25px;
+        }
+        .plugin-item {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            overflow: hidden;
+        }
+        .plugin-header {
+            background: #e9ecef;
+            padding: 12px 15px;
+            font-weight: bold;
+            color: #495057;
+            cursor: pointer;
+            user-select: none;
+        }
+        .plugin-header:hover {
+            background: #dee2e6;
+        }
+        .plugin-content {
+            padding: 15px;
+            display: none;
+        }
+        .plugin-content.show {
+            display: block;
+        }
+        .command {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 10px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        .results-box {
+            background: #f1f3f4;
+            border: 1px solid #dadce0;
+            border-radius: 3px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .no-results {
+            color: #6c757d;
+            font-style: italic;
+        }
+        .scripts-section {
+            margin-top: 20px;
+        }
+        .script-item {
+            background: #e8f5e8;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .script-name {
+            font-weight: bold;
+            color: #28a745;
+            margin-bottom: 8px;
+        }
+        .script-output {
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            white-space: pre-wrap;
+            background: white;
+            padding: 10px;
+            border-radius: 3px;
+            border: 1px solid #c3e6cb;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e1e8ed;
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        .toggle-btn {
+            float: right;
+            font-size: 0.8em;
+            color: #6c757d;
+        }
+    </style>
+    <script>
+        function togglePlugin(element) {
+            const content = element.nextElementSibling;
+            const toggleBtn = element.querySelector('.toggle-btn');
+            
+            if (content.classList.contains('show')) {
+                content.classList.remove('show');
+                toggleBtn.textContent = '[+]';
+            } else {
+                content.classList.add('show');
+                toggleBtn.textContent = '[-]';
+            }
+        }
+        
+        function expandAll() {
+            document.querySelectorAll('.plugin-content').forEach(content => {
+                content.classList.add('show');
+            });
+            document.querySelectorAll('.toggle-btn').forEach(btn => {
+                btn.textContent = '[-]';
+            });
+        }
+        
+        function collapseAll() {
+            document.querySelectorAll('.plugin-content').forEach(content => {
+                content.classList.remove('show');
+            });
+            document.querySelectorAll('.toggle-btn').forEach(btn => {
+                btn.textContent = '[+]';
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Security Scan Report</h1>
+            <p class="subtitle">Generated on 2025-06-02 15:16:35</p>
+        </div>
+
+        <!-- Table of Contents -->
+        <div class="toc">
+            <h2>📋 Table of Contents</h2>
+            <ul>
+                
+                <li class="host-entry">
+                    <a href="#host-1">🖥️ 10.10.11.62</a>
+                    <span style="font-weight: normal; color: #7f8c8d;">(10.10.11.62)</span>
+                    <ul>
+                        
+                        
+                        <li class="port-entry">
+                            <a href="#port-10-10-11-62-22">
+                                🔌 22/TCP - 
+                                ssh
+                                 (OpenSSH 8.2p1 Ubuntu 4ubuntu0.12)
+                            </a>
+                        </li>
+                        
+                        
+                        
+                        <li class="port-entry">
+                            <a href="#port-10-10-11-62-5000">
+                                🔌 5000/TCP - 
+                                http
+                                 (Gunicorn 20.0.4)
+                            </a>
+                        </li>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </ul>
+                </li>
+                
+            </ul>
+        </div>
+
+        <!-- Summary Section -->
+        <div class="summary-section">
+            <h3>📊 Executive Summary</h3>
+            <p><em>This section will be populated by AI analysis plugin.</em></p>
+            <ul>
+                <li><strong>Total Hosts Scanned:</strong> 1</li>
+                <li><strong>Total Open Ports:</strong> 2</li>
+                <li><strong>Services Identified:</strong> 2</li>
+            </ul>
+        </div>
+
+        <!-- Host Details -->
+        
+        <div class="host-section" id="host-1">
+            <div class="host-header">
+                <h2>🖥️ Host</h2>
+                <div class="host-info">
+                    <strong>IP Address:</strong> 10.10.11.62 | 
+                    <strong>Open Ports:</strong> 2
+                </div>
+            </div>
+
+            
+            
+            <div class="port-section" id="port-10-10-11-62-22">
+                <div class="port-header">
+                    <div class="port-number">22/TCP</div>
+                    <div class="service-info">
+                        <div class="service-name">
+                            Ssh
+                        </div>
+                        <div class="service-details">
+                            
+                                OpenSSH
+                                 v8.2p1 Ubuntu 4ubuntu0.12
+                            
+                             | Ubuntu Linux; protocol 2.0
+                        </div>
+                    </div>
+                    <span class="state-badge state-open">open</span>
+                </div>
+
+                <!-- Port Summary -->
+                <div class="summary-section">
+                    <h4>🔍 Port Summary</h4>
+                    <p><em>AI-generated analysis will appear here.</em></p>
+                </div>
+
+                <!-- Scripts Section -->
+                
+                <div class="scripts-section">
+                    <h4>📜 Nmap Scripts</h4>
+                    
+                    <div class="script-item">
+                        <div class="script-name">ssh-hostkey</div>
+                        <div class="script-output">
+  3072 b5:b9:7c:c4:50:32:95:bc:c2:65:17:df:51:a2:7a:bd (RSA)
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCrE0z9yLzAZQKDE2qvJju5kq0jbbwNh6GfBrBu20em8SE/I4jT4FGig2hz6FHEYryAFBNCwJ0bYHr3hH9IQ7ZZNcpfYgQhi8C+QLGg+j7U4kw4rh3Z9wbQdm9tsFrUtbU92CuyZKpFsisrtc9e7271kyJElcycTWntcOk38otajZhHnLPZfqH90PM+ISA93hRpyGyrxj8phjTGlKC1O0zwvFDn8dqeaUreN7poWNIYxhJ0ppfFiCQf3rqxPS1fJ0YvKcUeNr2fb49H6Fba7FchR8OYlinjJLs1dFrx0jNNW/m3XS3l2+QTULGxM5cDrKip2XQxKfeTj4qKBCaFZUzknm27vHDW3gzct5W0lErXbnDWQcQZKjKTPu4Z/uExpJkk1rDfr3JXoMHaT4zaOV9l3s3KfrRSjOrXMJIrImtQN1l08nzh/Xg7KqnS1N46PEJ4ivVxEGFGaWrtC1MgjMZ6FtUSs/8RNDn59Pxt0HsSr6rgYkZC2LNwrgtMyiiwyas=
+  256 94:b5:25:54:9b:68:af:be:40:e1:1d:a8:6b:85:0d:01 (ECDSA)
+ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBDiXZTkrXQPMXdU8ZTTQI45kkF2N38hyDVed+2fgp6nB3sR/mu/7K4yDqKQSDuvxiGe08r1b1STa/LZUjnFCfgg=
+  256 12:8c:dc:97:ad:86:00:b4:88:e2:29:cf:69:b5:65:96 (ED25519)
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP8Cwf2cBH9EDSARPML82QqjkV811d+Hsjrly11/PHfu</div>
+                    </div>
+                    
+                </div>
+                
+
+                <!-- Plugin Results -->
+                
+                <div class="plugin-results">
+                    <h4>
+                        🔧 Plugin Results 
+                        <button onclick="expandAll()" style="margin-left: 10px; font-size: 0.8em;">Expand All</button>
+                        <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
+                    </h4>
+                    
+                    
+                    <div class="plugin-item">
+                        <div class="plugin-header" onclick="togglePlugin(this)">
+                            <span>Enum Generic Product Search</span>
+                            <span class="toggle-btn">[+]</span>
+                        </div>
+                        <div class="plugin-content">
+                            
+                            <strong>Command:</strong>
+                            <div class="command">
+                                
+                                    
+                                        searchsploit OpenSSH 8.2<br>
+                                    
+                                        https://github.com/search?q=OpenSSH+8.2+exploit<br>
+                                    
+                                        Google Custom Search API: OpenSSH 8.2 exploit<br>
+                                    
+                                        https://html.duckduckgo.com/html/?q=OpenSSH+8.2+exploit<br>
+                                    
+                                
+                            </div>
+                            
+
+                            
+                            <strong>Results:</strong>
+                            <div class="results-box">
+                                
+                                    
+                                        
+                                            <strong>Searchsploit:</strong>
+                                            
+                                            
+                                                [
+  "Exploits: No Results",
+  "Shellcodes: No Results",
+  "Papers: No Results"
+]
+                                            
+                                            <br>
+                                        
+                                    
+                                        
+                                            <strong>Github Titles:</strong>
+                                            
+                                            
+                                                []
+                                            
+                                            <br>
+                                        
+                                    
+                                        
+                                            <strong>Google Titles:</strong>
+                                            
+                                            
+                                                [
+  "GitHub - d0rb/CVE-2024-6387: This Python script exploits a remote code ...",
+  "CVE-2023-38408 (OpenSSH Vulnerability to RCE) | by Manjil - Medium",
+  "Openbsd Openssh 8.2 security vulnerabilities, CVEs - CVEdetails.com",
+  "OpenSSH Vulnerability: CVE-2020-12062 - Rapid7",
+  "Cve-2020-12062 - Nvd"
+]
+                                            
+                                            <br>
+                                        
+                                    
+                                        
+                                    
+                                
+                            </div>
+                            
+
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+            
+            
+            
+            <div class="port-section" id="port-10-10-11-62-5000">
+                <div class="port-header">
+                    <div class="port-number">5000/TCP</div>
+                    <div class="service-info">
+                        <div class="service-name">
+                            Http
+                        </div>
+                        <div class="service-details">
+                            
+                                Gunicorn
+                                 v20.0.4
+                            
+                            
+                        </div>
+                    </div>
+                    <span class="state-badge state-open">open</span>
+                </div>
+
+                <!-- Port Summary -->
+                <div class="summary-section">
+                    <h4>🔍 Port Summary</h4>
+                    <p><em>AI-generated analysis will appear here.</em></p>
+                </div>
+
+                <!-- Scripts Section -->
+                
+                <div class="scripts-section">
+                    <h4>📜 Nmap Scripts</h4>
+                    
+                    <div class="script-item">
+                        <div class="script-name">http-server-header</div>
+                        <div class="script-output">gunicorn/20.0.4</div>
+                    </div>
+                    
+                    <div class="script-item">
+                        <div class="script-name">http-title</div>
+                        <div class="script-output"></div>
+                    </div>
+                    
+                    <div class="script-item">
+                        <div class="script-name">http-methods</div>
+                        <div class="script-output">
+  Supported Methods: GET OPTIONS HEAD</div>
+                    </div>
+                    
+                </div>
+                
+
+                <!-- Plugin Results -->
+                
+                <div class="plugin-results">
+                    <h4>
+                        🔧 Plugin Results 
+                        <button onclick="expandAll()" style="margin-left: 10px; font-size: 0.8em;">Expand All</button>
+                        <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
+                    </h4>
+                    
+                    
+                    <div class="plugin-item">
+                        <div class="plugin-header" onclick="togglePlugin(this)">
+                            <span>Enum Http Curl Confirmation</span>
+                            <span class="toggle-btn">[+]</span>
+                        </div>
+                        <div class="plugin-content">
+                            
+                            <strong>Command:</strong>
+                            <div class="command">
+                                
+                                    curl -i --insecure --max-time 15 http://10.10.11.62:5000/
+                                
+                            </div>
+                            
+
+                            
+                            <strong>Results:</strong>
+                            <div class="results-box">
+                                
+                                    
+                                        
+                                            <strong>Isreal:</strong>
+                                            
+                                            
+                                                True
+                                            
+                                            <br>
+                                        
+                                    
+                                        
+                                            <strong>Status Line:</strong>
+                                            
+                                            
+                                                HTTP/1.1 200 OK
+                                            
+                                            <br>
+                                        
+                                    
+                                        
+                                            <strong>Headers:</strong>
+                                            
+                                            
+                                                {}
+                                            
+                                            <br>
+                                        
+                                    
+                                        
+                                    
+                                
+                            </div>
+                            
+
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="plugin-item">
+                        <div class="plugin-header" onclick="togglePlugin(this)">
+                            <span>Enum Http Gowitness</span>
+                            <span class="toggle-btn">[+]</span>
+                        </div>
+                        <div class="plugin-content">
+                            
+                            <strong>Command:</strong>
+                            <div class="command">
+                                
+                                    gowitness single --url "http://10.10.11.62:5000/" --disable-db --destination "/tmp/tmp2fx3j14p/screens"
+                                
+                            </div>
+                            
+
+                            
+                            <strong>Results:</strong>
+                            <div class="results-box">
+                                
+                                    
+                                        
+                                            <strong>Screenshots:</strong>
+                                            
+                                            
+                                                []
+                                            
+                                            <br>
+                                        
+                                    
+                                        
+                                    
+                                
+                            </div>
+                            
+
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="plugin-item">
+                        <div class="plugin-header" onclick="togglePlugin(this)">
+                            <span>Enum Generic Product Search</span>
+                            <span class="toggle-btn">[+]</span>
+                        </div>
+                        <div class="plugin-content">
+                            
+                            <strong>Command:</strong>
+                            <div class="command">
+                                
+                                    
+                                        searchsploit Gunicorn 20.0<br>
+                                    
+                                        https://github.com/search?q=Gunicorn+20.0+exploit<br>
+                                    
+                                        Google Custom Search API: Gunicorn 20.0 exploit<br>
+                                    
+                                        https://html.duckduckgo.com/html/?q=Gunicorn+20.0+exploit<br>
+                                    
+                                
+                            </div>
+                            
+
+                            
+                            <strong>Results:</strong>
+                            <div class="results-box">
+                                
+                                    
+                                        
+                                            <strong>Searchsploit:</strong>
+                                            
+                                            
+                                                [
+  "Exploits: No Results",
+  "Shellcodes: No Results",
+  "Papers: No Results"
+]
+                                            
+                                            <br>
+                                        
+                                    
+                                        
+                                            <strong>Github Titles:</strong>
+                                            
+                                            
+                                                []
+                                            
+                                            <br>
+                                        
+                                    
+                                        
+                                            <strong>Google Titles:</strong>
+                                            
+                                            
+                                                [
+  "Gunicorn 20.0.4 Request Smuggling - grenfeldt.dev",
+  "CVE-2024-1135 - Gunicorn Vulnerability Allows HTTP Request Smuggling ...",
+  "GitHub - p4k03n4t0r/http-request-smuggling: Blog about HTTP Request ...",
+  "gunicorn 20.0.4 vulnerabilities - Snyk",
+  "Cve-2024-1135 - Nvd"
+]
+                                            
+                                            <br>
+                                        
+                                    
+                                        
+                                    
+                                
+                            </div>
+                            
+
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="plugin-item">
+                        <div class="plugin-header" onclick="togglePlugin(this)">
+                            <span>Enum Http Wpscan</span>
+                            <span class="toggle-btn">[+]</span>
+                        </div>
+                        <div class="plugin-content">
+                            
+                            <strong>Command:</strong>
+                            <div class="command">
+                                
+                                    wpscan --url http://10.10.11.62:5000/ --plugins-detection aggressive --enumerate ap,at,tt,cb,dbe,u,m --no-update --output /tmp/tmpe95jyggr.wpscan.json --format json
+                                
+                            </div>
+                            
+
+                            
+                            <strong>Results:</strong>
+                            <div class="results-box">
+                                
+                                    
+                                        
+                                            <strong>Xmlrpc Enabled:</strong>
+                                            
+                                            
+                                                False
+                                            
+                                            <br>
+                                        
+                                    
+                                        
+                                    
+                                
+                            </div>
+                            
+
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="plugin-item">
+                        <div class="plugin-header" onclick="togglePlugin(this)">
+                            <span>Enum Http Whatweb</span>
+                            <span class="toggle-btn">[+]</span>
+                        </div>
+                        <div class="plugin-content">
+                            
+                            <strong>Command:</strong>
+                            <div class="command">
+                                
+                                    whatweb http://10.10.11.62:5000/ -p -a=4 -v --log-json=/tmp/tmp5qp4_i4p.json
+                                
+                            </div>
+                            
+
+                            
+                            <strong>Results:</strong>
+                            <div class="results-box">
+                                
+                                    
+                                        
+                                    
+                                        
+                                    
+                                
+                            </div>
+                            
+
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="plugin-item">
+                        <div class="plugin-header" onclick="togglePlugin(this)">
+                            <span>Enum Http Feroxbuster</span>
+                            <span class="toggle-btn">[+]</span>
+                        </div>
+                        <div class="plugin-content">
+                            
+                            <strong>Command:</strong>
+                            <div class="command">
+                                
+                                    
+                                        feroxbuster --url http://10.10.11.62:5000 --extract-links -B --auto-tune -w /usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-files.txt --threads 32 --insecure -o /tmp/tmptk0krqzb.ferox -C 404 --scan-dir-listings  --silent<br>
+                                    
+                                
+                            </div>
+                            
+
+                            
+                            <strong>Results:</strong>
+                            <div class="results-box">
+                                
+                                    
+                                        
+                                    
+                                        
+                                    
+                                
+                            </div>
+                            
+
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+                
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        </div>
+        
+
+        <div class="footer">
+            <p>Report generated by SPADE by ReKon64 | 2025-06-02 15:16:35</p>
+        </div>
+    </div>
+</body>
+</html>

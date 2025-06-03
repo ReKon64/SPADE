@@ -3,7 +3,7 @@
         {
             "ip": "10.10.11.62",
             "hostname": "unknown",
-            "nmap_command": "/usr/lib/nmap/nmap --privileged --top-ports=300 -A -T4 -vv --reason -Pn -n -oX /tmp/tmpgdk7fats.xml 10.10.11.62",
+            "nmap_command": "/usr/lib/nmap/nmap --privileged --top-ports=300 -A -T4 -vv --reason -Pn -n -oX /tmp/tmp7jhlzzpr.xml 10.10.11.62",
             "ports": [
                 {
                     "id": "22",
@@ -33,56 +33,21 @@
                                     "Shellcodes: No Results",
                                     "Papers: No Results"
                                 ],
-                                "searchsploit_debug": {
-                                    "query": "OpenSSH 8.2 exploit",
-                                    "results": [
-                                        "Exploits: No Results",
-                                        "Shellcodes: No Results",
-                                        "Papers: No Results"
-                                    ]
-                                },
-                                "github": {
-                                    "skipped": "No GitHub API key provided, skipping GitHub search."
-                                },
-                                "github_status": null,
-                                "github_debug": {
-                                    "query": "OpenSSH 8.2 exploit",
-                                    "results": [
-                                        "No GitHub API key provided, skipping GitHub search."
-                                    ]
-                                },
-                                "google": [
-                                    [
-                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fgithub.com%2Fd0rb%2FCVE%2D2024%2D6387&rut=2e0da7e3d2b51b59daf98a94c7a14f6802c2730081394ea42eee965e887eac4b",
-                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fmedium.com%2F%40mane_csit2075%2Fcve%2D2023%2D38408%2Dopenssh%2Dvulnerability%2Dto%2Drce%2D9e756a0369fd&rut=78865e40ca6ebf90f45552f49bc5f9bac8ca428ee8a3483fb8b40b662b0fb8e3",
-                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.cvedetails.com%2Fversion%2F639204%2FOpenbsd%2DOpenssh%2D8.2.html&rut=04a308296b37f851d09289c2a8dbf4b5dde567cda30a934b2ad41f68ab3ac8c6",
-                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.rapid7.com%2Fdb%2Fvulnerabilities%2Fopenbsd%2Dopenssh%2Dcve%2D2020%2D12062%2F&rut=b6714d4625915c4264bd36b93d21ca2505db380bc23ddd73cdca84c9a772f427",
-                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fnvd.nist.gov%2Fvuln%2Fdetail%2FCVE%2D2020%2D12062&rut=d6a82bc3ccecf2dc2e426e3e12591a7e6e58df81e9e615ac2c9f1823857d1f48"
-                                    ],
-                                    [
-                                        "GitHub - d0rb/CVE-2024-6387: This Python script exploits a remote code ...",
-                                        "CVE-2023-38408 (OpenSSH Vulnerability to RCE) | by Manjil - Medium",
-                                        "Openbsd Openssh 8.2 security vulnerabilities, CVEs - CVEdetails.com",
-                                        "OpenSSH Vulnerability: CVE-2020-12062 - Rapid7",
-                                        "Cve-2020-12062 - Nvd"
-                                    ]
-                                ],
-                                "google_status": 200,
-                                "google_debug": {
-                                    "query": "OpenSSH 8.2 exploit",
-                                    "results": [
-                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fgithub.com%2Fd0rb%2FCVE%2D2024%2D6387&rut=2e0da7e3d2b51b59daf98a94c7a14f6802c2730081394ea42eee965e887eac4b",
-                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fmedium.com%2F%40mane_csit2075%2Fcve%2D2023%2D38408%2Dopenssh%2Dvulnerability%2Dto%2Drce%2D9e756a0369fd&rut=78865e40ca6ebf90f45552f49bc5f9bac8ca428ee8a3483fb8b40b662b0fb8e3",
-                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.cvedetails.com%2Fversion%2F639204%2FOpenbsd%2DOpenssh%2D8.2.html&rut=04a308296b37f851d09289c2a8dbf4b5dde567cda30a934b2ad41f68ab3ac8c6",
-                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.rapid7.com%2Fdb%2Fvulnerabilities%2Fopenbsd%2Dopenssh%2Dcve%2D2020%2D12062%2F&rut=b6714d4625915c4264bd36b93d21ca2505db380bc23ddd73cdca84c9a772f427",
-                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fnvd.nist.gov%2Fvuln%2Fdetail%2FCVE%2D2020%2D12062&rut=d6a82bc3ccecf2dc2e426e3e12591a7e6e58df81e9e615ac2c9f1823857d1f48"
-                                    ]
-                                },
-                                "product": "OpenSSH",
-                                "version": "8.2p1 Ubuntu 4ubuntu0.12",
-                                "search_version": "8.2",
-                                "search_query": "OpenSSH 8.2 exploit"
-                            }
+                                "github_titles": [],
+                                "google_titles": [
+                                    "GitHub - d0rb/CVE-2024-6387: This Python script exploits a remote code ...",
+                                    "CVE-2023-38408 (OpenSSH Vulnerability to RCE) | by Manjil - Medium",
+                                    "Openbsd Openssh 8.2 security vulnerabilities, CVEs - CVEdetails.com",
+                                    "OpenSSH Vulnerability: CVE-2020-12062 - Rapid7",
+                                    "Cve-2020-12062 - Nvd"
+                                ]
+                            },
+                            "report_fields": [
+                                "searchsploit",
+                                "github_titles",
+                                "google_titles",
+                                "error"
+                            ]
                         }
                     }
                 },
@@ -97,11 +62,11 @@
                         "tunnel": ""
                     },
                     "scripts": {
-                        "http-methods": "\n  Supported Methods: OPTIONS HEAD GET",
                         "http-server-header": "gunicorn/20.0.4",
                         "http-title": {
                             "title": "Python Code Editor"
-                        }
+                        },
+                        "http-methods": "\n  Supported Methods: GET OPTIONS HEAD"
                     },
                     "plugins": {
                         "enum_http_curl_confirmation": {
@@ -109,13 +74,26 @@
                             "results": {
                                 "status_line": "HTTP/1.1 200 OK",
                                 "headers": {},
-                                "body_snippet": "  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\n100  3435  100  3435    0     0  15111      0 --:--:-- --:--:-- --:--:-- 15199\nHTTP/1.1 200 OK\nServer: gunicorn/20.0.4\nDate: Mon, 02 Jun 2025 17:39:55 GMT\nConnection: close\nContent-Type: text/html; charset=utf-8\nContent-Length: 3435\nVary: Cookie\n",
+                                "body_snippet": "  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\n100  3435  100  3435    0     0  14380      0 --:--:-- --:--:-- --:--:-- 14432\nHTTP/1.1 200 OK\nServer: gunicorn/20.0.4\nDate: Mon, 02 Jun 2025 19:10:40 GMT\nConnection: close\nContent-Type: text/html; charset=utf-8\nContent-Length: 3435\nVary: Cookie\n",
                                 "isreal": true
-                            }
+                            },
+                            "report_fields": [
+                                "isreal",
+                                "status_line",
+                                "headers",
+                                "error"
+                            ]
                         },
                         "enum_http_gowitness": {
-                            "cmd": "gowitness single --url \"http://10.10.11.62:5000/\" --disable-db --destination \"/tmp/tmphzht0olm/screens\"",
-                            "error": "Command 'gowitness single --url \"http://10.10.11.62:5000/\" --disable-db --destination \"/tmp/tmphzht0olm/screens\"' returned non-zero exit status 1."
+                            "cmd": "gowitness single --url \"http://10.10.11.62:5000/\" --disable-db --destination \"/tmp/tmp2fx3j14p/screens\"",
+                            "error": "Command 'gowitness single --url \"http://10.10.11.62:5000/\" --disable-db --destination \"/tmp/tmp2fx3j14p/screens\"' returned non-zero exit status 1.",
+                            "results": {
+                                "screenshots": []
+                            },
+                            "report_fields": [
+                                "screenshots",
+                                "error"
+                            ]
                         },
                         "enum_generic_product_search": {
                             "cmd": [
@@ -130,59 +108,24 @@
                                     "Shellcodes: No Results",
                                     "Papers: No Results"
                                 ],
-                                "searchsploit_debug": {
-                                    "query": "Gunicorn 20.0 exploit",
-                                    "results": [
-                                        "Exploits: No Results",
-                                        "Shellcodes: No Results",
-                                        "Papers: No Results"
-                                    ]
-                                },
-                                "github": {
-                                    "skipped": "No GitHub API key provided, skipping GitHub search."
-                                },
-                                "github_status": null,
-                                "github_debug": {
-                                    "query": "Gunicorn 20.0 exploit",
-                                    "results": [
-                                        "No GitHub API key provided, skipping GitHub search."
-                                    ]
-                                },
-                                "google": [
-                                    [
-                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fgrenfeldt.dev%2F2021%2F04%2F01%2Fgunicorn%2D20.0.4%2Drequest%2Dsmuggling%2F&rut=89fded3a4db4f36aa1004ab1e5aa0e09a8406379c80d944f08a700d71771ce3c",
-                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.cve.news%2Fcve%2D2024%2D1135%2F&rut=cfb4c29cf701bf2d82807af4d108fe0ed3364e0bed54114cc75d2b207d90743a",
-                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fgithub.com%2Fp4k03n4t0r%2Fhttp%2Drequest%2Dsmuggling&rut=4c891052085be8d39dde76b3b9435f8c7fe5ee287e3bc636c77b1368612ed9f2",
-                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fsecurity.snyk.io%2Fpackage%2Fpip%2Fgunicorn%2F20.0.4&rut=6c8274d3367bf516631e7aaac85840120fb7ec5a1576f20f8e21eadeb84786fc",
-                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fnvd.nist.gov%2Fvuln%2Fdetail%2FCVE%2D2024%2D1135&rut=86dd5a46e01940458b051dbe7715a77c67a15bb0b83e155183950a53967c6060"
-                                    ],
-                                    [
-                                        "Gunicorn 20.0.4 Request Smuggling - grenfeldt.dev",
-                                        "CVE-2024-1135 - Gunicorn Vulnerability Allows HTTP Request Smuggling ...",
-                                        "GitHub - p4k03n4t0r/http-request-smuggling: Blog about HTTP Request ...",
-                                        "gunicorn 20.0.4 vulnerabilities - Snyk",
-                                        "Cve-2024-1135 - Nvd"
-                                    ]
-                                ],
-                                "google_status": 200,
-                                "google_debug": {
-                                    "query": "Gunicorn 20.0 exploit",
-                                    "results": [
-                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fgrenfeldt.dev%2F2021%2F04%2F01%2Fgunicorn%2D20.0.4%2Drequest%2Dsmuggling%2F&rut=89fded3a4db4f36aa1004ab1e5aa0e09a8406379c80d944f08a700d71771ce3c",
-                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fwww.cve.news%2Fcve%2D2024%2D1135%2F&rut=cfb4c29cf701bf2d82807af4d108fe0ed3364e0bed54114cc75d2b207d90743a",
-                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fgithub.com%2Fp4k03n4t0r%2Fhttp%2Drequest%2Dsmuggling&rut=4c891052085be8d39dde76b3b9435f8c7fe5ee287e3bc636c77b1368612ed9f2",
-                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fsecurity.snyk.io%2Fpackage%2Fpip%2Fgunicorn%2F20.0.4&rut=6c8274d3367bf516631e7aaac85840120fb7ec5a1576f20f8e21eadeb84786fc",
-                                        "//duckduckgo.com/l/?uddg=https%3A%2F%2Fnvd.nist.gov%2Fvuln%2Fdetail%2FCVE%2D2024%2D1135&rut=86dd5a46e01940458b051dbe7715a77c67a15bb0b83e155183950a53967c6060"
-                                    ]
-                                },
-                                "product": "Gunicorn",
-                                "version": "20.0.4",
-                                "search_version": "20.0",
-                                "search_query": "Gunicorn 20.0 exploit"
-                            }
+                                "github_titles": [],
+                                "google_titles": [
+                                    "Gunicorn 20.0.4 Request Smuggling - grenfeldt.dev",
+                                    "CVE-2024-1135 - Gunicorn Vulnerability Allows HTTP Request Smuggling ...",
+                                    "GitHub - p4k03n4t0r/http-request-smuggling: Blog about HTTP Request ...",
+                                    "gunicorn 20.0.4 vulnerabilities - Snyk",
+                                    "Cve-2024-1135 - Nvd"
+                                ]
+                            },
+                            "report_fields": [
+                                "searchsploit",
+                                "github_titles",
+                                "google_titles",
+                                "error"
+                            ]
                         },
                         "enum_http_wpscan": {
-                            "cmd": "wpscan --url http://10.10.11.62:5000/ --plugins-detection aggressive --enumerate ap,at,tt,cb,dbe,u,m --no-update --output /tmp/tmp4efjb483.wpscan.json --format json",
+                            "cmd": "wpscan --url http://10.10.11.62:5000/ --plugins-detection aggressive --enumerate ap,at,tt,cb,dbe,u,m --no-update --output /tmp/tmpe95jyggr.wpscan.json --format json",
                             "results": {
                                 "banner": {
                                     "description": "WordPress Security Scanner by the WPScan Team",
@@ -198,35 +141,14 @@
                                 "scan_aborted": "The remote website is up, but does not seem to be running WordPress.",
                                 "target_url": "http://10.10.11.62:5000/",
                                 "xmlrpc_enabled": false
-                            }
-                        },
-                        "enum_http_feroxbuster": {
-                            "cmd": [
-                                "feroxbuster --url http://10.10.11.62:5000 --extract-links -B --auto-tune -w /usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-files.txt --threads 32 --insecure -o /tmp/tmpnqajlmqt.ferox -C 404 --scan-dir-listings  --silent"
-                            ],
-                            "results": {
-                                "/usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-files.txt": {
-                                    "output_path": "/tmp/tmpnqajlmqt.ferox",
-                                    "summary": {
-                                        "found_count": 268,
-                                        "first_10_results": [
-                                            "Configuration {\n",
-                                            "    kind: \"configuration\",\n",
-                                            "    wordlist: \"/usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-files.txt\",\n",
-                                            "    config: \"/etc/feroxbuster/ferox-config.toml\",\n",
-                                            "    proxy: \"\",\n",
-                                            "    replay_proxy: \"\",\n",
-                                            "    server_certs: [],\n",
-                                            "    client_cert: \"\",\n",
-                                            "    client_key: \"\",\n",
-                                            "    target_url: \"http://10.10.11.62:5000\",\n"
-                                        ]
-                                    }
-                                }
-                            }
+                            },
+                            "report_fields": [
+                                "xmlrpc_enabled",
+                                "error"
+                            ]
                         },
                         "enum_http_whatweb": {
-                            "cmd": "whatweb http://10.10.11.62:5000/ -p -a 4 -v --log-json=/tmp/tmplh8cd12f.json",
+                            "cmd": "whatweb http://10.10.11.62:5000/ -p -a=4 -v --log-json=/tmp/tmp5qp4_i4p.json",
                             "results": [
                                 {
                                     "target": "http://10.10.11.62:5000/",
@@ -269,6 +191,295 @@
                                         }
                                     }
                                 }
+                            ],
+                            "report_fields": [
+                                "plugins",
+                                "error"
+                            ]
+                        },
+                        "enum_http_feroxbuster": {
+                            "cmd": [
+                                "feroxbuster --url http://10.10.11.62:5000 --extract-links -B --auto-tune -w /usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-files.txt --threads 32 --insecure -o /tmp/tmptk0krqzb.ferox -C 404 --scan-dir-listings  --silent"
+                            ],
+                            "results": {
+                                "/usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-files.txt": {
+                                    "output_path": "/tmp/tmptk0krqzb.ferox",
+                                    "found": [
+                                        "Configuration {\n",
+                                        "    kind: \"configuration\",\n",
+                                        "    wordlist: \"/usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-files.txt\",\n",
+                                        "    config: \"/etc/feroxbuster/ferox-config.toml\",\n",
+                                        "    proxy: \"\",\n",
+                                        "    replay_proxy: \"\",\n",
+                                        "    server_certs: [],\n",
+                                        "    client_cert: \"\",\n",
+                                        "    client_key: \"\",\n",
+                                        "    target_url: \"http://10.10.11.62:5000\",\n",
+                                        "    status_codes: [\n",
+                                        "        100,\n",
+                                        "        101,\n",
+                                        "        102,\n",
+                                        "        200,\n",
+                                        "        201,\n",
+                                        "        202,\n",
+                                        "        203,\n",
+                                        "        204,\n",
+                                        "        205,\n",
+                                        "        206,\n",
+                                        "        207,\n",
+                                        "        208,\n",
+                                        "        226,\n",
+                                        "        300,\n",
+                                        "        301,\n",
+                                        "        302,\n",
+                                        "        303,\n",
+                                        "        304,\n",
+                                        "        305,\n",
+                                        "        307,\n",
+                                        "        308,\n",
+                                        "        400,\n",
+                                        "        401,\n",
+                                        "        402,\n",
+                                        "        403,\n",
+                                        "        404,\n",
+                                        "        405,\n",
+                                        "        406,\n",
+                                        "        407,\n",
+                                        "        408,\n",
+                                        "        409,\n",
+                                        "        410,\n",
+                                        "        411,\n",
+                                        "        412,\n",
+                                        "        413,\n",
+                                        "        414,\n",
+                                        "        415,\n",
+                                        "        416,\n",
+                                        "        417,\n",
+                                        "        418,\n",
+                                        "        421,\n",
+                                        "        422,\n",
+                                        "        423,\n",
+                                        "        424,\n",
+                                        "        426,\n",
+                                        "        428,\n",
+                                        "        429,\n",
+                                        "        431,\n",
+                                        "        451,\n",
+                                        "        500,\n",
+                                        "        501,\n",
+                                        "        502,\n",
+                                        "        503,\n",
+                                        "        504,\n",
+                                        "        505,\n",
+                                        "        506,\n",
+                                        "        507,\n",
+                                        "        508,\n",
+                                        "        510,\n",
+                                        "        511,\n",
+                                        "        103,\n",
+                                        "        425,\n",
+                                        "    ],\n",
+                                        "    replay_codes: [\n",
+                                        "        100,\n",
+                                        "        101,\n",
+                                        "        102,\n",
+                                        "        200,\n",
+                                        "        201,\n",
+                                        "        202,\n",
+                                        "        203,\n",
+                                        "        204,\n",
+                                        "        205,\n",
+                                        "        206,\n",
+                                        "        207,\n",
+                                        "        208,\n",
+                                        "        226,\n",
+                                        "        300,\n",
+                                        "        301,\n",
+                                        "        302,\n",
+                                        "        303,\n",
+                                        "        304,\n",
+                                        "        305,\n",
+                                        "        307,\n",
+                                        "        308,\n",
+                                        "        400,\n",
+                                        "        401,\n",
+                                        "        402,\n",
+                                        "        403,\n",
+                                        "        404,\n",
+                                        "        405,\n",
+                                        "        406,\n",
+                                        "        407,\n",
+                                        "        408,\n",
+                                        "        409,\n",
+                                        "        410,\n",
+                                        "        411,\n",
+                                        "        412,\n",
+                                        "        413,\n",
+                                        "        414,\n",
+                                        "        415,\n",
+                                        "        416,\n",
+                                        "        417,\n",
+                                        "        418,\n",
+                                        "        421,\n",
+                                        "        422,\n",
+                                        "        423,\n",
+                                        "        424,\n",
+                                        "        426,\n",
+                                        "        428,\n",
+                                        "        429,\n",
+                                        "        431,\n",
+                                        "        451,\n",
+                                        "        500,\n",
+                                        "        501,\n",
+                                        "        502,\n",
+                                        "        503,\n",
+                                        "        504,\n",
+                                        "        505,\n",
+                                        "        506,\n",
+                                        "        507,\n",
+                                        "        508,\n",
+                                        "        510,\n",
+                                        "        511,\n",
+                                        "        103,\n",
+                                        "        425,\n",
+                                        "    ],\n",
+                                        "    filter_status: [\n",
+                                        "        404,\n",
+                                        "    ],\n",
+                                        "    client: Client {\n",
+                                        "        accepts: Accepts,\n",
+                                        "        proxies: [\n",
+                                        "            Proxy(\n",
+                                        "                System(\n",
+                                        "                    {},\n",
+                                        "                ),\n",
+                                        "                None,\n",
+                                        "            ),\n",
+                                        "        ],\n",
+                                        "        redirect_policy: Policy(\n",
+                                        "            None,\n",
+                                        "        ),\n",
+                                        "        referer: true,\n",
+                                        "        default_headers: {\n",
+                                        "            \"accept\": \"*/*\",\n",
+                                        "            \"user-agent\": \"feroxbuster/2.11.0\",\n",
+                                        "        },\n",
+                                        "        timeout: 7s,\n",
+                                        "    },\n",
+                                        "    replay_client: None,\n",
+                                        "    threads: 32,\n",
+                                        "    timeout: 7,\n",
+                                        "    verbosity: 0,\n",
+                                        "    silent: true,\n",
+                                        "    quiet: false,\n",
+                                        "    output_level: Silent,\n",
+                                        "    auto_bail: false,\n",
+                                        "    auto_tune: true,\n",
+                                        "    requester_policy: AutoTune,\n",
+                                        "    json: false,\n",
+                                        "    output: \"/tmp/tmptk0krqzb.ferox\",\n",
+                                        "    debug_log: \"\",\n",
+                                        "    user_agent: \"feroxbuster/2.11.0\",\n",
+                                        "    random_agent: false,\n",
+                                        "    redirects: false,\n",
+                                        "    insecure: true,\n",
+                                        "    extensions: [],\n",
+                                        "    methods: [\n",
+                                        "        \"GET\",\n",
+                                        "    ],\n",
+                                        "    data: [],\n",
+                                        "    headers: {},\n",
+                                        "    queries: [],\n",
+                                        "    no_recursion: false,\n",
+                                        "    extract_links: true,\n",
+                                        "    add_slash: false,\n",
+                                        "    stdin: false,\n",
+                                        "    depth: 4,\n",
+                                        "    scan_limit: 0,\n",
+                                        "    parallel: 0,\n",
+                                        "    rate_limit: 0,\n",
+                                        "    filter_size: [],\n",
+                                        "    filter_line_count: [],\n",
+                                        "    filter_word_count: [],\n",
+                                        "    filter_regex: [],\n",
+                                        "    dont_filter: false,\n",
+                                        "    resumed: false,\n",
+                                        "    resume_from: \"\",\n",
+                                        "    save_state: true,\n",
+                                        "    time_limit: \"\",\n",
+                                        "    filter_similar: [],\n",
+                                        "    url_denylist: [],\n",
+                                        "    regex_denylist: [],\n",
+                                        "    collect_extensions: false,\n",
+                                        "    dont_collect: [\n",
+                                        "        \"tif\",\n",
+                                        "        \"tiff\",\n",
+                                        "        \"ico\",\n",
+                                        "        \"cur\",\n",
+                                        "        \"bmp\",\n",
+                                        "        \"webp\",\n",
+                                        "        \"svg\",\n",
+                                        "        \"png\",\n",
+                                        "        \"jpg\",\n",
+                                        "        \"jpeg\",\n",
+                                        "        \"jfif\",\n",
+                                        "        \"gif\",\n",
+                                        "        \"avif\",\n",
+                                        "        \"apng\",\n",
+                                        "        \"pjpeg\",\n",
+                                        "        \"pjp\",\n",
+                                        "        \"mov\",\n",
+                                        "        \"wav\",\n",
+                                        "        \"mpg\",\n",
+                                        "        \"mpeg\",\n",
+                                        "        \"mp3\",\n",
+                                        "        \"mp4\",\n",
+                                        "        \"m4a\",\n",
+                                        "        \"m4p\",\n",
+                                        "        \"m4v\",\n",
+                                        "        \"ogg\",\n",
+                                        "        \"webm\",\n",
+                                        "        \"ogv\",\n",
+                                        "        \"oga\",\n",
+                                        "        \"flac\",\n",
+                                        "        \"aac\",\n",
+                                        "        \"3gp\",\n",
+                                        "        \"css\",\n",
+                                        "        \"zip\",\n",
+                                        "        \"xls\",\n",
+                                        "        \"xml\",\n",
+                                        "        \"gz\",\n",
+                                        "        \"tgz\",\n",
+                                        "    ],\n",
+                                        "    collect_backups: true,\n",
+                                        "    backup_extensions: [\n",
+                                        "        \"~\",\n",
+                                        "        \".bak\",\n",
+                                        "        \".bak2\",\n",
+                                        "        \".old\",\n",
+                                        "        \".1\",\n",
+                                        "    ],\n",
+                                        "    collect_words: false,\n",
+                                        "    force_recursion: false,\n",
+                                        "    update_app: false,\n",
+                                        "    scan_dir_listings: true,\n",
+                                        "    request_file: \"\",\n",
+                                        "    protocol: \"https\",\n",
+                                        "    limit_bars: 0,\n",
+                                        "}\n",
+                                        "http://10.10.11.62:5000/static/css/styles.css\n",
+                                        "http://10.10.11.62:5000/run_code\n",
+                                        "http://10.10.11.62:5000/login\n",
+                                        "http://10.10.11.62:5000/save_code\n",
+                                        "http://10.10.11.62:5000/register\n",
+                                        "http://10.10.11.62:5000/\n"
+                                    ],
+                                    "error": null
+                                }
+                            },
+                            "report_fields": [
+                                "summary",
+                                "error"
                             ]
                         }
                     }
@@ -295,7 +506,7 @@
                 {
                     "id": "9",
                     "protocol": "udp",
-                    "state": "closed",
+                    "state": "open|filtered",
                     "service": {
                         "name": "discard",
                         "product": "",
@@ -333,7 +544,7 @@
                 {
                     "id": "19",
                     "protocol": "udp",
-                    "state": "open|filtered",
+                    "state": "closed",
                     "service": {
                         "name": "chargen",
                         "product": "",
@@ -392,9 +603,15 @@
                             ],
                             "results": {
                                 "axfr": "Error: Command '['dig', '@10.10.11.62', 'axfr']' timed out after 10 seconds",
-                                "any": "\n; <<>> DiG 9.20.4-4-Debian <<>> 10.10.11.62 any\n;; global options: +cmd\n;; Got answer:\n;; ->>HEADER<<- opcode: QUERY, status: NXDOMAIN, id: 58423\n;; flags: qr rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version: 0, flags:; udp: 1232\n; COOKIE: 44e8615f9d618cbd01000000683de2c89cff8ee860efaba1 (good)\n;; QUESTION SECTION:\n;10.10.11.62.\t\t\tIN\tANY\n\n;; AUTHORITY SECTION:\n.\t\t\t10800\tIN\tSOA\ta.root-servers.net. nstld.verisign-grs.com. 2025060200 1800 900 604800 86400\n\n;; Query time: 100 msec\n;; SERVER: 192.168.188.2#53(192.168.188.2) (TCP)\n;; WHEN: Mon Jun 02 13:45:24 EDT 2025\n;; MSG SIZE  rcvd: 143\n\n",
+                                "any": "\n; <<>> DiG 9.20.4-4-Debian <<>> 10.10.11.62 any\n;; global options: +cmd\n;; Got answer:\n;; ->>HEADER<<- opcode: QUERY, status: NXDOMAIN, id: 34668\n;; flags: qr rd ra; QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 1\n\n;; OPT PSEUDOSECTION:\n; EDNS: version: 0, flags:; udp: 1232\n; COOKIE: aae83ceb7d8d91b301000000683df80aadc3752319773a81 (good)\n;; QUESTION SECTION:\n;10.10.11.62.\t\t\tIN\tANY\n\n;; AUTHORITY SECTION:\n.\t\t\t5358\tIN\tSOA\ta.root-servers.net. nstld.verisign-grs.com. 2025060200 1800 900 604800 86400\n\n;; Query time: 12 msec\n;; SERVER: 192.168.188.2#53(192.168.188.2) (TCP)\n;; WHEN: Mon Jun 02 15:16:06 EDT 2025\n;; MSG SIZE  rcvd: 143\n\n",
                                 "resolves": {}
-                            }
+                            },
+                            "report_fields": [
+                                "axfr",
+                                "any",
+                                "resolves",
+                                "error"
+                            ]
                         }
                     }
                 },
@@ -420,7 +637,7 @@
                 {
                     "id": "68",
                     "protocol": "udp",
-                    "state": "open|filtered",
+                    "state": "closed",
                     "service": {
                         "name": "dhcpc",
                         "product": "",
@@ -477,41 +694,308 @@
                             "results": {
                                 "status_line": "",
                                 "headers": {},
-                                "body_snippet": "  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\n  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\ncurl: (7) Failed to connect to 10.10.11.62 port 80 after 51 ms: Could not connect to server",
+                                "body_snippet": "  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\n  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\ncurl: (7) Failed to connect to 10.10.11.62 port 80 after 122 ms: Could not connect to server",
                                 "isreal": true
-                            }
+                            },
+                            "report_fields": [
+                                "isreal",
+                                "status_line",
+                                "headers",
+                                "error"
+                            ]
                         },
                         "enum_http_gowitness": {
-                            "cmd": "gowitness single --url \"http://10.10.11.62:80/\" --disable-db --destination \"/tmp/tmpe05que65/screens\"",
-                            "error": "Command 'gowitness single --url \"http://10.10.11.62:80/\" --disable-db --destination \"/tmp/tmpe05que65/screens\"' returned non-zero exit status 1."
+                            "cmd": "gowitness single --url \"http://10.10.11.62:80/\" --disable-db --destination \"/tmp/tmpidi4sas6/screens\"",
+                            "error": "Command 'gowitness single --url \"http://10.10.11.62:80/\" --disable-db --destination \"/tmp/tmpidi4sas6/screens\"' returned non-zero exit status 1.",
+                            "results": {
+                                "screenshots": []
+                            },
+                            "report_fields": [
+                                "screenshots",
+                                "error"
+                            ]
                         },
                         "enum_http_feroxbuster": {
                             "cmd": [
-                                "feroxbuster --url http://10.10.11.62:80 --extract-links -B --auto-tune -w /usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-files.txt --threads 32 --insecure -o /tmp/tmp4wrph5bj.ferox -C 404 --scan-dir-listings  --silent"
+                                "feroxbuster --url http://10.10.11.62:80 --extract-links -B --auto-tune -w /usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-files.txt --threads 32 --insecure -o /tmp/tmp5moiro2z.ferox -C 404 --scan-dir-listings  --silent"
                             ],
                             "results": {
                                 "/usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-files.txt": {
-                                    "output_path": "/tmp/tmp4wrph5bj.ferox",
-                                    "summary": {
-                                        "found_count": 262,
-                                        "first_10_results": [
-                                            "Configuration {\n",
-                                            "    kind: \"configuration\",\n",
-                                            "    wordlist: \"/usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-files.txt\",\n",
-                                            "    config: \"/etc/feroxbuster/ferox-config.toml\",\n",
-                                            "    proxy: \"\",\n",
-                                            "    replay_proxy: \"\",\n",
-                                            "    server_certs: [],\n",
-                                            "    client_cert: \"\",\n",
-                                            "    client_key: \"\",\n",
-                                            "    target_url: \"http://10.10.11.62:80\",\n"
-                                        ]
-                                    }
+                                    "output_path": "/tmp/tmp5moiro2z.ferox",
+                                    "found": [
+                                        "Configuration {\n",
+                                        "    kind: \"configuration\",\n",
+                                        "    wordlist: \"/usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-files.txt\",\n",
+                                        "    config: \"/etc/feroxbuster/ferox-config.toml\",\n",
+                                        "    proxy: \"\",\n",
+                                        "    replay_proxy: \"\",\n",
+                                        "    server_certs: [],\n",
+                                        "    client_cert: \"\",\n",
+                                        "    client_key: \"\",\n",
+                                        "    target_url: \"http://10.10.11.62:80\",\n",
+                                        "    status_codes: [\n",
+                                        "        100,\n",
+                                        "        101,\n",
+                                        "        102,\n",
+                                        "        200,\n",
+                                        "        201,\n",
+                                        "        202,\n",
+                                        "        203,\n",
+                                        "        204,\n",
+                                        "        205,\n",
+                                        "        206,\n",
+                                        "        207,\n",
+                                        "        208,\n",
+                                        "        226,\n",
+                                        "        300,\n",
+                                        "        301,\n",
+                                        "        302,\n",
+                                        "        303,\n",
+                                        "        304,\n",
+                                        "        305,\n",
+                                        "        307,\n",
+                                        "        308,\n",
+                                        "        400,\n",
+                                        "        401,\n",
+                                        "        402,\n",
+                                        "        403,\n",
+                                        "        404,\n",
+                                        "        405,\n",
+                                        "        406,\n",
+                                        "        407,\n",
+                                        "        408,\n",
+                                        "        409,\n",
+                                        "        410,\n",
+                                        "        411,\n",
+                                        "        412,\n",
+                                        "        413,\n",
+                                        "        414,\n",
+                                        "        415,\n",
+                                        "        416,\n",
+                                        "        417,\n",
+                                        "        418,\n",
+                                        "        421,\n",
+                                        "        422,\n",
+                                        "        423,\n",
+                                        "        424,\n",
+                                        "        426,\n",
+                                        "        428,\n",
+                                        "        429,\n",
+                                        "        431,\n",
+                                        "        451,\n",
+                                        "        500,\n",
+                                        "        501,\n",
+                                        "        502,\n",
+                                        "        503,\n",
+                                        "        504,\n",
+                                        "        505,\n",
+                                        "        506,\n",
+                                        "        507,\n",
+                                        "        508,\n",
+                                        "        510,\n",
+                                        "        511,\n",
+                                        "        103,\n",
+                                        "        425,\n",
+                                        "    ],\n",
+                                        "    replay_codes: [\n",
+                                        "        100,\n",
+                                        "        101,\n",
+                                        "        102,\n",
+                                        "        200,\n",
+                                        "        201,\n",
+                                        "        202,\n",
+                                        "        203,\n",
+                                        "        204,\n",
+                                        "        205,\n",
+                                        "        206,\n",
+                                        "        207,\n",
+                                        "        208,\n",
+                                        "        226,\n",
+                                        "        300,\n",
+                                        "        301,\n",
+                                        "        302,\n",
+                                        "        303,\n",
+                                        "        304,\n",
+                                        "        305,\n",
+                                        "        307,\n",
+                                        "        308,\n",
+                                        "        400,\n",
+                                        "        401,\n",
+                                        "        402,\n",
+                                        "        403,\n",
+                                        "        404,\n",
+                                        "        405,\n",
+                                        "        406,\n",
+                                        "        407,\n",
+                                        "        408,\n",
+                                        "        409,\n",
+                                        "        410,\n",
+                                        "        411,\n",
+                                        "        412,\n",
+                                        "        413,\n",
+                                        "        414,\n",
+                                        "        415,\n",
+                                        "        416,\n",
+                                        "        417,\n",
+                                        "        418,\n",
+                                        "        421,\n",
+                                        "        422,\n",
+                                        "        423,\n",
+                                        "        424,\n",
+                                        "        426,\n",
+                                        "        428,\n",
+                                        "        429,\n",
+                                        "        431,\n",
+                                        "        451,\n",
+                                        "        500,\n",
+                                        "        501,\n",
+                                        "        502,\n",
+                                        "        503,\n",
+                                        "        504,\n",
+                                        "        505,\n",
+                                        "        506,\n",
+                                        "        507,\n",
+                                        "        508,\n",
+                                        "        510,\n",
+                                        "        511,\n",
+                                        "        103,\n",
+                                        "        425,\n",
+                                        "    ],\n",
+                                        "    filter_status: [\n",
+                                        "        404,\n",
+                                        "    ],\n",
+                                        "    client: Client {\n",
+                                        "        accepts: Accepts,\n",
+                                        "        proxies: [\n",
+                                        "            Proxy(\n",
+                                        "                System(\n",
+                                        "                    {},\n",
+                                        "                ),\n",
+                                        "                None,\n",
+                                        "            ),\n",
+                                        "        ],\n",
+                                        "        redirect_policy: Policy(\n",
+                                        "            None,\n",
+                                        "        ),\n",
+                                        "        referer: true,\n",
+                                        "        default_headers: {\n",
+                                        "            \"accept\": \"*/*\",\n",
+                                        "            \"user-agent\": \"feroxbuster/2.11.0\",\n",
+                                        "        },\n",
+                                        "        timeout: 7s,\n",
+                                        "    },\n",
+                                        "    replay_client: None,\n",
+                                        "    threads: 32,\n",
+                                        "    timeout: 7,\n",
+                                        "    verbosity: 0,\n",
+                                        "    silent: true,\n",
+                                        "    quiet: false,\n",
+                                        "    output_level: Silent,\n",
+                                        "    auto_bail: false,\n",
+                                        "    auto_tune: true,\n",
+                                        "    requester_policy: AutoTune,\n",
+                                        "    json: false,\n",
+                                        "    output: \"/tmp/tmp5moiro2z.ferox\",\n",
+                                        "    debug_log: \"\",\n",
+                                        "    user_agent: \"feroxbuster/2.11.0\",\n",
+                                        "    random_agent: false,\n",
+                                        "    redirects: false,\n",
+                                        "    insecure: true,\n",
+                                        "    extensions: [],\n",
+                                        "    methods: [\n",
+                                        "        \"GET\",\n",
+                                        "    ],\n",
+                                        "    data: [],\n",
+                                        "    headers: {},\n",
+                                        "    queries: [],\n",
+                                        "    no_recursion: false,\n",
+                                        "    extract_links: true,\n",
+                                        "    add_slash: false,\n",
+                                        "    stdin: false,\n",
+                                        "    depth: 4,\n",
+                                        "    scan_limit: 0,\n",
+                                        "    parallel: 0,\n",
+                                        "    rate_limit: 0,\n",
+                                        "    filter_size: [],\n",
+                                        "    filter_line_count: [],\n",
+                                        "    filter_word_count: [],\n",
+                                        "    filter_regex: [],\n",
+                                        "    dont_filter: false,\n",
+                                        "    resumed: false,\n",
+                                        "    resume_from: \"\",\n",
+                                        "    save_state: true,\n",
+                                        "    time_limit: \"\",\n",
+                                        "    filter_similar: [],\n",
+                                        "    url_denylist: [],\n",
+                                        "    regex_denylist: [],\n",
+                                        "    collect_extensions: false,\n",
+                                        "    dont_collect: [\n",
+                                        "        \"tif\",\n",
+                                        "        \"tiff\",\n",
+                                        "        \"ico\",\n",
+                                        "        \"cur\",\n",
+                                        "        \"bmp\",\n",
+                                        "        \"webp\",\n",
+                                        "        \"svg\",\n",
+                                        "        \"png\",\n",
+                                        "        \"jpg\",\n",
+                                        "        \"jpeg\",\n",
+                                        "        \"jfif\",\n",
+                                        "        \"gif\",\n",
+                                        "        \"avif\",\n",
+                                        "        \"apng\",\n",
+                                        "        \"pjpeg\",\n",
+                                        "        \"pjp\",\n",
+                                        "        \"mov\",\n",
+                                        "        \"wav\",\n",
+                                        "        \"mpg\",\n",
+                                        "        \"mpeg\",\n",
+                                        "        \"mp3\",\n",
+                                        "        \"mp4\",\n",
+                                        "        \"m4a\",\n",
+                                        "        \"m4p\",\n",
+                                        "        \"m4v\",\n",
+                                        "        \"ogg\",\n",
+                                        "        \"webm\",\n",
+                                        "        \"ogv\",\n",
+                                        "        \"oga\",\n",
+                                        "        \"flac\",\n",
+                                        "        \"aac\",\n",
+                                        "        \"3gp\",\n",
+                                        "        \"css\",\n",
+                                        "        \"zip\",\n",
+                                        "        \"xls\",\n",
+                                        "        \"xml\",\n",
+                                        "        \"gz\",\n",
+                                        "        \"tgz\",\n",
+                                        "    ],\n",
+                                        "    collect_backups: true,\n",
+                                        "    backup_extensions: [\n",
+                                        "        \"~\",\n",
+                                        "        \".bak\",\n",
+                                        "        \".bak2\",\n",
+                                        "        \".old\",\n",
+                                        "        \".1\",\n",
+                                        "    ],\n",
+                                        "    collect_words: false,\n",
+                                        "    force_recursion: false,\n",
+                                        "    update_app: false,\n",
+                                        "    scan_dir_listings: true,\n",
+                                        "    request_file: \"\",\n",
+                                        "    protocol: \"https\",\n",
+                                        "    limit_bars: 0,\n",
+                                        "}\n"
+                                    ],
+                                    "error": null
                                 }
-                            }
+                            },
+                            "report_fields": [
+                                "summary",
+                                "error"
+                            ]
                         },
                         "enum_http_wpscan": {
-                            "cmd": "wpscan --url http://10.10.11.62:80/ --plugins-detection aggressive --enumerate ap,at,tt,cb,dbe,u,m --no-update --output /tmp/tmplhjwdpp2.wpscan.json --format json",
+                            "cmd": "wpscan --url http://10.10.11.62:80/ --plugins-detection aggressive --enumerate ap,at,tt,cb,dbe,u,m --no-update --output /tmp/tmpo8uy_bew.wpscan.json --format json",
                             "results": {
                                 "banner": {
                                     "description": "WordPress Security Scanner by the WPScan Team",
@@ -527,18 +1011,26 @@
                                 "scan_aborted": "The url supplied 'http://10.10.11.62/' seems to be down (Could not connect to server)",
                                 "target_url": "http://10.10.11.62/",
                                 "xmlrpc_enabled": false
-                            }
+                            },
+                            "report_fields": [
+                                "xmlrpc_enabled",
+                                "error"
+                            ]
                         },
                         "enum_http_whatweb": {
-                            "cmd": "whatweb http://10.10.11.62:80/ -p -a 4 -v --log-json=/tmp/tmp1jo7629l.json",
-                            "results": []
+                            "cmd": "whatweb http://10.10.11.62:80/ -p -a=4 -v --log-json=/tmp/tmpbaq9bnq8.json",
+                            "results": [],
+                            "report_fields": [
+                                "plugins",
+                                "error"
+                            ]
                         }
                     }
                 },
                 {
                     "id": "88",
                     "protocol": "udp",
-                    "state": "closed",
+                    "state": "open|filtered",
                     "service": {
                         "name": "kerberos-sec",
                         "product": "",
@@ -557,7 +1049,7 @@
                 {
                     "id": "111",
                     "protocol": "udp",
-                    "state": "closed",
+                    "state": "open|filtered",
                     "service": {
                         "name": "rpcbind",
                         "product": "",
@@ -671,8 +1163,12 @@
                             "shares": {}
                         },
                         "enum_smb_nmap": {
-                            "cmd": "nmap -p 137 --script=smb-os-discovery,smb-enum-shares,smb-enum-users,smb-enum-domains,smb-enum-groups,smb-security-mode,smb2-security-mode,smb2-time,smb2-capabilities,smb-protocols,smb-vuln* -Pn -vv -n -oX /tmp/tmpvj8ncfm7.xml 10.10.11.62",
-                            "results": {}
+                            "cmd": "nmap -p 137 --script=smb-os-discovery,smb-enum-shares,smb-enum-users,smb-enum-domains,smb-enum-groups,smb-security-mode,smb2-security-mode,smb2-time,smb2-capabilities,smb-protocols,smb-vuln* -Pn -vv -n -oX /tmp/tmpjq3yctuo.xml 10.10.11.62",
+                            "results": {},
+                            "report_fields": [
+                                "results",
+                                "error"
+                            ]
                         }
                     }
                 },
@@ -698,8 +1194,12 @@
                             "shares": {}
                         },
                         "enum_smb_nmap": {
-                            "cmd": "nmap -p 138 --script=smb-os-discovery,smb-enum-shares,smb-enum-users,smb-enum-domains,smb-enum-groups,smb-security-mode,smb2-security-mode,smb2-time,smb2-capabilities,smb-protocols,smb-vuln* -Pn -vv -n -oX /tmp/tmpiz7l7o49.xml 10.10.11.62",
-                            "results": {}
+                            "cmd": "nmap -p 138 --script=smb-os-discovery,smb-enum-shares,smb-enum-users,smb-enum-domains,smb-enum-groups,smb-security-mode,smb2-security-mode,smb2-time,smb2-capabilities,smb-protocols,smb-vuln* -Pn -vv -n -oX /tmp/tmprxwjs2z8.xml 10.10.11.62",
+                            "results": {},
+                            "report_fields": [
+                                "results",
+                                "error"
+                            ]
                         }
                     }
                 },
@@ -725,8 +1225,12 @@
                             "shares": {}
                         },
                         "enum_smb_nmap": {
-                            "cmd": "nmap -p 139 --script=smb-os-discovery,smb-enum-shares,smb-enum-users,smb-enum-domains,smb-enum-groups,smb-security-mode,smb2-security-mode,smb2-time,smb2-capabilities,smb-protocols,smb-vuln* -Pn -vv -n -oX /tmp/tmp40hui45k.xml 10.10.11.62",
-                            "results": {}
+                            "cmd": "nmap -p 139 --script=smb-os-discovery,smb-enum-shares,smb-enum-users,smb-enum-domains,smb-enum-groups,smb-security-mode,smb2-security-mode,smb2-time,smb2-capabilities,smb-protocols,smb-vuln* -Pn -vv -n -oX /tmp/tmpiyl4ucwu.xml 10.10.11.62",
+                            "results": {},
+                            "report_fields": [
+                                "results",
+                                "error"
+                            ]
                         }
                     }
                 },
@@ -768,15 +1272,19 @@
                         },
                         "enum_snmp_onesixtyone": {
                             "cmd": [
-                                "onesixtyone -c /usr/share/seclists/Discovery/SNMP/snmp.txt -o /tmp/tmp3w5v07i9.txt 10.10.11.62"
+                                "onesixtyone -c /usr/share/seclists/Discovery/SNMP/snmp.txt -o /tmp/tmps45a7_e1.txt 10.10.11.62"
                             ],
                             "results": {
                                 "/usr/share/seclists/Discovery/SNMP/snmp.txt": {
-                                    "output_path": "/tmp/tmp3w5v07i9.txt",
+                                    "output_path": "/tmp/tmps45a7_e1.txt",
                                     "found": []
                                 }
                             },
-                            "all_found": []
+                            "all_found": [],
+                            "report_fields": [
+                                "all_found",
+                                "error"
+                            ]
                         },
                         "enum_snmp_snmpwalk": {
                             "skipped": "No SNMP community strings found by onesixtyone"
@@ -824,7 +1332,7 @@
                 {
                     "id": "427",
                     "protocol": "udp",
-                    "state": "open|filtered",
+                    "state": "closed",
                     "service": {
                         "name": "svrloc",
                         "product": "",
@@ -843,7 +1351,7 @@
                 {
                     "id": "443",
                     "protocol": "udp",
-                    "state": "open|filtered",
+                    "state": "closed",
                     "service": {
                         "name": "https",
                         "product": "",
@@ -862,41 +1370,308 @@
                             "results": {
                                 "status_line": "",
                                 "headers": {},
-                                "body_snippet": "  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\n  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\ncurl: (7) Failed to connect to 10.10.11.62 port 443 after 138 ms: Could not connect to server",
+                                "body_snippet": "  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\n  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\ncurl: (7) Failed to connect to 10.10.11.62 port 443 after 103 ms: Could not connect to server",
                                 "isreal": true
-                            }
+                            },
+                            "report_fields": [
+                                "isreal",
+                                "status_line",
+                                "headers",
+                                "error"
+                            ]
                         },
                         "enum_http_gowitness": {
-                            "cmd": "gowitness single --url \"http://10.10.11.62:443/\" --disable-db --destination \"/tmp/tmp1hvcge8q/screens\"",
-                            "error": "Command 'gowitness single --url \"http://10.10.11.62:443/\" --disable-db --destination \"/tmp/tmp1hvcge8q/screens\"' returned non-zero exit status 1."
+                            "cmd": "gowitness single --url \"http://10.10.11.62:443/\" --disable-db --destination \"/tmp/tmpbjx40g50/screens\"",
+                            "error": "Command 'gowitness single --url \"http://10.10.11.62:443/\" --disable-db --destination \"/tmp/tmpbjx40g50/screens\"' returned non-zero exit status 1.",
+                            "results": {
+                                "screenshots": []
+                            },
+                            "report_fields": [
+                                "screenshots",
+                                "error"
+                            ]
                         },
                         "enum_http_feroxbuster": {
                             "cmd": [
-                                "feroxbuster --url http://10.10.11.62:443 --extract-links -B --auto-tune -w /usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-files.txt --threads 32 --insecure -o /tmp/tmp8k5otq03.ferox -C 404 --scan-dir-listings  --silent"
+                                "feroxbuster --url http://10.10.11.62:443 --extract-links -B --auto-tune -w /usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-files.txt --threads 32 --insecure -o /tmp/tmpkhu9rlmb.ferox -C 404 --scan-dir-listings  --silent"
                             ],
                             "results": {
                                 "/usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-files.txt": {
-                                    "output_path": "/tmp/tmp8k5otq03.ferox",
-                                    "summary": {
-                                        "found_count": 262,
-                                        "first_10_results": [
-                                            "Configuration {\n",
-                                            "    kind: \"configuration\",\n",
-                                            "    wordlist: \"/usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-files.txt\",\n",
-                                            "    config: \"/etc/feroxbuster/ferox-config.toml\",\n",
-                                            "    proxy: \"\",\n",
-                                            "    replay_proxy: \"\",\n",
-                                            "    server_certs: [],\n",
-                                            "    client_cert: \"\",\n",
-                                            "    client_key: \"\",\n",
-                                            "    target_url: \"http://10.10.11.62:443\",\n"
-                                        ]
-                                    }
+                                    "output_path": "/tmp/tmpkhu9rlmb.ferox",
+                                    "found": [
+                                        "Configuration {\n",
+                                        "    kind: \"configuration\",\n",
+                                        "    wordlist: \"/usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-files.txt\",\n",
+                                        "    config: \"/etc/feroxbuster/ferox-config.toml\",\n",
+                                        "    proxy: \"\",\n",
+                                        "    replay_proxy: \"\",\n",
+                                        "    server_certs: [],\n",
+                                        "    client_cert: \"\",\n",
+                                        "    client_key: \"\",\n",
+                                        "    target_url: \"http://10.10.11.62:443\",\n",
+                                        "    status_codes: [\n",
+                                        "        100,\n",
+                                        "        101,\n",
+                                        "        102,\n",
+                                        "        200,\n",
+                                        "        201,\n",
+                                        "        202,\n",
+                                        "        203,\n",
+                                        "        204,\n",
+                                        "        205,\n",
+                                        "        206,\n",
+                                        "        207,\n",
+                                        "        208,\n",
+                                        "        226,\n",
+                                        "        300,\n",
+                                        "        301,\n",
+                                        "        302,\n",
+                                        "        303,\n",
+                                        "        304,\n",
+                                        "        305,\n",
+                                        "        307,\n",
+                                        "        308,\n",
+                                        "        400,\n",
+                                        "        401,\n",
+                                        "        402,\n",
+                                        "        403,\n",
+                                        "        404,\n",
+                                        "        405,\n",
+                                        "        406,\n",
+                                        "        407,\n",
+                                        "        408,\n",
+                                        "        409,\n",
+                                        "        410,\n",
+                                        "        411,\n",
+                                        "        412,\n",
+                                        "        413,\n",
+                                        "        414,\n",
+                                        "        415,\n",
+                                        "        416,\n",
+                                        "        417,\n",
+                                        "        418,\n",
+                                        "        421,\n",
+                                        "        422,\n",
+                                        "        423,\n",
+                                        "        424,\n",
+                                        "        426,\n",
+                                        "        428,\n",
+                                        "        429,\n",
+                                        "        431,\n",
+                                        "        451,\n",
+                                        "        500,\n",
+                                        "        501,\n",
+                                        "        502,\n",
+                                        "        503,\n",
+                                        "        504,\n",
+                                        "        505,\n",
+                                        "        506,\n",
+                                        "        507,\n",
+                                        "        508,\n",
+                                        "        510,\n",
+                                        "        511,\n",
+                                        "        103,\n",
+                                        "        425,\n",
+                                        "    ],\n",
+                                        "    replay_codes: [\n",
+                                        "        100,\n",
+                                        "        101,\n",
+                                        "        102,\n",
+                                        "        200,\n",
+                                        "        201,\n",
+                                        "        202,\n",
+                                        "        203,\n",
+                                        "        204,\n",
+                                        "        205,\n",
+                                        "        206,\n",
+                                        "        207,\n",
+                                        "        208,\n",
+                                        "        226,\n",
+                                        "        300,\n",
+                                        "        301,\n",
+                                        "        302,\n",
+                                        "        303,\n",
+                                        "        304,\n",
+                                        "        305,\n",
+                                        "        307,\n",
+                                        "        308,\n",
+                                        "        400,\n",
+                                        "        401,\n",
+                                        "        402,\n",
+                                        "        403,\n",
+                                        "        404,\n",
+                                        "        405,\n",
+                                        "        406,\n",
+                                        "        407,\n",
+                                        "        408,\n",
+                                        "        409,\n",
+                                        "        410,\n",
+                                        "        411,\n",
+                                        "        412,\n",
+                                        "        413,\n",
+                                        "        414,\n",
+                                        "        415,\n",
+                                        "        416,\n",
+                                        "        417,\n",
+                                        "        418,\n",
+                                        "        421,\n",
+                                        "        422,\n",
+                                        "        423,\n",
+                                        "        424,\n",
+                                        "        426,\n",
+                                        "        428,\n",
+                                        "        429,\n",
+                                        "        431,\n",
+                                        "        451,\n",
+                                        "        500,\n",
+                                        "        501,\n",
+                                        "        502,\n",
+                                        "        503,\n",
+                                        "        504,\n",
+                                        "        505,\n",
+                                        "        506,\n",
+                                        "        507,\n",
+                                        "        508,\n",
+                                        "        510,\n",
+                                        "        511,\n",
+                                        "        103,\n",
+                                        "        425,\n",
+                                        "    ],\n",
+                                        "    filter_status: [\n",
+                                        "        404,\n",
+                                        "    ],\n",
+                                        "    client: Client {\n",
+                                        "        accepts: Accepts,\n",
+                                        "        proxies: [\n",
+                                        "            Proxy(\n",
+                                        "                System(\n",
+                                        "                    {},\n",
+                                        "                ),\n",
+                                        "                None,\n",
+                                        "            ),\n",
+                                        "        ],\n",
+                                        "        redirect_policy: Policy(\n",
+                                        "            None,\n",
+                                        "        ),\n",
+                                        "        referer: true,\n",
+                                        "        default_headers: {\n",
+                                        "            \"accept\": \"*/*\",\n",
+                                        "            \"user-agent\": \"feroxbuster/2.11.0\",\n",
+                                        "        },\n",
+                                        "        timeout: 7s,\n",
+                                        "    },\n",
+                                        "    replay_client: None,\n",
+                                        "    threads: 32,\n",
+                                        "    timeout: 7,\n",
+                                        "    verbosity: 0,\n",
+                                        "    silent: true,\n",
+                                        "    quiet: false,\n",
+                                        "    output_level: Silent,\n",
+                                        "    auto_bail: false,\n",
+                                        "    auto_tune: true,\n",
+                                        "    requester_policy: AutoTune,\n",
+                                        "    json: false,\n",
+                                        "    output: \"/tmp/tmpkhu9rlmb.ferox\",\n",
+                                        "    debug_log: \"\",\n",
+                                        "    user_agent: \"feroxbuster/2.11.0\",\n",
+                                        "    random_agent: false,\n",
+                                        "    redirects: false,\n",
+                                        "    insecure: true,\n",
+                                        "    extensions: [],\n",
+                                        "    methods: [\n",
+                                        "        \"GET\",\n",
+                                        "    ],\n",
+                                        "    data: [],\n",
+                                        "    headers: {},\n",
+                                        "    queries: [],\n",
+                                        "    no_recursion: false,\n",
+                                        "    extract_links: true,\n",
+                                        "    add_slash: false,\n",
+                                        "    stdin: false,\n",
+                                        "    depth: 4,\n",
+                                        "    scan_limit: 0,\n",
+                                        "    parallel: 0,\n",
+                                        "    rate_limit: 0,\n",
+                                        "    filter_size: [],\n",
+                                        "    filter_line_count: [],\n",
+                                        "    filter_word_count: [],\n",
+                                        "    filter_regex: [],\n",
+                                        "    dont_filter: false,\n",
+                                        "    resumed: false,\n",
+                                        "    resume_from: \"\",\n",
+                                        "    save_state: true,\n",
+                                        "    time_limit: \"\",\n",
+                                        "    filter_similar: [],\n",
+                                        "    url_denylist: [],\n",
+                                        "    regex_denylist: [],\n",
+                                        "    collect_extensions: false,\n",
+                                        "    dont_collect: [\n",
+                                        "        \"tif\",\n",
+                                        "        \"tiff\",\n",
+                                        "        \"ico\",\n",
+                                        "        \"cur\",\n",
+                                        "        \"bmp\",\n",
+                                        "        \"webp\",\n",
+                                        "        \"svg\",\n",
+                                        "        \"png\",\n",
+                                        "        \"jpg\",\n",
+                                        "        \"jpeg\",\n",
+                                        "        \"jfif\",\n",
+                                        "        \"gif\",\n",
+                                        "        \"avif\",\n",
+                                        "        \"apng\",\n",
+                                        "        \"pjpeg\",\n",
+                                        "        \"pjp\",\n",
+                                        "        \"mov\",\n",
+                                        "        \"wav\",\n",
+                                        "        \"mpg\",\n",
+                                        "        \"mpeg\",\n",
+                                        "        \"mp3\",\n",
+                                        "        \"mp4\",\n",
+                                        "        \"m4a\",\n",
+                                        "        \"m4p\",\n",
+                                        "        \"m4v\",\n",
+                                        "        \"ogg\",\n",
+                                        "        \"webm\",\n",
+                                        "        \"ogv\",\n",
+                                        "        \"oga\",\n",
+                                        "        \"flac\",\n",
+                                        "        \"aac\",\n",
+                                        "        \"3gp\",\n",
+                                        "        \"css\",\n",
+                                        "        \"zip\",\n",
+                                        "        \"xls\",\n",
+                                        "        \"xml\",\n",
+                                        "        \"gz\",\n",
+                                        "        \"tgz\",\n",
+                                        "    ],\n",
+                                        "    collect_backups: true,\n",
+                                        "    backup_extensions: [\n",
+                                        "        \"~\",\n",
+                                        "        \".bak\",\n",
+                                        "        \".bak2\",\n",
+                                        "        \".old\",\n",
+                                        "        \".1\",\n",
+                                        "    ],\n",
+                                        "    collect_words: false,\n",
+                                        "    force_recursion: false,\n",
+                                        "    update_app: false,\n",
+                                        "    scan_dir_listings: true,\n",
+                                        "    request_file: \"\",\n",
+                                        "    protocol: \"https\",\n",
+                                        "    limit_bars: 0,\n",
+                                        "}\n"
+                                    ],
+                                    "error": null
                                 }
-                            }
+                            },
+                            "report_fields": [
+                                "summary",
+                                "error"
+                            ]
                         },
                         "enum_http_wpscan": {
-                            "cmd": "wpscan --url http://10.10.11.62:443/ --plugins-detection aggressive --enumerate ap,at,tt,cb,dbe,u,m --no-update --output /tmp/tmp1y396pxn.wpscan.json --format json",
+                            "cmd": "wpscan --url http://10.10.11.62:443/ --plugins-detection aggressive --enumerate ap,at,tt,cb,dbe,u,m --no-update --output /tmp/tmppp_mv6er.wpscan.json --format json",
                             "results": {
                                 "banner": {
                                     "description": "WordPress Security Scanner by the WPScan Team",
@@ -912,18 +1687,26 @@
                                 "scan_aborted": "The url supplied 'http://10.10.11.62:443/' seems to be down (Could not connect to server)",
                                 "target_url": "http://10.10.11.62:443/",
                                 "xmlrpc_enabled": false
-                            }
+                            },
+                            "report_fields": [
+                                "xmlrpc_enabled",
+                                "error"
+                            ]
                         },
                         "enum_http_whatweb": {
-                            "cmd": "whatweb http://10.10.11.62:443/ -p -a 4 -v --log-json=/tmp/tmpmhv5w6r5.json",
-                            "results": []
+                            "cmd": "whatweb http://10.10.11.62:443/ -p -a=4 -v --log-json=/tmp/tmpir_0kwq7.json",
+                            "results": [],
+                            "report_fields": [
+                                "plugins",
+                                "error"
+                            ]
                         }
                     }
                 },
                 {
                     "id": "445",
                     "protocol": "udp",
-                    "state": "closed",
+                    "state": "open|filtered",
                     "service": {
                         "name": "microsoft-ds",
                         "product": "",
@@ -942,7 +1725,7 @@
                 {
                     "id": "497",
                     "protocol": "udp",
-                    "state": "open|filtered",
+                    "state": "closed",
                     "service": {
                         "name": "retrospect",
                         "product": "",
@@ -961,7 +1744,7 @@
                 {
                     "id": "500",
                     "protocol": "udp",
-                    "state": "open|filtered",
+                    "state": "closed",
                     "service": {
                         "name": "isakmp",
                         "product": "",
@@ -999,7 +1782,7 @@
                 {
                     "id": "515",
                     "protocol": "udp",
-                    "state": "open|filtered",
+                    "state": "closed",
                     "service": {
                         "name": "printer",
                         "product": "",
@@ -1018,7 +1801,7 @@
                 {
                     "id": "518",
                     "protocol": "udp",
-                    "state": "closed",
+                    "state": "open|filtered",
                     "service": {
                         "name": "ntalk",
                         "product": "",
@@ -1075,41 +1858,316 @@
                             "results": {
                                 "status_line": "",
                                 "headers": {},
-                                "body_snippet": "  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\n  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\ncurl: (7) Failed to connect to 10.10.11.62 port 593 after 103 ms: Could not connect to server",
+                                "body_snippet": "  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\n  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\ncurl: (7) Failed to connect to 10.10.11.62 port 593 after 95 ms: Could not connect to server",
                                 "isreal": true
-                            }
+                            },
+                            "report_fields": [
+                                "isreal",
+                                "status_line",
+                                "headers",
+                                "error"
+                            ]
                         },
                         "enum_http_gowitness": {
-                            "cmd": "gowitness single --url \"http://10.10.11.62:593/\" --disable-db --destination \"/tmp/tmp4ajpe5ba/screens\"",
-                            "error": "Command 'gowitness single --url \"http://10.10.11.62:593/\" --disable-db --destination \"/tmp/tmp4ajpe5ba/screens\"' returned non-zero exit status 1."
+                            "cmd": "gowitness single --url \"http://10.10.11.62:593/\" --disable-db --destination \"/tmp/tmpn6zh56b1/screens\"",
+                            "error": "Command 'gowitness single --url \"http://10.10.11.62:593/\" --disable-db --destination \"/tmp/tmpn6zh56b1/screens\"' returned non-zero exit status 1.",
+                            "results": {
+                                "screenshots": []
+                            },
+                            "report_fields": [
+                                "screenshots",
+                                "error"
+                            ]
                         },
                         "enum_http_feroxbuster": {
                             "cmd": [
-                                "feroxbuster --url http://10.10.11.62:593 --extract-links -B --auto-tune -w /usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-files.txt --threads 32 --insecure -o /tmp/tmp9qy8yhgn.ferox -C 404 --scan-dir-listings  --silent"
+                                "feroxbuster --url http://10.10.11.62:593 --extract-links -B --auto-tune -w /usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-files.txt --threads 32 --insecure -o /tmp/tmpjrnkfw9s.ferox -C 404 --scan-dir-listings  --silent"
                             ],
                             "results": {
                                 "/usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-files.txt": {
-                                    "output_path": "/tmp/tmp9qy8yhgn.ferox",
-                                    "summary": {
-                                        "found_count": 262,
-                                        "first_10_results": [
-                                            "Configuration {\n",
-                                            "    kind: \"configuration\",\n",
-                                            "    wordlist: \"/usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-files.txt\",\n",
-                                            "    config: \"/etc/feroxbuster/ferox-config.toml\",\n",
-                                            "    proxy: \"\",\n",
-                                            "    replay_proxy: \"\",\n",
-                                            "    server_certs: [],\n",
-                                            "    client_cert: \"\",\n",
-                                            "    client_key: \"\",\n",
-                                            "    target_url: \"http://10.10.11.62:593\",\n"
-                                        ]
-                                    }
+                                    "output_path": "/tmp/tmpjrnkfw9s.ferox",
+                                    "found": [
+                                        "Configuration {\n",
+                                        "    kind: \"configuration\",\n",
+                                        "    wordlist: \"/usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-files.txt\",\n",
+                                        "    config: \"/etc/feroxbuster/ferox-config.toml\",\n",
+                                        "    proxy: \"\",\n",
+                                        "    replay_proxy: \"\",\n",
+                                        "    server_certs: [],\n",
+                                        "    client_cert: \"\",\n",
+                                        "    client_key: \"\",\n",
+                                        "    target_url: \"http://10.10.11.62:593\",\n",
+                                        "    status_codes: [\n",
+                                        "        100,\n",
+                                        "        101,\n",
+                                        "        102,\n",
+                                        "        200,\n",
+                                        "        201,\n",
+                                        "        202,\n",
+                                        "        203,\n",
+                                        "        204,\n",
+                                        "        205,\n",
+                                        "        206,\n",
+                                        "        207,\n",
+                                        "        208,\n",
+                                        "        226,\n",
+                                        "        300,\n",
+                                        "        301,\n",
+                                        "        302,\n",
+                                        "        303,\n",
+                                        "        304,\n",
+                                        "        305,\n",
+                                        "        307,\n",
+                                        "        308,\n",
+                                        "        400,\n",
+                                        "        401,\n",
+                                        "        402,\n",
+                                        "        403,\n",
+                                        "        404,\n",
+                                        "        405,\n",
+                                        "        406,\n",
+                                        "        407,\n",
+                                        "        408,\n",
+                                        "        409,\n",
+                                        "        410,\n",
+                                        "        411,\n",
+                                        "        412,\n",
+                                        "        413,\n",
+                                        "        414,\n",
+                                        "        415,\n",
+                                        "        416,\n",
+                                        "        417,\n",
+                                        "        418,\n",
+                                        "        421,\n",
+                                        "        422,\n",
+                                        "        423,\n",
+                                        "        424,\n",
+                                        "        426,\n",
+                                        "        428,\n",
+                                        "        429,\n",
+                                        "        431,\n",
+                                        "        451,\n",
+                                        "        500,\n",
+                                        "        501,\n",
+                                        "        502,\n",
+                                        "        503,\n",
+                                        "        504,\n",
+                                        "        505,\n",
+                                        "        506,\n",
+                                        "        507,\n",
+                                        "        508,\n",
+                                        "        510,\n",
+                                        "        511,\n",
+                                        "        103,\n",
+                                        "        425,\n",
+                                        "    ],\n",
+                                        "    replay_codes: [\n",
+                                        "        100,\n",
+                                        "        101,\n",
+                                        "        102,\n",
+                                        "        200,\n",
+                                        "        201,\n",
+                                        "        202,\n",
+                                        "        203,\n",
+                                        "        204,\n",
+                                        "        205,\n",
+                                        "        206,\n",
+                                        "        207,\n",
+                                        "        208,\n",
+                                        "        226,\n",
+                                        "        300,\n",
+                                        "        301,\n",
+                                        "        302,\n",
+                                        "        303,\n",
+                                        "        304,\n",
+                                        "        305,\n",
+                                        "        307,\n",
+                                        "        308,\n",
+                                        "        400,\n",
+                                        "        401,\n",
+                                        "        402,\n",
+                                        "        403,\n",
+                                        "        404,\n",
+                                        "        405,\n",
+                                        "        406,\n",
+                                        "        407,\n",
+                                        "        408,\n",
+                                        "        409,\n",
+                                        "        410,\n",
+                                        "        411,\n",
+                                        "        412,\n",
+                                        "        413,\n",
+                                        "        414,\n",
+                                        "        415,\n",
+                                        "        416,\n",
+                                        "        417,\n",
+                                        "        418,\n",
+                                        "        421,\n",
+                                        "        422,\n",
+                                        "        423,\n",
+                                        "        424,\n",
+                                        "        426,\n",
+                                        "        428,\n",
+                                        "        429,\n",
+                                        "        431,\n",
+                                        "        451,\n",
+                                        "        500,\n",
+                                        "        501,\n",
+                                        "        502,\n",
+                                        "        503,\n",
+                                        "        504,\n",
+                                        "        505,\n",
+                                        "        506,\n",
+                                        "        507,\n",
+                                        "        508,\n",
+                                        "        510,\n",
+                                        "        511,\n",
+                                        "        103,\n",
+                                        "        425,\n",
+                                        "    ],\n",
+                                        "    filter_status: [\n",
+                                        "        404,\n",
+                                        "    ],\n",
+                                        "    client: Client {\n",
+                                        "        accepts: Accepts,\n",
+                                        "        proxies: [\n",
+                                        "            Proxy(\n",
+                                        "                System(\n",
+                                        "                    {},\n",
+                                        "                ),\n",
+                                        "                None,\n",
+                                        "            ),\n",
+                                        "        ],\n",
+                                        "        redirect_policy: Policy(\n",
+                                        "            None,\n",
+                                        "        ),\n",
+                                        "        referer: true,\n",
+                                        "        default_headers: {\n",
+                                        "            \"accept\": \"*/*\",\n",
+                                        "            \"user-agent\": \"feroxbuster/2.11.0\",\n",
+                                        "        },\n",
+                                        "        timeout: 7s,\n",
+                                        "    },\n",
+                                        "    replay_client: None,\n",
+                                        "    threads: 32,\n",
+                                        "    timeout: 7,\n",
+                                        "    verbosity: 0,\n",
+                                        "    silent: true,\n",
+                                        "    quiet: false,\n",
+                                        "    output_level: Silent,\n",
+                                        "    auto_bail: false,\n",
+                                        "    auto_tune: true,\n",
+                                        "    requester_policy: AutoTune,\n",
+                                        "    json: false,\n",
+                                        "    output: \"/tmp/tmpjrnkfw9s.ferox\",\n",
+                                        "    debug_log: \"\",\n",
+                                        "    user_agent: \"feroxbuster/2.11.0\",\n",
+                                        "    random_agent: false,\n",
+                                        "    redirects: false,\n",
+                                        "    insecure: true,\n",
+                                        "    extensions: [],\n",
+                                        "    methods: [\n",
+                                        "        \"GET\",\n",
+                                        "    ],\n",
+                                        "    data: [],\n",
+                                        "    headers: {},\n",
+                                        "    queries: [],\n",
+                                        "    no_recursion: false,\n",
+                                        "    extract_links: true,\n",
+                                        "    add_slash: false,\n",
+                                        "    stdin: false,\n",
+                                        "    depth: 4,\n",
+                                        "    scan_limit: 0,\n",
+                                        "    parallel: 0,\n",
+                                        "    rate_limit: 0,\n",
+                                        "    filter_size: [],\n",
+                                        "    filter_line_count: [],\n",
+                                        "    filter_word_count: [],\n",
+                                        "    filter_regex: [],\n",
+                                        "    dont_filter: false,\n",
+                                        "    resumed: false,\n",
+                                        "    resume_from: \"\",\n",
+                                        "    save_state: true,\n",
+                                        "    time_limit: \"\",\n",
+                                        "    filter_similar: [],\n",
+                                        "    url_denylist: [],\n",
+                                        "    regex_denylist: [],\n",
+                                        "    collect_extensions: false,\n",
+                                        "    dont_collect: [\n",
+                                        "        \"tif\",\n",
+                                        "        \"tiff\",\n",
+                                        "        \"ico\",\n",
+                                        "        \"cur\",\n",
+                                        "        \"bmp\",\n",
+                                        "        \"webp\",\n",
+                                        "        \"svg\",\n",
+                                        "        \"png\",\n",
+                                        "        \"jpg\",\n",
+                                        "        \"jpeg\",\n",
+                                        "        \"jfif\",\n",
+                                        "        \"gif\",\n",
+                                        "        \"avif\",\n",
+                                        "        \"apng\",\n",
+                                        "        \"pjpeg\",\n",
+                                        "        \"pjp\",\n",
+                                        "        \"mov\",\n",
+                                        "        \"wav\",\n",
+                                        "        \"mpg\",\n",
+                                        "        \"mpeg\",\n",
+                                        "        \"mp3\",\n",
+                                        "        \"mp4\",\n",
+                                        "        \"m4a\",\n",
+                                        "        \"m4p\",\n",
+                                        "        \"m4v\",\n",
+                                        "        \"ogg\",\n",
+                                        "        \"webm\",\n",
+                                        "        \"ogv\",\n",
+                                        "        \"oga\",\n",
+                                        "        \"flac\",\n",
+                                        "        \"aac\",\n",
+                                        "        \"3gp\",\n",
+                                        "        \"css\",\n",
+                                        "        \"zip\",\n",
+                                        "        \"xls\",\n",
+                                        "        \"xml\",\n",
+                                        "        \"gz\",\n",
+                                        "        \"tgz\",\n",
+                                        "    ],\n",
+                                        "    collect_backups: true,\n",
+                                        "    backup_extensions: [\n",
+                                        "        \"~\",\n",
+                                        "        \".bak\",\n",
+                                        "        \".bak2\",\n",
+                                        "        \".old\",\n",
+                                        "        \".1\",\n",
+                                        "    ],\n",
+                                        "    collect_words: false,\n",
+                                        "    force_recursion: false,\n",
+                                        "    update_app: false,\n",
+                                        "    scan_dir_listings: true,\n",
+                                        "    request_file: \"\",\n",
+                                        "    protocol: \"https\",\n",
+                                        "    limit_bars: 0,\n",
+                                        "}\n"
+                                    ],
+                                    "error": null
                                 }
-                            }
+                            },
+                            "report_fields": [
+                                "summary",
+                                "error"
+                            ]
+                        },
+                        "enum_http_whatweb": {
+                            "cmd": "whatweb http://10.10.11.62:593/ -p -a=4 -v --log-json=/tmp/tmph9k6tfqr.json",
+                            "results": [],
+                            "report_fields": [
+                                "plugins",
+                                "error"
+                            ]
                         },
                         "enum_http_wpscan": {
-                            "cmd": "wpscan --url http://10.10.11.62:593/ --plugins-detection aggressive --enumerate ap,at,tt,cb,dbe,u,m --no-update --output /tmp/tmpy9fq6x_y.wpscan.json --format json",
+                            "cmd": "wpscan --url http://10.10.11.62:593/ --plugins-detection aggressive --enumerate ap,at,tt,cb,dbe,u,m --no-update --output /tmp/tmpzm3nselv.wpscan.json --format json",
                             "results": {
                                 "banner": {
                                     "description": "WordPress Security Scanner by the WPScan Team",
@@ -1125,11 +2183,11 @@
                                 "scan_aborted": "The url supplied 'http://10.10.11.62:593/' seems to be down (Could not connect to server)",
                                 "target_url": "http://10.10.11.62:593/",
                                 "xmlrpc_enabled": false
-                            }
-                        },
-                        "enum_http_whatweb": {
-                            "cmd": "whatweb http://10.10.11.62:593/ -p -a 4 -v --log-json=/tmp/tmprs0263iw.json",
-                            "results": []
+                            },
+                            "report_fields": [
+                                "xmlrpc_enabled",
+                                "error"
+                            ]
                         }
                     }
                 },
@@ -1155,7 +2213,7 @@
                 {
                     "id": "626",
                     "protocol": "udp",
-                    "state": "open|filtered",
+                    "state": "closed",
                     "service": {
                         "name": "serialnumberd",
                         "product": "",
@@ -1174,7 +2232,7 @@
                 {
                     "id": "631",
                     "protocol": "udp",
-                    "state": "closed",
+                    "state": "open|filtered",
                     "service": {
                         "name": "ipp",
                         "product": "",
@@ -1212,7 +2270,7 @@
                 {
                     "id": "997",
                     "protocol": "udp",
-                    "state": "open|filtered",
+                    "state": "closed",
                     "service": {
                         "name": "maitrd",
                         "product": "",
@@ -1231,7 +2289,7 @@
                 {
                     "id": "998",
                     "protocol": "udp",
-                    "state": "open|filtered",
+                    "state": "closed",
                     "service": {
                         "name": "puparp",
                         "product": "",
@@ -1250,7 +2308,7 @@
                 {
                     "id": "999",
                     "protocol": "udp",
-                    "state": "open|filtered",
+                    "state": "closed",
                     "service": {
                         "name": "applix",
                         "product": "",
@@ -1301,7 +2359,7 @@
                 {
                     "id": "1025",
                     "protocol": "udp",
-                    "state": "open|filtered",
+                    "state": "closed",
                     "service": {
                         "name": "blackjack",
                         "product": "",
@@ -1352,7 +2410,7 @@
                 {
                     "id": "1028",
                     "protocol": "udp",
-                    "state": "open|filtered",
+                    "state": "closed",
                     "service": {
                         "name": "ms-lsa",
                         "product": "",
@@ -1390,7 +2448,7 @@
                 {
                     "id": "1030",
                     "protocol": "udp",
-                    "state": "closed",
+                    "state": "open|filtered",
                     "service": {
                         "name": "iad1",
                         "product": "",
@@ -1409,7 +2467,7 @@
                 {
                     "id": "1433",
                     "protocol": "udp",
-                    "state": "closed",
+                    "state": "open|filtered",
                     "service": {
                         "name": "ms-sql-s",
                         "product": "",
@@ -1428,7 +2486,7 @@
                 {
                     "id": "1434",
                     "protocol": "udp",
-                    "state": "open|filtered",
+                    "state": "closed",
                     "service": {
                         "name": "ms-sql-m",
                         "product": "",
@@ -1466,7 +2524,7 @@
                 {
                     "id": "1646",
                     "protocol": "udp",
-                    "state": "closed",
+                    "state": "open|filtered",
                     "service": {
                         "name": "radacct",
                         "product": "",
@@ -1580,7 +2638,7 @@
                 {
                     "id": "1900",
                     "protocol": "udp",
-                    "state": "closed",
+                    "state": "open|filtered",
                     "service": {
                         "name": "upnp",
                         "product": "",
@@ -1637,7 +2695,7 @@
                 {
                     "id": "2049",
                     "protocol": "udp",
-                    "state": "closed",
+                    "state": "open|filtered",
                     "service": {
                         "name": "nfs",
                         "product": "",
@@ -1656,7 +2714,7 @@
                 {
                     "id": "2222",
                     "protocol": "udp",
-                    "state": "open|filtered",
+                    "state": "closed",
                     "service": {
                         "name": "msantipiracy",
                         "product": "",
@@ -1846,7 +2904,7 @@
                 {
                     "id": "5632",
                     "protocol": "udp",
-                    "state": "closed",
+                    "state": "open|filtered",
                     "service": {
                         "name": "pcanywherestat",
                         "product": "",
@@ -1865,7 +2923,7 @@
                 {
                     "id": "9200",
                     "protocol": "udp",
-                    "state": "open|filtered",
+                    "state": "closed",
                     "service": {
                         "name": "wap-wsp",
                         "product": "",
@@ -1922,7 +2980,7 @@
                 {
                     "id": "20031",
                     "protocol": "udp",
-                    "state": "closed",
+                    "state": "open|filtered",
                     "service": {
                         "name": "bakbonenetvault",
                         "product": "",
@@ -1941,7 +2999,7 @@
                 {
                     "id": "30718",
                     "protocol": "udp",
-                    "state": "closed",
+                    "state": "open|filtered",
                     "plugins": {
                         "enum_generic_product_search": {
                             "cmd": [],
@@ -1992,7 +3050,7 @@
                 {
                     "id": "32769",
                     "protocol": "udp",
-                    "state": "open|filtered",
+                    "state": "closed",
                     "service": {
                         "name": "filenet-rpc",
                         "product": "",
@@ -2082,7 +3140,7 @@
                 {
                     "id": "49154",
                     "protocol": "udp",
-                    "state": "closed",
+                    "state": "open|filtered",
                     "plugins": {
                         "enum_generic_product_search": {
                             "cmd": [],
@@ -2121,7 +3179,7 @@
                 {
                     "id": "49182",
                     "protocol": "udp",
-                    "state": "closed",
+                    "state": "open|filtered",
                     "plugins": {
                         "enum_generic_product_search": {
                             "cmd": [],
@@ -2134,7 +3192,7 @@
                 {
                     "id": "49185",
                     "protocol": "udp",
-                    "state": "open|filtered",
+                    "state": "closed",
                     "plugins": {
                         "enum_generic_product_search": {
                             "cmd": [],
@@ -2173,7 +3231,7 @@
                 {
                     "id": "49190",
                     "protocol": "udp",
-                    "state": "closed",
+                    "state": "open|filtered",
                     "plugins": {
                         "enum_generic_product_search": {
                             "cmd": [],
@@ -2186,7 +3244,7 @@
                 {
                     "id": "49191",
                     "protocol": "udp",
-                    "state": "closed",
+                    "state": "open|filtered",
                     "plugins": {
                         "enum_generic_product_search": {
                             "cmd": [],
@@ -2199,7 +3257,7 @@
                 {
                     "id": "49192",
                     "protocol": "udp",
-                    "state": "open|filtered",
+                    "state": "closed",
                     "plugins": {
                         "enum_generic_product_search": {
                             "cmd": [],
@@ -2212,7 +3270,7 @@
                 {
                     "id": "49193",
                     "protocol": "udp",
-                    "state": "closed",
+                    "state": "open|filtered",
                     "plugins": {
                         "enum_generic_product_search": {
                             "cmd": [],
@@ -2225,7 +3283,7 @@
                 {
                     "id": "49194",
                     "protocol": "udp",
-                    "state": "closed",
+                    "state": "open|filtered",
                     "plugins": {
                         "enum_generic_product_search": {
                             "cmd": [],

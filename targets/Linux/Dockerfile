@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
     rpcbind \
     nfs-kernel-server \
     snmpd \
-    snmpconf \
+    snmp \
     postfix \
     apache2 \
     mysql-server \
@@ -84,7 +84,8 @@ RUN echo '/tmp *(rw,sync,no_root_squash,no_subtree_check)' > /etc/exports && \
     echo '/var/www/html *(rw,sync,no_root_squash,no_subtree_check)' >> /etc/exports
 
 # Configure SNMP - Default community strings and weak config
-RUN snmpconf -g basic_setup -c /etc/snmp/snmpd.conf -q && \
+RUN mkdir -p /etc/snmp && \
+    snmpconf -g basic_setup -c /etc/snmp/snmpd.conf -q && \
     echo 'rocommunity public' >> /etc/snmp/snmpd.conf && \
     echo 'rwcommunity private' >> /etc/snmp/snmpd.conf && \
     echo 'agentAddress udp:161,udp6:[::1]:161' >> /etc/snmp/snmpd.conf && \

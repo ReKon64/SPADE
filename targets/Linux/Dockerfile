@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
     rpcbind \
     nfs-kernel-server \
     snmpd \
+    snmpconf \
     postfix \
     apache2 \
     mysql-server \

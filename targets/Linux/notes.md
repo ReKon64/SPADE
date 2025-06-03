@@ -29,5 +29,5 @@ sudo docker run -d \
 # Cycle
 sudo docker stop vulnlab-linux && \
 sudo docker rm vulnlab-linux && \
-docker rmi vulnscanner-linux-target && \
+sudo docker rmi vulnscanner-linux-target && \
 sudo docker build -t vulnscanner-linux-target .

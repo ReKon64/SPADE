@@ -3,6 +3,7 @@ FTP - maybe fixed
 SMB - Seems fine. Listing, login, file get, admin works too
 NFS - No RPC = limited functionality, maybe fixed
 HTTP - Wordpress is not configured
+SNMP - broken 
 
 # Build 
 docker build -t vulnscanner-linux-target .
@@ -22,4 +23,11 @@ docker run -d \
   -p 1161:161/udp \
   -p 1025:25 \
   -p 13306:3306 \
+  -p 30000-30009:30000-30009 \
   vulnscanner-linux-target
+
+# Cleanupd
+docker kill <imageid>
+docker rmi -f <imageid>
+docker rm <containerid>
+docker rm vulnscanner-linux-target

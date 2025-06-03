@@ -27,19 +27,17 @@ SPADE is a modular vulnerability scanning framework that leverages external tool
 
 # Maitain one official one community branch. Contribution guide that requires pocs + demo. Scanner dockerfile release can't include stuff like targets folder etc.
 # Update writing guide. Prepend all stuff you don't want to appear in the html report with "_" (underscore)
-# Per plugin imports and argparse options 
+# Per plugin imports and argparse options (contained to them collected somewhere)
+# username as pass for brute
 # NXC RID brute
 # Multi target.
 # Eyewitness neo4j bh integration
 # Subnet scans / target "finding" via ping sweep arp etc
-# Generic product exploit search is broken. MOAR LOGGING.
 # STD - REALTIME is confusing. Force name of the method to be attached to it. -UNDOABLE-
 # Make it accept multiple targets, multiple 1target xmls and overlaying them for overwriting target IPs
 # Implement prefix for unknown services for extensibility.
 # Add OS type at the head where hostname etc. lies
 # FIX THREADING IT USES 16 THREADS PER PORT FUCKKK
-# Test SMB crawling
-# Fingerprint all the things
 # generic prod search -> exploits -> ai fix exploit -> try to run it
 # find names / roles -> ask AI if it makes sense
 # Credentialed enumeration...

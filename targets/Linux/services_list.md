@@ -1,7 +1,7 @@
 | Service  | Port | Protocol | Default Creds          | Vulnerabilities                                  |
 |----------|------|----------|------------------------|--------------------------------------------------|
 | SSH      | 2222 | TCP      | root:password123       | Weak passwords, root login, old protocol support |
-| FTP      | 2121 | TCP      | anonymous:(blank)      | Anonymous write access, no chroot                |
+| FTP      | 2121 | TCP      | anonymous:(blank)      | Anonymous write access, no chroot,               |
 | HTTP     | 8080 | TCP      | N/A                    | WordPress, info disclosure, command injection    |
 | SMB      | 1445 | TCP      | admin:admin            | Guest shares, weak auth, world-writable          |
 | NetBIOS  | 1139 | TCP      | admin:admin            | Null sessions, enumeration                       |
@@ -11,3 +11,4 @@
 | SMTP     | 1025 | TCP      | N/A                    | Open relay potential                             |
 | MySQL    | 3306 | TCP      | root:(blank)           | Remote root, weak passwords                      |
 
+# FTP is forced to passive

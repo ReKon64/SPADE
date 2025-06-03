@@ -57,6 +57,10 @@ RUN echo 'anonymous_enable=YES' >> /etc/vsftpd.conf && \
     echo 'allow_writeable_chroot=YES' >> /etc/vsftpd.conf && \
     echo 'listen=YES' >> /etc/vsftpd.conf && \
     echo 'listen_ipv6=NO' >> /etc/vsftpd.conf && \
+    echo 'pasv_enable=YES' >> /etc/vsftpd.conf && \
+    echo 'pasv_min_port=30000' >> /etc/vsftpd.conf && \
+    echo 'pasv_max_port=30009' >> /etc/vsftpd.conf && \
+    echo 'pasv_address=127.0.0.1' >> /etc/vsftpd.conf && \
     mkdir -p /srv/ftp && \
     chmod 755 /srv/ftp && \
     echo 'anon_root=/srv/ftp' >> /etc/vsftpd.conf
@@ -86,7 +90,7 @@ RUN echo '# Weak SNMP Configuration' > /etc/snmp/snmpd.conf && \
     echo 'sysLocation Vulnerable Lab Environment' >> /etc/snmp/snmpd.conf && \
     echo 'sysContact admin@vulnlab.local' >> /etc/snmp/snmpd.conf && \
     echo 'view systemonly included .1.3.6.1.2.1.1' >> /etc/snmp/snmpd.conf && \
-    echo 'view systemonly included .1.3.6.1.2.1.25.1' >> /etc/snmp/snmpd.conf \
+    echo 'view systemonly included .1.3.6.1.2.1.25.1' >> /etc/snmp/snmpd.conf && \
     echo -e "admin:admin\nwpuser:wppass\nftpuser:ftp123\nmysql:rootpass" > /etc/snmp/snmp_creds.txt && \
     chmod 644 /etc/snmp/snmp_creds.txt && \
     echo 'extend creds /bin/cat /etc/snmp/snmp_creds.txt' >> /etc/snmp/snmpd.conf
@@ -168,7 +172,7 @@ COPY setup.sh /setup.sh
 RUN chmod +x /setup.sh
 
 # Expose all service ports
-EXPOSE 21 22 25 80 111 139 161/udp 445 993 995 2049 3306
+EXPOSE 21 22 25 80 111 139 161/udp 445 993 995 2049 3306 30000-30009
 
 # Set entrypoint
 CMD ["/setup.sh"]

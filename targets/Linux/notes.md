@@ -26,8 +26,7 @@ docker run -d \
   -p 30000-30009:30000-30009 \
   vulnscanner-linux-target
 
-# Cleanupd
-docker kill <imageid>
-docker rmi -f <imageid>
-docker rm <containerid>
-docker rm vulnscanner-linux-target
+# Cycle
+sudo docker stop vulnlab-linux \
+sudo docker rm vulnlab-linux \
+sudo docker build -t vulnscanner-linux-target .

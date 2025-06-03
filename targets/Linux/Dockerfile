@@ -63,7 +63,9 @@ RUN echo 'anonymous_enable=YES' >> /etc/vsftpd.conf && \
     echo 'pasv_address=127.0.0.1' >> /etc/vsftpd.conf && \
     mkdir -p /srv/ftp && \
     chmod 755 /srv/ftp && \
-    echo 'anon_root=/srv/ftp' >> /etc/vsftpd.conf
+    echo 'anon_root=/srv/ftp' >> /etc/vsftpd.conf && \
+    echo 'ftpd_banner=Welcome to the vulnerable FTP server' >> /etc/vsftpd.conf && \
+    echo 'test123:test123' > /srv/ftp/password.txt
 
 # Configure Samba - Weak shares and authentication
 RUN cp /etc/samba/smb.conf /etc/samba/smb.conf.bak

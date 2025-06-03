@@ -10,7 +10,7 @@ docker build -t vulnscanner-linux-target .
 # This will take 5-10 minutes depending on your internet connection
 
 # Port mapping / running
-docker run -d \
+sudo docker run -d \
   --name vulnlab-linux \
   --hostname vulnlab-target \
   -p 2222:22 \
@@ -27,6 +27,7 @@ docker run -d \
   vulnscanner-linux-target
 
 # Cycle
-sudo docker stop vulnlab-linux \
-sudo docker rm vulnlab-linux \
+sudo docker stop vulnlab-linux && \
+sudo docker rm vulnlab-linux && \
+docker rmi vulnscanner-linux-target && \
 sudo docker build -t vulnscanner-linux-target .

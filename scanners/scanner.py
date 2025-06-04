@@ -498,12 +498,17 @@ class Scanner:
                     host_port_info = f"{temp_scanner.options.get('current_port', {}).get('host')}:{temp_scanner.options.get('current_port', {}).get('port_id')}"
                     logging.info(f"[PLUGIN EXEC] Starting {plugin} for {host_port_info}")
                     
-                    # Register plugin with the monitor
-                    plugin_monitor.register_plugin(plugin, host_port_info)
-                    
-                    # Store start time for performance measurement
+                    # Submit the task
+                    future = executor.submit(getattr(temp_scanner, plugin), plugin_results)
                     start_time = time.time()
-                    futures[executor.submit(getattr(temp_scanner, plugin), plugin_results)] = (plugin, start_time)
+                    futures[future] = (plugin, start_time)
+                    
+                    # Store the future for later reference
+                    # This allows us to access the thread ID when needed
+                    # Register plugin with the monitor but don't pass the thread yet
+                    # We'll update it after the future is running
+                    plugin_monitor.register_plugin(plugin, host_port_info)
+                
                 ready = []
                 for future in concurrent.futures.as_completed(futures):
                     plugin, start_time = futures.pop(future)

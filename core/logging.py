@@ -23,10 +23,20 @@ class MemoryUsageFormatter(logging.Formatter):
             record.prefix = ""
         return super().format(record)
 
-def run_and_log(cmd, very_verbose=False, prefix=None, timeout=None):
+def run_and_log(cmd, very_verbose=False, prefix=None, timeout=None, plugin_name=None):
     """
     Run a shell command, streaming output in real time if very_verbose is enabled.
     Returns the full output as a string.
+    
+    Args:
+        cmd (str): Command to run
+        very_verbose (bool): Whether to stream output in real time
+        prefix (str): Prefix for log messages
+        timeout (int): Timeout in seconds
+        plugin_name (str): Name of the plugin using this function
+    
+    Returns:
+        str: Command output
     """
     logger = logging.getLogger()
     # Automatically set prefix to caller's function name in uppercase if not provided
@@ -45,22 +55,33 @@ def run_and_log(cmd, very_verbose=False, prefix=None, timeout=None):
             prefix = f"[{port}] - [{prefix}]"
         else:
             prefix = f"[{prefix}]"
+    
+    # Start the process
     process = subprocess.Popen(
         cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True
     )
+    
+    # If plugin_name is provided, register the process with the plugin monitor
+    if plugin_name:
+        from core.plugin_monitor import plugin_monitor
+        plugin_monitor.register_process(plugin_name, process)
+    
     output = ""
     
-    # Timer for timeout handling
+    # Timer for timeout handling using our own mechanism
     timer = None
     if timeout:
         def kill_process():
             if process.poll() is None:  # Process is still running
                 logging.warning(f"Command '{cmd}' timed out after {timeout}s. Terminating.")
-                process.terminate()
-                time.sleep(1)
-                if process.poll() is None:  # Process still didn't terminate
-                    process.kill()
-                    logging.warning(f"Force killed process for command '{cmd}'")
+                try:
+                    process.terminate()
+                    time.sleep(1)
+                    if process.poll() is None:  # Process still didn't terminate
+                        process.kill()
+                        logging.warning(f"Force killed process for command '{cmd}'")
+                except Exception as e:
+                    logging.error(f"Error killing process: {e}")
         
         timer = threading.Timer(timeout, kill_process)
         timer.daemon = True

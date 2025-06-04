@@ -157,7 +157,8 @@ RUN echo 'ServerName localhost' >> /etc/apache2/apache2.conf && \
 
 # Configure Postfix (basic SMTP)
 RUN echo 'postfix postfix/mailname string vulnlab.local' | debconf-set-selections && \
-    echo 'postfix postfix/main_mailer_type string "Internet Site"' | debconf-set-selections
+    echo 'postfix postfix/main_mailer_type string "Internet Site"' | debconf-set-selections && \
+    postconf -e 'disable_vrfy_command = no'
 
 # Create test files and directories
 RUN mkdir -p /tmp/shared && \

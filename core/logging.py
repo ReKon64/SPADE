@@ -115,6 +115,8 @@ def setup_colored_logging(logger=None):
                     record.msg = f"{colors['GREEN']}{colors['BOLD']}{record.msg}{colors['RESET']}"
                 elif "[PLUGIN ERROR]" in record.msg:
                     record.msg = f"{colors['RED']}{colors['BOLD']}{record.msg}{colors['RESET']}"
+                elif "[PLUGIN STATUS]" in record.msg:
+                    record.msg = f"{colors['CYAN']}{record.msg}{colors['RESET']}"
             return True
     
     # Add our filter to the logger

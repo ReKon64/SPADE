@@ -202,6 +202,21 @@
             max-height: 300px;
             overflow-y: auto;
         }
+        .results-box ul {
+            margin: 0 0 8px 0;
+            padding-left: 20px;
+        }
+        .results-box li {
+            margin: 2px 0;
+        }
+        .results-box strong {
+            display: block;
+            margin: 10px 0 5px 0;
+            color: #2c3e50;
+        }
+        .results-box strong:first-child {
+            margin-top: 0;
+        }
         .no-results {
             color: #6c757d;
             font-style: italic;
@@ -409,14 +424,14 @@
                                             <strong>{{ key|replace('_', ' ')|title }}:</strong>
                                             {%- set value = plugin_data.results[key] %}
                                             {%- if value is mapping %}
-                                                <ul style="margin:5px 0 10px 15px;padding:0;">
+                                                <ul>
                                                     {%- for k, v in value.items() %}
                                                         <li><strong>{{ k }}:</strong> {{ v }}</li>
                                                     {%- endfor %}
                                                 </ul>
                                             {%- elif value is iterable and value is not string %}
                                                 {%- if value %}
-                                                    <ul style="margin:5px 0 10px 15px;padding:0;">
+                                                    <ul>
                                                         {%- for item in value %}
                                                             <li>{{ item }}</li>
                                                         {%- endfor %}
@@ -427,7 +442,6 @@
                                             {%- else %}
                                                 {{ value }}
                                             {%- endif %}
-                                            <br>
                                         {%- endif %}
                                     {%- endfor %}
                                 {%- elif plugin_data.results is mapping %}
@@ -437,7 +451,7 @@
                                         {%- elif value is mapping %}
                                             <strong>{{ key|replace('_', ' ')|title }}:</strong>
                                             {%- if value %}
-                                                <ul style="margin:5px 0 10px 15px;padding:0;">
+                                                <ul>
                                                     {%- for k, v in value.items() %}
                                                         <li><strong>{{ k }}:</strong> {{ v }}</li>
                                                     {%- endfor %}
@@ -448,7 +462,7 @@
                                         {%- elif value is iterable and value is not string %}
                                             <strong>{{ key|replace('_', ' ')|title }}:</strong>
                                             {%- if value %}
-                                                <ul style="margin:5px 0 10px 15px;padding:0;">
+                                                <ul>
                                                     {%- for item in value %}
                                                         <li>{{ item }}</li>
                                                     {%- endfor %}
@@ -459,11 +473,10 @@
                                         {%- else %}
                                             <strong>{{ key|replace('_', ' ')|title }}:</strong> {{ value }}
                                         {%- endif %}
-                                        {%- if not loop.last %}<br>{%- endif %}
                                     {%- endfor %}
                                 {%- elif plugin_data.results is iterable and plugin_data.results is not string %}
                                     {%- if plugin_data.results %}
-                                        <ul style="margin:5px 0 10px 15px;padding:0;">
+                                        <ul>
                                             {%- for item in plugin_data.results %}
                                                 <li>{{ item }}</li>
                                             {%- endfor %}

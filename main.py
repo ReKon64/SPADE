@@ -5,6 +5,7 @@ from core.imports import *
 from scanners.scanner import Scanner
 from core.logging import SafeFormatter
 from core.reporter import Reporter
+from core.plugin_monitor import plugin_monitor
 
 def main():
     parser = argparse.ArgumentParser(description="SPADE - Scalable Plug-and-play Auto Detection Engine")
@@ -280,7 +281,7 @@ def main():
                     logging.info(f"[+] Completed {proto.upper()} port-specific enumeration")
                 except Exception as e:
                     logging.error(f"Error in {proto.upper()} enumeration: {e}")
-
+    
         findings = scanner.findings
         logging.info(f"[+] Initial scan and per-protocol enumeration complete.")
 
@@ -288,41 +289,44 @@ def main():
         hosts_count = len(findings.get("hosts", []))
         ports_count = sum(len(host.get("ports", [])) for host in findings.get("hosts", []))
         logging.info(f"[+] Found {hosts_count} hosts with {ports_count} open ports.")
-
-    ##########################
-    ### SERVICE-BASED SCAN ###
-    ##########################
-    logging.info(f"[+] Starting service-specific enumeration")
-    
-    # Use the findings already populated by per-protocol enumeration
-    findings = scanner.findings
+    try:
+        ##########################
+        ### SERVICE-BASED SCAN ###
+        ##########################
+        logging.info(f"[+] Starting service-specific enumeration")
         
-    # Optional: Save the final results to a JSON file
-    output_file = os.path.join(options['output_dir'], "spade_results.json")
-    logging.debug(f"[!!!] Final Findings : {findings}")
+        # Use the findings already populated by per-protocol enumeration
+        findings = scanner.findings
+        
+        # Optional: Save the final results to a JSON file
+        output_file = os.path.join(options['output_dir'], "spade_results.json")
+        logging.debug(f"[!!!] Final Findings : {findings}")
 
-    # Remove the _plugin_lock object
-    for host in findings.get("hosts", []):
-        for port in host.get("ports", []):
-            if "_plugin_lock" in port:
-                del port["_plugin_lock"]
+        # Remove the _plugin_lock object
+        for host in findings.get("hosts", []):
+            for port in host.get("ports", []):
+                if "_plugin_lock" in port:
+                    del port["_plugin_lock"]
 
-    with open(output_file, 'w') as f:
-        json.dump(findings, f, indent=4)
-    logging.info(f"[+] Saved final results to {output_file}")\
-    
+        with open(output_file, 'w') as f:
+            json.dump(findings, f, indent=4)
+        logging.info(f"[+] Saved final results to {output_file}")
+        
         # --- Reporter integration ---
-    if args.report:
-        # Determine template path
-        if isinstance(args.report, str):
-            template_path = args.report
-        else:
-            # Use default.html from templates folder
-            template_path = os.path.join(os.path.dirname(__file__), "templates", "default.html")
-        report_output = os.path.join(options['output_dir'], "spade_report.html")
-        reporter = Reporter(template_path=template_path)
-        reporter.generate_report(findings, output_file=report_output)
-        logging.info(f"[+] HTML report generated at {report_output}")
+        if args.report:
+            # Determine template path
+            if isinstance(args.report, str):
+                template_path = args.report
+            else:
+                # Use default.html from templates folder
+                template_path = os.path.join(os.path.dirname(__file__), "templates", "default.html")
+            report_output = os.path.join(options['output_dir'], "spade_report.html")
+            reporter = Reporter(template_path=template_path)
+            reporter.generate_report(findings, output_file=report_output)
+            logging.info(f"[+] HTML report generated at {report_output}")
+    finally:
+        # Stop the plugin monitor before exiting
+        plugin_monitor.stop_monitoring()
 
 if __name__ == "__main__":
     main()

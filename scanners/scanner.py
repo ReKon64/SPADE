@@ -1,7 +1,7 @@
 # File: scanners/scanner.py
 from core.imports import *
 from scanners.nmap_parser import parse_nmap_xml
-## Fking errors mate
+from core.plugin_monitor import plugin_monitor
 
 class Scanner:
     """
@@ -22,6 +22,9 @@ class Scanner:
         self.findings = {}
         self.options = options
         self._findings_lock = threading.Lock()
+        
+        # Start the plugin monitor
+        plugin_monitor.start_monitoring()
         
         # Bind registered extension methods to the instance
         for name, func in self._extensions.items():
@@ -494,6 +497,10 @@ class Scanner:
                 for plugin in ready:
                     host_port_info = f"{temp_scanner.options.get('current_port', {}).get('host')}:{temp_scanner.options.get('current_port', {}).get('port_id')}"
                     logging.info(f"[PLUGIN EXEC] Starting {plugin} for {host_port_info}")
+                    
+                    # Register plugin with the monitor
+                    plugin_monitor.register_plugin(plugin, host_port_info)
+                    
                     # Store start time for performance measurement
                     start_time = time.time()
                     futures[executor.submit(getattr(temp_scanner, plugin), plugin_results)] = (plugin, start_time)
@@ -503,6 +510,9 @@ class Scanner:
                     # Calculate execution time
                     execution_time = time.time() - start_time
                     host_port_info = f"{temp_scanner.options.get('current_port', {}).get('host')}:{temp_scanner.options.get('current_port', {}).get('port_id')}"
+                    
+                    # Unregister the plugin from monitoring
+                    plugin_monitor.unregister_plugin(plugin)
                     
                     try:
                         result = future.result()

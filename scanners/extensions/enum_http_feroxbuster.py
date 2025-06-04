@@ -69,21 +69,16 @@ def enum_http_feroxbuster(self, plugin_results=None):
                     shell=True,
                     capture_output=True,
                     text=True,
-                    check=True
+                    timeout=timeout  # Add timeout parameter
                 )
             logging.info(f"[enum_http_feroxbuster] Done; wrote to {output_path}")
             # Parse a summary from the output file
             with open(output_path, "r") as f:
                 lines = f.readlines()
             found = [line for line in lines if line.strip() and not line.startswith("#")]
-            # summary = {
-            #     "found_count": len(found),
-            #     "first_10_results": found[:10]
-            # }
 
             results[wordlist] = {
                 "output_path": output_path,
-                #"summary": summary,
                 "found": found,
                 "error": None
             }

@@ -84,18 +84,18 @@ RUN echo '/tmp *(rw,sync,no_root_squash,no_subtree_check)' > /etc/exports && \
     echo '/var/www/html *(rw,sync,no_root_squash,no_subtree_check)' >> /etc/exports
 
 # Configure SNMP - Default community strings and weak config
-RUN mkdir -p /etc/snmp && \
-    snmpconf -g basic_setup -c /etc/snmp/snmpd.conf -q && \
-    echo 'rocommunity public' >> /etc/snmp/snmpd.conf && \
-    echo 'rwcommunity private' >> /etc/snmp/snmpd.conf && \
-    echo 'agentAddress udp:161,udp6:[::1]:161' >> /etc/snmp/snmpd.conf && \
-    echo 'sysLocation Vulnerable Lab Environment' >> /etc/snmp/snmpd.conf && \
-    echo 'sysContact admin@vulnlab.local' >> /etc/snmp/snmpd.conf && \
-    echo 'view systemonly included .1.3.6.1.2.1.1' >> /etc/snmp/snmpd.conf && \
-    echo 'view systemonly included .1.3.6.1.2.1.25.1' >> /etc/snmp/snmpd.conf && \
-    echo -e "admin:admin\nwpuser:wppass\nftpuser:ftp123\nmysql:rootpass" > /etc/snmp/snmp_creds.txt && \
-    chmod 644 /etc/snmp/snmp_creds.txt && \
-    echo 'extend creds /bin/cat /etc/snmp/snmp_creds.txt' >> /etc/snmp/snmpd.conf
+# RUN mkdir -p /etc/snmp && \
+#     snmpconf -g basic_setup -c /etc/snmp/snmpd.conf -q && \
+#     echo 'rocommunity public' >> /etc/snmp/snmpd.conf && \
+#     echo 'rwcommunity private' >> /etc/snmp/snmpd.conf && \
+#     echo 'agentAddress udp:161' >> /etc/snmp/snmpd.conf && \
+#     echo 'sysLocation Vulnerable Lab Environment' >> /etc/snmp/snmpd.conf && \
+#     echo 'sysContact admin@vulnlab.local' >> /etc/snmp/snmpd.conf && \
+#     echo 'view systemonly included .1.3.6.1.2.1.1' >> /etc/snmp/snmpd.conf && \
+#     echo 'view systemonly included .1.3.6.1.2.1.25.1' >> /etc/snmp/snmpd.conf && \
+#     echo -e "admin:admin\nwpuser:wppass\nftpuser:ftp123\nmysql:rootpass" > /etc/snmp/snmp_creds.txt && \
+#     chmod 644 /etc/snmp/snmp_creds.txt && \
+#     echo 'extend creds /bin/cat /etc/snmp/snmp_creds.txt' >> /etc/snmp/snmpd.conf
 
 # Configure MySQL - Weak configuration and users
 RUN service mysql start && sleep 5 && \

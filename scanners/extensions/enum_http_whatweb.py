@@ -55,7 +55,7 @@ def enum_http_whatweb(self, plugin_results=None):
                 check=True,
                 timeout=timeout
             )
-
+        logging.info(f"[enum_http_whatweb] Done; wrote to {output_path}")
         with open(output_path, "r") as f:
             whatweb_data = json.load(f)
         return {"cmd": cmd, "results": whatweb_data, "report_fields": ["plugins", "error"]}

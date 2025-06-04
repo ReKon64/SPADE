@@ -492,19 +492,30 @@ class Scanner:
                 )
             while ready or futures:
                 for plugin in ready:
-                    logging.info(f"[PLUGIN EXEC] Executing {plugin} plugin now for {temp_scanner.options.get('current_port', {}).get('host')}:{temp_scanner.options.get('current_port', {}).get('port_id')}")
-                    futures[executor.submit(getattr(temp_scanner, plugin), plugin_results)] = plugin
+                    host_port_info = f"{temp_scanner.options.get('current_port', {}).get('host')}:{temp_scanner.options.get('current_port', {}).get('port_id')}"
+                    logging.info(f"[PLUGIN EXEC] Starting {plugin} for {host_port_info}")
+                    # Store start time for performance measurement
+                    start_time = time.time()
+                    futures[executor.submit(getattr(temp_scanner, plugin), plugin_results)] = (plugin, start_time)
                 ready = []
                 for future in concurrent.futures.as_completed(futures):
-                    plugin = futures.pop(future)
+                    plugin, start_time = futures.pop(future)
+                    # Calculate execution time
+                    execution_time = time.time() - start_time
+                    host_port_info = f"{temp_scanner.options.get('current_port', {}).get('host')}:{temp_scanner.options.get('current_port', {}).get('port_id')}"
+                    
                     try:
                         result = future.result()
+                        # Log completion with timing information
+                        logging.info(f"[PLUGIN DONE] {plugin} completed for {host_port_info} in {execution_time:.2f} seconds")
                     except Exception as e:
-                        logging.error(f"[PLUGIN ERROR] {plugin} raised: {e}")
+                        logging.error(f"[PLUGIN ERROR] {plugin} failed for {host_port_info} in {execution_time:.2f} seconds: {e}")
                         result = {"skipped": f"Exception: {e}"}
+                    
                     results[plugin] = result
                     plugin_results[plugin] = result
                     completed.add(plugin)
+                    
                     # If this plugin was skipped, propagate skip to dependents
                     if isinstance(result, dict) and "skipped" in result:
                         for dep in dependents.get(plugin, []):

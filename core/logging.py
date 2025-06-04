@@ -81,3 +81,43 @@ def run_and_log(cmd, very_verbose=False, prefix=None, timeout=None):
     finally:
         if timer:
             timer.cancel()
+
+def setup_colored_logging(logger=None):
+    """
+    Sets up colored logging for plugin execution status messages
+    """
+    if logger is None:
+        logger = logging.getLogger()
+    
+    # Add color codes for different log types
+    colors = {
+        'RESET': '\033[0m',
+        'BOLD': '\033[1m',
+        'RED': '\033[31m',
+        'GREEN': '\033[32m',
+        'YELLOW': '\033[33m',
+        'BLUE': '\033[34m',
+        'MAGENTA': '\033[35m',
+        'CYAN': '\033[36m',
+    }
+    
+    # Get original handlers and save their formatters
+    handlers = logger.handlers[:]
+    formatters = [h.formatter for h in handlers]
+    
+    # Create our custom colorizer filter
+    class ColorFilter(logging.Filter):
+        def filter(self, record):
+            if hasattr(record, 'msg') and isinstance(record.msg, str):
+                if "[PLUGIN EXEC]" in record.msg:
+                    record.msg = f"{colors['BLUE']}{colors['BOLD']}{record.msg}{colors['RESET']}"
+                elif "[PLUGIN DONE]" in record.msg:
+                    record.msg = f"{colors['GREEN']}{colors['BOLD']}{record.msg}{colors['RESET']}"
+                elif "[PLUGIN ERROR]" in record.msg:
+                    record.msg = f"{colors['RED']}{colors['BOLD']}{record.msg}{colors['RESET']}"
+            return True
+    
+    # Add our filter to the logger
+    logger.addFilter(ColorFilter())
+    
+    return logger

@@ -70,7 +70,7 @@ def enum_http_feroxbuster(self, plugin_results=None):
                     text=True,
                     check=True
                 )
-
+            logging.info(f"[enum_http_feroxbuster] Done; wrote to {output_path}")
             # Parse a summary from the output file
             with open(output_path, "r") as f:
                 lines = f.readlines()
@@ -89,10 +89,10 @@ def enum_http_feroxbuster(self, plugin_results=None):
 
         except Exception as e:
             logging.error(f"[!] Error during enum_feroxbuster scan against {host} with {wordlist}: {e}")
-            results[wordlist] = {"error": str(e), "summary": None}
+            results[wordlist] = {"error": str(e)} #"summary": None}
 
     # Prepare report_fields for each wordlist
-    report_fields = ["summary", "error"]
+    report_fields = ["results", "error"]
     return {"cmd": cmds, "results": results, "report_fields": report_fields}
 
 enum_http_feroxbuster.depends_on = ["scan_tcp_scanner","enum_http_curl_confirmation"]

@@ -107,7 +107,7 @@ def main():
             setattr(args, argname, val[0].split())
     # Configure logging
     if args.memory:
-        from core.logging import MemoryUsageFormatter
+        from core.logging import MemoryUsageFormatter, setup_colored_logging
         format = '%(asctime)s - %(levelname)s - [MEM: %(memory_usage)s] - %(message)s'
         if args.realtime and args.verbose:
             log_level = min(logging.DEBUG, 15)  # 10
@@ -127,6 +127,9 @@ def main():
         root_logger = logging.getLogger()
         root_logger.setLevel(log_level)
         root_logger.addHandler(handler)
+        
+        # Add colored logging for plugin messages
+        setup_colored_logging(root_logger)
     else:
         format = '%(asctime)s - %(levelname)s - %(message)s'
         if args.realtime and args.verbose:
@@ -141,7 +144,11 @@ def main():
         # Handler patch
         for handler in logging.getLogger().handlers:
             handler.setFormatter(SafeFormatter(format))
-    
+        
+        # Add colored logging for plugin messages
+        from core.logging import setup_colored_logging
+        setup_colored_logging()
+
     # Options dictionary
     options = {
         'output_dir': args.output or os.getcwd(),

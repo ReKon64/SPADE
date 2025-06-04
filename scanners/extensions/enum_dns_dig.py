@@ -1,4 +1,4 @@
-# File: scanners/enum_http_whatweb.py
+# File: scanners/extensions/enum_dns_dig.py
 from core.imports import *
 from scanners.scanner import Scanner
 

@@ -1,4 +1,4 @@
-# File: scanners/enum_http_whatweb.py
+# File: scanners/extensions/enum_http_whatweb.py
 from core.imports import *
 from scanners.scanner import Scanner
 
@@ -39,16 +39,21 @@ def enum_http_whatweb(self, plugin_results=None):
     logging.info(f"[enum_http_whatweb] Executing: {cmd}")
 
     try:
+        # Set a reasonable timeout of 30 seconds for WhatWeb
+        timeout = 30
+        
         if verbosity:
             from core.logging import run_and_log
-            run_and_log(cmd, very_verbose=True, prefix="WHATWEB")
+            # Add timeout to run_and_log
+            run_and_log(cmd, very_verbose=True, prefix="WHATWEB", timeout=timeout)
         else:
             subprocess.run(
                 cmd,
                 shell=True,
                 capture_output=True,
                 text=True,
-                check=True
+                check=True,
+                timeout=timeout
             )
 
         with open(output_path, "r") as f:

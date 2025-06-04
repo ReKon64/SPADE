@@ -16,8 +16,9 @@ def enum_smb_get_shares(self, plugin_results=None):
     results = {}
 
     try:
-        # List shares
-        cmd = f"smbclient -N -L \\\\{host} -p {port}"
+        # List shares - properly format the UNC path with four backslashes
+        # Format: smbclient -N -L ////HOST -p PORT
+        cmd = f"smbclient -N -L //{host} -p {port}"
         logging.info(f"Executing: {cmd}")
         if verbosity:
             from core.logging import run_and_log
@@ -56,8 +57,8 @@ def enum_smb_get_shares(self, plugin_results=None):
         # For each share, recursively list contents and check privileges
         for share in shares:
             share_info = {"files": [], "dirs": [], "readable": [], "writable": [], "appendable": [], "errors": []}
-            # List all files/dirs recursively
-            list_cmd = f"smbclient -N \\\\{host}\\{share} -p {port} -c 'recurse ON; ls'"
+            # List all files/dirs recursively - correct UNC path format
+            list_cmd = f"smbclient -N //{host}/{share} -p {port} -c 'recurse ON; ls'"
             logging.info(f"Listing contents of share {share}: {list_cmd}")
             try:
                 if verbosity:
@@ -89,8 +90,8 @@ def enum_smb_get_shares(self, plugin_results=None):
 
                 # Check read/write/append on each dir and file
                 for path in share_info["dirs"] + share_info["files"]:
-                    # Try to read (cat) the file/dir
-                    read_cmd = f"smbclient -N \\\\{host}\\{share} -p {port} -c 'get \"{path}\" /dev/null'"
+                    # Try to read (cat) the file/dir - corrected UNC path
+                    read_cmd = f"smbclient -N //{host}/{share} -p {port} -c 'get \"{path}\" /dev/null'"
                     try:
                         read_proc = subprocess.run(
                             read_cmd,
@@ -104,10 +105,10 @@ def enum_smb_get_shares(self, plugin_results=None):
                     except Exception as e:
                         share_info["errors"].append(f"Read error on {path}: {e}")
 
-                    # Try to write a file in the dir (for dirs only)
+                    # Try to write a file in the dir (for dirs only) - corrected UNC path
                     if path in share_info["dirs"]:
                         testfile = "spade_write_test.txt"
-                        write_cmd = f"smbclient -N \\\\{host}\\{share} -p {port} -c 'cd \"{path}\"; put /etc/hosts {testfile}; del {testfile}'"
+                        write_cmd = f"smbclient -N //{host}/{share} -p {port} -c 'cd \"{path}\"; put /etc/hosts {testfile}; del {testfile}'"
                         try:
                             write_proc = subprocess.run(
                                 write_cmd,
@@ -128,8 +129,10 @@ def enum_smb_get_shares(self, plugin_results=None):
                         tmpf.write("SPADE_APPEND_TEST\n")
                         tmpf.flush()
                         tmpf_path = tmpf.name
+                    
+                    # Corrected UNC path format
                     append_cmd = (
-                        f"smbclient -N \\\\{host}\\{share} -p {port} "
+                        f"smbclient -N //{host}/{share} -p {port} "
                         f"-c 'prompt OFF; lcd {os.path.dirname(tmpf_path)}; append {os.path.basename(tmpf_path)} \"{file}\"'"
                     )
                     try:
@@ -154,6 +157,7 @@ def enum_smb_get_shares(self, plugin_results=None):
                 results["shares"][share] = share_info
 
     except Exception as e:
+        logging.error(f"SMB share enumeration error: {e}")
         results["error"] = str(e)
 
     return results

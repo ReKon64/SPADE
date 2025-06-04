@@ -23,7 +23,7 @@ class MemoryUsageFormatter(logging.Formatter):
             record.prefix = ""
         return super().format(record)
 
-def run_and_log(cmd, very_verbose=False, prefix=None):
+def run_and_log(cmd, very_verbose=False, prefix=None, timeout=None):
     """
     Run a shell command, streaming output in real time if very_verbose is enabled.
     Returns the full output as a string.
@@ -49,10 +49,35 @@ def run_and_log(cmd, very_verbose=False, prefix=None):
         cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True
     )
     output = ""
-    for line in process.stdout:
-        output += line
-        if very_verbose:
-            logger.realtime(f"{prefix} {line.rstrip()}")
+    
+    # Timer for timeout handling
+    timer = None
+    if timeout:
+        def kill_process():
+            if process.poll() is None:  # Process is still running
+                logging.warning(f"Command '{cmd}' timed out after {timeout}s. Terminating.")
+                process.terminate()
+                time.sleep(1)
+                if process.poll() is None:  # Process still didn't terminate
+                    process.kill()
+                    logging.warning(f"Force killed process for command '{cmd}'")
+        
+        timer = threading.Timer(timeout, kill_process)
+        timer.daemon = True
+        timer.start()
+    
+    try:
+        for line in process.stdout:
+            output += line
+            if very_verbose:
+                logger.realtime(f"{prefix} {line.rstrip()}")
 
-    process.wait()
-    return output
+        return_code = process.wait()
+        
+        if return_code != 0 and not very_verbose:
+            logging.error(f"Command '{cmd}' exited with return code {return_code}")
+            
+        return output
+    finally:
+        if timer:
+            timer.cancel()

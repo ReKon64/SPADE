@@ -6,6 +6,7 @@ from scanners.scanner import Scanner
 from core.logging import SafeFormatter
 from core.reporter import Reporter
 from core.plugin_monitor import plugin_monitor
+from core.signal_handler import handler as exit_handler
 
 def main():
     parser = argparse.ArgumentParser(description="SPADE - Scalable Plug-and-play Auto Detection Engine")
@@ -190,6 +191,9 @@ def main():
     # Load all scanner extensions
     Scanner.load_extensions()
     scanner = Scanner(options)
+    
+    # Register exit handler with scanner and args
+    exit_handler.register(scanner=scanner, args=args)
 
     # Set virtual scan plugins for all scan modes (not just XML input)
     scanner._virtual_scan_plugins = ["scan_tcp_scanner", "scan_udp_scanner"]

@@ -342,7 +342,7 @@ class Scanner:
         
         # If no services found, return early
         if not port_service_pairs:
-            logging.info("[+] No services found to enumerate")
+            logging.info(f"[+] No {protocol} services found to enumerate")
             return self.findings
 
         

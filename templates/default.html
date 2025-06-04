@@ -403,44 +403,77 @@
                             {% if plugin_data.results %}
                             <strong>Results:</strong>
                             <div class="results-box">
-                                {% if plugin_data.report_fields %}
-                                    {% for key in plugin_data.report_fields %}
-                                        {% if key in plugin_data.results %}
+                                {%- if plugin_data.report_fields %}
+                                    {%- for key in plugin_data.report_fields %}
+                                        {%- if key in plugin_data.results %}
                                             <strong>{{ key|replace('_', ' ')|title }}:</strong>
-                                            {% set value = plugin_data.results[key] %}
-                                            {% if value is iterable and value is not string %}
-                                                {{ value|tojson(indent=2) }}
-                                            {% else %}
+                                            {%- set value = plugin_data.results[key] %}
+                                            {%- if value is mapping %}
+                                                <ul style="margin:5px 0 10px 15px;padding:0;">
+                                                    {%- for k, v in value.items() %}
+                                                        <li><strong>{{ k }}:</strong> {{ v }}</li>
+                                                    {%- endfor %}
+                                                </ul>
+                                            {%- elif value is iterable and value is not string %}
+                                                {%- if value %}
+                                                    <ul style="margin:5px 0 10px 15px;padding:0;">
+                                                        {%- for item in value %}
+                                                            <li>{{ item }}</li>
+                                                        {%- endfor %}
+                                                    </ul>
+                                                {%- else %}
+                                                    <span class="no-results">No results</span>
+                                                {%- endif %}
+                                            {%- else %}
                                                 {{ value }}
-                                            {% endif %}
+                                            {%- endif %}
                                             <br>
-                                        {% endif %}
-                                    {% endfor %}
-                                {% elif plugin_data.results is mapping %}
-                                    {% for key, value in plugin_data.results.items() %}
-                                        {% if key == 'error' %}
+                                        {%- endif %}
+                                    {%- endfor %}
+                                {%- elif plugin_data.results is mapping %}
+                                    {%- for key, value in plugin_data.results.items() %}
+                                        {%- if key == 'error' %}
                                             <span class="no-results">{{ value }}</span>
-                                        {% elif value is iterable and value is not string %}
+                                        {%- elif value is mapping %}
                                             <strong>{{ key|replace('_', ' ')|title }}:</strong>
-                                            {% if value %}
-                                                {{ value|tojson(indent=2) }}
-                                            {% else %}
+                                            {%- if value %}
+                                                <ul style="margin:5px 0 10px 15px;padding:0;">
+                                                    {%- for k, v in value.items() %}
+                                                        <li><strong>{{ k }}:</strong> {{ v }}</li>
+                                                    {%- endfor %}
+                                                </ul>
+                                            {%- else %}
                                                 <span class="no-results">No results</span>
-                                            {% endif %}
-                                        {% else %}
+                                            {%- endif %}
+                                        {%- elif value is iterable and value is not string %}
+                                            <strong>{{ key|replace('_', ' ')|title }}:</strong>
+                                            {%- if value %}
+                                                <ul style="margin:5px 0 10px 15px;padding:0;">
+                                                    {%- for item in value %}
+                                                        <li>{{ item }}</li>
+                                                    {%- endfor %}
+                                                </ul>
+                                            {%- else %}
+                                                <span class="no-results">No results</span>
+                                            {%- endif %}
+                                        {%- else %}
                                             <strong>{{ key|replace('_', ' ')|title }}:</strong> {{ value }}
-                                        {% endif %}
-                                        {% if not loop.last %}<br><br>{% endif %}
-                                    {% endfor %}
-                                {% elif plugin_data.results is iterable and plugin_data.results is not string %}
-                                    {% if plugin_data.results %}
-                                        {{ plugin_data.results|tojson(indent=2) }}
-                                    {% else %}
+                                        {%- endif %}
+                                        {%- if not loop.last %}<br>{%- endif %}
+                                    {%- endfor %}
+                                {%- elif plugin_data.results is iterable and plugin_data.results is not string %}
+                                    {%- if plugin_data.results %}
+                                        <ul style="margin:5px 0 10px 15px;padding:0;">
+                                            {%- for item in plugin_data.results %}
+                                                <li>{{ item }}</li>
+                                            {%- endfor %}
+                                        </ul>
+                                    {%- else %}
                                         <span class="no-results">No results found</span>
-                                    {% endif %}
-                                {% else %}
+                                    {%- endif %}
+                                {%- else %}
                                     {{ plugin_data.results }}
-                                {% endif %}
+                                {%- endif %}
                             </div>
                             {% endif %}
 

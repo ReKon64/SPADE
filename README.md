@@ -25,6 +25,7 @@ SPADE is a modular vulnerability scanning framework that leverages external tool
 2.1 Write how to return skipped properly
 3. Create the report class
 
+# Just fix the reporter for now
 # Maitain one official one community branch. Contribution guide that requires pocs + demo. Scanner dockerfile release can't include stuff like targets folder etc.
 # Update writing guide. Prepend all stuff you don't want to appear in the html report with "_" (underscore)
 # Per plugin imports and argparse options (contained to them collected somewhere)

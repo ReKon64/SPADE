@@ -1,4 +1,4 @@
-from imports import *
+from core.imports import *
 from core.plugin_monitor import plugin_monitor
 
 class GracefulExitHandler:
@@ -77,6 +77,6 @@ class GracefulExitHandler:
             plugin_monitor.stop_monitoring()
         
         logging.info("[!] Exiting due to interrupt...")
-
+        raise KeyboardInterrupt("User requested termination")
 # Global instance for easy import
 handler = GracefulExitHandler()

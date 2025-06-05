@@ -54,7 +54,7 @@ def enum_http_feroxbuster(self, plugin_results=None):
 
         cmd = (
             f"feroxbuster --url {url} --extract-links -B --auto-tune "
-            f"-w {wordlist} --threads 64 --insecure -o {output_path} -C 404 --scan-dir-listings {ferox_ext} --silent"
+            f"-w {wordlist} --threads 64 --no-state --insecure -o {output_path} -C 404 --scan-dir-listings {ferox_ext} --silent"
         ).strip()
         cmds.append(cmd)
         logging.info(f"[enum_http_feroxbuster] Executing: {cmd}")

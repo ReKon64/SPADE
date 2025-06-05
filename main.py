@@ -302,35 +302,45 @@ def main():
         # Use the findings already populated by per-protocol enumeration
         findings = scanner.findings
         
-        # Optional: Save the final results to a JSON file
-        output_file = os.path.join(options['output_dir'], "spade_results.json")
-        logging.debug(f"[!!!] Final Findings : {findings}")
-
-        # Remove the _plugin_lock object
-        for host in findings.get("hosts", []):
-            for port in host.get("ports", []):
-                if "_plugin_lock" in port:
-                    del port["_plugin_lock"]
-
-        with open(output_file, 'w') as f:
-            json.dump(findings, f, indent=4)
-        logging.info(f"[+] Saved final results to {output_file}")
-        
-        # --- Reporter integration ---
-        if args.report:
-            # Determine template path
-            if isinstance(args.report, str):
-                template_path = args.report
-            else:
-                # Use default.html from templates folder
-                template_path = os.path.join(os.path.dirname(__file__), "templates", "default.html")
-            report_output = os.path.join(options['output_dir'], "spade_report.html")
-            reporter = Reporter(template_path=template_path)
-            reporter.generate_report(findings, output_file=report_output)
-            logging.info(f"[+] HTML report generated at {report_output}")
+    except Exception as e:
+        logging.error(f"[!] Error during service-specific enumeration: {e}")
     finally:
-        # Stop the plugin monitor before exiting
-        plugin_monitor.stop_monitoring()
+        try:
+            # Always save results and generate reports, even after exceptions
+            findings = scanner.findings
+            
+            # Clean up findings by removing _plugin_lock
+            for host in findings.get("hosts", []):
+                for port in host.get("ports", []):
+                    if "_plugin_lock" in port:
+                        del port["_plugin_lock"]
+            
+            # Save to JSON
+            output_file = os.path.join(options['output_dir'], "spade_results.json")
+            with open(output_file, 'w') as f:
+                json.dump(findings, f, indent=4)
+            logging.info(f"[+] Saved final results to {output_file}")
+            
+            # Generate report if requested
+            if args.report:
+                try:
+                    # Determine template path
+                    if isinstance(args.report, str):
+                        template_path = args.report
+                    else:
+                        # Use default.html from templates folder
+                        template_path = os.path.join(os.path.dirname(__file__), "templates", "default.html")
+                    report_output = os.path.join(options['output_dir'], "spade_report.html")
+                    reporter = Reporter(template_path=template_path)
+                    reporter.generate_report(findings, output_file=report_output)
+                    logging.info(f"[+] HTML report generated at {report_output}")
+                except Exception as report_error:
+                    logging.error(f"[!] Error generating HTML report: {report_error}")
+        except Exception as final_error:
+            logging.error(f"[!] Error saving results or generating reports: {final_error}")
+        finally:
+            # Stop the plugin monitor before exiting
+            plugin_monitor.stop_monitoring()
 
 if __name__ == "__main__":
     main()

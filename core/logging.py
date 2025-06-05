@@ -61,11 +61,6 @@ def run_and_log(cmd, very_verbose=False, prefix=None, timeout=None, plugin_name=
         cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True
     )
     
-    # If plugin_name is provided, register the process with the plugin monitor
-    if plugin_name:
-        from core.plugin_monitor import plugin_monitor
-        plugin_monitor.register_process(plugin_name, process)
-    
     output = ""
     
     # Timer for timeout handling using our own mechanism
@@ -99,6 +94,11 @@ def run_and_log(cmd, very_verbose=False, prefix=None, timeout=None, plugin_name=
             logging.error(f"Command '{cmd}' exited with return code {return_code}")
             
         return output
+    except Exception as e:
+        # Make sure we handle subprocess exceptions properly
+        logging.error(f"Exception in run_and_log: {e}")
+        # Re-raise so the caller can handle it
+        raise
     finally:
         if timer:
             timer.cancel()

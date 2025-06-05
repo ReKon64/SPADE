@@ -15,41 +15,50 @@ class PluginMonitor:
     Also handles killing plugins that exceed their maximum runtime.
     """
     
-    def __init__(self, interval=30, default_timeout=180):
+    def __init__(self, interval=30, default_timeout=180, check_interval=5):
         """
         Initialize the plugin monitor.
         
         Args:
             interval (int): Interval in seconds between status updates
             default_timeout (int): Default timeout in seconds (3 minutes)
+            check_interval (int): Frequency to check for timeouts (5 seconds)
         """
         self.interval = interval
         self.default_timeout = default_timeout
+        self.check_interval = check_interval
         self.active_plugins = {}  # {plugin_name: {"start_time": timestamp, "target": "host:port", "thread": thread}}
         self.lock = threading.Lock()
         self.monitor_thread = None
+        self.timeout_thread = None
         self.running = False
     
     def start_monitoring(self):
         """Start the monitoring thread"""
         if self.monitor_thread is None or not self.monitor_thread.is_alive():
             self.running = True
-            self.monitor_thread = threading.Thread(target=self._monitoring_loop, daemon=True)
+            self.monitor_thread = threading.Thread(target=self._status_logging_loop, daemon=True)
+            self.timeout_thread = threading.Thread(target=self._timeout_checking_loop, daemon=True)
             self.monitor_thread.start()
-            logging.debug("[PLUGIN MONITOR] Started plugin monitoring thread")
+            self.timeout_thread.start()
+            logging.debug("[PLUGIN MONITOR] Started plugin monitoring threads")
     
     def stop_monitoring(self):
         """Stop the monitoring thread"""
         self.running = False
         if self.monitor_thread and self.monitor_thread.is_alive():
             self.monitor_thread.join(timeout=5)
-            logging.debug("[PLUGIN MONITOR] Stopped plugin monitoring thread")
+        if self.timeout_thread and self.timeout_thread.is_alive():
+            self.timeout_thread.join(timeout=5)
+        logging.debug("[PLUGIN MONITOR] Stopped plugin monitoring threads")
             
         # Force terminate any remaining plugin threads
         with self.lock:
             for plugin_name, info in list(self.active_plugins.items()):
                 if info.get("thread") and info.get("thread").is_alive():
                     self._terminate_thread(plugin_name, info.get("thread"))
+                self._terminate_child_processes(plugin_name)
+            self.active_plugins.clear()
     
     def register_plugin(self, plugin_name, target_info, thread=None):
         """
@@ -78,11 +87,16 @@ class PluginMonitor:
             if plugin_name in self.active_plugins:
                 del self.active_plugins[plugin_name]
     
-    def _monitoring_loop(self):
-        """Main monitoring loop that periodically logs active plugins and checks for timeouts"""
+    def _status_logging_loop(self):
+        """Loop that periodically logs active plugins"""
         while self.running:
             time.sleep(self.interval)
             self._log_active_plugins()
+    
+    def _timeout_checking_loop(self):
+        """Separate loop that checks for timeouts more frequently"""
+        while self.running:
+            time.sleep(self.check_interval)
             self._check_for_timeouts()
     
     def _log_active_plugins(self):
@@ -180,7 +194,8 @@ class PluginMonitor:
             # Get children of the current process
             for child in current_process.children(recursive=True):
                 # Check if the child was created after the plugin started
-                if child.create_time() > self.active_plugins.get(plugin_name, {}).get("start_time", 0):
+                plugin_start_time = self.active_plugins.get(plugin_name, {}).get("start_time", 0)
+                if plugin_start_time > 0 and child.create_time() > plugin_start_time:
                     try:
                         # First try to terminate gracefully
                         child.terminate()
@@ -226,7 +241,7 @@ class PluginMonitor:
                             # Find processes containing both the tool name and target in the command line
                             for proc in psutil.process_iter(['pid', 'name', 'cmdline']):
                                 cmdline = proc.info.get('cmdline', [])
-                                if cmdline and any(tool in cmd for cmd in cmdline) and target in ' '.join(cmdline):
+                                if cmdline and any(tool in cmd.lower() for cmd in cmdline if isinstance(cmd, str)) and target in ' '.join(str(c) for c in cmdline if c):
                                     # Kill the process
                                     try:
                                         proc_obj = psutil.Process(proc.info['pid'])

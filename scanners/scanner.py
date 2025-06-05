@@ -485,6 +485,7 @@ class Scanner:
                 completed.add(scan_plugin)
         # --- FIX: ready plugins are those whose deps are all completed ---
         ready = [m for m in methods if all(dep in completed for dep in graph[m])]
+        
         with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers or 4) as executor:
             futures = {}
             logging.debug(f"[PLUGIN SCHEDULER] Initial ready plugins: {ready}")
@@ -493,21 +494,47 @@ class Scanner:
                     f"[PLUGIN SCHEDULER] No plugins ready to run for {temp_scanner.options.get('current_port', {}).get('host')}:{temp_scanner.options.get('current_port', {}).get('port_id')}. "
                     f"Check dependencies and _virtual_scan_plugins."
                 )
+            
+            # Define a wrapper function that properly handles exceptions
+            def plugin_executor_wrapper(plugin_name, plugin_func, plugin_results):
+                try:
+                    # Set a timeout flag that will be checked after execution
+                    plugin_timed_out = False
+                    
+                    try:
+                        result = plugin_func(plugin_results)
+                        return result
+                    except subprocess.TimeoutExpired:
+                        # Handle subprocess timeout explicitly
+                        logging.warning(f"[PLUGIN TIMEOUT] {plugin_name} subprocess timed out")
+                        plugin_timed_out = True
+                        return {
+                            "error": "Timed out",
+                            "skipped": "Plugin execution timed out",
+                            "timed_out": True
+                        }
+                    except Exception as e:
+                        logging.error(f"[PLUGIN ERROR] Unhandled exception in {plugin_name}: {e}")
+                        return {"error": str(e), "skipped": f"Unhandled exception: {e}"}
+                finally:
+                    # Always unregister the plugin when done (whether success or error)
+                    host_port_info = f"{temp_scanner.options.get('current_port', {}).get('host')}:{temp_scanner.options.get('current_port', {}).get('port_id')}"
+                    logging.debug(f"[PLUGIN CLEANUP] Unregistering {plugin_name} for {host_port_info}")
+                    plugin_monitor.unregister_plugin(plugin_name)
+            
             while ready or futures:
                 for plugin in ready:
                     host_port_info = f"{temp_scanner.options.get('current_port', {}).get('host')}:{temp_scanner.options.get('current_port', {}).get('port_id')}"
                     logging.info(f"[PLUGIN EXEC] Starting {plugin} for {host_port_info}")
                     
-                    # Submit the task
-                    future = executor.submit(getattr(temp_scanner, plugin), plugin_results)
+                    # Register plugin with the monitor
+                    plugin_monitor.register_plugin(plugin, host_port_info)
+                    
+                    # Submit the task with the wrapper that ensures proper cleanup
+                    plugin_func = getattr(temp_scanner, plugin)
+                    future = executor.submit(plugin_executor_wrapper, plugin, plugin_func, plugin_results)
                     start_time = time.time()
                     futures[future] = (plugin, start_time)
-                    
-                    # Store the future for later reference
-                    # This allows us to access the thread ID when needed
-                    # Register plugin with the monitor but don't pass the thread yet
-                    # We'll update it after the future is running
-                    plugin_monitor.register_plugin(plugin, host_port_info)
                 
                 ready = []
                 for future in concurrent.futures.as_completed(futures):
@@ -516,16 +543,16 @@ class Scanner:
                     execution_time = time.time() - start_time
                     host_port_info = f"{temp_scanner.options.get('current_port', {}).get('host')}:{temp_scanner.options.get('current_port', {}).get('port_id')}"
                     
-                    # Unregister the plugin from monitoring
-                    plugin_monitor.unregister_plugin(plugin)
-                    
                     try:
-                        result = future.result()
+                        result = future.result()  # This should not throw exceptions due to our wrapper
                         # Log completion with timing information
                         logging.info(f"[PLUGIN DONE] {plugin} completed for {host_port_info} in {execution_time:.2f} seconds")
                     except Exception as e:
-                        logging.error(f"[PLUGIN ERROR] {plugin} failed for {host_port_info} in {execution_time:.2f} seconds: {e}")
-                        result = {"skipped": f"Exception: {e}"}
+                        # This should never happen with our wrapper, but just in case
+                        logging.error(f"[PLUGIN FATAL] {plugin} wrapper failed for {host_port_info} in {execution_time:.2f} seconds: {e}")
+                        result = {"error": str(e), "skipped": f"Fatal error: {e}"}
+                        # Make sure the plugin is unregistered
+                        plugin_monitor.unregister_plugin(plugin)
                     
                     results[plugin] = result
                     plugin_results[plugin] = result
@@ -538,10 +565,14 @@ class Scanner:
                                 logging.debug(f"[SKIP PROPAGATE] Skipping {dep} because dependency {plugin} was skipped.")
                                 plugin_results[dep] = {"skipped": f"Dependency {plugin} was skipped: {result['skipped']}"}
                                 completed.add(dep)
+                    
+                    # Find new plugins that are ready to run
                     for dep in dependents.get(plugin, []):
                         if all(d in completed for d in graph[dep]) and dep not in completed and dep not in ready:
                             ready.append(dep)
-                    break
+                    
+                    break  # Process one completed future at a time
+    
         return results
 
     def _build_plugin_dependency_graph(self, temp_scanner, methods):

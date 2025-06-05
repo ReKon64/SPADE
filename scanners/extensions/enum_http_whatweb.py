@@ -45,7 +45,7 @@ def enum_http_whatweb(self, plugin_results=None):
         if verbosity:
             from core.logging import run_and_log
             # Add timeout to run_and_log
-            run_and_log(cmd, very_verbose=True, prefix="WHATWEB", timeout=timeout)
+            run_and_log(cmd, very_verbose=True, timeout=timeout)
         else:
             subprocess.run(
                 cmd,

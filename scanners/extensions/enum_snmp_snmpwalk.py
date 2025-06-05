@@ -1,6 +1,10 @@
 from core.imports import *
 from scanners.scanner import Scanner
 
+@Scanner.register_args
+def enum_snmp_snmpwalk_args(parser, get_protocol_group):
+    pass  # No specific arguments for enum_snmp_snmpwalk yet
+
 @Scanner.extend
 def enum_snmp_snmpwalk(self, plugin_results=None):
     """

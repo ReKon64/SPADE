@@ -17,7 +17,9 @@ class Scanner:
         _findings_lock (threading.Lock): Lock for thread-safe findings updates
     """
     _extensions = {}
-    
+    _arg_registrars = {}
+    _protocol_groups = {}
+
     def __init__(self, options: dict):
         self.findings = {}
         self.options = options
@@ -460,6 +462,26 @@ class Scanner:
 
         return func
     
+    @classmethod
+    def register_args(cls, func):
+        cls._arg_registrars.append(func)
+        logging.debug(f"Registered arg registrar: {func.__name__}")
+        return func
+
+    @classmethod
+    def register_all_args(cls, parser):
+        for func in cls._arg_registrars:
+            func(parser, cls.get_protocol_group)
+
+    @classmethod
+    def get_protocol_group(cls, parser, protocol):
+        """Get or create an argument group for a protocol."""
+        if protocol not in cls._protocol_groups:
+            cls._protocol_groups[protocol] = parser.add_argument_group(
+                f"{protocol.upper()} Options", f"Options for {protocol.upper()} plugins"
+            )
+        return cls._protocol_groups[protocol]
+
     def _run_plugin_with_deps(self, plugin_name, temp_scanner, plugin_results):
         plugin_func = getattr(temp_scanner, plugin_name)
         depends_on = getattr(plugin_func, "depends_on", [])

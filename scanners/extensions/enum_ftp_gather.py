@@ -1,6 +1,11 @@
 from core.imports import *
 from scanners.scanner import Scanner
 import ftplib
+
+@Scanner.register_args
+def enum_ftp_gather_args(parser, get_protocol_group):
+    pass  # No specific arguments for enum_ftp_gather yet
+
 @Scanner.extend
 def enum_ftp_gather(self, plugin_results=None):
     """

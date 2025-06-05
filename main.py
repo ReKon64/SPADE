@@ -35,42 +35,22 @@ def main():
     logging_group.add_argument("-m", "--memory", action="store_true", help="Add memory usage to logging")
     logging_group.add_argument("-o", "--output", help="Output directory for reports and payloads. Defaults to CWD")
     logging_group.add_argument("--report", nargs="?", const=True, default=False, help="Generate HTML report. Supply with a filepath to a jinja2 template to use custom report.")
-    
-    # HTTP/HTTPS options group
-    http_group = parser.add_argument_group("HTTP/HTTPS Options", "Options specific to HTTP/HTTPS enumeration")
-    http_group.add_argument("--ferox-wordlists", nargs="+", help="One or more wordlists to use for feroxbuster (space separated not quoted).")
-    
-    # API Tokens Group
-    api_group = parser.add_argument_group("API Tokens", "API tokens for plugins requiring them")
-    api_group.add_argument("--google-api-key", help="Google Custom Search API key for product search plugins")
-    api_group.add_argument("--google-cse-id", help="Google Custom Search Engine ID for product search plugins")
-    api_group.add_argument("--wpscan-api-token", help="WPScan API token for vulnerability database access")  # <-- added
-
+        
     # Bruteforce Login options group
     brute_login_group = parser.add_argument_group("Bruteforce options", "Options for bruteforce login attacks")
-    brute_login_group.add_argument("--enable-bruteforce", action="store_true", help="Enable bruteforce login attacks (default: off)")
-    brute_login_group.add_argument("--ssh-userlist", nargs="+", help="User wordlist(s) for SSH bruteforce (hydra)")
-    brute_login_group.add_argument("--ssh-passlist", nargs="+", help="Password wordlist(s) for SSH bruteforce (hydra)")
-    brute_login_group.add_argument("--ftp-userlist", nargs="+", help="User wordlist(s) for FTP bruteforce (hydra)")
-    brute_login_group.add_argument("--ftp-passlist", nargs="+", help="Password wordlist(s) for FTP bruteforce (hydra)")
-    brute_login_group.add_argument("--smb-userlist", nargs="+", help="User wordlist(s) for SMB bruteforce (hydra)")
-    brute_login_group.add_argument("--smb-passlist", nargs="+", help="Password wordlist(s) for SMB bruteforce (hydra)")
-    brute_login_group.add_argument("--mysql-userlist", nargs="+", help="User wordlist(s) for MySQL bruteforce (hydra)")
-    brute_login_group.add_argument("--mysql-passlist", nargs="+", help="Password wordlist(s) for MySQL bruteforce (hydra)")
-    brute_login_group.add_argument("--rdp-userlist", nargs="+", help="User wordlist(s) for RDP bruteforce (patator)")
-    brute_login_group.add_argument("--rdp-passlist", nargs="+", help="Password wordlist(s) for RDP bruteforce (patator)")
-    brute_login_group.add_argument("--winrm-userlist", nargs="+", help="User wordlist(s) for WinRM bruteforce (patator)")
-    brute_login_group.add_argument("--winrm-passlist", nargs="+", help="Password wordlist(s) for WinRM bruteforce (patator)")
-    brute_login_group.add_argument("--kerbrute-userlist", nargs="+", help="User wordlist(s) for Kerberos bruteforce (kerbrute)")
-    brute_login_group.add_argument("--kerbrute-passlist", nargs="+", help="Password wordlist(s) for Kerberos bruteforce (kerbrute)")
-    brute_login_group.add_argument("--snmp-communitylist", nargs="+", help="Community string wordlist(s) for SNMP brute/enumeration (onesixtyone)")
     brute_login_group.add_argument("--general-userlist", nargs="+", help="General user wordlist(s) for all bruteforce plugins (space separated, not quoted)")
     brute_login_group.add_argument("--general-passlist", nargs="+", help="General password wordlist(s) for all bruteforce plugins (space separated, not quoted)")
-    brute_login_group.add_argument("--smtp-userlist", nargs="+", help="User wordlist(s) for SMTP user enumeration (patator)")  # <-- added
-
+    brute_login_group.add_argument("--enable-bruteforce", action="store_true", help="Enable bruteforce login attacks (default: off)")
+   
     # Add more as needed for other protocols/tools
 
+    # Load all scanner extensions
+    Scanner.load_extensions()
+    Scanner.register_all_args(parser)
     args = parser.parse_args()
+
+    options = vars(args).copy()
+    options['output_dir'] = args.output or os.getcwd()
 
     # make it for all brute user/passlist args
     # Idiot-proof ferox_wordlists: split if user quoted the list
@@ -98,7 +78,7 @@ def main():
         "ssh_userlist", "ssh_passlist", "ftp_userlist", "ftp_passlist",
         "smb_userlist", "smb_passlist", "mysql_userlist", "mysql_passlist",
         "rdp_userlist", "rdp_passlist", "winrm_userlist", "winrm_passlist",
-        "kerbrute_userlist", "kerbrute_passlist", "snmp_communitylist"
+        "kerbrute_userlist", "kerbrute_passlist", "snmp_communitylist", "smtp_userlist"
     ]:
         val = getattr(args, argname, None)
         if val and len(val) == 1 and " " in val[0]:
@@ -107,6 +87,7 @@ def main():
                 "Splitting into multiple wordlists. Next time, do NOT quote the list!"
             )
             setattr(args, argname, val[0].split())
+
     # Configure logging
     if args.memory:
         from core.logging import MemoryUsageFormatter, setup_colored_logging
@@ -152,41 +133,42 @@ def main():
         setup_colored_logging()
 
     # Options dictionary
-    options = {
-        'output_dir': args.output or os.getcwd(),
-        'verbose': args.verbose,
-        'realtime': args.realtime,
-        'threads': args.threads,
-        'target': args.target,
-        'domain': args.domain,
-        'tcp_ports': args.tcp_ports,
-        'udp_ports': args.udp_ports,
-        'tcp_options': args.tcp_options,
-        'udp_options': args.udp_options,
-        'ferox_wordlists': args.ferox_wordlists,
-        'google_api_key': args.google_api_key,
-        'google_cse_id': args.google_cse_id,
-        'wpscan_api_token': args.wpscan_api_token,  # <-- added
-        'enable_bruteforce': args.enable_bruteforce,
-        'ssh_userlist': args.ssh_userlist,
-        'ssh_passlist': args.ssh_passlist,
-        'ftp_userlist': args.ftp_userlist,
-        'ftp_passlist': args.ftp_passlist,
-        'smb_userlist': args.smb_userlist,
-        'smb_passlist': args.smb_passlist,
-        'mysql_userlist': args.mysql_userlist,
-        'mysql_passlist': args.mysql_passlist,
-        'rdp_userlist': args.rdp_userlist,
-        'rdp_passlist': args.rdp_passlist,
-        'winrm_userlist': args.winrm_userlist,
-        'winrm_passlist': args.winrm_passlist,
-        'kerbrute_userlist': args.kerbrute_userlist,
-        'kerbrute_passlist': args.kerbrute_passlist,
-        'snmp_communitylist': args.snmp_communitylist,
-        'general_userlist': args.general_userlist,
-        'general_passlist': args.general_passlist,
-        'smtp_userlist': args.smtp_userlist,  # <-- added
-    }
+    # options = {
+    #     'output_dir': args.output or os.getcwd(),
+    #     'verbose': args.verbose,
+    #     'realtime': args.realtime,
+    #     'threads': args.threads,
+    #     'target': args.target,
+    #     'domain': args.domain,
+    #     'tcp_ports': args.tcp_ports,
+    #     'udp_ports': args.udp_ports,
+    #     'tcp_options': args.tcp_options,
+    #     'udp_options': args.udp_options,
+    #     'ferox_wordlists': args.ferox_wordlists,
+    #     'google_api_key': args.google_api_key,
+    #     'google_cse_id': args.google_cse_id,
+    #     'wpscan_api_token': args.wpscan_api_token,  # <-- added
+    #     'enable_bruteforce': args.enable_bruteforce,
+    #     'ssh_userlist': args.ssh_userlist,
+    #     'ssh_passlist': args.ssh_passlist,
+    #     'ftp_userlist': args.ftp_userlist,
+    #     'ftp_passlist': args.ftp_passlist,
+    #     'smb_userlist': args.smb_userlist,
+    #     'smb_passlist': args.smb_passlist,
+    #     'mysql_userlist': args.mysql_userlist,
+    #     'mysql_passlist': args.mysql_passlist,
+    #     'rdp_userlist': args.rdp_userlist,
+    #     'rdp_passlist': args.rdp_passlist,
+    #     'winrm_userlist': args.winrm_userlist,
+    #     'winrm_passlist': args.winrm_passlist,
+    #     'kerbrute_userlist': args.kerbrute_userlist,
+    #     'kerbrute_passlist': args.kerbrute_passlist,
+    #     'snmp_communitylist': args.snmp_communitylist,
+    #     'general_userlist': args.general_userlist,
+    #     'general_passlist': args.general_passlist,
+    #     'smtp_userlist': args.smtp_userlist,  # <-- added
+    # }
+
 
     # Load all scanner extensions
     Scanner.load_extensions()

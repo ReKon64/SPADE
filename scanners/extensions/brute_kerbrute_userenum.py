@@ -1,6 +1,11 @@
 from core.imports import *
 from scanners.scanner import Scanner
 
+@Scanner.register_args
+def brute_kerbrute_userenum_args(parser, get_protocol_group):
+    brute_group = get_protocol_group(parser, "bruteforce")
+    brute_group.add_argument("--kerbrute-userlist", nargs="+", help="User wordlist(s) for Kerberos bruteforce (kerbrute)")
+
 @Scanner.extend
 def brute_kerbrute_userenum(self, plugin_results=None):
     """

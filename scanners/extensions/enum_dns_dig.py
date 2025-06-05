@@ -2,6 +2,10 @@
 from core.imports import *
 from scanners.scanner import Scanner
 
+@Scanner.register_args
+def enum_dns_dig_args(parser, get_protocol_group):
+    pass  # No specific arguments for enum_dns_dig yet
+
 @Scanner.extend
 def enum_dns_dig(self, plugin_results=None):
     """

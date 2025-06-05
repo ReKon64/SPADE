@@ -2,6 +2,10 @@ from core.imports import *
 from core.logging import *
 from scanners.scanner import Scanner
 
+@Scanner.register_args
+def enum_smb_nmap_args(parser, get_protocol_group):
+    pass  # No specific arguments for enum_smb_nmap yet
+
 @Scanner.extend
 def enum_smb_nmap(self, plugin_results=None):
     

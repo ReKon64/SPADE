@@ -1,6 +1,12 @@
 from core.imports import *
 from scanners.scanner import Scanner
 
+@Scanner.register_args
+def brute_mysql_hydra_args(parser, get_protocol_group):
+    brute_group = get_protocol_group(parser, "bruteforce")
+    brute_group.add_argument("--mysql-userlist", nargs="+", help="User wordlist(s) for MySQL bruteforce (hydra)")
+    brute_group.add_argument("--mysql-passlist", nargs="+", help="Password wordlist(s) for MySQL bruteforce (hydra)")
+
 @Scanner.extend
 def brute_mysql_hydra(self, plugin_results=None):
     """

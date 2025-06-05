@@ -1,6 +1,13 @@
 from core.imports import *
 from scanners.scanner import Scanner
 
+@Scanner.register_args
+def enum_generic_product_search_args(parser, get_protocol_group):
+    product_group = get_protocol_group(parser, "product")
+    product_group.add_argument("--google-api-key", help="Google Custom Search API key for product search plugins")
+    product_group.add_argument("--google-cse-id", help="Google Custom Search Engine ID for product search plugins")
+    product_group.add_argument("--github-api-key", help="GitHub API key for product search plugins")
+
 @Scanner.extend
 def enum_generic_product_search(self, plugin_results=None):
     """

@@ -2,6 +2,23 @@ from core.imports import *
 from scanners.scanner import Scanner
 import tempfile
 
+@Scanner.register_args
+def feroxbuster_args(parser, get_protocol_group):
+    http_group = get_protocol_group(parser, "http")
+    http_group.add_argument(
+        "--ferox-wordlists", nargs="+",
+        help="One or more wordlists to use for feroxbuster (space separated, not quoted)."
+    )
+    http_group.add_argument(
+        "--ferox-threads", type=int, default=64,
+        help="Threads for feroxbuster"
+    )
+    http_group.add_argument(
+        "--ferox-timeout", type=int, default=180,
+        help="Timeout for feroxbuster (seconds)"
+    )
+
+
 @Scanner.extend
 def enum_http_feroxbuster(self, plugin_results=None):
     """
@@ -12,7 +29,7 @@ def enum_http_feroxbuster(self, plugin_results=None):
     """
     if plugin_results is None:
         plugin_results = {}
-    timeout = 180
+    timeout = self.options.get("ferox_timeout", 180)
 
     port_obj = self.options["current_port"].get("port_obj", {})
     curl_result = plugin_results.get("enum_http_curl_confirmation", {})
@@ -54,7 +71,7 @@ def enum_http_feroxbuster(self, plugin_results=None):
 
         cmd = (
             f"feroxbuster --url {url} --extract-links -B --auto-tune "
-            f"-w {wordlist} --threads 64 --no-state --insecure -o {output_path} -C 404 --scan-dir-listings {ferox_ext} --silent"
+            f"-w {wordlist} --threads {self.options.get('ferox_threads', 64)} --no-state --insecure -o {output_path} -C 404 --scan-dir-listings {ferox_ext} --silent"
         ).strip()
         cmds.append(cmd)
         logging.info(f"[enum_http_feroxbuster] Executing: {cmd}")

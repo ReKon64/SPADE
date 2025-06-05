@@ -2,6 +2,10 @@ from core.imports import *
 from scanners.scanner import Scanner
 import base64
 
+@Scanner.register_args
+def enum_http_gowitness_args(parser, get_protocol_group):
+    pass  # No specific arguments for enum_http_gowitness yet
+
 @Scanner.extend
 def enum_http_gowitness(self, plugin_results=None):
     """

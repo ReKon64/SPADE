@@ -163,10 +163,15 @@ class PluginMonitor:
                 # Log the termination attempt
                 logging.warning(f"[PLUGIN TIMEOUT] Terminating thread for {plugin_name} (Thread ID: {thread_id})")
                 
-                # Try to raise an exception in the thread to terminate it
+                # Instead of injecting SystemExit, which can propagate up and kill the program,
+                # use a custom exception that will be caught by our wrapper
+                class PluginTimeoutError(Exception):
+                    pass
+                    
+                # Try to raise the custom exception in the thread
                 res = ctypes.pythonapi.PyThreadState_SetAsyncExc(
                     ctypes.c_long(thread_id),
-                    ctypes.py_object(SystemExit)
+                    ctypes.py_object(PluginTimeoutError)
                 )
                 if res > 1:
                     # If more than one thread was affected, revert

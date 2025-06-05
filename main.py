@@ -305,6 +305,10 @@ def main():
     except Exception as e:
         logging.error(f"[!] Error during service-specific enumeration: {e}")
     finally:
+        # This finally block will always run, regardless of exceptions
+        # Use an inner try-except to handle errors in the report/save process
+        
+        # Wrap in try/except for a last-ditch effort to save results
         try:
             # Always save results and generate reports, even after exceptions
             findings = scanner.findings
@@ -315,6 +319,9 @@ def main():
                     if "_plugin_lock" in port:
                         del port["_plugin_lock"]
             
+            # Ensure output directory exists
+            os.makedirs(options['output_dir'], exist_ok=True)
+            
             # Save to JSON
             output_file = os.path.join(options['output_dir'], "spade_results.json")
             with open(output_file, 'w') as f:
@@ -323,24 +330,36 @@ def main():
             
             # Generate report if requested
             if args.report:
+                # Determine template path
+                if isinstance(args.report, str):
+                    template_path = args.report
+                else:
+                    # Use default.html from templates folder
+                    template_path = os.path.join(os.path.dirname(__file__), "templates", "default.html")
+                report_output = os.path.join(options['output_dir'], "spade_report.html")
+                
+                # Re-use the signal handler's error handling approach
                 try:
-                    # Determine template path
-                    if isinstance(args.report, str):
-                        template_path = args.report
-                    else:
-                        # Use default.html from templates folder
-                        template_path = os.path.join(os.path.dirname(__file__), "templates", "default.html")
-                    report_output = os.path.join(options['output_dir'], "spade_report.html")
                     reporter = Reporter(template_path=template_path)
                     reporter.generate_report(findings, output_file=report_output)
                     logging.info(f"[+] HTML report generated at {report_output}")
                 except Exception as report_error:
                     logging.error(f"[!] Error generating HTML report: {report_error}")
+        
+        # Catch any exceptions in the results saving process
         except Exception as final_error:
-            logging.error(f"[!] Error saving results or generating reports: {final_error}")
+            logging.error(f"[!] Critical error saving results or generating reports: {final_error}")
+        
+        # Final cleanup that should happen no matter what
         finally:
             # Stop the plugin monitor before exiting
-            plugin_monitor.stop_monitoring()
+            try:
+                plugin_monitor.stop_monitoring()
+                logging.info("[+] Plugin monitor stopped successfully")
+            except Exception as e:
+                logging.error(f"[!] Error stopping plugin monitor: {e}")
+            
+            logging.info("[+] SPADE scan completed")
 
 if __name__ == "__main__":
     main()

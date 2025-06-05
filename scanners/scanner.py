@@ -498,22 +498,35 @@ class Scanner:
             # Define a wrapper function that properly handles exceptions
             def plugin_executor_wrapper(plugin_name, plugin_func, plugin_results):
                 try:
-                    # Set a timeout flag that will be checked after execution
-                    plugin_timed_out = False
-                    
                     try:
                         result = plugin_func(plugin_results)
                         return result
                     except subprocess.TimeoutExpired:
-                        # Handle subprocess timeout explicitly
+                        # Handle timeout from subprocess
                         logging.warning(f"[PLUGIN TIMEOUT] {plugin_name} subprocess timed out")
-                        plugin_timed_out = True
                         return {
                             "error": "Timed out",
                             "skipped": "Plugin execution timed out",
                             "timed_out": True
                         }
+                    except PluginTimeoutError:
+                        # This is our custom exception thrown by the plugin monitor
+                        logging.warning(f"[PLUGIN TIMEOUT] {plugin_name} thread terminated by plugin monitor")
+                        return {
+                            "error": "Timed out",
+                            "skipped": "Plugin execution timed out by monitor",
+                            "timed_out": True
+                        }
+                    except SystemExit:
+                        # Handle SystemExit in case it still gets thrown
+                        logging.warning(f"[PLUGIN TIMEOUT] {plugin_name} received SystemExit")
+                        return {
+                            "error": "Terminated",
+                            "skipped": "Plugin execution was terminated",
+                            "timed_out": True
+                        }
                     except Exception as e:
+                        # Handle all other exceptions
                         logging.error(f"[PLUGIN ERROR] Unhandled exception in {plugin_name}: {e}")
                         return {"error": str(e), "skipped": f"Unhandled exception: {e}"}
                 finally:
@@ -608,3 +621,8 @@ class Scanner:
         if len(sorted_plugins) != len(graph):
             raise Exception("Cycle detected in plugin dependencies!")
         return sorted_plugins
+
+# Define our custom exception at module level
+class PluginTimeoutError(Exception):
+    """Custom exception for plugin timeouts"""
+    pass

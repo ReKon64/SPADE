@@ -44,11 +44,12 @@ class Scanner:
         Args:
             extensions_path (str): The Python module path to the extensions directory.
         """
-    
+        print(f"[+] Loading extensions from {extensions_path}")
         package = importlib.import_module(extensions_path)
         package_path = os.path.dirname(package.__file__)
         logging.debug(f"Package Path: {package_path}")
         for _, module_name, _ in pkgutil.iter_modules([package_path]):
+            print(f"[+] Loading extension module: {module_name}")
             try:
                 full_module_name = f"{extensions_path}.{module_name}"
                 importlib.import_module(full_module_name)
@@ -58,7 +59,7 @@ class Scanner:
             logging.debug(f"Loaded extension module: {full_module_name}")
 
 
-
+# ADD MORE PRITN STATEMENTS TO FIXXAAA
 # This can be reimplemented to use a different prefix.
 # I'd have to pass a different string that "scanners.extensions" for example for bruteforce etc.
 
@@ -459,6 +460,7 @@ class Scanner:
         """
         cls._extensions[func.__name__] = func
         logging.debug(f"Registering extension: {func.__name__}")
+        print(f"[+] Registering extension: {func.__name__}")
 
         return func
     
@@ -466,12 +468,14 @@ class Scanner:
     def register_args(cls, func):
         cls._arg_registrars.append(func)
         logging.debug(f"Registered arg registrar: {func.__name__}")
+        print(f"[+] Registered arg registrar: {func.__name__}")
         return func
 
     @classmethod
     def register_all_args(cls, parser):
         for func in cls._arg_registrars:
             func(parser, cls.get_protocol_group)
+        print(f"[+] Registered all argument registrars: {cls._arg_registrars}")
 
     @classmethod
     def get_protocol_group(cls, parser, protocol):
@@ -480,6 +484,7 @@ class Scanner:
             cls._protocol_groups[protocol] = parser.add_argument_group(
                 f"{protocol.upper()} Options", f"Options for {protocol.upper()} plugins"
             )
+        print(f"[+] Using protocol group: {protocol}")
         return cls._protocol_groups[protocol]
 
     def _run_plugin_with_deps(self, plugin_name, temp_scanner, plugin_results):
@@ -505,7 +510,7 @@ class Scanner:
             for scan_plugin in self._virtual_scan_plugins:
                 plugin_results[scan_plugin] = {"virtual": True}
                 completed.add(scan_plugin)
-        # --- FIX: ready plugins are those whose deps are all completed ---
+
         ready = [m for m in methods if all(dep in completed for dep in graph[m])]
         
         with concurrent.futures.ThreadPoolExecutor(max_workers=max_workers or 4) as executor:

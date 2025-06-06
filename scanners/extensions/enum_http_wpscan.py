@@ -1,10 +1,11 @@
 from core.imports import *
 from scanners.scanner import Scanner
+from core.arg_registry import add_argument_once
 
 @Scanner.register_args
 def enum_http_wpscan_args(parser, get_protocol_group):
     http_group = get_protocol_group(parser, "http")
-    http_group.add_argument("--wpscan-api-token", help="WPScan API token for vulnerability database access")
+    add_argument_once(http_group, "--wpscan-api-token", help="WPScan API token for vulnerability database access")
 
 @Scanner.extend
 def enum_http_wpscan(self, plugin_results=None):

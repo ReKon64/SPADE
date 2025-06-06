@@ -1,11 +1,12 @@
 from core.imports import *
 from scanners.scanner import Scanner
+from core.arg_registry import add_argument_once
 
 @Scanner.register_args
 def brute_rdp_patator_args(parser, get_protocol_group):
     brute_group = get_protocol_group(parser, "bruteforce")
-    brute_group.add_argument("--rdp-userlist", nargs="+", help="User wordlist(s) for RDP bruteforce (patator)")
-    brute_group.add_argument("--rdp-passlist", nargs="+", help="Password wordlist(s) for RDP bruteforce (patator)")
+    add_argument_once(brute_group, "--rdp-userlist", nargs="+", help="User wordlist(s) for RDP bruteforce (patator)")
+    add_argument_once(brute_group, "--rdp-passlist", nargs="+", help="Password wordlist(s) for RDP bruteforce (patator)")
 
 @Scanner.extend
 def brute_rdp_patator(self, plugin_results=None):

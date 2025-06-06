@@ -1,11 +1,11 @@
 from core.imports import *
 from scanners.scanner import Scanner
+from core.arg_registry import add_argument_once
 
 @Scanner.register_args
 def enum_snmp_onesixtyone_args(parser, get_protocol_group):
-    snmp_group = get_protocol_group(parser, "snmp")
-    snmp_group.add_argument("--snmp-communitylist", nargs="+", help="Community string wordlist(s) for SNMP brute/enumeration (onesixtyone)")
-    snmp_group.add_argument("--general-userlist", nargs="+", help="General user wordlist(s) for all bruteforce plugins (space separated, not quoted)")
+    brute_group = get_protocol_group(parser, "bruteforce")
+    add_argument_once(brute_group, "--snmp-communitylist", nargs="+", help="Community string wordlist(s) for SNMP brute/enumeration (onesixtyone)")
 
 @Scanner.extend
 def enum_snmp_onesixtyone(self, plugin_results=None):

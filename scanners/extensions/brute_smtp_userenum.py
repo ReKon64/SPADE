@@ -1,10 +1,11 @@
 from core.imports import *
 from scanners.scanner import Scanner
+from core.arg_registry import add_argument_once
 
 @Scanner.register_args
 def brute_smtp_userenum_args(parser, get_protocol_group):
     brute_group = get_protocol_group(parser, "bruteforce")
-    brute_group.add_argument("--smtp-userlist", nargs="+", help="User wordlist(s) for SMTP user enumeration (patator)")
+    add_argument_once(brute_group, "--smtp-userlist", nargs="+", help="User wordlist(s) for SMTP user enumeration (patator)")
 
 @Scanner.extend
 def brute_smtp_userenum(self, plugin_results=None):

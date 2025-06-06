@@ -1,11 +1,12 @@
 from core.imports import *
 from scanners.scanner import Scanner
+from core.arg_registry import add_argument_once
 
 @Scanner.register_args
 def brute_http_wpscan_args(parser, get_protocol_group):
     brute_group = get_protocol_group(parser, "bruteforce")
-    brute_group.add_argument("--wp-userlist", nargs="+", help="User wordlist(s) for WordPress bruteforce (wpscan)")
-    brute_group.add_argument("--wp-passlist", nargs="+", help="Password wordlist(s) for WordPress bruteforce (wpscan)")
+    add_argument_once(brute_group, "--wp-userlist", nargs="+", help="User wordlist(s) for WordPress bruteforce (wpscan)")
+    add_argument_once(brute_group, "--wp-passlist", nargs="+", help="Password wordlist(s) for WordPress bruteforce (wpscan)")
 
 @Scanner.extend
 def brute_http_wpscan(self, plugin_results=None):

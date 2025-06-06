@@ -1,11 +1,12 @@
 from core.imports import *
 from scanners.scanner import Scanner
+from core.arg_registry import add_argument_once
 
 @Scanner.register_args
 def brute_winrm_patator_args(parser, get_protocol_group):
     brute_group = get_protocol_group(parser, "bruteforce")
-    brute_group.add_argument("--winrm-userlist", nargs="+", help="User wordlist(s) for WinRM bruteforce (patator)")
-    brute_group.add_argument("--winrm-passlist", nargs="+", help="Password wordlist(s) for WinRM bruteforce (patator)")
+    add_argument_once(brute_group, "--winrm-userlist", nargs="+", help="User wordlist(s) for WinRM bruteforce (patator)")
+    add_argument_once(brute_group, "--winrm-passlist", nargs="+", help="Password wordlist(s) for WinRM bruteforce (patator)")
 
 @Scanner.extend
 def brute_winrm_patator(self, plugin_results=None):

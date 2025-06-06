@@ -1,11 +1,12 @@
 from core.imports import *
 from scanners.scanner import Scanner
+from core.arg_registry import add_argument_once
 
 @Scanner.register_args
 def brute_ssh_hydra_args(parser, get_protocol_group):
     brute_group = get_protocol_group(parser, "bruteforce")
-    brute_group.add_argument("--ssh-userlist", nargs="+", help="User wordlist(s) for SSH bruteforce (hydra)")
-    brute_group.add_argument("--ssh-passlist", nargs="+", help="Password wordlist(s) for SSH bruteforce (hydra)")
+    add_argument_once(brute_group, "--ssh-userlist", nargs="+", help="User wordlist(s) for SSH bruteforce (hydra)")
+    add_argument_once(brute_group, "--ssh-passlist", nargs="+", help="Password wordlist(s) for SSH bruteforce (hydra)")
 
 @Scanner.extend
 def brute_ssh_hydra(self, plugin_results=None):

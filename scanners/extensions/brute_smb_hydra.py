@@ -1,11 +1,12 @@
 from core.imports import *
 from scanners.scanner import Scanner
+from core.arg_registry import add_argument_once
 
 @Scanner.register_args
 def brute_smb_hydra_args(parser, get_protocol_group):
     brute_group = get_protocol_group(parser, "bruteforce")
-    brute_group.add_argument("--smb-userlist", nargs="+", help="User wordlist(s) for SMB bruteforce (hydra)")
-    brute_group.add_argument("--smb-passlist", nargs="+", help="Password wordlist(s) for SMB bruteforce (hydra)")
+    add_argument_once(brute_group, "--smb-userlist", nargs="+", help="User wordlist(s) for SMB bruteforce (hydra)")
+    add_argument_once(brute_group, "--smb-passlist", nargs="+", help="Password wordlist(s) for SMB bruteforce (hydra)")
 
 @Scanner.extend
 def brute_smb_hydra(self, plugin_results=None):

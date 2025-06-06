@@ -19,6 +19,8 @@ class Scanner:
     _extensions = {}
     _arg_registrars = []
     _protocol_groups = {}
+    _extensions_loaded = False
+
 
     def __init__(self, options: dict):
         self.findings = {}
@@ -44,6 +46,10 @@ class Scanner:
         Args:
             extensions_path (str): The Python module path to the extensions directory.
         """
+        if cls._extensions_loaded:
+            print("[!] Extensions already loaded, skipping.")
+            return
+        cls._extensions_loaded = True
         print(f"[+] Loading extensions from {extensions_path}")
         package = importlib.import_module(extensions_path)
         package_path = os.path.dirname(package.__file__)
@@ -466,6 +472,9 @@ class Scanner:
     
     @classmethod
     def register_args(cls, func):
+        if func in cls._arg_registrars:
+            print(f"[!] Skipping duplicate arg registrar: {func.__name__}")
+            return func
         cls._arg_registrars.append(func)
         logging.debug(f"Registered arg registrar: {func.__name__}")
         print(f"[+] Registered arg registrar: {func.__name__}")

@@ -17,7 +17,7 @@ class Scanner:
         _findings_lock (threading.Lock): Lock for thread-safe findings updates
     """
     _extensions = {}
-    _arg_registrars = {}
+    _arg_registrars = []
     _protocol_groups = {}
 
     def __init__(self, options: dict):

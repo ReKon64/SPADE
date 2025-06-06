@@ -2,7 +2,6 @@ from core.imports import *
 from scanners.scanner import Scanner
 
 @Scanner.register_args
-@Scanner.register_args
 def brute_ftp_hydra_args(parser, get_protocol_group):
     brute_group = get_protocol_group(parser, "bruteforce")
     brute_group.add_argument("--ftp-userlist", nargs="+", help="User wordlist(s) for FTP bruteforce (hydra)")

@@ -31,7 +31,6 @@ def main():
     logging_group.add_argument("-m", "--memory", action="store_true", help="Add memory usage to logging")
     logging_group.add_argument("-o", "--output", help="Output directory for reports and payloads. Defaults to CWD")
     logging_group.add_argument("--report", nargs="?", const=True, default=False, help="Generate HTML report. Supply with a filepath to a jinja2 template to use custom report.")
-        
    
     # Load all scanner extensions
     Scanner.load_extensions()
@@ -55,7 +54,7 @@ def main():
 
     for handler in logging.root.handlers[:]:
         logging.root.removeHandler(handler)
-        
+
     # Configure logging
     if args.memory:
         from core.logging import MemoryUsageFormatter, setup_colored_logging

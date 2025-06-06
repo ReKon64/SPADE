@@ -40,43 +40,22 @@ def main():
 
     options = vars(args).copy()
     options['output_dir'] = args.output or os.getcwd()
-    print(f"[+] Using output directory: {options}")
-    # make it for all brute user/passlist args
-    # Idiot-proof ferox_wordlists: split if user quoted the list
-    # if args.ferox_wordlists and len(args.ferox_wordlists) == 1 and " " in args.ferox_wordlists[0]:
-    #     logging.warning(
-    #         "[!] You provided --ferox-wordlists as a quoted string. "
-    #         "Splitting into multiple wordlists. Next time, do NOT quote the list!"
-    #     )
-    #     args.ferox_wordlists = args.ferox_wordlists[0].split()
-    # # Idiot-proof general-userlist/passlist: split if user quoted the list
-    # if args.general_userlist and len(args.general_userlist) == 1 and " " in args.general_userlist[0]:
-    #     logging.warning(
-    #         "[!] You provided --general-userlist as a quoted string. "
-    #         "Splitting into multiple wordlists. Next time, do NOT quote the list!"
-    #     )
-    #     args.general_userlist = args.general_userlist[0].split()
-    # if args.general_passlist and len(args.general_passlist) == 1 and " " in args.general_passlist[0]:
-    #     logging.warning(
-    #         "[!] You provided --general-passlist as a quoted string. "
-    #         "Splitting into multiple wordlists. Next time, do NOT quote the list!"
-    #     )
-    #     args.general_passlist = args.general_passlist[0].split()
-    # # Idiot-proof for all brute user/passlist args: split if quoted
-    # for argname in [
-    #     "ssh_userlist", "ssh_passlist", "ftp_userlist", "ftp_passlist",
-    #     "smb_userlist", "smb_passlist", "mysql_userlist", "mysql_passlist",
-    #     "rdp_userlist", "rdp_passlist", "winrm_userlist", "winrm_passlist",
-    #     "kerbrute_userlist", "kerbrute_passlist", "snmp_communitylist", "smtp_userlist"
-    # ]:
-    #     val = getattr(args, argname, None)
-    #     if val and len(val) == 1 and " " in val[0]:
-    #         logging.warning(
-    #             f"[!] You provided --{argname.replace('_', '-')} as a quoted string. "
-    #             "Splitting into multiple wordlists. Next time, do NOT quote the list!"
-    #         )
-    #         setattr(args, argname, val[0].split())
+    print(f"[+] Options : {options}")
 
+    # Idiot-proof for all *_list args: split if quoted
+    for argname in vars(args):
+        if argname.endswith("list"):
+            val = getattr(args, argname, None)
+            if val and isinstance(val, list) and len(val) == 1 and " " in val[0]:
+                logging.warning(
+                    f"[!] You provided --{argname.replace('_', '-')} as a quoted string. "
+                    "Splitting into multiple wordlists. Next time, do NOT quote the list!"
+                )
+                setattr(args, argname, val[0].split())
+
+    for handler in logging.root.handlers[:]:
+        logging.root.removeHandler(handler)
+        
     # Configure logging
     if args.memory:
         from core.logging import MemoryUsageFormatter, setup_colored_logging

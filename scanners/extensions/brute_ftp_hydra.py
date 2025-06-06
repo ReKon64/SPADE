@@ -1,11 +1,12 @@
 from core.imports import *
 from scanners.scanner import Scanner
+from core.arg_registry import add_argument_once
 
 @Scanner.register_args
 def brute_ftp_hydra_args(parser, get_protocol_group):
     brute_group = get_protocol_group(parser, "bruteforce")
-    brute_group.add_argument("--ftp-userlist", nargs="+", help="User wordlist(s) for FTP bruteforce (hydra)")
-    brute_group.add_argument("--ftp-passlist", nargs="+", help="Password wordlist(s) for FTP bruteforce (hydra)")
+    add_argument_once("--ftp-userlist", nargs="+", help="User wordlist(s) for FTP bruteforce (hydra)")
+    add_argument_once("--ftp-passlist", nargs="+", help="Password wordlist(s) for FTP bruteforce (hydra)")
     
 @Scanner.extend
 def brute_ftp_hydra(self, plugin_results=None):

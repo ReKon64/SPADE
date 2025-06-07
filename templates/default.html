@@ -154,6 +154,7 @@
         }
         .plugin-results {
             margin-top: 12px;
+            white-space: normal;
         }
         .plugin-item {
             background: #f8f9fa;
@@ -198,10 +199,11 @@
             margin: 0px 0;
             font-family: 'Courier New', monospace;
             font-size: 0.85em;
-            white-space: pre-wrap;
+            white-space: pre-line;
             max-height: 400px;
             overflow-y: auto;
             line-height: 1.3;
+            
         }
         .results-box strong {
             display: block;
@@ -296,32 +298,33 @@
     </script>
 </head>
 <body>
-    <div class="container">
-        {# Macro for rendering dicts recursively #}
-        {% macro render_dict(data, indent=0) %}
-            {% for k, v in data.items() %}
-                <div style="margin-left:{{ indent }}em; margin-bottom:0.2em;">
-                    <strong style="display:inline;">{{ k|replace('_', ' ')|title }}:</strong>
-                    {% if v is mapping %}
-                        <div style="margin-left:1em; display:inline-block;">
-                            {{ render_dict(v, 0) }}
-                        </div>
-                    {% elif v is iterable and v is not string %}
-                        {% if v %}
-                            <ul style="display:inline-block; margin:0 0 0 1em; padding:0;">
-                                {% for item in v %}
-                                    <li style="display:list-item; margin:0; padding:0;">{{ item }}</li>
-                                {% endfor %}
-                            </ul>
-                        {% else %}
-                            <span class="no-results" style="margin-left:1em;">empty</span>
-                        {% endif %}
-                    {% else %}
-                        <span style="margin-left:0.5em;">{{ v }}</span>
-                    {% endif %}
+
+{# Macro for rendering dicts recursively #}
+{% macro render_dict(data, indent=0) -%}
+    {%- for k, v in data.items() -%}
+        <div style="margin-left:{{ indent }}em; margin-bottom:0.2em;">
+            <strong style="display:inline;">{{ k|replace('_', ' ')|title }}:</strong>
+            {%- if v is mapping -%}
+                <div style="margin-left:1em; display:inline-block;">
+                    {{- render_dict(v, 0) -}}
                 </div>
-            {% endfor %}
-        {% endmacro %}
+            {%- elif v is iterable and v is not string -%}
+                {%- if v -%}
+                    <ul style="display:inline-block; margin:0 0 0 1em; padding:0;">
+                        {%- for item in v -%}
+                            <li style="display:list-item; margin:0; padding:0;">{{ item }}</li>
+                        {%- endfor -%}
+                    </ul>
+                {%- else -%}
+                    <span class="no-results" style="margin-left:1em;">empty</span>
+                {%- endif -%}
+            {%- else -%}
+                <span style="margin-left:0.5em;">{{ v }}</span>
+            {%- endif %}
+        </div>
+    {%- endfor %}
+{%- endmacro %}
+    <div class="container">
         <div class="header">
             <h1>Security Scan Report</h1>
             <p class="subtitle">Generated on {{ timestamp }}</p>
@@ -408,84 +411,84 @@
                 </div>
                 {% endif %}
                 <!-- Plugin Results -->
-                {% if port.plugins %}
+                {%- if port.plugins %}
                 <div class="plugin-results">
                     <h4>
                         🔧 Plugin Results 
                         <button onclick="expandAll()" style="margin-left: 10px; font-size: 0.8em;">Expand All</button>
                         <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
                     </h4>
-                    {% for plugin_name, plugin_data in port.plugins.items() %}
+                    {%- for plugin_name, plugin_data in port.plugins.items() %}
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
                             <span>{{ plugin_name|replace('_', ' ')|title }}</span>
                             <span class="toggle-btn">[+]</span>
                         </div>
                         <div class="plugin-content">
-                            {% if plugin_data.cmd %}
+                            {%- if plugin_data.cmd %}
                             <strong>Command:</strong>
                             <div class="command">
-                                {% if plugin_data.cmd is iterable and plugin_data.cmd is not string %}
-                                    {% for cmd in plugin_data.cmd %}
+                                {%- if plugin_data.cmd is iterable and plugin_data.cmd is not string -%}
+                                    {%- for cmd in plugin_data.cmd -%}
                                         {{ cmd }}<br>
-                                    {% endfor %}
-                                {% else %}
+                                    {%- endfor -%}
+                                {%- else -%}
                                     {{ plugin_data.cmd }}
-                                {% endif %}
+                                {%- endif %}
                             </div>
-                            {% endif %}
-                            {% if plugin_data.results %}
+                            {%- endif -%}
+                            {%- if plugin_data.results %}
                             <strong>Results:</strong>
                             <div class="results-box">
                                 {%- if plugin_data.report_fields -%}
                                     {%- for key in plugin_data.report_fields -%}
-                                        {%- if key in plugin_data.results %}
+                                        {%- if key in plugin_data.results -%}
                                             <strong>{{ key|replace('_', ' ')|title }}:</strong>
-                                            {%- set value = plugin_data.results[key] %}
-                                            {% if value is mapping %}
+                                            {%- set value = plugin_data.results[key] -%}
+                                            {%- if value is mapping -%}
                                                 {{ render_dict(value) }}
-                                            {% elif value is iterable and value is not string %}
+                                            {%- elif value is iterable and value is not string -%}
                                                 <ul>
-                                                    {% for item in value %}
+                                                    {%- for item in value -%}
                                                         <li>{{ item }}</li>
-                                                    {% endfor %}
+                                                    {%- endfor -%}
                                                 </ul>
-                                            {% else %}
+                                            {%- else -%}
                                                 {{ value }}
-                                            {% endif %}
-                                        {%- endif %}
-                                    {%- endfor %}
-                                {%- elif plugin_data.results is mapping %}
+                                            {%- endif -%}
+                                        {%- endif -%}
+                                    {%- endfor -%}
+                                {%- elif plugin_data.results is mapping -%}
                                     {{ render_dict(plugin_data.results) }}
-                                {%- elif plugin_data.results is iterable and plugin_data.results is not string %}
+                                {%- elif plugin_data.results is iterable and plugin_data.results is not string -%}
                                     <ul>
-                                        {% for item in plugin_data.results %}
+                                        {%- for item in plugin_data.results -%}
                                             <li>{{ item }}</li>
-                                        {% endfor %}
+                                        {%- endfor -%}
                                     </ul>
-                                {%- else %}
+                                {%- else -%}
                                     {{ plugin_data.results }}
                                 {%- endif %}
                             </div>
-                            {% endif %}
-                            {% if "png" in plugin_name and plugin_data.results.screenshots %}
+                            {%- endif -%}
+                            {%- if "png" in plugin_name and plugin_data.results.screenshots %}
                             <div>
                                 <strong>Screenshots:</strong>
                                 <div style="display:flex; flex-wrap:wrap; gap:10px;">
-                                {% for shot in plugin_data.results.screenshots %}
+                                {%- for shot in plugin_data.results.screenshots -%}
                                     <div>
                                         <div style="font-size:0.9em;">{{ shot.filename }}</div>
                                         <img src="data:image/png;base64,{{ shot.b64 }}" style="max-width:300px; max-height:200px; border:1px solid #ccc; margin:5px;">
                                     </div>
-                                {% endfor %}
+                                {%- endfor -%}
                                 </div>
                             </div>
-                            {% endif %}
+                            {%- endif %}
                         </div>
                     </div>
-                    {% endfor %}
+                    {%- endfor %}
                 </div>
-                {% endif %}
+                {%- endif %}
             </div>
             {% endif %}
             {% endfor %}

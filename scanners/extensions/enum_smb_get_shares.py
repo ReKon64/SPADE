@@ -2,7 +2,6 @@ from core.imports import *
 from scanners.scanner import Scanner
 
 
-
 @Scanner.extend
 def enum_smb_get_shares(self, plugin_results=None):
     """

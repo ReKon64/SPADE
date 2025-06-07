@@ -1,6 +1,5 @@
 from core.imports import *
 from scanners.scanner import Scanner
-import re
 
 @Scanner.extend
 def enum_ldap_get_user_desc(self, plugin_results=None):

@@ -62,6 +62,7 @@ def enum_http_feroxbuster(self, plugin_results=None):
     wordlists = self.options.get("ferox_wordlists") or [
         "/usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-files.txt"
     ]
+    ignored_extensions = "css,png,gif,scss,jpg,jpeg"
     results = {}
     cmds = []
     logging.info(f"[enum_http_feroxbuster] Using wordlists: {wordlists}")
@@ -70,8 +71,8 @@ def enum_http_feroxbuster(self, plugin_results=None):
             output_path = tmp_file.name
 
         cmd = (
-            f"feroxbuster --url {url} --extract-links -B --auto-tune "
-            f"-w {wordlist} --threads {self.options.get('ferox_threads', 64)} --no-state --insecure -o {output_path} -C 404 --scan-dir-listings {ferox_ext} --silent"
+            f"feroxbuster --url {url} --extract-links --thorough --silent "
+            f"-w {wordlist} --threads {self.options.get('ferox_threads', 64)} --no-state --insecure -o {output_path} -C 404 {ferox_ext} -I {ignored_extensions}"
         ).strip()
         cmds.append(cmd)
         logging.info(f"[enum_http_feroxbuster] Executing: {cmd}")

@@ -1,0 +1,59 @@
+import importlib
+
+# List of modules to check (from your imports.py)
+modules = [
+    "argparse",
+    "json",
+    "datetime",
+    "concurrent.futures",
+    "threading",
+    "xml.etree.ElementTree",
+    "typing",
+    "subprocess",
+    "tempfile",
+    "os",
+    "logging",
+    "importlib",
+    "pkgutil",
+    "sys",
+    "copy",
+    "re",
+    "psutil",
+    "requests",
+    "bs4",
+    "urllib.parse",
+    "inspect",
+    "jinja2",
+    "time",
+    "signal",
+    "ctypes"
+]
+
+print("Python version:")
+import sys
+print(sys.version)
+print("\nModule versions:\n")
+
+for mod in modules:
+    try:
+        # Handle submodules (e.g., xml.etree.ElementTree)
+        pkg = importlib.import_module(mod)
+        version = getattr(pkg, "__version__", None)
+        if not version and mod == "bs4":
+            # BeautifulSoup version is in bs4.__version__
+            version = getattr(pkg, "__version__", None)
+        if not version and mod == "jinja2":
+            import jinja2
+            version = jinja2.__version__
+        if not version and mod == "requests":
+            import requests
+            version = requests.__version__
+        if not version and mod == "psutil":
+            import psutil
+            version = psutil.__version__
+        if version:
+            print(f"{mod}: {version}")
+        else:
+            print(f"{mod}: (standard library or version not found)")
+    except ImportError as e:
+        print(f"{mod}: NOT INSTALLED")

@@ -10,40 +10,92 @@ SPADE is a modular vulnerability scanning framework that leverages external tool
 - 🔍 Built-in support for external tools (e.g. `nmap`)
 - 🧠 Reflection-based auto-discovery of scanners
 - 📦 Designed for packaging and easy execution via `pipx`
-- 💬 Minimal boilerplate for writing custom scan modules
+- 💬 Lax plugin development guidelines
 
 ## 🚀 Getting Started
 
-# TODO
-# Brute switch
-# Make all brutes accept a list of wordlists
-# Implement username as pass switch too
-# All brutes need to accept a list of wordlists
+# 🚀 SPADE
 
-1. Create a convention for findings. 
-2. Provide clear documentation for writing scanners and finding returning cleaner
-2.1 Write how to return skipped properly
-3. Create the report class
+**Scalable Plug-and-play Auto Detection Engine**
 
-# Just fix the reporter for now
-# Maitain one official one community branch. Contribution guide that requires pocs + demo. Scanner dockerfile release can't include stuff like targets folder etc.
-# Update writing guide. Prepend all stuff you don't want to appear in the html report with "_" (underscore)
-# Per plugin imports and argparse options (contained to them collected somewhere)
-# username as pass for brute
-# NXC RID brute
-# Multi target.
-# Eyewitness neo4j bh integration
-# Subnet scans / target "finding" via ping sweep arp etc
-# STD - REALTIME is confusing. Force name of the method to be attached to it. -UNDOABLE-
-# Make it accept multiple targets, multiple 1target xmls and overlaying them for overwriting target IPs
-# Implement prefix for unknown services for extensibility.
-# Add OS type at the head where hostname etc. lies
-# FIX THREADING IT USES 16 THREADS PER PORT FUCKKK
-# generic prod search -> exploits -> ai fix exploit -> try to run it
-# find names / roles -> ask AI if it makes sense
-# Credentialed enumeration...
-# Guest enumeration ...
-# If HTTP returns a domain name / vhost , bruteforce
-# Write a github copilot prompt schema on how to write commit msgs
-NMAP -> Results -> NMAP Protocol Specific Scanners (SMB TOO) -> BruteForce -> FeroxBust -> FingerPrint -> Check Exploits -> Build into one "big" NMAP report
--> Create to do list for the tester -> Add AI fingerprinting and summary magic for git clout
+---
+
+![SPADE Banner](https://img.shields.io/badge/SPADE-v1.0-purple?style=flat-square)
+![Python](https://img.shields.io/badge/python-3.9+-green.svg?style=flat-square)
+![License](https://img.shields.io/badge/license-AGPL%203.0-yellow?style=flat-square)
+
+---
+
+
+SPADE is a modular vulnerability scanning framework that leverages external tools like `nmap`, `curl`, and more. It uses Python class decorators and reflection to auto-register modules for execution, making it easy to extend and customize.
+
+---
+
+## ✨ Features
+
+- 🔌 **Plug-and-play modules** via class decorators
+- 🔍 **Built-in support** for external tools (e.g. `nmap`, `feroxbuster`)
+- 🧠 **Reflection-based auto-discovery** of plugins and their arguments
+- 📦 **Modern dependency management**: All dependencies are declared in `pyproject.toml` and handled by [Poetry](https://python-poetry.org/) ensuring reliable and reproducible installs
+- 🚀 **Easy installation** via `pipx` (and soon Docker)
+- 🤖 **AI-ready**: Built-in AI integrated plugins (WIP)
+- 💬 **Lax plugin development guidelines** for rapid prototyping
+
+---
+
+## 🧐 Why?
+
+I developed this project with a few key goals in mind:
+
+- There’s a gap between heavyweight vuln scanners like Nessus and simple automation tools — SPADE aims to fix that by streamlining recon without taking all control away from the user.
+- Most frameworks require you to learn a bunch of internal functions on top of the language itself, which slows down rapid development and scripting. SPADE is intentionally lax: you can break the rules and hack in your own logic easily.
+- Many tools are still packaged improperly and can break at any moment. SPADE is packaged for `pipx` for reliability, and will be available as a Docker image in the future.
+
+---
+
+## 🚀 Getting Started
+
+```bash
+# Install with pipx (recommended)
+pipx install spade
+```
+
+---
+
+## 🧩 Extending SPADE
+
+- Add your own scanner by creating a new Python file in `scanners/extensions/`
+- Use the `@Scanner.extend` decorator to register your plugin
+- See the dev guide and existing plugins for examples
+
+---
+
+## 📦 Packaging & Development
+
+- SPADE uses a modern dependency system (`pyproject.toml`) for reproducible builds
+- Install with [Poetry](https://python-poetry.org/), pip, or pipx
+- Docker support is planned
+
+---
+
+## 🔮 What’s Next?
+
+- Credentialed enumeration
+- Built-in AI plugins
+
+---
+
+## 🤝 Contributing
+
+Pull requests, issues, and suggestions are welcome!  
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+---
+
+## 📄 License
+
+AGPL 3.0 License © 2025 [ReKon64](https://github.com/ReKon64)
+
+---
+
+> _SPADE: You won't need to open twelve terminals anymore._

@@ -2,8 +2,6 @@
 
 **Scalable Plug-and-play Auto Detection Engine**
 
----
-
 ![SPADE Banner](https://img.shields.io/badge/SPADE-v1.0-purple?style=flat-square)
 ![Python](https://img.shields.io/badge/python-3.9+-green.svg?style=flat-square)
 ![License](https://img.shields.io/badge/license-AGPL%203.0-yellow?style=flat-square)
@@ -35,7 +33,6 @@ I developed this project with a few key goals in mind:
 - Most frameworks require you to learn a bunch of internal functions on top of the language itself, which slows down rapid development and scripting. SPADE is intentionally lax: you can break the rules and hack in your own logic easily.
 - Many tools are still packaged improperly and can break at any moment. SPADE is packaged for `pipx` for reliability, and will be available as a Docker image in the future.
 
----
 
 ## 🚀 Getting Started
 
@@ -44,7 +41,6 @@ I developed this project with a few key goals in mind:
 pipx install spade
 ```
 
----
 
 ## 🧩 Extending SPADE
 
@@ -52,7 +48,7 @@ pipx install spade
 - Use the `@Scanner.extend` decorator to register your plugin
 - See the dev guide and existing plugins for examples
 
----
+
 
 ## 📦 Packaging & Development
 
@@ -60,26 +56,21 @@ pipx install spade
 - Install with [Poetry](https://python-poetry.org/), pip, or pipx
 - Docker support is planned
 
----
 
 ## 🔮 What’s Next?
 
 - Credentialed enumeration
 - Built-in AI plugins
 
----
 
 ## 🤝 Contributing
 
-Pull requests, issues, and suggestions are welcome!  
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+Pull requests, issues, and suggestions... will be welcome once I put together a contribution guide.
 
----
 
 ## 📄 License
 
 AGPL 3.0 License © 2025 [ReKon64](https://github.com/ReKon64)
 
----
 
 > _SPADE: You won't need to open twelve terminals anymore._

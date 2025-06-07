@@ -201,11 +201,11 @@
             white-space: pre-wrap;
             max-height: 400px;
             overflow-y: auto;
-            line-height: 1.3; /* Reduce line height */
+            line-height: 1.3;
         }
         .results-box strong {
             display: block;
-            margin: 4px 0 0px 0; /* Reduce margins */
+            margin: 4px 0 0px 0;
             color: #2c3e50;
             border-bottom: 1px solid #e0e0e0;
             padding-bottom: 2px;
@@ -267,7 +267,6 @@
         function togglePlugin(element) {
             const content = element.nextElementSibling;
             const toggleBtn = element.querySelector('.toggle-btn');
-            
             if (content.classList.contains('show')) {
                 content.classList.remove('show');
                 toggleBtn.textContent = '[+]';
@@ -276,7 +275,6 @@
                 toggleBtn.textContent = '[-]';
             }
         }
-        
         function expandAll() {
             document.querySelectorAll('.plugin-content').forEach(content => {
                 content.classList.add('show');
@@ -285,7 +283,6 @@
                 btn.textContent = '[-]';
             });
         }
-        
         function collapseAll() {
             document.querySelectorAll('.plugin-content').forEach(content => {
                 content.classList.remove('show');
@@ -298,11 +295,33 @@
 </head>
 <body>
     <div class="container">
+        {# Macro for rendering dicts recursively #}
+        {% macro render_dict(data, indent=0) %}
+            {% for k, v in data.items() %}
+                <div style="margin-left:{{ indent }}em;">
+                    <strong>{{ k|replace('_', ' ')|title }}:</strong>
+                    {% if v is mapping %}
+                        {{ render_dict(v, indent+1) }}
+                    {% elif v is iterable and v is not string %}
+                        {% if v %}
+                            <ul style="margin-left:1em;">
+                                {% for item in v %}
+                                    <li>{{ item }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <span class="no-results">empty</span>
+                        {% endif %}
+                    {% else %}
+                        {{ v }}
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% endmacro %}
         <div class="header">
             <h1>Security Scan Report</h1>
             <p class="subtitle">Generated on {{ timestamp }}</p>
         </div>
-
         <!-- Table of Contents -->
         <div class="toc">
             <h2>📋 Table of Contents</h2>
@@ -328,7 +347,6 @@
                 {% endfor %}
             </ul>
         </div>
-
         <!-- Summary Section -->
         <div class="summary-section">
             <h3>📊 Executive Summary</h3>
@@ -339,7 +357,6 @@
                 <li><strong>Services Identified:</strong> {{ unique_services|length }}</li>
             </ul>
         </div>
-
         <!-- Host Details -->
         {% for host in hosts %}
         <div class="host-section" id="host-{{ loop.index }}">
@@ -350,7 +367,6 @@
                     <strong>Open Ports:</strong> {{ host.ports|selectattr('state', 'equalto', 'open')|list|length }}
                 </div>
             </div>
-
             {% for port in host.ports %}
             {% if port.state == 'open' %}
             <div class="port-section" id="port-{{ host.ip|replace('.', '-') }}-{{ port.id }}">
@@ -370,13 +386,11 @@
                     </div>
                     <span class="state-badge state-{{ port.state }}">{{ port.state }}</span>
                 </div>
-
                 <!-- Port Summary -->
                 <div class="summary-section">
                     <h4>🔍 Port Summary</h4>
                     <p><em>AI-generated analysis will appear here.</em></p>
                 </div>
-
                 <!-- Scripts Section -->
                 {% if port.scripts %}
                 <div class="scripts-section">
@@ -389,7 +403,6 @@
                     {% endfor %}
                 </div>
                 {% endif %}
-
                 <!-- Plugin Results -->
                 {% if port.plugins %}
                 <div class="plugin-results">
@@ -398,7 +411,6 @@
                         <button onclick="expandAll()" style="margin-left: 10px; font-size: 0.8em;">Expand All</button>
                         <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
                     </h4>
-                    
                     {% for plugin_name, plugin_data in port.plugins.items() %}
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
@@ -418,112 +430,40 @@
                                 {% endif %}
                             </div>
                             {% endif %}
-
                             {% if plugin_data.results %}
                             <strong>Results:</strong>
                             <div class="results-box">
-                               {%- if plugin_data.report_fields -%}
+                                {%- if plugin_data.report_fields -%}
                                     {%- for key in plugin_data.report_fields -%}
                                         {%- if key in plugin_data.results %}
                                             <strong>{{ key|replace('_', ' ')|title }}:</strong>
                                             {%- set value = plugin_data.results[key] %}
-                                            {%- if value is mapping %}
+                                            {% if value is mapping %}
+                                                {{ render_dict(value) }}
+                                            {% elif value is iterable and value is not string %}
                                                 <ul>
-                                                    {%- for k, v in value.items() %}
-                                                        <li>
-                                                            <strong>{{ k|replace('_', ' ')|title }}:</strong>
-                                                            {%- if v is mapping %}
-                                                                <ul>
-                                                                    {%- for subk, subv in v.items() %}
-                                                                        <li><strong>{{ subk|replace('_', ' ')|title }}:</strong> {{ subv }}</li>
-                                                                    {%- endfor %}
-                                                                </ul>
-                                                            {%- elif v is iterable and v is not string %}
-                                                                <ul>
-                                                                    {%- for item in v %}
-                                                                        <li>{{ item }}</li>
-                                                                    {%- endfor %}
-                                                                </ul>
-                                                            {%- else %}
-                                                                {{ v }}
-                                                            {%- endif %}
-                                                        </li>
-                                                    {%- endfor %}
+                                                    {% for item in value %}
+                                                        <li>{{ item }}</li>
+                                                    {% endfor %}
                                                 </ul>
-                                            {%- elif value is iterable and value is not string %}
-                                                {%- if value %}
-                                                    <ul>
-                                                        {%- for item in value %}
-                                                            <li>{{ item }}</li>
-                                                        {%- endfor %}
-                                                    </ul>
-                                                {%- else %}
-                                                    <span class="no-results">No results</span>
-                                                {%- endif %}
-                                            {%- else %}
+                                            {% else %}
                                                 {{ value }}
-                                            {%- endif %}
+                                            {% endif %}
                                         {%- endif %}
                                     {%- endfor %}
                                 {%- elif plugin_data.results is mapping %}
-                                    {%- for key, value in plugin_data.results.items() %}
-                                        {%- if key == 'error' %}
-                                            <span class="no-results">{{ value }}</span>
-                                        {%- elif value is mapping %}
-                                            <strong>{{ key|replace('_', ' ')|title }}:</strong>
-                                            <ul>
-                                                {%- for k, v in value.items() %}
-                                                    <li>
-                                                        <strong>{{ k|replace('_', ' ')|title }}:</strong>
-                                                        {%- if v is mapping %}
-                                                            <ul>
-                                                                {%- for subk, subv in v.items() %}
-                                                                    <li><strong>{{ subk|replace('_', ' ')|title }}:</strong> {{ subv }}</li>
-                                                                {%- endfor %}
-                                                            </ul>
-                                                        {%- elif v is iterable and v is not string %}
-                                                            <ul>
-                                                                {%- for item in v %}
-                                                                    <li>{{ item }}</li>
-                                                                {%- endfor %}
-                                                            </ul>
-                                                        {%- else %}
-                                                            {{ v }}
-                                                        {%- endif %}
-                                                    </li>
-                                                {%- endfor %}
-                                            </ul>
-                                        {%- elif value is iterable and value is not string %}
-                                            <strong>{{ key|replace('_', ' ')|title }}:</strong>
-                                            {%- if value %}
-                                                <ul>
-                                                    {%- for item in value %}
-                                                        <li>{{ item }}</li>
-                                                    {%- endfor %}
-                                                </ul>
-                                            {%- else %}
-                                                <span class="no-results">No results</span>
-                                            {%- endif %}
-                                        {%- else %}
-                                            <strong>{{ key|replace('_', ' ')|title }}:</strong> {{ value }}
-                                        {%- endif %}
-                                    {%- endfor %}
+                                    {{ render_dict(plugin_data.results) }}
                                 {%- elif plugin_data.results is iterable and plugin_data.results is not string %}
-                                    {%- if plugin_data.results %}
-                                        <ul>
-                                            {%- for item in plugin_data.results %}
-                                                <li>{{ item }}</li>
-                                            {%- endfor %}
-                                        </ul>
-                                    {%- else %}
-                                        <span class="no-results">No results found</span>
-                                    {%- endif %}
+                                    <ul>
+                                        {% for item in plugin_data.results %}
+                                            <li>{{ item }}</li>
+                                        {% endfor %}
+                                    </ul>
                                 {%- else %}
                                     {{ plugin_data.results }}
                                 {%- endif %}
                             </div>
                             {% endif %}
-
                             {% if "png" in plugin_name and plugin_data.results.screenshots %}
                             <div>
                                 <strong>Screenshots:</strong>
@@ -547,7 +487,6 @@
             {% endfor %}
         </div>
         {% endfor %}
-
         <div class="footer">
             <p>Report generated by SPADE by ReKon64 | {{ timestamp }}</p>
         </div>

@@ -2,9 +2,10 @@
 
 **Scalable Plug-and-play Auto Detection Engine**
 
-![SPADE Banner](https://img.shields.io/badge/SPADE-v1.0-purple?style=flat-square)
-![Python](https://img.shields.io/badge/python-3.9+-green.svg?style=flat-square)
-![License](https://img.shields.io/badge/license-AGPL%203.0-yellow?style=flat-square)
+![SPADE Banner](https://img.shields.io/badge/SPADE-v1.0-purple?style=flat)
+![Python](https://img.shields.io/badge/python-3.9+-green.svg?style=flat)
+![pipx](https://img.shields.io/badge/pipx-006400?style=flat)
+![License](https://img.shields.io/badge/license-AGPL%203.0-yellow?style=flat)
 
 ---
 

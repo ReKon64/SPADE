@@ -70,7 +70,7 @@ Pull requests, issues, and suggestions... will be welcome once I put together a 
 
 ## 📄 License
 
-AGPL 3.0 License © 2025 [ReKon64](https://github.com/ReKon64)
+Licensed under AGPL 3.0 © 2025 [ReKon64](https://github.com/ReKon64)
 
 
 > _SPADE: You won't need to open twelve terminals anymore._

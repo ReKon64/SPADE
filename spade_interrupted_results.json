@@ -1,0 +1,741 @@
+{
+    "hosts": [
+        {
+            "ip": "127.0.0.1",
+            "hostname": "unknown",
+            "nmap_command": "/usr/lib/nmap/nmap --privileged --top-ports=100 -sU -sCV -T4 -vv --reason -Pn -n -oX /tmp/tmp34pal72v.xml 127.0.0.1",
+            "ports": [
+                {
+                    "id": "1025",
+                    "protocol": "tcp",
+                    "state": "open",
+                    "service": {
+                        "name": "smtp",
+                        "product": "Postfix smtpd",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "scripts": {
+                        "ssl-date": "TLS randomness does not represent time",
+                        "ssl-cert": {
+                            "sig_algo": "sha256WithRSAEncryption",
+                            "md5": "29fbcee47e67666ae818081d5138e52f",
+                            "sha1": "ecd829ec11bf22480585da8c7fe438f39bbd9172",
+                            "pem": "-----BEGIN CERTIFICATE-----\nMIIC2TCCAcGgAwIBAgIUHBqwQuJM8BXo1aJEUHuAuv04BN4wDQYJKoZIhvcNAQEL\nBQAwFDESMBAGA1UEAwwJbG9jYWxob3N0MB4XDTI1MDYwMzIwMTUzM1oXDTM1MDYw\nMTIwMTUzM1owFDESMBAGA1UEAwwJbG9jYWxob3N0MIIBIjANBgkqhkiG9w0BAQEF\nAAOCAQ8AMIIBCgKCAQEA1KR1ik4PSHm3B91HFGn7D/XRh8Arh4z/nOn0qNwK65sU\ntqdsq6sM8GgESpfG+0L4NbKdQH6T9j7o0JQ8Y9JRtmkRS7x8eXgE/9k7Vzt65szq\n0A3UxVCV0KlCwdz+sSc3wR/PipEO+PJYoiHdsxpaeEaEO0RNkU4ZN7vdV6HSffgQ\nq0nIEEf9CezQEQIxWSMZIXITbSHErWoiu+XjXlsIHvlzM6mgzRlfgjvlz772o3CJ\nXQ1MEFXUKqpPKdmC26kdRDvcmh+dO2Yo7+Lx0S6pEwzTx1TND31/nIvIG8fy6ON5\nVRYNfmLOs0bSCcQMynM7r+blX4SA7WOsBL0Gz7dYjwIDAQABoyMwITAJBgNVHRME\nAjAAMBQGA1UdEQQNMAuCCWxvY2FsaG9zdDANBgkqhkiG9w0BAQsFAAOCAQEAh5hB\nXxUdZBuHZMLqsf4z1aU+io+K5aE6rKlpz7Spw4ah6dsbPqHLgmbS32Ua5vyhBGAu\nKiMe/hZURaSwgnJg2X1pE03PBHoXEEYSQ8s5eO5B0bKCmtjX+VMbqoAU+YH7W4Si\nAJQQBpyppttZSWfvY7GkaRRn82O1/67i1xUr4DERTP7oC+71KaVWczTYFm7ZI54T\nCtWrvDAP1NudKSpYSkn+Ffz4NlWlZaN4H2XHCWg2bsZIi2mb4A7H+AFBAGRjX37p\np8GY8wg+lUFLAQA+ovqbHqEmnzPb+RVW8U8SM1p68sRbTbptO/5VNxdZCPrbZe5p\nsJ82GzbECoaqQE8G/g==\n-----END CERTIFICATE-----\n"
+                        },
+                        "smtp-commands": "localhost.localdomain, PIPELINING, SIZE 10240000, VRFY, ETRN, STARTTLS, ENHANCEDSTATUSCODES, 8BITMIME, DSN, SMTPUTF8, CHUNKING"
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [
+                                "searchsploit Postfix smtpd ",
+                                "https://github.com/search?q=Postfix+smtpd+exploit",
+                                "Google Custom Search API: Postfix smtpd exploit",
+                                "https://html.duckduckgo.com/html/?q=Postfix+smtpd+exploit"
+                            ],
+                            "results": {
+                                "searchsploit": [
+                                    "Exploits: No Results",
+                                    "Shellcodes: No Results",
+                                    "Papers: No Results"
+                                ],
+                                "github_titles": [],
+                                "google_titles": [
+                                    "Postfix SMTP 4.2.x < 4.2.48 - 'Shellshock' Remote ... - Exploit Database",
+                                    "Exploiting SMTP on Metasploitable 2: Unveiling the Power of ... - Medium",
+                                    "Cve-2023-51764 - Nvd",
+                                    "bughunter1101/postfix-smtpd-exploit.py at master \u00b7 s-kustm ... - GitHub",
+                                    "SMTP Smuggling - Postfix"
+                                ]
+                            },
+                            "report_fields": [
+                                "searchsploit",
+                                "github_titles",
+                                "google_titles",
+                                "error"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "id": "1111",
+                    "protocol": "tcp",
+                    "state": "open",
+                    "extrainfo": "RPC #100000",
+                    "service": {
+                        "name": "rpcbind",
+                        "product": "",
+                        "version": "2-4",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        },
+                        "enum_rpc_rpcclient": {
+                            "cmd": [
+                                "rpcclient -U '' -N 127.0.0.1 -p 1111 -c 'enumdomusers'",
+                                "rpcclient -U '' -N 127.0.0.1 -p 1111 -c 'netshareenumall'",
+                                "rpcclient -U '' -N 127.0.0.1 -p 1111 -c 'enumdomains'",
+                                "rpcclient -U '' -N 127.0.0.1 -p 1111 -c 'enumdomgroups'",
+                                "rpcclient -U '' -N 127.0.0.1 -p 1111 -c 'srvinfo'"
+                            ],
+                            "results": {
+                                "users": "WARNING: no network interfaces found\nCannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED\n",
+                                "shares": "WARNING: no network interfaces found\nCannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED\n",
+                                "domains": "WARNING: no network interfaces found\nCannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED\n",
+                                "groups": "WARNING: no network interfaces found\nCannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED\n",
+                                "srvinfo": "WARNING: no network interfaces found\nCannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED\n"
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "1139",
+                    "protocol": "tcp",
+                    "state": "open",
+                    "service": {
+                        "name": "netbios-ssn",
+                        "product": "Samba smbd",
+                        "version": "4",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_smb_nmap": {
+                            "cmd": "nmap -p 1139 --script=smb-os-discovery,smb-enum-shares,smb-enum-users,smb-enum-domains,smb-enum-groups,smb-security-mode,smb2-security-mode,smb2-time,smb2-capabilities,smb-protocols,smb-vuln* -Pn -vv -n -oX /tmp/tmpzfdsyedz.xml 127.0.0.1",
+                            "results": {},
+                            "report_fields": [
+                                "results",
+                                "error"
+                            ]
+                        },
+                        "enum_generic_product_search": {
+                            "cmd": [
+                                "searchsploit Samba smbd ",
+                                "https://github.com/search?q=Samba+smbd+4+exploit",
+                                "Google Custom Search API: Samba smbd 4 exploit",
+                                "https://html.duckduckgo.com/html/?q=Samba+smbd+4+exploit"
+                            ],
+                            "results": {
+                                "searchsploit": [
+                                    "Exploits: No Results",
+                                    "Shellcodes: No Results",
+                                    "Papers: No Results"
+                                ],
+                                "github_titles": [],
+                                "google_titles": [
+                                    "opsxcq/exploit-CVE-2017-7494 - GitHub",
+                                    "Samba 3.5.0 < 4.4.14/4.5.10/4.6.4 - 'is_known ... - Exploit Database",
+                                    "Samba \"username map script\" Command Execution - Rapid7",
+                                    "Script smb-vuln-cve-2017-7494 - Nmap",
+                                    "SambaCry RCE: CVE-2017-7494 - Medium"
+                                ]
+                            },
+                            "report_fields": [
+                                "searchsploit",
+                                "github_titles",
+                                "google_titles",
+                                "error"
+                            ]
+                        },
+                        "enum_smb_get_shares": {
+                            "cmd": "smbclient -N -L //127.0.0.1 -p 1139",
+                            "results": {
+                                "shares_output": "WARNING: no network interfaces found\n\n\tSharename       Type      Comment\n\t---------       ----      -------\n\tpublic          Disk      Public Share - World Writable\n\tadmin           Disk      Admin Files\n\tbackup          Disk      Backup Share\n\tIPC$            IPC       IPC Service (Vulnerable Samba Server)\nSMB1 disabled -- no workgroup available\n",
+                                "shares": {
+                                    "public": {
+                                        "files": [
+                                            "readme.txt"
+                                        ],
+                                        "dirs": [],
+                                        "readable": [
+                                            "readme.txt"
+                                        ],
+                                        "writable": [],
+                                        "appendable": [
+                                            "readme.txt"
+                                        ],
+                                        "errors": [],
+                                        "raw_list": "WARNING: no network interfaces found\n  .                                   D        0  Wed Jun  4 10:16:21 2025\n  ..                                  D        0  Wed Jun  4 10:19:00 2025\n  readme.txt                          N       41  Wed Jun  4 10:16:21 2025\n\n\t\t81926552 blocks of size 1024. 27220864 blocks available\n"
+                                    },
+                                    "admin": {
+                                        "files": [],
+                                        "dirs": [],
+                                        "readable": [],
+                                        "writable": [],
+                                        "appendable": [],
+                                        "errors": [],
+                                        "raw_list": "WARNING: no network interfaces found\ntree connect failed: NT_STATUS_ACCESS_DENIED\n"
+                                    },
+                                    "backup": {
+                                        "files": [
+                                            "db_backup.sql",
+                                            "passwords.txt"
+                                        ],
+                                        "dirs": [],
+                                        "readable": [
+                                            "db_backup.sql",
+                                            "passwords.txt"
+                                        ],
+                                        "writable": [],
+                                        "appendable": [
+                                            "db_backup.sql",
+                                            "passwords.txt"
+                                        ],
+                                        "errors": [],
+                                        "raw_list": "WARNING: no network interfaces found\n  .                                   D        0  Wed Jun  4 10:16:19 2025\n  ..                                  D        0  Wed Jun  4 10:16:19 2025\n  db_backup.sql                       N       21  Wed Jun  4 10:16:19 2025\n  passwords.txt                       N       15  Wed Jun  4 10:16:19 2025\n\n\t\t81926552 blocks of size 1024. 27220712 blocks available\n"
+                                    },
+                                    "SMB1": {
+                                        "files": [],
+                                        "dirs": [],
+                                        "readable": [],
+                                        "writable": [],
+                                        "appendable": [],
+                                        "errors": [
+                                            "Failed to connect to share: NT_STATUS_BAD_NETWORK_NAME"
+                                        ]
+                                    }
+                                }
+                            },
+                            "report_fields": [
+                                "shares",
+                                "error"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "id": "1161",
+                    "protocol": "tcp",
+                    "state": "closed",
+                    "service": {
+                        "name": "health-polling",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "1445",
+                    "protocol": "tcp",
+                    "state": "open",
+                    "service": {
+                        "name": "netbios-ssn",
+                        "product": "Samba smbd",
+                        "version": "4",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_smb_nmap": {
+                            "cmd": "nmap -p 1445 --script=smb-os-discovery,smb-enum-shares,smb-enum-users,smb-enum-domains,smb-enum-groups,smb-security-mode,smb2-security-mode,smb2-time,smb2-capabilities,smb-protocols,smb-vuln* -Pn -vv -n -oX /tmp/tmp5cj031id.xml 127.0.0.1",
+                            "results": {},
+                            "report_fields": [
+                                "results",
+                                "error"
+                            ]
+                        },
+                        "enum_smb_get_shares": {
+                            "cmd": "smbclient -N -L //127.0.0.1 -p 1445",
+                            "results": {
+                                "shares_output": "WARNING: no network interfaces found\n\n\tSharename       Type      Comment\n\t---------       ----      -------\n\tpublic          Disk      Public Share - World Writable\n\tadmin           Disk      Admin Files\n\tbackup          Disk      Backup Share\n\tIPC$            IPC       IPC Service (Vulnerable Samba Server)\nSMB1 disabled -- no workgroup available\n",
+                                "shares": {
+                                    "public": {
+                                        "files": [
+                                            "readme.txt"
+                                        ],
+                                        "dirs": [],
+                                        "readable": [
+                                            "readme.txt"
+                                        ],
+                                        "writable": [],
+                                        "appendable": [
+                                            "readme.txt"
+                                        ],
+                                        "errors": [],
+                                        "raw_list": "WARNING: no network interfaces found\n  .                                   D        0  Wed Jun  4 10:16:21 2025\n  ..                                  D        0  Wed Jun  4 10:19:00 2025\n  readme.txt                          N       41  Wed Jun  4 10:16:21 2025\n\n\t\t81926552 blocks of size 1024. 27220884 blocks available\n"
+                                    },
+                                    "admin": {
+                                        "files": [],
+                                        "dirs": [],
+                                        "readable": [],
+                                        "writable": [],
+                                        "appendable": [],
+                                        "errors": [],
+                                        "raw_list": "WARNING: no network interfaces found\ntree connect failed: NT_STATUS_ACCESS_DENIED\n"
+                                    },
+                                    "backup": {
+                                        "files": [
+                                            "db_backup.sql",
+                                            "passwords.txt"
+                                        ],
+                                        "dirs": [],
+                                        "readable": [
+                                            "db_backup.sql",
+                                            "passwords.txt"
+                                        ],
+                                        "writable": [],
+                                        "appendable": [
+                                            "db_backup.sql",
+                                            "passwords.txt"
+                                        ],
+                                        "errors": [],
+                                        "raw_list": "WARNING: no network interfaces found\n  .                                   D        0  Wed Jun  4 10:16:19 2025\n  ..                                  D        0  Wed Jun  4 10:16:19 2025\n  db_backup.sql                       N       21  Wed Jun  4 10:16:19 2025\n  passwords.txt                       N       15  Wed Jun  4 10:16:19 2025\n\n\t\t81926552 blocks of size 1024. 27220792 blocks available\n"
+                                    },
+                                    "SMB1": {
+                                        "files": [],
+                                        "dirs": [],
+                                        "readable": [],
+                                        "writable": [],
+                                        "appendable": [],
+                                        "errors": [
+                                            "Failed to connect to share: NT_STATUS_BAD_NETWORK_NAME"
+                                        ]
+                                    }
+                                }
+                            },
+                            "report_fields": [
+                                "shares",
+                                "error"
+                            ]
+                        },
+                        "enum_generic_product_search": {
+                            "cmd": [
+                                "searchsploit Samba smbd ",
+                                "https://github.com/search?q=Samba+smbd+4+exploit",
+                                "Google Custom Search API: Samba smbd 4 exploit",
+                                "https://html.duckduckgo.com/html/?q=Samba+smbd+4+exploit"
+                            ],
+                            "results": {
+                                "searchsploit": [
+                                    "Exploits: No Results",
+                                    "Shellcodes: No Results",
+                                    "Papers: No Results"
+                                ],
+                                "github_titles": [],
+                                "google_titles": [
+                                    "opsxcq/exploit-CVE-2017-7494 - GitHub",
+                                    "Samba \"username map script\" Command Execution - Rapid7",
+                                    "\"Samba-smbd-3.x \u2014 -4.x-\"exploitation | by Ukail bin Umar Bashir | Medium",
+                                    "Samba 3.5.0 < 4.4.14/4.5.10/4.6.4 - 'is_known ... - Exploit Database",
+                                    "Script smb-vuln-cve-2017-7494 - Nmap"
+                                ]
+                            },
+                            "report_fields": [
+                                "searchsploit",
+                                "github_titles",
+                                "google_titles",
+                                "error"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "id": "2121",
+                    "protocol": "tcp",
+                    "state": "open",
+                    "service": {
+                        "name": "ftp",
+                        "product": "vsftpd",
+                        "version": "2.0.8 or later",
+                        "tunnel": ""
+                    },
+                    "scripts": {
+                        "ftp-anon": "Anonymous FTP login allowed (FTP code 230)\n-rw-r--r--    1 0        0              16 Jun 03 20:16 password.txt",
+                        "ftp-syst": {
+                            "STAT": "\nFTP server status:\n     Connected to 172.17.0.1\n     Logged in as ftp\n     TYPE: ASCII\n     No session bandwidth limit\n     Session timeout in seconds is 300\n     Control connection is plain text\n     Data connections will be plain text\n     At session startup, client count was 1\n     vsFTPd 3.0.5 - secure, fast, stable\nEnd of status"
+                        }
+                    },
+                    "plugins": {
+                        "enum_ftp_gather": {
+                            "cmd": [
+                                "ftp.connect(127.0.0.1, 2121)",
+                                "ftp.login('anonymous', 'anonymous@')",
+                                "ftp.retrbinary('RETR /password.txt', open('/tmp/ftp_q7pncymr/password.txt', 'wb').write)"
+                            ],
+                            "results": {
+                                "success": true,
+                                "files_downloaded": [
+                                    "/tmp/ftp_q7pncymr/password.txt"
+                                ],
+                                "errors": [],
+                                "output_dir": "/tmp/ftp_q7pncymr",
+                                "all_files": [
+                                    "/password.txt"
+                                ]
+                            },
+                            "report_fields": [
+                                "success",
+                                "files_downloaded",
+                                "all_files",
+                                "errors"
+                            ]
+                        },
+                        "enum_generic_product_search": {
+                            "cmd": [
+                                "searchsploit vsftpd 2.0",
+                                "https://github.com/search?q=vsftpd+2.0+exploit",
+                                "Google Custom Search API: vsftpd 2.0 exploit",
+                                "https://html.duckduckgo.com/html/?q=vsftpd+2.0+exploit"
+                            ],
+                            "results": {
+                                "searchsploit": [
+                                    " Exploit Title                                                                                                                                                                                            |  Path",
+                                    "\u001b[01;31m\u001b[Kvsftpd\u001b[m\u001b[K \u001b[01;31m\u001b[K2.0\u001b[m\u001b[K.5 - 'CWD' (Authenticated) Remote Memory Consumption                                                                                                                                            | linux/dos/5814.pl",
+                                    "\u001b[01;31m\u001b[Kvsftpd\u001b[m\u001b[K \u001b[01;31m\u001b[K2.0\u001b[m\u001b[K.5 - 'deny_file' Option Remote Denial of Service (1)                                                                                                                                            | windows/dos/31818.sh",
+                                    "\u001b[01;31m\u001b[Kvsftpd\u001b[m\u001b[K \u001b[01;31m\u001b[K2.0\u001b[m\u001b[K.5 - 'deny_file' Option Remote Denial of Service (2)                                                                                                                                            | windows/dos/31819.pl",
+                                    "Shellcodes: No Results"
+                                ],
+                                "github_titles": [],
+                                "google_titles": [
+                                    "Exploiting vsftpd in Metasploitable 2 | by Jason Jacobs, MSc. - Medium",
+                                    "Exploit VSFTPD 2.0.8 | HackingDNA",
+                                    "dgrbch1/Exploits: Vsftpd Backdoor Exploit Demonstration - GitHub",
+                                    "ftp-vsftpd-backdoor NSE script \u2014 Nmap Scripting Engine documentation",
+                                    "Vsftpd Backdoor Exploit Project - dgrbch1.github.io"
+                                ]
+                            },
+                            "report_fields": [
+                                "searchsploit",
+                                "github_titles",
+                                "google_titles",
+                                "error"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "id": "2222",
+                    "protocol": "tcp",
+                    "state": "open",
+                    "extrainfo": "Ubuntu Linux; protocol 2.0",
+                    "service": {
+                        "name": "ssh",
+                        "product": "OpenSSH",
+                        "version": "8.2p1 Ubuntu 4ubuntu0.13",
+                        "tunnel": ""
+                    },
+                    "scripts": {
+                        "ssh-hostkey": "\n  3072 68:75:50:cb:25:1b:93:cf:97:91:0e:ab:11:97:a1:2c (RSA)\nssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDPnoj3XpVqBKjv5Y/zdSlXSLGIinJewi5zyVMMfZu7b0c2Pt5vy5V7TYaeXAXxrna2YapeNSN3CWGFYzjqg1+irFIxkF97mWFcu2NQrOmVk5FeDkC+DuKWJOhoyG68Onz3KTvIdFx+X+HC3P0IR0c63hJzF5CdePPMgLyXLAwGZHSJxOd7n7EL+RI29i5GSCsUKW6HpfZNQPhJAF/2d2j97SJpYGxAyVS9aITfBZU2sBl1Uv1yTfnKd7aTHKuxI0ZETkWlsHJip7+734QSBprJhuVLxIRf/gn4I8mOXt/gcwr9Ewh6V4CZhuQGumjGETArqPcGhsWoayt7+KDfMZAU6f4mZL67S9ajDLmzG8tCj2ApMEVPz5PvnV022o6FnnjYfjCVggfn9zWWAPVEwOlL/etUAej6Yw60r7XF+08bmNL+6tnv8AEp75JpiO4AzRY5w346SL3F5AGGOXIvMUzGlWIvLjtVXBQi2SRwAmM7HuBFXU08cajuTX3xXND5RAc=\n  256 91:70:96:5e:d4:e2:44:4f:55:da:ad:46:73:55:15:4e (ECDSA)\necdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBAaYNVrM2OiMEOrukoHkbuIiHXD8n0+lIOZ3yGW681Ez/hHatvW/JRGp+IhwfpqnapRkgvy2cy8h+7YV+FtoPs4=\n  256 4e:15:b9:76:fb:89:39:93:f6:3a:09:bf:82:2e:61:c2 (ED25519)\nssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc"
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [
+                                "searchsploit OpenSSH 8.2",
+                                "https://github.com/search?q=OpenSSH+8.2+exploit",
+                                "Google Custom Search API: OpenSSH 8.2 exploit",
+                                "https://html.duckduckgo.com/html/?q=OpenSSH+8.2+exploit"
+                            ],
+                            "results": {
+                                "searchsploit": [
+                                    "Exploits: No Results",
+                                    "Shellcodes: No Results",
+                                    "Papers: No Results"
+                                ],
+                                "github_titles": [],
+                                "google_titles": [
+                                    "GitHub - d0rb/CVE-2024-6387: This Python script exploits a remote code ...",
+                                    "CVE-2023-38408 (OpenSSH Vulnerability to RCE) | by Manjil - Medium",
+                                    "Openbsd Openssh 8.2 security vulnerabilities, CVEs - CVEdetails.com",
+                                    "OpenSSH Vulnerability: CVE-2020-12062 - Rapid7",
+                                    "Cve-2020-12062 - Nvd"
+                                ]
+                            },
+                            "report_fields": [
+                                "searchsploit",
+                                "github_titles",
+                                "google_titles",
+                                "error"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "id": "8080",
+                    "protocol": "tcp",
+                    "state": "open",
+                    "extrainfo": "(Ubuntu)",
+                    "service": {
+                        "name": "http",
+                        "product": "Apache httpd",
+                        "version": "2.4.41",
+                        "tunnel": ""
+                    },
+                    "scripts": {
+                        "http-server-header": "Apache/2.4.41 (Ubuntu)",
+                        "http-open-proxy": "Proxy might be redirecting requests",
+                        "http-methods": "\n  Supported Methods: GET HEAD POST OPTIONS",
+                        "http-title": {
+                            "title": "WordPress &rsaquo; Installation",
+                            "redirect_url": "http://127.0.0.1:8080/wp-admin/install.php"
+                        }
+                    }
+                },
+                {
+                    "id": "12049",
+                    "protocol": "tcp",
+                    "state": "open",
+                    "service": {
+                        "name": "tcpwrapped",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "13306",
+                    "protocol": "tcp",
+                    "state": "open",
+                    "extrainfo": "blocked - too many connection errors",
+                    "service": {
+                        "name": "mysql",
+                        "product": "MySQL",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [
+                                "searchsploit MySQL ",
+                                "https://github.com/search?q=MySQL+exploit",
+                                "Google Custom Search API: MySQL exploit",
+                                "https://html.duckduckgo.com/html/?q=MySQL+exploit"
+                            ],
+                            "results": {
+                                "searchsploit": [
+                                    " Exploit Title                                                                                                                                                                                            |  Path",
+                                    "Active Calendar 1.2 - '/data/\u001b[01;31m\u001b[Kmysql\u001b[m\u001b[Kevents.php?css' Cross-Site Scripting                                                                                                                                    | php/webapps/29653.txt",
+                                    "Advanced Poll 2.0 - '\u001b[01;31m\u001b[Kmysql\u001b[m\u001b[K_host' Cross-Site Scripting                                                                                                                                                     | php/webapps/33972.txt",
+                                    "Agora 1.4 RC1 - '\u001b[01;31m\u001b[KMysql\u001b[m\u001b[KfinderAdmin.php' Remote File Inclusion                                                                                                                                              | php/webapps/2726.txt",
+                                    "Asterisk 'asterisk-addons' 1.2.7/1.4.3 - CDR_ADDON_\u001b[01;31m\u001b[KMYSQL\u001b[m\u001b[K Module SQL Injection                                                                                                                             | linux/remote/30677.pl"
+                                ],
+                                "github_titles": [],
+                                "google_titles": [
+                                    "MySQL Pentesting | Exploit Notes - HDKS",
+                                    "MySQL - Authentication Bypass - Multiple remote Exploit",
+                                    "MySQL Authentication Bypass Password Dump - Rapid7",
+                                    "Attacking MySQL With Metasploit - Penetration Testing Lab",
+                                    "MySQL Pentesting - Hackviser"
+                                ]
+                            },
+                            "report_fields": [
+                                "searchsploit",
+                                "github_titles",
+                                "google_titles",
+                                "error"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "id": "30000",
+                    "protocol": "tcp",
+                    "state": "open",
+                    "service": {
+                        "name": "tcpwrapped",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "30001",
+                    "protocol": "tcp",
+                    "state": "open",
+                    "service": {
+                        "name": "tcpwrapped",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "30002",
+                    "protocol": "tcp",
+                    "state": "open",
+                    "service": {
+                        "name": "tcpwrapped",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "30003",
+                    "protocol": "tcp",
+                    "state": "open",
+                    "service": {
+                        "name": "tcpwrapped",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "30004",
+                    "protocol": "tcp",
+                    "state": "open",
+                    "service": {
+                        "name": "tcpwrapped",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "30005",
+                    "protocol": "tcp",
+                    "state": "open",
+                    "service": {
+                        "name": "tcpwrapped",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "30006",
+                    "protocol": "tcp",
+                    "state": "open",
+                    "service": {
+                        "name": "tcpwrapped",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "30007",
+                    "protocol": "tcp",
+                    "state": "open",
+                    "service": {
+                        "name": "tcpwrapped",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "30008",
+                    "protocol": "tcp",
+                    "state": "open",
+                    "service": {
+                        "name": "tcpwrapped",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                },
+                {
+                    "id": "30009",
+                    "protocol": "tcp",
+                    "state": "open",
+                    "service": {
+                        "name": "tcpwrapped",
+                        "product": "",
+                        "version": "",
+                        "tunnel": ""
+                    },
+                    "plugins": {
+                        "enum_generic_product_search": {
+                            "cmd": [],
+                            "results": {
+                                "error": "No product info found for this port."
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    ]
+}

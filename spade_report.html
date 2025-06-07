@@ -153,7 +153,8 @@
             color: #721c24;
         }
         .plugin-results {
-            margin-top: 25px;
+            margin-top: 12px;
+            white-space: normal;
         }
         .plugin-item {
             background: #f8f9fa;
@@ -195,13 +196,14 @@
             border: 1px solid #dadce0;
             border-radius: 3px;
             padding: 10px;
-            margin: 10px 0;
+            margin: 0px 0;
             font-family: 'Courier New', monospace;
             font-size: 0.85em;
-            white-space: pre-wrap;
+            white-space: pre-line;
             max-height: 400px;
             overflow-y: auto;
             line-height: 1.3;
+            
         }
         .results-box strong {
             display: block;
@@ -214,12 +216,14 @@
             margin-top: 0;
         }
         .results-box ul {
-            margin: 0;
+            margin: 0 0 0 1em;
+            padding: 0;
+            display: inline-block;
         }
         .results-box li {
             margin: 0;
             padding: 0;
-            line-height: 1.2;
+            display: list-item;
         }
         .no-results {
             color: #6c757d;
@@ -294,12 +298,13 @@
     </script>
 </head>
 <body>
+
+
+
     <div class="container">
-        
-        
         <div class="header">
             <h1>Security Scan Report</h1>
-            <p class="subtitle">Generated on 2025-06-07 13:05:01</p>
+            <p class="subtitle">Generated on 2025-06-07 13:45:34</p>
         </div>
         <!-- Table of Contents -->
         <div class="toc">
@@ -558,6 +563,11 @@
                     <h4>📜 Nmap Scripts</h4>
                     
                     <div class="script-item">
+                        <div class="script-name">ssl-cert</div>
+                        <div class="script-output"></div>
+                    </div>
+                    
+                    <div class="script-item">
                         <div class="script-name">ssl-date</div>
                         <div class="script-output">TLS randomness does not represent time</div>
                     </div>
@@ -567,89 +577,30 @@
                         <div class="script-output">localhost.localdomain, PIPELINING, SIZE 10240000, VRFY, ETRN, STARTTLS, ENHANCEDSTATUSCODES, 8BITMIME, DSN, SMTPUTF8, CHUNKING</div>
                     </div>
                     
-                    <div class="script-item">
-                        <div class="script-name">ssl-cert</div>
-                        <div class="script-output"></div>
-                    </div>
-                    
                 </div>
                 
                 <!-- Plugin Results -->
-                
                 <div class="plugin-results">
                     <h4>
                         🔧 Plugin Results 
                         <button onclick="expandAll()" style="margin-left: 10px; font-size: 0.8em;">Expand All</button>
                         <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
                     </h4>
-                    
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
                             <span>Enum Generic Product Search</span>
                             <span class="toggle-btn">[+]</span>
                         </div>
                         <div class="plugin-content">
-                            
                             <strong>Command:</strong>
-                            <div class="command">
-                                
-                                    
-                                        searchsploit Postfix smtpd <br>
-                                    
-                                        https://github.com/search?q=Postfix+smtpd+exploit<br>
-                                    
-                                        Google Custom Search API: Postfix smtpd exploit<br>
-                                    
-                                        https://html.duckduckgo.com/html/?q=Postfix+smtpd+exploit<br>
-                                    
-                                
+                            <div class="command">searchsploit Postfix smtpd <br>https://github.com/search?q=Postfix+smtpd+exploit<br>Google Custom Search API: Postfix smtpd exploit<br>https://html.duckduckgo.com/html/?q=Postfix+smtpd+exploit<br>
                             </div>
-                            
-                            
                             <strong>Results:</strong>
-                            <div class="results-box">
-                                            <strong>Searchsploit:</strong>
-                                            
-                                                <ul>
-                                                    
-                                                        <li>Exploits: No Results</li>
-                                                    
-                                                        <li>Shellcodes: No Results</li>
-                                                    
-                                                        <li>Papers: No Results</li>
-                                                    
-                                                </ul>
-                                            
-                                            <strong>Github Titles:</strong>
-                                            
-                                                <ul>
-                                                    
-                                                </ul>
-                                            
-                                            <strong>Google Titles:</strong>
-                                            
-                                                <ul>
-                                                    
-                                                        <li>Postfix SMTP 4.2.x < 4.2.48 - 'Shellshock' Remote ... - Exploit Database</li>
-                                                    
-                                                        <li>Exploiting SMTP on Metasploitable 2: Unveiling the Power of ... - Medium</li>
-                                                    
-                                                        <li>Cve-2023-51764 - Nvd</li>
-                                                    
-                                                        <li>bughunter1101/postfix-smtpd-exploit.py at master · s-kustm ... - GitHub</li>
-                                                    
-                                                        <li>SMTP Smuggling - Postfix</li>
-                                                    
-                                                </ul>
-                                            
+                            <div class="results-box"><strong>Searchsploit:</strong><ul><li>Exploits: No Results</li><li>Shellcodes: No Results</li><li>Papers: No Results</li></ul><strong>Github Titles:</strong><ul></ul><strong>Google Titles:</strong><ul><li>Postfix SMTP 4.2.x < 4.2.48 - 'Shellshock' Remote ... - Exploit Database</li><li>Exploiting SMTP on Metasploitable 2: Unveiling the Power of ... - Medium</li><li>Cve-2023-51764 - Nvd</li><li>bughunter1101/postfix-smtpd-exploit.py at master · s-kustm ... - GitHub</li><li>SMTP Smuggling - Postfix</li></ul>
                             </div>
-                            
-                            
                         </div>
                     </div>
-                    
                 </div>
-                
             </div>
             
             
@@ -676,123 +627,60 @@
                 <!-- Scripts Section -->
                 
                 <!-- Plugin Results -->
-                
                 <div class="plugin-results">
                     <h4>
                         🔧 Plugin Results 
                         <button onclick="expandAll()" style="margin-left: 10px; font-size: 0.8em;">Expand All</button>
                         <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
                     </h4>
-                    
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
                             <span>Enum Generic Product Search</span>
                             <span class="toggle-btn">[+]</span>
                         </div>
                         <div class="plugin-content">
-                            
-                            
                             <strong>Results:</strong>
-                            <div class="results-box">
-                                    
-            
-                <div style="margin-left:0em;">
-                    <strong>Error:</strong>
-                    
-                        No product info found for this port.
-                    
-                </div>
-            
-        
+                            <div class="results-box"><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Error:</strong><span style="margin-left:0.5em;">No product info found for this port.</span>
+        </div>
                             </div>
-                            
-                            
                         </div>
                     </div>
-                    
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
                             <span>Enum Rpc Rpcclient</span>
                             <span class="toggle-btn">[+]</span>
                         </div>
                         <div class="plugin-content">
-                            
                             <strong>Command:</strong>
-                            <div class="command">
-                                
-                                    
-                                        rpcclient -U '' -N 127.0.0.1 -p 1111 -c 'enumdomusers'<br>
-                                    
-                                        rpcclient -U '' -N 127.0.0.1 -p 1111 -c 'netshareenumall'<br>
-                                    
-                                        rpcclient -U '' -N 127.0.0.1 -p 1111 -c 'enumdomains'<br>
-                                    
-                                        rpcclient -U '' -N 127.0.0.1 -p 1111 -c 'enumdomgroups'<br>
-                                    
-                                        rpcclient -U '' -N 127.0.0.1 -p 1111 -c 'srvinfo'<br>
-                                    
-                                
+                            <div class="command">rpcclient -U '' -N 127.0.0.1 -p 1111 -c 'enumdomusers'<br>rpcclient -U '' -N 127.0.0.1 -p 1111 -c 'netshareenumall'<br>rpcclient -U '' -N 127.0.0.1 -p 1111 -c 'enumdomains'<br>rpcclient -U '' -N 127.0.0.1 -p 1111 -c 'enumdomgroups'<br>rpcclient -U '' -N 127.0.0.1 -p 1111 -c 'srvinfo'<br>
                             </div>
-                            
-                            
                             <strong>Results:</strong>
-                            <div class="results-box">
-                                    
-            
-                <div style="margin-left:0em;">
-                    <strong>Users:</strong>
-                    
-                        WARNING: no network interfaces found
+                            <div class="results-box"><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Users:</strong><span style="margin-left:0.5em;">WARNING: no network interfaces found
 Cannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED
-
-                    
-                </div>
-            
-                <div style="margin-left:0em;">
-                    <strong>Shares:</strong>
-                    
-                        WARNING: no network interfaces found
+</span>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Shares:</strong><span style="margin-left:0.5em;">WARNING: no network interfaces found
 Cannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED
-
-                    
-                </div>
-            
-                <div style="margin-left:0em;">
-                    <strong>Domains:</strong>
-                    
-                        WARNING: no network interfaces found
+</span>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Domains:</strong><span style="margin-left:0.5em;">WARNING: no network interfaces found
 Cannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED
-
-                    
-                </div>
-            
-                <div style="margin-left:0em;">
-                    <strong>Groups:</strong>
-                    
-                        WARNING: no network interfaces found
+</span>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Groups:</strong><span style="margin-left:0.5em;">WARNING: no network interfaces found
 Cannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED
-
-                    
-                </div>
-            
-                <div style="margin-left:0em;">
-                    <strong>Srvinfo:</strong>
-                    
-                        WARNING: no network interfaces found
+</span>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Srvinfo:</strong><span style="margin-left:0.5em;">WARNING: no network interfaces found
 Cannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED
-
-                    
-                </div>
-            
-        
+</span>
+        </div>
                             </div>
-                            
-                            
                         </div>
                     </div>
-                    
                 </div>
-                
             </div>
             
             
@@ -822,451 +710,129 @@ Cannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED
                 <!-- Scripts Section -->
                 
                 <!-- Plugin Results -->
-                
                 <div class="plugin-results">
                     <h4>
                         🔧 Plugin Results 
                         <button onclick="expandAll()" style="margin-left: 10px; font-size: 0.8em;">Expand All</button>
                         <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
                     </h4>
-                    
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
                             <span>Enum Smb Nmap</span>
                             <span class="toggle-btn">[+]</span>
                         </div>
                         <div class="plugin-content">
-                            
                             <strong>Command:</strong>
-                            <div class="command">
-                                
-                                    nmap -p 1139 --script=smb-os-discovery,smb-enum-shares,smb-enum-users,smb-enum-domains,smb-enum-groups,smb-security-mode,smb2-security-mode,smb2-time,smb2-capabilities,smb-protocols,smb-vuln* -Pn -vv -n -oX /tmp/tmprsqm_l5j.xml 127.0.0.1
-                                
+                            <div class="command">nmap -p 1139 --script=smb-os-discovery,smb-enum-shares,smb-enum-users,smb-enum-domains,smb-enum-groups,smb-security-mode,smb2-security-mode,smb2-time,smb2-capabilities,smb-protocols,smb-vuln* -Pn -vv -n -oX /tmp/tmp_pgdw6ag.xml 127.0.0.1
                             </div>
-                            
-                            
-                            
                         </div>
                     </div>
-                    
-                    <div class="plugin-item">
-                        <div class="plugin-header" onclick="togglePlugin(this)">
-                            <span>Enum Smb Get Shares</span>
-                            <span class="toggle-btn">[+]</span>
-                        </div>
-                        <div class="plugin-content">
-                            
-                            <strong>Command:</strong>
-                            <div class="command">
-                                
-                                    smbclient -N -L //127.0.0.1 -p 1139
-                                
-                            </div>
-                            
-                            
-                            <strong>Results:</strong>
-                            <div class="results-box">
-                                            <strong>Shares:</strong>
-                                            
-                                                
-            
-                <div style="margin-left:0em;">
-                    <strong>Public:</strong>
-                    
-                        
-            
-                <div style="margin-left:1em;">
-                    <strong>Files:</strong>
-                    
-                        
-                            <ul style="margin-left:1em;">
-                                
-                                    <li>readme.txt</li>
-                                
-                            </ul>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Dirs:</strong>
-                    
-                        
-                            <span class="no-results">empty</span>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Readable:</strong>
-                    
-                        
-                            <ul style="margin-left:1em;">
-                                
-                                    <li>readme.txt</li>
-                                
-                            </ul>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Writable:</strong>
-                    
-                        
-                            <span class="no-results">empty</span>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Appendable:</strong>
-                    
-                        
-                            <ul style="margin-left:1em;">
-                                
-                                    <li>readme.txt</li>
-                                
-                            </ul>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Errors:</strong>
-                    
-                        
-                            <span class="no-results">empty</span>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Raw List:</strong>
-                    
-                        WARNING: no network interfaces found
-  .                                   D        0  Wed Jun  4 10:16:21 2025
-  ..                                  D        0  Wed Jun  4 10:19:00 2025
-  readme.txt                          N       41  Wed Jun  4 10:16:21 2025
-
-		81926552 blocks of size 1024. 27223988 blocks available
-
-                    
-                </div>
-            
-        
-                    
-                </div>
-            
-                <div style="margin-left:0em;">
-                    <strong>Admin:</strong>
-                    
-                        
-            
-                <div style="margin-left:1em;">
-                    <strong>Files:</strong>
-                    
-                        
-                            <span class="no-results">empty</span>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Dirs:</strong>
-                    
-                        
-                            <span class="no-results">empty</span>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Readable:</strong>
-                    
-                        
-                            <span class="no-results">empty</span>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Writable:</strong>
-                    
-                        
-                            <span class="no-results">empty</span>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Appendable:</strong>
-                    
-                        
-                            <span class="no-results">empty</span>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Errors:</strong>
-                    
-                        
-                            <span class="no-results">empty</span>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Raw List:</strong>
-                    
-                        WARNING: no network interfaces found
-tree connect failed: NT_STATUS_ACCESS_DENIED
-
-                    
-                </div>
-            
-        
-                    
-                </div>
-            
-                <div style="margin-left:0em;">
-                    <strong>Backup:</strong>
-                    
-                        
-            
-                <div style="margin-left:1em;">
-                    <strong>Files:</strong>
-                    
-                        
-                            <ul style="margin-left:1em;">
-                                
-                                    <li>db_backup.sql</li>
-                                
-                                    <li>passwords.txt</li>
-                                
-                            </ul>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Dirs:</strong>
-                    
-                        
-                            <span class="no-results">empty</span>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Readable:</strong>
-                    
-                        
-                            <ul style="margin-left:1em;">
-                                
-                                    <li>db_backup.sql</li>
-                                
-                                    <li>passwords.txt</li>
-                                
-                            </ul>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Writable:</strong>
-                    
-                        
-                            <span class="no-results">empty</span>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Appendable:</strong>
-                    
-                        
-                            <ul style="margin-left:1em;">
-                                
-                                    <li>db_backup.sql</li>
-                                
-                                    <li>passwords.txt</li>
-                                
-                            </ul>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Errors:</strong>
-                    
-                        
-                            <span class="no-results">empty</span>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Raw List:</strong>
-                    
-                        WARNING: no network interfaces found
-  .                                   D        0  Wed Jun  4 10:16:19 2025
-  ..                                  D        0  Wed Jun  4 10:16:19 2025
-  db_backup.sql                       N       21  Wed Jun  4 10:16:19 2025
-  passwords.txt                       N       15  Wed Jun  4 10:16:19 2025
-
-		81926552 blocks of size 1024. 27223300 blocks available
-
-                    
-                </div>
-            
-        
-                    
-                </div>
-            
-                <div style="margin-left:0em;">
-                    <strong>Smb1:</strong>
-                    
-                        
-            
-                <div style="margin-left:1em;">
-                    <strong>Files:</strong>
-                    
-                        
-                            <span class="no-results">empty</span>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Dirs:</strong>
-                    
-                        
-                            <span class="no-results">empty</span>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Readable:</strong>
-                    
-                        
-                            <span class="no-results">empty</span>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Writable:</strong>
-                    
-                        
-                            <span class="no-results">empty</span>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Appendable:</strong>
-                    
-                        
-                            <span class="no-results">empty</span>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Errors:</strong>
-                    
-                        
-                            <ul style="margin-left:1em;">
-                                
-                                    <li>Failed to connect to share: NT_STATUS_BAD_NETWORK_NAME</li>
-                                
-                            </ul>
-                        
-                    
-                </div>
-            
-        
-                    
-                </div>
-            
-        
-                                            
-                            </div>
-                            
-                            
-                        </div>
-                    </div>
-                    
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
                             <span>Enum Generic Product Search</span>
                             <span class="toggle-btn">[+]</span>
                         </div>
                         <div class="plugin-content">
-                            
                             <strong>Command:</strong>
-                            <div class="command">
-                                
-                                    
-                                        searchsploit Samba smbd <br>
-                                    
-                                        https://github.com/search?q=Samba+smbd+4+exploit<br>
-                                    
-                                        Google Custom Search API: Samba smbd 4 exploit<br>
-                                    
-                                        https://html.duckduckgo.com/html/?q=Samba+smbd+4+exploit<br>
-                                    
-                                
+                            <div class="command">searchsploit Samba smbd <br>https://github.com/search?q=Samba+smbd+4+exploit<br>Google Custom Search API: Samba smbd 4 exploit<br>https://html.duckduckgo.com/html/?q=Samba+smbd+4+exploit<br>
                             </div>
-                            
-                            
                             <strong>Results:</strong>
-                            <div class="results-box">
-                                            <strong>Searchsploit:</strong>
-                                            
-                                                <ul>
-                                                    
-                                                        <li>Exploits: No Results</li>
-                                                    
-                                                        <li>Shellcodes: No Results</li>
-                                                    
-                                                        <li>Papers: No Results</li>
-                                                    
-                                                </ul>
-                                            
-                                            <strong>Github Titles:</strong>
-                                            
-                                                <ul>
-                                                    
-                                                </ul>
-                                            
-                                            <strong>Google Titles:</strong>
-                                            
-                                                <ul>
-                                                    
-                                                        <li>opsxcq/exploit-CVE-2017-7494 - GitHub</li>
-                                                    
-                                                        <li>Samba "username map script" Command Execution - Rapid7</li>
-                                                    
-                                                        <li>Samba 3.5.0 < 4.4.14/4.5.10/4.6.4 - 'is_known ... - Exploit Database</li>
-                                                    
-                                                        <li>Script smb-vuln-cve-2017-7494 - Nmap</li>
-                                                    
-                                                        <li>SambaCry RCE: CVE-2017-7494 - Medium</li>
-                                                    
-                                                </ul>
-                                            
+                            <div class="results-box"><strong>Searchsploit:</strong><ul><li>Exploits: No Results</li><li>Shellcodes: No Results</li><li>Papers: No Results</li></ul><strong>Github Titles:</strong><ul></ul><strong>Google Titles:</strong><ul><li>opsxcq/exploit-CVE-2017-7494 - GitHub</li><li>Samba 3.5.0 < 4.4.14/4.5.10/4.6.4 - 'is_known ... - Exploit Database</li><li>Script smb-vuln-cve-2017-7494 - Nmap</li><li>SambaCry RCE: CVE-2017-7494 - Medium</li><li>Hacking and gaining access to Linux by exploiting SAMBA service</li></ul>
                             </div>
-                            
-                            
                         </div>
                     </div>
-                    
+                    <div class="plugin-item">
+                        <div class="plugin-header" onclick="togglePlugin(this)">
+                            <span>Enum Smb Get Shares</span>
+                            <span class="toggle-btn">[+]</span>
+                        </div>
+                        <div class="plugin-content">
+                            <strong>Command:</strong>
+                            <div class="command">smbclient -N -L //127.0.0.1 -p 1139
+                            </div>
+                            <strong>Results:</strong>
+                            <div class="results-box"><strong>Shares:</strong><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Public:</strong><div style="margin-left:1em; display:inline-block;"><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Files:</strong><ul style="display:inline-block; margin:0 0 0 1em; padding:0;"><li style="display:list-item; margin:0; padding:0;">readme.txt</li></ul>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Dirs:</strong><span class="no-results" style="margin-left:1em;">empty</span>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Readable:</strong><ul style="display:inline-block; margin:0 0 0 1em; padding:0;"><li style="display:list-item; margin:0; padding:0;">readme.txt</li></ul>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Writable:</strong><span class="no-results" style="margin-left:1em;">empty</span>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Appendable:</strong><ul style="display:inline-block; margin:0 0 0 1em; padding:0;"><li style="display:list-item; margin:0; padding:0;">readme.txt</li></ul>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Errors:</strong><span class="no-results" style="margin-left:1em;">empty</span>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Raw List:</strong><span style="margin-left:0.5em;">WARNING: no network interfaces found
+  .                                   D        0  Wed Jun  4 10:16:21 2025
+  ..                                  D        0  Wed Jun  4 10:19:00 2025
+  readme.txt                          N       41  Wed Jun  4 10:16:21 2025
+
+		81926552 blocks of size 1024. 27217780 blocks available
+</span>
+        </div></div>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Admin:</strong><div style="margin-left:1em; display:inline-block;"><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Files:</strong><span class="no-results" style="margin-left:1em;">empty</span>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Dirs:</strong><span class="no-results" style="margin-left:1em;">empty</span>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Readable:</strong><span class="no-results" style="margin-left:1em;">empty</span>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Writable:</strong><span class="no-results" style="margin-left:1em;">empty</span>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Appendable:</strong><span class="no-results" style="margin-left:1em;">empty</span>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Errors:</strong><span class="no-results" style="margin-left:1em;">empty</span>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Raw List:</strong><span style="margin-left:0.5em;">WARNING: no network interfaces found
+tree connect failed: NT_STATUS_ACCESS_DENIED
+</span>
+        </div></div>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Backup:</strong><div style="margin-left:1em; display:inline-block;"><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Files:</strong><ul style="display:inline-block; margin:0 0 0 1em; padding:0;"><li style="display:list-item; margin:0; padding:0;">db_backup.sql</li><li style="display:list-item; margin:0; padding:0;">passwords.txt</li></ul>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Dirs:</strong><span class="no-results" style="margin-left:1em;">empty</span>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Readable:</strong><ul style="display:inline-block; margin:0 0 0 1em; padding:0;"><li style="display:list-item; margin:0; padding:0;">db_backup.sql</li><li style="display:list-item; margin:0; padding:0;">passwords.txt</li></ul>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Writable:</strong><span class="no-results" style="margin-left:1em;">empty</span>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Appendable:</strong><ul style="display:inline-block; margin:0 0 0 1em; padding:0;"><li style="display:list-item; margin:0; padding:0;">db_backup.sql</li><li style="display:list-item; margin:0; padding:0;">passwords.txt</li></ul>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Errors:</strong><span class="no-results" style="margin-left:1em;">empty</span>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Raw List:</strong><span style="margin-left:0.5em;">WARNING: no network interfaces found
+  .                                   D        0  Wed Jun  4 10:16:19 2025
+  ..                                  D        0  Wed Jun  4 10:16:19 2025
+  db_backup.sql                       N       21  Wed Jun  4 10:16:19 2025
+  passwords.txt                       N       15  Wed Jun  4 10:16:19 2025
+
+		81926552 blocks of size 1024. 27217728 blocks available
+</span>
+        </div></div>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Smb1:</strong><div style="margin-left:1em; display:inline-block;"><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Files:</strong><span class="no-results" style="margin-left:1em;">empty</span>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Dirs:</strong><span class="no-results" style="margin-left:1em;">empty</span>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Readable:</strong><span class="no-results" style="margin-left:1em;">empty</span>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Writable:</strong><span class="no-results" style="margin-left:1em;">empty</span>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Appendable:</strong><span class="no-results" style="margin-left:1em;">empty</span>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Errors:</strong><ul style="display:inline-block; margin:0 0 0 1em; padding:0;"><li style="display:list-item; margin:0; padding:0;">Failed to connect to share: NT_STATUS_BAD_NETWORK_NAME</li></ul>
+        </div></div>
+        </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                
             </div>
             
             
@@ -1298,451 +864,129 @@ tree connect failed: NT_STATUS_ACCESS_DENIED
                 <!-- Scripts Section -->
                 
                 <!-- Plugin Results -->
-                
                 <div class="plugin-results">
                     <h4>
                         🔧 Plugin Results 
                         <button onclick="expandAll()" style="margin-left: 10px; font-size: 0.8em;">Expand All</button>
                         <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
                     </h4>
-                    
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
                             <span>Enum Smb Nmap</span>
                             <span class="toggle-btn">[+]</span>
                         </div>
                         <div class="plugin-content">
-                            
                             <strong>Command:</strong>
-                            <div class="command">
-                                
-                                    nmap -p 1445 --script=smb-os-discovery,smb-enum-shares,smb-enum-users,smb-enum-domains,smb-enum-groups,smb-security-mode,smb2-security-mode,smb2-time,smb2-capabilities,smb-protocols,smb-vuln* -Pn -vv -n -oX /tmp/tmp1regogp2.xml 127.0.0.1
-                                
+                            <div class="command">nmap -p 1445 --script=smb-os-discovery,smb-enum-shares,smb-enum-users,smb-enum-domains,smb-enum-groups,smb-security-mode,smb2-security-mode,smb2-time,smb2-capabilities,smb-protocols,smb-vuln* -Pn -vv -n -oX /tmp/tmp1qu0kz3a.xml 127.0.0.1
                             </div>
-                            
-                            
-                            
                         </div>
                     </div>
-                    
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
                             <span>Enum Smb Get Shares</span>
                             <span class="toggle-btn">[+]</span>
                         </div>
                         <div class="plugin-content">
-                            
                             <strong>Command:</strong>
-                            <div class="command">
-                                
-                                    smbclient -N -L //127.0.0.1 -p 1445
-                                
+                            <div class="command">smbclient -N -L //127.0.0.1 -p 1445
                             </div>
-                            
-                            
                             <strong>Results:</strong>
-                            <div class="results-box">
-                                            <strong>Shares:</strong>
-                                            
-                                                
-            
-                <div style="margin-left:0em;">
-                    <strong>Public:</strong>
-                    
-                        
-            
-                <div style="margin-left:1em;">
-                    <strong>Files:</strong>
-                    
-                        
-                            <ul style="margin-left:1em;">
-                                
-                                    <li>readme.txt</li>
-                                
-                            </ul>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Dirs:</strong>
-                    
-                        
-                            <span class="no-results">empty</span>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Readable:</strong>
-                    
-                        
-                            <ul style="margin-left:1em;">
-                                
-                                    <li>readme.txt</li>
-                                
-                            </ul>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Writable:</strong>
-                    
-                        
-                            <span class="no-results">empty</span>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Appendable:</strong>
-                    
-                        
-                            <ul style="margin-left:1em;">
-                                
-                                    <li>readme.txt</li>
-                                
-                            </ul>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Errors:</strong>
-                    
-                        
-                            <span class="no-results">empty</span>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Raw List:</strong>
-                    
-                        WARNING: no network interfaces found
+                            <div class="results-box"><strong>Shares:</strong><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Public:</strong><div style="margin-left:1em; display:inline-block;"><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Files:</strong><ul style="display:inline-block; margin:0 0 0 1em; padding:0;"><li style="display:list-item; margin:0; padding:0;">readme.txt</li></ul>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Dirs:</strong><span class="no-results" style="margin-left:1em;">empty</span>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Readable:</strong><ul style="display:inline-block; margin:0 0 0 1em; padding:0;"><li style="display:list-item; margin:0; padding:0;">readme.txt</li></ul>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Writable:</strong><span class="no-results" style="margin-left:1em;">empty</span>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Appendable:</strong><ul style="display:inline-block; margin:0 0 0 1em; padding:0;"><li style="display:list-item; margin:0; padding:0;">readme.txt</li></ul>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Errors:</strong><span class="no-results" style="margin-left:1em;">empty</span>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Raw List:</strong><span style="margin-left:0.5em;">WARNING: no network interfaces found
   .                                   D        0  Wed Jun  4 10:16:21 2025
   ..                                  D        0  Wed Jun  4 10:19:00 2025
   readme.txt                          N       41  Wed Jun  4 10:16:21 2025
 
-		81926552 blocks of size 1024. 27223984 blocks available
-
-                    
-                </div>
-            
-        
-                    
-                </div>
-            
-                <div style="margin-left:0em;">
-                    <strong>Admin:</strong>
-                    
-                        
-            
-                <div style="margin-left:1em;">
-                    <strong>Files:</strong>
-                    
-                        
-                            <span class="no-results">empty</span>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Dirs:</strong>
-                    
-                        
-                            <span class="no-results">empty</span>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Readable:</strong>
-                    
-                        
-                            <span class="no-results">empty</span>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Writable:</strong>
-                    
-                        
-                            <span class="no-results">empty</span>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Appendable:</strong>
-                    
-                        
-                            <span class="no-results">empty</span>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Errors:</strong>
-                    
-                        
-                            <span class="no-results">empty</span>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Raw List:</strong>
-                    
-                        WARNING: no network interfaces found
+		81926552 blocks of size 1024. 27217776 blocks available
+</span>
+        </div></div>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Admin:</strong><div style="margin-left:1em; display:inline-block;"><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Files:</strong><span class="no-results" style="margin-left:1em;">empty</span>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Dirs:</strong><span class="no-results" style="margin-left:1em;">empty</span>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Readable:</strong><span class="no-results" style="margin-left:1em;">empty</span>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Writable:</strong><span class="no-results" style="margin-left:1em;">empty</span>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Appendable:</strong><span class="no-results" style="margin-left:1em;">empty</span>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Errors:</strong><span class="no-results" style="margin-left:1em;">empty</span>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Raw List:</strong><span style="margin-left:0.5em;">WARNING: no network interfaces found
 tree connect failed: NT_STATUS_ACCESS_DENIED
-
-                    
-                </div>
-            
-        
-                    
-                </div>
-            
-                <div style="margin-left:0em;">
-                    <strong>Backup:</strong>
-                    
-                        
-            
-                <div style="margin-left:1em;">
-                    <strong>Files:</strong>
-                    
-                        
-                            <ul style="margin-left:1em;">
-                                
-                                    <li>db_backup.sql</li>
-                                
-                                    <li>passwords.txt</li>
-                                
-                            </ul>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Dirs:</strong>
-                    
-                        
-                            <span class="no-results">empty</span>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Readable:</strong>
-                    
-                        
-                            <ul style="margin-left:1em;">
-                                
-                                    <li>db_backup.sql</li>
-                                
-                                    <li>passwords.txt</li>
-                                
-                            </ul>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Writable:</strong>
-                    
-                        
-                            <span class="no-results">empty</span>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Appendable:</strong>
-                    
-                        
-                            <ul style="margin-left:1em;">
-                                
-                                    <li>db_backup.sql</li>
-                                
-                                    <li>passwords.txt</li>
-                                
-                            </ul>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Errors:</strong>
-                    
-                        
-                            <span class="no-results">empty</span>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Raw List:</strong>
-                    
-                        WARNING: no network interfaces found
+</span>
+        </div></div>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Backup:</strong><div style="margin-left:1em; display:inline-block;"><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Files:</strong><ul style="display:inline-block; margin:0 0 0 1em; padding:0;"><li style="display:list-item; margin:0; padding:0;">db_backup.sql</li><li style="display:list-item; margin:0; padding:0;">passwords.txt</li></ul>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Dirs:</strong><span class="no-results" style="margin-left:1em;">empty</span>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Readable:</strong><ul style="display:inline-block; margin:0 0 0 1em; padding:0;"><li style="display:list-item; margin:0; padding:0;">db_backup.sql</li><li style="display:list-item; margin:0; padding:0;">passwords.txt</li></ul>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Writable:</strong><span class="no-results" style="margin-left:1em;">empty</span>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Appendable:</strong><ul style="display:inline-block; margin:0 0 0 1em; padding:0;"><li style="display:list-item; margin:0; padding:0;">db_backup.sql</li><li style="display:list-item; margin:0; padding:0;">passwords.txt</li></ul>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Errors:</strong><span class="no-results" style="margin-left:1em;">empty</span>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Raw List:</strong><span style="margin-left:0.5em;">WARNING: no network interfaces found
   .                                   D        0  Wed Jun  4 10:16:19 2025
   ..                                  D        0  Wed Jun  4 10:16:19 2025
   db_backup.sql                       N       21  Wed Jun  4 10:16:19 2025
   passwords.txt                       N       15  Wed Jun  4 10:16:19 2025
 
-		81926552 blocks of size 1024. 27223528 blocks available
-
-                    
-                </div>
-            
-        
-                    
-                </div>
-            
-                <div style="margin-left:0em;">
-                    <strong>Smb1:</strong>
-                    
-                        
-            
-                <div style="margin-left:1em;">
-                    <strong>Files:</strong>
-                    
-                        
-                            <span class="no-results">empty</span>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Dirs:</strong>
-                    
-                        
-                            <span class="no-results">empty</span>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Readable:</strong>
-                    
-                        
-                            <span class="no-results">empty</span>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Writable:</strong>
-                    
-                        
-                            <span class="no-results">empty</span>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Appendable:</strong>
-                    
-                        
-                            <span class="no-results">empty</span>
-                        
-                    
-                </div>
-            
-                <div style="margin-left:1em;">
-                    <strong>Errors:</strong>
-                    
-                        
-                            <ul style="margin-left:1em;">
-                                
-                                    <li>Failed to connect to share: NT_STATUS_BAD_NETWORK_NAME</li>
-                                
-                            </ul>
-                        
-                    
-                </div>
-            
-        
-                    
-                </div>
-            
-        
-                                            
+		81926552 blocks of size 1024. 27217728 blocks available
+</span>
+        </div></div>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Smb1:</strong><div style="margin-left:1em; display:inline-block;"><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Files:</strong><span class="no-results" style="margin-left:1em;">empty</span>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Dirs:</strong><span class="no-results" style="margin-left:1em;">empty</span>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Readable:</strong><span class="no-results" style="margin-left:1em;">empty</span>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Writable:</strong><span class="no-results" style="margin-left:1em;">empty</span>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Appendable:</strong><span class="no-results" style="margin-left:1em;">empty</span>
+        </div><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Errors:</strong><ul style="display:inline-block; margin:0 0 0 1em; padding:0;"><li style="display:list-item; margin:0; padding:0;">Failed to connect to share: NT_STATUS_BAD_NETWORK_NAME</li></ul>
+        </div></div>
+        </div>
                             </div>
-                            
-                            
                         </div>
                     </div>
-                    
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
                             <span>Enum Generic Product Search</span>
                             <span class="toggle-btn">[+]</span>
                         </div>
                         <div class="plugin-content">
-                            
                             <strong>Command:</strong>
-                            <div class="command">
-                                
-                                    
-                                        searchsploit Samba smbd <br>
-                                    
-                                        https://github.com/search?q=Samba+smbd+4+exploit<br>
-                                    
-                                        Google Custom Search API: Samba smbd 4 exploit<br>
-                                    
-                                        https://html.duckduckgo.com/html/?q=Samba+smbd+4+exploit<br>
-                                    
-                                
+                            <div class="command">searchsploit Samba smbd <br>https://github.com/search?q=Samba+smbd+4+exploit<br>Google Custom Search API: Samba smbd 4 exploit<br>https://html.duckduckgo.com/html/?q=Samba+smbd+4+exploit<br>
                             </div>
-                            
-                            
                             <strong>Results:</strong>
-                            <div class="results-box">
-                                            <strong>Searchsploit:</strong>
-                                            
-                                                <ul>
-                                                    
-                                                        <li>Exploits: No Results</li>
-                                                    
-                                                        <li>Shellcodes: No Results</li>
-                                                    
-                                                        <li>Papers: No Results</li>
-                                                    
-                                                </ul>
-                                            
-                                            <strong>Github Titles:</strong>
-                                            
-                                                <ul>
-                                                    
-                                                </ul>
-                                            
-                                            <strong>Google Titles:</strong>
-                                            
-                                                <ul>
-                                                    
-                                                        <li>opsxcq/exploit-CVE-2017-7494 - GitHub</li>
-                                                    
-                                                        <li>Samba "username map script" Command Execution - Rapid7</li>
-                                                    
-                                                        <li>Samba 3.5.0 < 4.4.14/4.5.10/4.6.4 - 'is_known ... - Exploit Database</li>
-                                                    
-                                                        <li>Script smb-vuln-cve-2017-7494 - Nmap</li>
-                                                    
-                                                        <li>SambaCry RCE: CVE-2017-7494 - Medium</li>
-                                                    
-                                                </ul>
-                                            
+                            <div class="results-box"><strong>Searchsploit:</strong><ul><li>Exploits: No Results</li><li>Shellcodes: No Results</li><li>Papers: No Results</li></ul><strong>Github Titles:</strong><ul></ul><strong>Google Titles:</strong><ul><li>opsxcq/exploit-CVE-2017-7494 - GitHub</li><li>Samba 3.5.0 < 4.4.14/4.5.10/4.6.4 - 'is_known ... - Exploit Database</li><li>SambaCry RCE: CVE-2017-7494 - Medium</li><li>The Samba Vulnerability: What is CVE-2021-44142 and How to Fix It</li><li>Script smb-vuln-cve-2017-7494 - Nmap</li></ul>
                             </div>
-                            
-                            
                         </div>
                     </div>
-                    
                 </div>
-                
             </div>
             
             
@@ -1775,153 +1019,54 @@ tree connect failed: NT_STATUS_ACCESS_DENIED
                     <h4>📜 Nmap Scripts</h4>
                     
                     <div class="script-item">
-                        <div class="script-name">ftp-syst</div>
-                        <div class="script-output"></div>
-                    </div>
-                    
-                    <div class="script-item">
                         <div class="script-name">ftp-anon</div>
                         <div class="script-output">Anonymous FTP login allowed (FTP code 230)
 -rw-r--r--    1 0        0              16 Jun 03 20:16 password.txt</div>
                     </div>
                     
+                    <div class="script-item">
+                        <div class="script-name">ftp-syst</div>
+                        <div class="script-output"></div>
+                    </div>
+                    
                 </div>
                 
                 <!-- Plugin Results -->
-                
                 <div class="plugin-results">
                     <h4>
                         🔧 Plugin Results 
                         <button onclick="expandAll()" style="margin-left: 10px; font-size: 0.8em;">Expand All</button>
                         <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
                     </h4>
-                    
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
                             <span>Enum Ftp Gather</span>
                             <span class="toggle-btn">[+]</span>
                         </div>
                         <div class="plugin-content">
-                            
                             <strong>Command:</strong>
-                            <div class="command">
-                                
-                                    
-                                        ftp.connect(127.0.0.1, 2121)<br>
-                                    
-                                        ftp.login('anonymous', 'anonymous@')<br>
-                                    
-                                        ftp.retrbinary('RETR /password.txt', open('/tmp/ftp_lymiba33/password.txt', 'wb').write)<br>
-                                    
-                                
+                            <div class="command">ftp.connect(127.0.0.1, 2121)<br>ftp.login('anonymous', 'anonymous@')<br>ftp.retrbinary('RETR /password.txt', open('/tmp/ftp_abtkyj01/password.txt', 'wb').write)<br>
                             </div>
-                            
-                            
                             <strong>Results:</strong>
-                            <div class="results-box">
-                                            <strong>Success:</strong>
-                                            
-                                                True
-                                            
-                                            <strong>Files Downloaded:</strong>
-                                            
-                                                <ul>
-                                                    
-                                                        <li>/tmp/ftp_lymiba33/password.txt</li>
-                                                    
-                                                </ul>
-                                            
-                                            <strong>All Files:</strong>
-                                            
-                                                <ul>
-                                                    
-                                                        <li>/password.txt</li>
-                                                    
-                                                </ul>
-                                            
-                                            <strong>Errors:</strong>
-                                            
-                                                <ul>
-                                                    
-                                                </ul>
-                                            
+                            <div class="results-box"><strong>Success:</strong>True<strong>Files Downloaded:</strong><ul><li>/tmp/ftp_abtkyj01/password.txt</li></ul><strong>All Files:</strong><ul><li>/password.txt</li></ul><strong>Errors:</strong><ul></ul>
                             </div>
-                            
-                            
                         </div>
                     </div>
-                    
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
                             <span>Enum Generic Product Search</span>
                             <span class="toggle-btn">[+]</span>
                         </div>
                         <div class="plugin-content">
-                            
                             <strong>Command:</strong>
-                            <div class="command">
-                                
-                                    
-                                        searchsploit vsftpd 2.0<br>
-                                    
-                                        https://github.com/search?q=vsftpd+2.0+exploit<br>
-                                    
-                                        Google Custom Search API: vsftpd 2.0 exploit<br>
-                                    
-                                        https://html.duckduckgo.com/html/?q=vsftpd+2.0+exploit<br>
-                                    
-                                
+                            <div class="command">searchsploit vsftpd 2.0<br>https://github.com/search?q=vsftpd+2.0+exploit<br>Google Custom Search API: vsftpd 2.0 exploit<br>https://html.duckduckgo.com/html/?q=vsftpd+2.0+exploit<br>
                             </div>
-                            
-                            
                             <strong>Results:</strong>
-                            <div class="results-box">
-                                            <strong>Searchsploit:</strong>
-                                            
-                                                <ul>
-                                                    
-                                                        <li> Exploit Title                                                                                                                                                                                            |  Path</li>
-                                                    
-                                                        <li>[01;31m[Kvsftpd[m[K [01;31m[K2.0[m[K.5 - 'CWD' (Authenticated) Remote Memory Consumption                                                                                                                                            | linux/dos/5814.pl</li>
-                                                    
-                                                        <li>[01;31m[Kvsftpd[m[K [01;31m[K2.0[m[K.5 - 'deny_file' Option Remote Denial of Service (1)                                                                                                                                            | windows/dos/31818.sh</li>
-                                                    
-                                                        <li>[01;31m[Kvsftpd[m[K [01;31m[K2.0[m[K.5 - 'deny_file' Option Remote Denial of Service (2)                                                                                                                                            | windows/dos/31819.pl</li>
-                                                    
-                                                        <li>Shellcodes: No Results</li>
-                                                    
-                                                </ul>
-                                            
-                                            <strong>Github Titles:</strong>
-                                            
-                                                <ul>
-                                                    
-                                                </ul>
-                                            
-                                            <strong>Google Titles:</strong>
-                                            
-                                                <ul>
-                                                    
-                                                        <li>Exploiting vsftpd in Metasploitable 2 | by Jason Jacobs, MSc. - Medium</li>
-                                                    
-                                                        <li>dgrbch1/Exploits: Vsftpd Backdoor Exploit Demonstration - GitHub</li>
-                                                    
-                                                        <li>Exploit VSFTPD 2.0.8 | HackingDNA</li>
-                                                    
-                                                        <li>ftp-vsftpd-backdoor NSE script — Nmap Scripting Engine documentation</li>
-                                                    
-                                                        <li>Vsftpd Backdoor Exploit Project - dgrbch1.github.io</li>
-                                                    
-                                                </ul>
-                                            
+                            <div class="results-box"><strong>Searchsploit:</strong><ul><li> Exploit Title                                                                                                                                                                                            |  Path</li><li>[01;31m[Kvsftpd[m[K [01;31m[K2.0[m[K.5 - 'CWD' (Authenticated) Remote Memory Consumption                                                                                                                                            | linux/dos/5814.pl</li><li>[01;31m[Kvsftpd[m[K [01;31m[K2.0[m[K.5 - 'deny_file' Option Remote Denial of Service (1)                                                                                                                                            | windows/dos/31818.sh</li><li>[01;31m[Kvsftpd[m[K [01;31m[K2.0[m[K.5 - 'deny_file' Option Remote Denial of Service (2)                                                                                                                                            | windows/dos/31819.pl</li><li>Shellcodes: No Results</li></ul><strong>Github Titles:</strong><ul></ul><strong>Google Titles:</strong><ul><li>Exploiting vsftpd in Metasploitable 2 | by Jason Jacobs, MSc. - Medium</li><li>Exploit VSFTPD 2.0.8 | HackingDNA</li><li>dgrbch1/Exploits: Vsftpd Backdoor Exploit Demonstration - GitHub</li><li>ftp-vsftpd-backdoor NSE script — Nmap Scripting Engine documentation</li><li>Vsftpd Backdoor Exploit Project - dgrbch1.github.io</li></ul>
                             </div>
-                            
-                            
                         </div>
                     </div>
-                    
                 </div>
-                
             </div>
             
             
@@ -1967,81 +1112,27 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                 </div>
                 
                 <!-- Plugin Results -->
-                
                 <div class="plugin-results">
                     <h4>
                         🔧 Plugin Results 
                         <button onclick="expandAll()" style="margin-left: 10px; font-size: 0.8em;">Expand All</button>
                         <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
                     </h4>
-                    
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
                             <span>Enum Generic Product Search</span>
                             <span class="toggle-btn">[+]</span>
                         </div>
                         <div class="plugin-content">
-                            
                             <strong>Command:</strong>
-                            <div class="command">
-                                
-                                    
-                                        searchsploit OpenSSH 8.2<br>
-                                    
-                                        https://github.com/search?q=OpenSSH+8.2+exploit<br>
-                                    
-                                        Google Custom Search API: OpenSSH 8.2 exploit<br>
-                                    
-                                        https://html.duckduckgo.com/html/?q=OpenSSH+8.2+exploit<br>
-                                    
-                                
+                            <div class="command">searchsploit OpenSSH 8.2<br>https://github.com/search?q=OpenSSH+8.2+exploit<br>Google Custom Search API: OpenSSH 8.2 exploit<br>https://html.duckduckgo.com/html/?q=OpenSSH+8.2+exploit<br>
                             </div>
-                            
-                            
                             <strong>Results:</strong>
-                            <div class="results-box">
-                                            <strong>Searchsploit:</strong>
-                                            
-                                                <ul>
-                                                    
-                                                        <li>Exploits: No Results</li>
-                                                    
-                                                        <li>Shellcodes: No Results</li>
-                                                    
-                                                        <li>Papers: No Results</li>
-                                                    
-                                                </ul>
-                                            
-                                            <strong>Github Titles:</strong>
-                                            
-                                                <ul>
-                                                    
-                                                </ul>
-                                            
-                                            <strong>Google Titles:</strong>
-                                            
-                                                <ul>
-                                                    
-                                                        <li>GitHub - d0rb/CVE-2024-6387: This Python script exploits a remote code ...</li>
-                                                    
-                                                        <li>CVE-2023-38408 (OpenSSH Vulnerability to RCE) | by Manjil - Medium</li>
-                                                    
-                                                        <li>Cve-2020-12062 - Nvd</li>
-                                                    
-                                                        <li>Openbsd Openssh 8.2 security vulnerabilities, CVEs - CVEdetails.com</li>
-                                                    
-                                                        <li>OpenSSH 8.2p1 - any known CVE ? - Exploits - Hack The Box - Forums</li>
-                                                    
-                                                </ul>
-                                            
+                            <div class="results-box"><strong>Searchsploit:</strong><ul><li>Exploits: No Results</li><li>Shellcodes: No Results</li><li>Papers: No Results</li></ul><strong>Github Titles:</strong><ul></ul><strong>Google Titles:</strong><ul><li>GitHub - d0rb/CVE-2024-6387: This Python script exploits a remote code ...</li><li>CVE-2023-38408 (OpenSSH Vulnerability to RCE) | by Manjil - Medium</li><li>Cve-2020-12062 - Nvd</li><li>OpenSSH Vulnerability: CVE-2020-12062 - Rapid7</li><li>Openbsd Openssh 8.2 security vulnerabilities, CVEs - CVEdetails.com</li></ul>
                             </div>
-                            
-                            
                         </div>
                     </div>
-                    
                 </div>
-                
             </div>
             
             
@@ -2074,17 +1165,6 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                     <h4>📜 Nmap Scripts</h4>
                     
                     <div class="script-item">
-                        <div class="script-name">http-methods</div>
-                        <div class="script-output">
-  Supported Methods: GET HEAD POST OPTIONS</div>
-                    </div>
-                    
-                    <div class="script-item">
-                        <div class="script-name">http-server-header</div>
-                        <div class="script-output">Apache/2.4.41 (Ubuntu)</div>
-                    </div>
-                    
-                    <div class="script-item">
                         <div class="script-name">http-open-proxy</div>
                         <div class="script-output">Proxy might be redirecting requests</div>
                     </div>
@@ -2094,10 +1174,20 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                         <div class="script-output"></div>
                     </div>
                     
+                    <div class="script-item">
+                        <div class="script-name">http-server-header</div>
+                        <div class="script-output">Apache/2.4.41 (Ubuntu)</div>
+                    </div>
+                    
+                    <div class="script-item">
+                        <div class="script-name">http-methods</div>
+                        <div class="script-output">
+  Supported Methods: GET HEAD POST OPTIONS</div>
+                    </div>
+                    
                 </div>
                 
                 <!-- Plugin Results -->
-                
             </div>
             
             
@@ -2124,42 +1214,26 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                 <!-- Scripts Section -->
                 
                 <!-- Plugin Results -->
-                
                 <div class="plugin-results">
                     <h4>
                         🔧 Plugin Results 
                         <button onclick="expandAll()" style="margin-left: 10px; font-size: 0.8em;">Expand All</button>
                         <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
                     </h4>
-                    
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
                             <span>Enum Generic Product Search</span>
                             <span class="toggle-btn">[+]</span>
                         </div>
                         <div class="plugin-content">
-                            
-                            
                             <strong>Results:</strong>
-                            <div class="results-box">
-                                    
-            
-                <div style="margin-left:0em;">
-                    <strong>Error:</strong>
-                    
-                        No product info found for this port.
-                    
-                </div>
-            
-        
+                            <div class="results-box"><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Error:</strong><span style="margin-left:0.5em;">No product info found for this port.</span>
+        </div>
                             </div>
-                            
-                            
                         </div>
                     </div>
-                    
                 </div>
-                
             </div>
             
             
@@ -2189,85 +1263,27 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                 <!-- Scripts Section -->
                 
                 <!-- Plugin Results -->
-                
                 <div class="plugin-results">
                     <h4>
                         🔧 Plugin Results 
                         <button onclick="expandAll()" style="margin-left: 10px; font-size: 0.8em;">Expand All</button>
                         <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
                     </h4>
-                    
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
                             <span>Enum Generic Product Search</span>
                             <span class="toggle-btn">[+]</span>
                         </div>
                         <div class="plugin-content">
-                            
                             <strong>Command:</strong>
-                            <div class="command">
-                                
-                                    
-                                        searchsploit MySQL <br>
-                                    
-                                        https://github.com/search?q=MySQL+exploit<br>
-                                    
-                                        Google Custom Search API: MySQL exploit<br>
-                                    
-                                        https://html.duckduckgo.com/html/?q=MySQL+exploit<br>
-                                    
-                                
+                            <div class="command">searchsploit MySQL <br>https://github.com/search?q=MySQL+exploit<br>Google Custom Search API: MySQL exploit<br>https://html.duckduckgo.com/html/?q=MySQL+exploit<br>
                             </div>
-                            
-                            
                             <strong>Results:</strong>
-                            <div class="results-box">
-                                            <strong>Searchsploit:</strong>
-                                            
-                                                <ul>
-                                                    
-                                                        <li> Exploit Title                                                                                                                                                                                            |  Path</li>
-                                                    
-                                                        <li>Active Calendar 1.2 - '/data/[01;31m[Kmysql[m[Kevents.php?css' Cross-Site Scripting                                                                                                                                    | php/webapps/29653.txt</li>
-                                                    
-                                                        <li>Advanced Poll 2.0 - '[01;31m[Kmysql[m[K_host' Cross-Site Scripting                                                                                                                                                     | php/webapps/33972.txt</li>
-                                                    
-                                                        <li>Agora 1.4 RC1 - '[01;31m[KMysql[m[KfinderAdmin.php' Remote File Inclusion                                                                                                                                              | php/webapps/2726.txt</li>
-                                                    
-                                                        <li>Asterisk 'asterisk-addons' 1.2.7/1.4.3 - CDR_ADDON_[01;31m[KMYSQL[m[K Module SQL Injection                                                                                                                             | linux/remote/30677.pl</li>
-                                                    
-                                                </ul>
-                                            
-                                            <strong>Github Titles:</strong>
-                                            
-                                                <ul>
-                                                    
-                                                </ul>
-                                            
-                                            <strong>Google Titles:</strong>
-                                            
-                                                <ul>
-                                                    
-                                                        <li>MySQL - Authentication Bypass - Multiple remote Exploit</li>
-                                                    
-                                                        <li>MySQL Pentesting | Exploit Notes - HDKS</li>
-                                                    
-                                                        <li>3306 - Pentesting Mysql - HackTricks</li>
-                                                    
-                                                        <li>Attacking MySQL With Metasploit - Penetration Testing Lab</li>
-                                                    
-                                                        <li>MySQL Authentication Bypass Password Dump - Rapid7</li>
-                                                    
-                                                </ul>
-                                            
+                            <div class="results-box"><strong>Searchsploit:</strong><ul><li> Exploit Title                                                                                                                                                                                            |  Path</li><li>Active Calendar 1.2 - '/data/[01;31m[Kmysql[m[Kevents.php?css' Cross-Site Scripting                                                                                                                                    | php/webapps/29653.txt</li><li>Advanced Poll 2.0 - '[01;31m[Kmysql[m[K_host' Cross-Site Scripting                                                                                                                                                     | php/webapps/33972.txt</li><li>Agora 1.4 RC1 - '[01;31m[KMysql[m[KfinderAdmin.php' Remote File Inclusion                                                                                                                                              | php/webapps/2726.txt</li><li>Asterisk 'asterisk-addons' 1.2.7/1.4.3 - CDR_ADDON_[01;31m[KMYSQL[m[K Module SQL Injection                                                                                                                             | linux/remote/30677.pl</li></ul><strong>Github Titles:</strong><ul></ul><strong>Google Titles:</strong><ul><li>3306 - Pentesting Mysql - HackTricks</li><li>MySQL Pentesting | Exploit Notes - HDKS</li><li>MySQL - Authentication Bypass - Multiple remote Exploit</li><li>MySQL Authentication Bypass Password Dump - Rapid7</li><li>MySQL Pentesting - Hackviser</li></ul>
                             </div>
-                            
-                            
                         </div>
                     </div>
-                    
                 </div>
-                
             </div>
             
             
@@ -2294,42 +1310,26 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                 <!-- Scripts Section -->
                 
                 <!-- Plugin Results -->
-                
                 <div class="plugin-results">
                     <h4>
                         🔧 Plugin Results 
                         <button onclick="expandAll()" style="margin-left: 10px; font-size: 0.8em;">Expand All</button>
                         <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
                     </h4>
-                    
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
                             <span>Enum Generic Product Search</span>
                             <span class="toggle-btn">[+]</span>
                         </div>
                         <div class="plugin-content">
-                            
-                            
                             <strong>Results:</strong>
-                            <div class="results-box">
-                                    
-            
-                <div style="margin-left:0em;">
-                    <strong>Error:</strong>
-                    
-                        No product info found for this port.
-                    
-                </div>
-            
-        
+                            <div class="results-box"><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Error:</strong><span style="margin-left:0.5em;">No product info found for this port.</span>
+        </div>
                             </div>
-                            
-                            
                         </div>
                     </div>
-                    
                 </div>
-                
             </div>
             
             
@@ -2356,42 +1356,26 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                 <!-- Scripts Section -->
                 
                 <!-- Plugin Results -->
-                
                 <div class="plugin-results">
                     <h4>
                         🔧 Plugin Results 
                         <button onclick="expandAll()" style="margin-left: 10px; font-size: 0.8em;">Expand All</button>
                         <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
                     </h4>
-                    
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
                             <span>Enum Generic Product Search</span>
                             <span class="toggle-btn">[+]</span>
                         </div>
                         <div class="plugin-content">
-                            
-                            
                             <strong>Results:</strong>
-                            <div class="results-box">
-                                    
-            
-                <div style="margin-left:0em;">
-                    <strong>Error:</strong>
-                    
-                        No product info found for this port.
-                    
-                </div>
-            
-        
+                            <div class="results-box"><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Error:</strong><span style="margin-left:0.5em;">No product info found for this port.</span>
+        </div>
                             </div>
-                            
-                            
                         </div>
                     </div>
-                    
                 </div>
-                
             </div>
             
             
@@ -2418,42 +1402,26 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                 <!-- Scripts Section -->
                 
                 <!-- Plugin Results -->
-                
                 <div class="plugin-results">
                     <h4>
                         🔧 Plugin Results 
                         <button onclick="expandAll()" style="margin-left: 10px; font-size: 0.8em;">Expand All</button>
                         <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
                     </h4>
-                    
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
                             <span>Enum Generic Product Search</span>
                             <span class="toggle-btn">[+]</span>
                         </div>
                         <div class="plugin-content">
-                            
-                            
                             <strong>Results:</strong>
-                            <div class="results-box">
-                                    
-            
-                <div style="margin-left:0em;">
-                    <strong>Error:</strong>
-                    
-                        No product info found for this port.
-                    
-                </div>
-            
-        
+                            <div class="results-box"><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Error:</strong><span style="margin-left:0.5em;">No product info found for this port.</span>
+        </div>
                             </div>
-                            
-                            
                         </div>
                     </div>
-                    
                 </div>
-                
             </div>
             
             
@@ -2480,42 +1448,26 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                 <!-- Scripts Section -->
                 
                 <!-- Plugin Results -->
-                
                 <div class="plugin-results">
                     <h4>
                         🔧 Plugin Results 
                         <button onclick="expandAll()" style="margin-left: 10px; font-size: 0.8em;">Expand All</button>
                         <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
                     </h4>
-                    
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
                             <span>Enum Generic Product Search</span>
                             <span class="toggle-btn">[+]</span>
                         </div>
                         <div class="plugin-content">
-                            
-                            
                             <strong>Results:</strong>
-                            <div class="results-box">
-                                    
-            
-                <div style="margin-left:0em;">
-                    <strong>Error:</strong>
-                    
-                        No product info found for this port.
-                    
-                </div>
-            
-        
+                            <div class="results-box"><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Error:</strong><span style="margin-left:0.5em;">No product info found for this port.</span>
+        </div>
                             </div>
-                            
-                            
                         </div>
                     </div>
-                    
                 </div>
-                
             </div>
             
             
@@ -2542,42 +1494,26 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                 <!-- Scripts Section -->
                 
                 <!-- Plugin Results -->
-                
                 <div class="plugin-results">
                     <h4>
                         🔧 Plugin Results 
                         <button onclick="expandAll()" style="margin-left: 10px; font-size: 0.8em;">Expand All</button>
                         <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
                     </h4>
-                    
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
                             <span>Enum Generic Product Search</span>
                             <span class="toggle-btn">[+]</span>
                         </div>
                         <div class="plugin-content">
-                            
-                            
                             <strong>Results:</strong>
-                            <div class="results-box">
-                                    
-            
-                <div style="margin-left:0em;">
-                    <strong>Error:</strong>
-                    
-                        No product info found for this port.
-                    
-                </div>
-            
-        
+                            <div class="results-box"><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Error:</strong><span style="margin-left:0.5em;">No product info found for this port.</span>
+        </div>
                             </div>
-                            
-                            
                         </div>
                     </div>
-                    
                 </div>
-                
             </div>
             
             
@@ -2604,42 +1540,26 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                 <!-- Scripts Section -->
                 
                 <!-- Plugin Results -->
-                
                 <div class="plugin-results">
                     <h4>
                         🔧 Plugin Results 
                         <button onclick="expandAll()" style="margin-left: 10px; font-size: 0.8em;">Expand All</button>
                         <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
                     </h4>
-                    
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
                             <span>Enum Generic Product Search</span>
                             <span class="toggle-btn">[+]</span>
                         </div>
                         <div class="plugin-content">
-                            
-                            
                             <strong>Results:</strong>
-                            <div class="results-box">
-                                    
-            
-                <div style="margin-left:0em;">
-                    <strong>Error:</strong>
-                    
-                        No product info found for this port.
-                    
-                </div>
-            
-        
+                            <div class="results-box"><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Error:</strong><span style="margin-left:0.5em;">No product info found for this port.</span>
+        </div>
                             </div>
-                            
-                            
                         </div>
                     </div>
-                    
                 </div>
-                
             </div>
             
             
@@ -2666,42 +1586,26 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                 <!-- Scripts Section -->
                 
                 <!-- Plugin Results -->
-                
                 <div class="plugin-results">
                     <h4>
                         🔧 Plugin Results 
                         <button onclick="expandAll()" style="margin-left: 10px; font-size: 0.8em;">Expand All</button>
                         <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
                     </h4>
-                    
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
                             <span>Enum Generic Product Search</span>
                             <span class="toggle-btn">[+]</span>
                         </div>
                         <div class="plugin-content">
-                            
-                            
                             <strong>Results:</strong>
-                            <div class="results-box">
-                                    
-            
-                <div style="margin-left:0em;">
-                    <strong>Error:</strong>
-                    
-                        No product info found for this port.
-                    
-                </div>
-            
-        
+                            <div class="results-box"><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Error:</strong><span style="margin-left:0.5em;">No product info found for this port.</span>
+        </div>
                             </div>
-                            
-                            
                         </div>
                     </div>
-                    
                 </div>
-                
             </div>
             
             
@@ -2728,42 +1632,26 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                 <!-- Scripts Section -->
                 
                 <!-- Plugin Results -->
-                
                 <div class="plugin-results">
                     <h4>
                         🔧 Plugin Results 
                         <button onclick="expandAll()" style="margin-left: 10px; font-size: 0.8em;">Expand All</button>
                         <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
                     </h4>
-                    
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
                             <span>Enum Generic Product Search</span>
                             <span class="toggle-btn">[+]</span>
                         </div>
                         <div class="plugin-content">
-                            
-                            
                             <strong>Results:</strong>
-                            <div class="results-box">
-                                    
-            
-                <div style="margin-left:0em;">
-                    <strong>Error:</strong>
-                    
-                        No product info found for this port.
-                    
-                </div>
-            
-        
+                            <div class="results-box"><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Error:</strong><span style="margin-left:0.5em;">No product info found for this port.</span>
+        </div>
                             </div>
-                            
-                            
                         </div>
                     </div>
-                    
                 </div>
-                
             </div>
             
             
@@ -2790,42 +1678,26 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                 <!-- Scripts Section -->
                 
                 <!-- Plugin Results -->
-                
                 <div class="plugin-results">
                     <h4>
                         🔧 Plugin Results 
                         <button onclick="expandAll()" style="margin-left: 10px; font-size: 0.8em;">Expand All</button>
                         <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
                     </h4>
-                    
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
                             <span>Enum Generic Product Search</span>
                             <span class="toggle-btn">[+]</span>
                         </div>
                         <div class="plugin-content">
-                            
-                            
                             <strong>Results:</strong>
-                            <div class="results-box">
-                                    
-            
-                <div style="margin-left:0em;">
-                    <strong>Error:</strong>
-                    
-                        No product info found for this port.
-                    
-                </div>
-            
-        
+                            <div class="results-box"><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Error:</strong><span style="margin-left:0.5em;">No product info found for this port.</span>
+        </div>
                             </div>
-                            
-                            
                         </div>
                     </div>
-                    
                 </div>
-                
             </div>
             
             
@@ -2852,49 +1724,33 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                 <!-- Scripts Section -->
                 
                 <!-- Plugin Results -->
-                
                 <div class="plugin-results">
                     <h4>
                         🔧 Plugin Results 
                         <button onclick="expandAll()" style="margin-left: 10px; font-size: 0.8em;">Expand All</button>
                         <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
                     </h4>
-                    
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
                             <span>Enum Generic Product Search</span>
                             <span class="toggle-btn">[+]</span>
                         </div>
                         <div class="plugin-content">
-                            
-                            
                             <strong>Results:</strong>
-                            <div class="results-box">
-                                    
-            
-                <div style="margin-left:0em;">
-                    <strong>Error:</strong>
-                    
-                        No product info found for this port.
-                    
-                </div>
-            
-        
+                            <div class="results-box"><div style="margin-left:0em; margin-bottom:0.2em;">
+            <strong style="display:inline;">Error:</strong><span style="margin-left:0.5em;">No product info found for this port.</span>
+        </div>
                             </div>
-                            
-                            
                         </div>
                     </div>
-                    
                 </div>
-                
             </div>
             
             
         </div>
         
         <div class="footer">
-            <p>Report generated by SPADE by ReKon64 | 2025-06-07 13:05:01</p>
+            <p>Report generated by SPADE by ReKon64 | 2025-06-07 13:45:34</p>
         </div>
     </div>
 </body>

@@ -201,11 +201,11 @@
             white-space: pre-wrap;
             max-height: 400px;
             overflow-y: auto;
-            line-height: 1.3; /* Reduce line height */
+            line-height: 1.3;
         }
         .results-box strong {
             display: block;
-            margin: 8px 0 0px 0; /* Reduce margins */
+            margin: 4px 0 0px 0;
             color: #2c3e50;
             border-bottom: 1px solid #e0e0e0;
             padding-bottom: 2px;
@@ -219,6 +219,7 @@
         .results-box li {
             margin: 0;
             padding: 0;
+            line-height: 1.2;
         }
         .no-results {
             color: #6c757d;
@@ -266,7 +267,6 @@
         function togglePlugin(element) {
             const content = element.nextElementSibling;
             const toggleBtn = element.querySelector('.toggle-btn');
-            
             if (content.classList.contains('show')) {
                 content.classList.remove('show');
                 toggleBtn.textContent = '[+]';
@@ -275,7 +275,6 @@
                 toggleBtn.textContent = '[-]';
             }
         }
-        
         function expandAll() {
             document.querySelectorAll('.plugin-content').forEach(content => {
                 content.classList.add('show');
@@ -284,7 +283,6 @@
                 btn.textContent = '[-]';
             });
         }
-        
         function collapseAll() {
             document.querySelectorAll('.plugin-content').forEach(content => {
                 content.classList.remove('show');
@@ -297,11 +295,12 @@
 </head>
 <body>
     <div class="container">
+        
+        
         <div class="header">
             <h1>Security Scan Report</h1>
-            <p class="subtitle">Generated on 2025-06-06 11:59:41</p>
+            <p class="subtitle">Generated on 2025-06-07 13:05:01</p>
         </div>
-
         <!-- Table of Contents -->
         <div class="toc">
             <h2>📋 Table of Contents</h2>
@@ -509,7 +508,6 @@
                 
             </ul>
         </div>
-
         <!-- Summary Section -->
         <div class="summary-section">
             <h3>📊 Executive Summary</h3>
@@ -520,7 +518,6 @@
                 <li><strong>Services Identified:</strong> 8</li>
             </ul>
         </div>
-
         <!-- Host Details -->
         
         <div class="host-section" id="host-1">
@@ -531,7 +528,6 @@
                     <strong>Open Ports:</strong> 19
                 </div>
             </div>
-
             
             
             <div class="port-section" id="port-127-0-0-1-1025">
@@ -551,21 +547,19 @@
                     </div>
                     <span class="state-badge state-open">open</span>
                 </div>
-
                 <!-- Port Summary -->
                 <div class="summary-section">
                     <h4>🔍 Port Summary</h4>
                     <p><em>AI-generated analysis will appear here.</em></p>
                 </div>
-
                 <!-- Scripts Section -->
                 
                 <div class="scripts-section">
                     <h4>📜 Nmap Scripts</h4>
                     
                     <div class="script-item">
-                        <div class="script-name">ssl-cert</div>
-                        <div class="script-output"></div>
+                        <div class="script-name">ssl-date</div>
+                        <div class="script-output">TLS randomness does not represent time</div>
                     </div>
                     
                     <div class="script-item">
@@ -574,13 +568,12 @@
                     </div>
                     
                     <div class="script-item">
-                        <div class="script-name">ssl-date</div>
-                        <div class="script-output">TLS randomness does not represent time</div>
+                        <div class="script-name">ssl-cert</div>
+                        <div class="script-output"></div>
                     </div>
                     
                 </div>
                 
-
                 <!-- Plugin Results -->
                 
                 <div class="plugin-results">
@@ -589,7 +582,6 @@
                         <button onclick="expandAll()" style="margin-left: 10px; font-size: 0.8em;">Expand All</button>
                         <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
                     </h4>
-                    
                     
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
@@ -613,29 +605,45 @@
                                 
                             </div>
                             
-
                             
                             <strong>Results:</strong>
                             <div class="results-box">
                                             <strong>Searchsploit:</strong>
-                                                    <ul>
-                                                            <li>Exploits: No Results</li>
-                                                            <li>Shellcodes: No Results</li>
-                                                            <li>Papers: No Results</li>
-                                                    </ul>
+                                            
+                                                <ul>
+                                                    
+                                                        <li>Exploits: No Results</li>
+                                                    
+                                                        <li>Shellcodes: No Results</li>
+                                                    
+                                                        <li>Papers: No Results</li>
+                                                    
+                                                </ul>
+                                            
                                             <strong>Github Titles:</strong>
-                                                    <span class="no-results">No results</span>
+                                            
+                                                <ul>
+                                                    
+                                                </ul>
+                                            
                                             <strong>Google Titles:</strong>
-                                                    <ul>
-                                                            <li>Postfix SMTP 4.2.x < 4.2.48 - 'Shellshock' Remote ... - Exploit Database</li>
-                                                            <li>Exploiting SMTP on Metasploitable 2: Unveiling the Power of ... - Medium</li>
-                                                            <li>bughunter1101/postfix-smtpd-exploit.py at master · s-kustm ... - GitHub</li>
-                                                            <li>SMTP Smuggling - Postfix</li>
-                                                            <li>Cve-2023-51764 - Nvd</li>
-                                                    </ul>
+                                            
+                                                <ul>
+                                                    
+                                                        <li>Postfix SMTP 4.2.x < 4.2.48 - 'Shellshock' Remote ... - Exploit Database</li>
+                                                    
+                                                        <li>Exploiting SMTP on Metasploitable 2: Unveiling the Power of ... - Medium</li>
+                                                    
+                                                        <li>Cve-2023-51764 - Nvd</li>
+                                                    
+                                                        <li>bughunter1101/postfix-smtpd-exploit.py at master · s-kustm ... - GitHub</li>
+                                                    
+                                                        <li>SMTP Smuggling - Postfix</li>
+                                                    
+                                                </ul>
+                                            
                             </div>
                             
-
                             
                         </div>
                     </div>
@@ -660,16 +668,13 @@
                     </div>
                     <span class="state-badge state-open">open</span>
                 </div>
-
                 <!-- Port Summary -->
                 <div class="summary-section">
                     <h4>🔍 Port Summary</h4>
                     <p><em>AI-generated analysis will appear here.</em></p>
                 </div>
-
                 <!-- Scripts Section -->
                 
-
                 <!-- Plugin Results -->
                 
                 <div class="plugin-results">
@@ -679,7 +684,6 @@
                         <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
                     </h4>
                     
-                    
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
                             <span>Enum Generic Product Search</span>
@@ -687,14 +691,21 @@
                         </div>
                         <div class="plugin-content">
                             
-
                             
                             <strong>Results:</strong>
                             <div class="results-box">
-                                            <span class="no-results">No product info found for this port.</span>
+                                    
+            
+                <div style="margin-left:0em;">
+                    <strong>Error:</strong>
+                    
+                        No product info found for this port.
+                    
+                </div>
+            
+        
                             </div>
                             
-
                             
                         </div>
                     </div>
@@ -723,28 +734,59 @@
                                 
                             </div>
                             
-
                             
                             <strong>Results:</strong>
                             <div class="results-box">
-                                            <strong>Users:</strong> WARNING: no network interfaces found
+                                    
+            
+                <div style="margin-left:0em;">
+                    <strong>Users:</strong>
+                    
+                        WARNING: no network interfaces found
 Cannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED
 
-                                            <strong>Shares:</strong> WARNING: no network interfaces found
+                    
+                </div>
+            
+                <div style="margin-left:0em;">
+                    <strong>Shares:</strong>
+                    
+                        WARNING: no network interfaces found
 Cannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED
 
-                                            <strong>Domains:</strong> WARNING: no network interfaces found
+                    
+                </div>
+            
+                <div style="margin-left:0em;">
+                    <strong>Domains:</strong>
+                    
+                        WARNING: no network interfaces found
 Cannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED
 
-                                            <strong>Groups:</strong> WARNING: no network interfaces found
+                    
+                </div>
+            
+                <div style="margin-left:0em;">
+                    <strong>Groups:</strong>
+                    
+                        WARNING: no network interfaces found
 Cannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED
 
-                                            <strong>Srvinfo:</strong> WARNING: no network interfaces found
+                    
+                </div>
+            
+                <div style="margin-left:0em;">
+                    <strong>Srvinfo:</strong>
+                    
+                        WARNING: no network interfaces found
 Cannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED
 
+                    
+                </div>
+            
+        
                             </div>
                             
-
                             
                         </div>
                     </div>
@@ -772,16 +814,13 @@ Cannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED
                     </div>
                     <span class="state-badge state-open">open</span>
                 </div>
-
                 <!-- Port Summary -->
                 <div class="summary-section">
                     <h4>🔍 Port Summary</h4>
                     <p><em>AI-generated analysis will appear here.</em></p>
                 </div>
-
                 <!-- Scripts Section -->
                 
-
                 <!-- Plugin Results -->
                 
                 <div class="plugin-results">
@@ -790,7 +829,6 @@ Cannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED
                         <button onclick="expandAll()" style="margin-left: 10px; font-size: 0.8em;">Expand All</button>
                         <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
                     </h4>
-                    
                     
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
@@ -802,13 +840,11 @@ Cannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED
                             <strong>Command:</strong>
                             <div class="command">
                                 
-                                    nmap -p 1139 --script=smb-os-discovery,smb-enum-shares,smb-enum-users,smb-enum-domains,smb-enum-groups,smb-security-mode,smb2-security-mode,smb2-time,smb2-capabilities,smb-protocols,smb-vuln* -Pn -vv -n -oX /tmp/tmpj0wasxjb.xml 127.0.0.1
+                                    nmap -p 1139 --script=smb-os-discovery,smb-enum-shares,smb-enum-users,smb-enum-domains,smb-enum-groups,smb-security-mode,smb2-security-mode,smb2-time,smb2-capabilities,smb-protocols,smb-vuln* -Pn -vv -n -oX /tmp/tmprsqm_l5j.xml 127.0.0.1
                                 
                             </div>
                             
-
                             
-
                             
                         </div>
                     </div>
@@ -827,20 +863,339 @@ Cannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED
                                 
                             </div>
                             
-
                             
                             <strong>Results:</strong>
                             <div class="results-box">
                                             <strong>Shares:</strong>
-                                                <ul>
-                                                        <li><strong>public:</strong> {'files': ['readme.txt'], 'dirs': [], 'readable': ['readme.txt'], 'writable': [], 'appendable': ['readme.txt'], 'errors': [], 'raw_list': 'WARNING: no network interfaces found\n  .                                   D        0  Wed Jun  4 10:16:21 2025\n  ..                                  D        0  Wed Jun  4 10:19:00 2025\n  readme.txt                          N       41  Wed Jun  4 10:16:21 2025\n\n\t\t81926552 blocks of size 1024. 27230572 blocks available\n'}</li>
-                                                        <li><strong>admin:</strong> {'files': [], 'dirs': [], 'readable': [], 'writable': [], 'appendable': [], 'errors': [], 'raw_list': 'WARNING: no network interfaces found\ntree connect failed: NT_STATUS_ACCESS_DENIED\n'}</li>
-                                                        <li><strong>backup:</strong> {'files': ['db_backup.sql', 'passwords.txt'], 'dirs': [], 'readable': ['db_backup.sql', 'passwords.txt'], 'writable': [], 'appendable': ['db_backup.sql', 'passwords.txt'], 'errors': [], 'raw_list': 'WARNING: no network interfaces found\n  .                                   D        0  Wed Jun  4 10:16:19 2025\n  ..                                  D        0  Wed Jun  4 10:16:19 2025\n  db_backup.sql                       N       21  Wed Jun  4 10:16:19 2025\n  passwords.txt                       N       15  Wed Jun  4 10:16:19 2025\n\n\t\t81926552 blocks of size 1024. 27229880 blocks available\n'}</li>
-                                                        <li><strong>SMB1:</strong> {'files': [], 'dirs': [], 'readable': [], 'writable': [], 'appendable': [], 'errors': ['Failed to connect to share: NT_STATUS_BAD_NETWORK_NAME']}</li>
-                                                </ul>
+                                            
+                                                
+            
+                <div style="margin-left:0em;">
+                    <strong>Public:</strong>
+                    
+                        
+            
+                <div style="margin-left:1em;">
+                    <strong>Files:</strong>
+                    
+                        
+                            <ul style="margin-left:1em;">
+                                
+                                    <li>readme.txt</li>
+                                
+                            </ul>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Dirs:</strong>
+                    
+                        
+                            <span class="no-results">empty</span>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Readable:</strong>
+                    
+                        
+                            <ul style="margin-left:1em;">
+                                
+                                    <li>readme.txt</li>
+                                
+                            </ul>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Writable:</strong>
+                    
+                        
+                            <span class="no-results">empty</span>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Appendable:</strong>
+                    
+                        
+                            <ul style="margin-left:1em;">
+                                
+                                    <li>readme.txt</li>
+                                
+                            </ul>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Errors:</strong>
+                    
+                        
+                            <span class="no-results">empty</span>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Raw List:</strong>
+                    
+                        WARNING: no network interfaces found
+  .                                   D        0  Wed Jun  4 10:16:21 2025
+  ..                                  D        0  Wed Jun  4 10:19:00 2025
+  readme.txt                          N       41  Wed Jun  4 10:16:21 2025
+
+		81926552 blocks of size 1024. 27223988 blocks available
+
+                    
+                </div>
+            
+        
+                    
+                </div>
+            
+                <div style="margin-left:0em;">
+                    <strong>Admin:</strong>
+                    
+                        
+            
+                <div style="margin-left:1em;">
+                    <strong>Files:</strong>
+                    
+                        
+                            <span class="no-results">empty</span>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Dirs:</strong>
+                    
+                        
+                            <span class="no-results">empty</span>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Readable:</strong>
+                    
+                        
+                            <span class="no-results">empty</span>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Writable:</strong>
+                    
+                        
+                            <span class="no-results">empty</span>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Appendable:</strong>
+                    
+                        
+                            <span class="no-results">empty</span>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Errors:</strong>
+                    
+                        
+                            <span class="no-results">empty</span>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Raw List:</strong>
+                    
+                        WARNING: no network interfaces found
+tree connect failed: NT_STATUS_ACCESS_DENIED
+
+                    
+                </div>
+            
+        
+                    
+                </div>
+            
+                <div style="margin-left:0em;">
+                    <strong>Backup:</strong>
+                    
+                        
+            
+                <div style="margin-left:1em;">
+                    <strong>Files:</strong>
+                    
+                        
+                            <ul style="margin-left:1em;">
+                                
+                                    <li>db_backup.sql</li>
+                                
+                                    <li>passwords.txt</li>
+                                
+                            </ul>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Dirs:</strong>
+                    
+                        
+                            <span class="no-results">empty</span>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Readable:</strong>
+                    
+                        
+                            <ul style="margin-left:1em;">
+                                
+                                    <li>db_backup.sql</li>
+                                
+                                    <li>passwords.txt</li>
+                                
+                            </ul>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Writable:</strong>
+                    
+                        
+                            <span class="no-results">empty</span>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Appendable:</strong>
+                    
+                        
+                            <ul style="margin-left:1em;">
+                                
+                                    <li>db_backup.sql</li>
+                                
+                                    <li>passwords.txt</li>
+                                
+                            </ul>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Errors:</strong>
+                    
+                        
+                            <span class="no-results">empty</span>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Raw List:</strong>
+                    
+                        WARNING: no network interfaces found
+  .                                   D        0  Wed Jun  4 10:16:19 2025
+  ..                                  D        0  Wed Jun  4 10:16:19 2025
+  db_backup.sql                       N       21  Wed Jun  4 10:16:19 2025
+  passwords.txt                       N       15  Wed Jun  4 10:16:19 2025
+
+		81926552 blocks of size 1024. 27223300 blocks available
+
+                    
+                </div>
+            
+        
+                    
+                </div>
+            
+                <div style="margin-left:0em;">
+                    <strong>Smb1:</strong>
+                    
+                        
+            
+                <div style="margin-left:1em;">
+                    <strong>Files:</strong>
+                    
+                        
+                            <span class="no-results">empty</span>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Dirs:</strong>
+                    
+                        
+                            <span class="no-results">empty</span>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Readable:</strong>
+                    
+                        
+                            <span class="no-results">empty</span>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Writable:</strong>
+                    
+                        
+                            <span class="no-results">empty</span>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Appendable:</strong>
+                    
+                        
+                            <span class="no-results">empty</span>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Errors:</strong>
+                    
+                        
+                            <ul style="margin-left:1em;">
+                                
+                                    <li>Failed to connect to share: NT_STATUS_BAD_NETWORK_NAME</li>
+                                
+                            </ul>
+                        
+                    
+                </div>
+            
+        
+                    
+                </div>
+            
+        
+                                            
                             </div>
                             
-
                             
                         </div>
                     </div>
@@ -867,29 +1222,45 @@ Cannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED
                                 
                             </div>
                             
-
                             
                             <strong>Results:</strong>
                             <div class="results-box">
                                             <strong>Searchsploit:</strong>
-                                                    <ul>
-                                                            <li>Exploits: No Results</li>
-                                                            <li>Shellcodes: No Results</li>
-                                                            <li>Papers: No Results</li>
-                                                    </ul>
+                                            
+                                                <ul>
+                                                    
+                                                        <li>Exploits: No Results</li>
+                                                    
+                                                        <li>Shellcodes: No Results</li>
+                                                    
+                                                        <li>Papers: No Results</li>
+                                                    
+                                                </ul>
+                                            
                                             <strong>Github Titles:</strong>
-                                                    <span class="no-results">No results</span>
+                                            
+                                                <ul>
+                                                    
+                                                </ul>
+                                            
                                             <strong>Google Titles:</strong>
-                                                    <ul>
-                                                            <li>opsxcq/exploit-CVE-2017-7494 - GitHub</li>
-                                                            <li>Samba 3.5.0 < 4.4.14/4.5.10/4.6.4 - 'is_known ... - Exploit Database</li>
-                                                            <li>Script smb-vuln-cve-2017-7494 - Nmap</li>
-                                                            <li>SambaCry RCE: CVE-2017-7494 - Medium</li>
-                                                            <li>Cve-2017-7494 - Nvd</li>
-                                                    </ul>
+                                            
+                                                <ul>
+                                                    
+                                                        <li>opsxcq/exploit-CVE-2017-7494 - GitHub</li>
+                                                    
+                                                        <li>Samba "username map script" Command Execution - Rapid7</li>
+                                                    
+                                                        <li>Samba 3.5.0 < 4.4.14/4.5.10/4.6.4 - 'is_known ... - Exploit Database</li>
+                                                    
+                                                        <li>Script smb-vuln-cve-2017-7494 - Nmap</li>
+                                                    
+                                                        <li>SambaCry RCE: CVE-2017-7494 - Medium</li>
+                                                    
+                                                </ul>
+                                            
                             </div>
                             
-
                             
                         </div>
                     </div>
@@ -919,16 +1290,13 @@ Cannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED
                     </div>
                     <span class="state-badge state-open">open</span>
                 </div>
-
                 <!-- Port Summary -->
                 <div class="summary-section">
                     <h4>🔍 Port Summary</h4>
                     <p><em>AI-generated analysis will appear here.</em></p>
                 </div>
-
                 <!-- Scripts Section -->
                 
-
                 <!-- Plugin Results -->
                 
                 <div class="plugin-results">
@@ -937,7 +1305,6 @@ Cannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED
                         <button onclick="expandAll()" style="margin-left: 10px; font-size: 0.8em;">Expand All</button>
                         <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
                     </h4>
-                    
                     
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
@@ -949,13 +1316,11 @@ Cannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED
                             <strong>Command:</strong>
                             <div class="command">
                                 
-                                    nmap -p 1445 --script=smb-os-discovery,smb-enum-shares,smb-enum-users,smb-enum-domains,smb-enum-groups,smb-security-mode,smb2-security-mode,smb2-time,smb2-capabilities,smb-protocols,smb-vuln* -Pn -vv -n -oX /tmp/tmptmyghcam.xml 127.0.0.1
+                                    nmap -p 1445 --script=smb-os-discovery,smb-enum-shares,smb-enum-users,smb-enum-domains,smb-enum-groups,smb-security-mode,smb2-security-mode,smb2-time,smb2-capabilities,smb-protocols,smb-vuln* -Pn -vv -n -oX /tmp/tmp1regogp2.xml 127.0.0.1
                                 
                             </div>
                             
-
                             
-
                             
                         </div>
                     </div>
@@ -974,20 +1339,339 @@ Cannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED
                                 
                             </div>
                             
-
                             
                             <strong>Results:</strong>
                             <div class="results-box">
                                             <strong>Shares:</strong>
-                                                <ul>
-                                                        <li><strong>public:</strong> {'files': ['readme.txt'], 'dirs': [], 'readable': ['readme.txt'], 'writable': [], 'appendable': ['readme.txt'], 'errors': [], 'raw_list': 'WARNING: no network interfaces found\n  .                                   D        0  Wed Jun  4 10:16:21 2025\n  ..                                  D        0  Wed Jun  4 10:19:00 2025\n  readme.txt                          N       41  Wed Jun  4 10:16:21 2025\n\n\t\t81926552 blocks of size 1024. 27230580 blocks available\n'}</li>
-                                                        <li><strong>admin:</strong> {'files': [], 'dirs': [], 'readable': [], 'writable': [], 'appendable': [], 'errors': [], 'raw_list': 'WARNING: no network interfaces found\ntree connect failed: NT_STATUS_ACCESS_DENIED\n'}</li>
-                                                        <li><strong>backup:</strong> {'files': ['db_backup.sql', 'passwords.txt'], 'dirs': [], 'readable': ['db_backup.sql', 'passwords.txt'], 'writable': [], 'appendable': ['db_backup.sql', 'passwords.txt'], 'errors': [], 'raw_list': 'WARNING: no network interfaces found\n  .                                   D        0  Wed Jun  4 10:16:19 2025\n  ..                                  D        0  Wed Jun  4 10:16:19 2025\n  db_backup.sql                       N       21  Wed Jun  4 10:16:19 2025\n  passwords.txt                       N       15  Wed Jun  4 10:16:19 2025\n\n\t\t81926552 blocks of size 1024. 27230160 blocks available\n'}</li>
-                                                        <li><strong>SMB1:</strong> {'files': [], 'dirs': [], 'readable': [], 'writable': [], 'appendable': [], 'errors': ['Failed to connect to share: NT_STATUS_BAD_NETWORK_NAME']}</li>
-                                                </ul>
+                                            
+                                                
+            
+                <div style="margin-left:0em;">
+                    <strong>Public:</strong>
+                    
+                        
+            
+                <div style="margin-left:1em;">
+                    <strong>Files:</strong>
+                    
+                        
+                            <ul style="margin-left:1em;">
+                                
+                                    <li>readme.txt</li>
+                                
+                            </ul>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Dirs:</strong>
+                    
+                        
+                            <span class="no-results">empty</span>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Readable:</strong>
+                    
+                        
+                            <ul style="margin-left:1em;">
+                                
+                                    <li>readme.txt</li>
+                                
+                            </ul>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Writable:</strong>
+                    
+                        
+                            <span class="no-results">empty</span>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Appendable:</strong>
+                    
+                        
+                            <ul style="margin-left:1em;">
+                                
+                                    <li>readme.txt</li>
+                                
+                            </ul>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Errors:</strong>
+                    
+                        
+                            <span class="no-results">empty</span>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Raw List:</strong>
+                    
+                        WARNING: no network interfaces found
+  .                                   D        0  Wed Jun  4 10:16:21 2025
+  ..                                  D        0  Wed Jun  4 10:19:00 2025
+  readme.txt                          N       41  Wed Jun  4 10:16:21 2025
+
+		81926552 blocks of size 1024. 27223984 blocks available
+
+                    
+                </div>
+            
+        
+                    
+                </div>
+            
+                <div style="margin-left:0em;">
+                    <strong>Admin:</strong>
+                    
+                        
+            
+                <div style="margin-left:1em;">
+                    <strong>Files:</strong>
+                    
+                        
+                            <span class="no-results">empty</span>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Dirs:</strong>
+                    
+                        
+                            <span class="no-results">empty</span>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Readable:</strong>
+                    
+                        
+                            <span class="no-results">empty</span>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Writable:</strong>
+                    
+                        
+                            <span class="no-results">empty</span>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Appendable:</strong>
+                    
+                        
+                            <span class="no-results">empty</span>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Errors:</strong>
+                    
+                        
+                            <span class="no-results">empty</span>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Raw List:</strong>
+                    
+                        WARNING: no network interfaces found
+tree connect failed: NT_STATUS_ACCESS_DENIED
+
+                    
+                </div>
+            
+        
+                    
+                </div>
+            
+                <div style="margin-left:0em;">
+                    <strong>Backup:</strong>
+                    
+                        
+            
+                <div style="margin-left:1em;">
+                    <strong>Files:</strong>
+                    
+                        
+                            <ul style="margin-left:1em;">
+                                
+                                    <li>db_backup.sql</li>
+                                
+                                    <li>passwords.txt</li>
+                                
+                            </ul>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Dirs:</strong>
+                    
+                        
+                            <span class="no-results">empty</span>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Readable:</strong>
+                    
+                        
+                            <ul style="margin-left:1em;">
+                                
+                                    <li>db_backup.sql</li>
+                                
+                                    <li>passwords.txt</li>
+                                
+                            </ul>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Writable:</strong>
+                    
+                        
+                            <span class="no-results">empty</span>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Appendable:</strong>
+                    
+                        
+                            <ul style="margin-left:1em;">
+                                
+                                    <li>db_backup.sql</li>
+                                
+                                    <li>passwords.txt</li>
+                                
+                            </ul>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Errors:</strong>
+                    
+                        
+                            <span class="no-results">empty</span>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Raw List:</strong>
+                    
+                        WARNING: no network interfaces found
+  .                                   D        0  Wed Jun  4 10:16:19 2025
+  ..                                  D        0  Wed Jun  4 10:16:19 2025
+  db_backup.sql                       N       21  Wed Jun  4 10:16:19 2025
+  passwords.txt                       N       15  Wed Jun  4 10:16:19 2025
+
+		81926552 blocks of size 1024. 27223528 blocks available
+
+                    
+                </div>
+            
+        
+                    
+                </div>
+            
+                <div style="margin-left:0em;">
+                    <strong>Smb1:</strong>
+                    
+                        
+            
+                <div style="margin-left:1em;">
+                    <strong>Files:</strong>
+                    
+                        
+                            <span class="no-results">empty</span>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Dirs:</strong>
+                    
+                        
+                            <span class="no-results">empty</span>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Readable:</strong>
+                    
+                        
+                            <span class="no-results">empty</span>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Writable:</strong>
+                    
+                        
+                            <span class="no-results">empty</span>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Appendable:</strong>
+                    
+                        
+                            <span class="no-results">empty</span>
+                        
+                    
+                </div>
+            
+                <div style="margin-left:1em;">
+                    <strong>Errors:</strong>
+                    
+                        
+                            <ul style="margin-left:1em;">
+                                
+                                    <li>Failed to connect to share: NT_STATUS_BAD_NETWORK_NAME</li>
+                                
+                            </ul>
+                        
+                    
+                </div>
+            
+        
+                    
+                </div>
+            
+        
+                                            
                             </div>
                             
-
                             
                         </div>
                     </div>
@@ -1014,29 +1698,45 @@ Cannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED
                                 
                             </div>
                             
-
                             
                             <strong>Results:</strong>
                             <div class="results-box">
                                             <strong>Searchsploit:</strong>
-                                                    <ul>
-                                                            <li>Exploits: No Results</li>
-                                                            <li>Shellcodes: No Results</li>
-                                                            <li>Papers: No Results</li>
-                                                    </ul>
+                                            
+                                                <ul>
+                                                    
+                                                        <li>Exploits: No Results</li>
+                                                    
+                                                        <li>Shellcodes: No Results</li>
+                                                    
+                                                        <li>Papers: No Results</li>
+                                                    
+                                                </ul>
+                                            
                                             <strong>Github Titles:</strong>
-                                                    <span class="no-results">No results</span>
+                                            
+                                                <ul>
+                                                    
+                                                </ul>
+                                            
                                             <strong>Google Titles:</strong>
-                                                    <ul>
-                                                            <li>opsxcq/exploit-CVE-2017-7494 - GitHub</li>
-                                                            <li>Samba 3.5.0 < 4.4.14/4.5.10/4.6.4 - 'is_known ... - Exploit Database</li>
-                                                            <li>Script smb-vuln-cve-2017-7494 - Nmap</li>
-                                                            <li>SambaCry RCE: CVE-2017-7494 - Medium</li>
-                                                            <li>Cve-2017-7494 - Nvd</li>
-                                                    </ul>
+                                            
+                                                <ul>
+                                                    
+                                                        <li>opsxcq/exploit-CVE-2017-7494 - GitHub</li>
+                                                    
+                                                        <li>Samba "username map script" Command Execution - Rapid7</li>
+                                                    
+                                                        <li>Samba 3.5.0 < 4.4.14/4.5.10/4.6.4 - 'is_known ... - Exploit Database</li>
+                                                    
+                                                        <li>Script smb-vuln-cve-2017-7494 - Nmap</li>
+                                                    
+                                                        <li>SambaCry RCE: CVE-2017-7494 - Medium</li>
+                                                    
+                                                </ul>
+                                            
                             </div>
                             
-
                             
                         </div>
                     </div>
@@ -1064,17 +1764,20 @@ Cannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED
                     </div>
                     <span class="state-badge state-open">open</span>
                 </div>
-
                 <!-- Port Summary -->
                 <div class="summary-section">
                     <h4>🔍 Port Summary</h4>
                     <p><em>AI-generated analysis will appear here.</em></p>
                 </div>
-
                 <!-- Scripts Section -->
                 
                 <div class="scripts-section">
                     <h4>📜 Nmap Scripts</h4>
+                    
+                    <div class="script-item">
+                        <div class="script-name">ftp-syst</div>
+                        <div class="script-output"></div>
+                    </div>
                     
                     <div class="script-item">
                         <div class="script-name">ftp-anon</div>
@@ -1082,14 +1785,8 @@ Cannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED
 -rw-r--r--    1 0        0              16 Jun 03 20:16 password.txt</div>
                     </div>
                     
-                    <div class="script-item">
-                        <div class="script-name">ftp-syst</div>
-                        <div class="script-output"></div>
-                    </div>
-                    
                 </div>
                 
-
                 <!-- Plugin Results -->
                 
                 <div class="plugin-results">
@@ -1098,7 +1795,6 @@ Cannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED
                         <button onclick="expandAll()" style="margin-left: 10px; font-size: 0.8em;">Expand All</button>
                         <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
                     </h4>
-                    
                     
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
@@ -1115,30 +1811,42 @@ Cannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED
                                     
                                         ftp.login('anonymous', 'anonymous@')<br>
                                     
-                                        ftp.retrbinary('RETR /password.txt', open('/tmp/ftp_74vmqvvm/password.txt', 'wb').write)<br>
+                                        ftp.retrbinary('RETR /password.txt', open('/tmp/ftp_lymiba33/password.txt', 'wb').write)<br>
                                     
                                 
                             </div>
                             
-
                             
                             <strong>Results:</strong>
                             <div class="results-box">
                                             <strong>Success:</strong>
+                                            
                                                 True
+                                            
                                             <strong>Files Downloaded:</strong>
-                                                    <ul>
-                                                            <li>/tmp/ftp_74vmqvvm/password.txt</li>
-                                                    </ul>
+                                            
+                                                <ul>
+                                                    
+                                                        <li>/tmp/ftp_lymiba33/password.txt</li>
+                                                    
+                                                </ul>
+                                            
                                             <strong>All Files:</strong>
-                                                    <ul>
-                                                            <li>/password.txt</li>
-                                                    </ul>
+                                            
+                                                <ul>
+                                                    
+                                                        <li>/password.txt</li>
+                                                    
+                                                </ul>
+                                            
                                             <strong>Errors:</strong>
-                                                    <span class="no-results">No results</span>
+                                            
+                                                <ul>
+                                                    
+                                                </ul>
+                                            
                             </div>
                             
-
                             
                         </div>
                     </div>
@@ -1165,31 +1873,49 @@ Cannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED
                                 
                             </div>
                             
-
                             
                             <strong>Results:</strong>
                             <div class="results-box">
                                             <strong>Searchsploit:</strong>
-                                                    <ul>
-                                                            <li> Exploit Title                                                                                                                                                                                            |  Path</li>
-                                                            <li>[01;31m[Kvsftpd[m[K [01;31m[K2.0[m[K.5 - 'CWD' (Authenticated) Remote Memory Consumption                                                                                                                                            | linux/dos/5814.pl</li>
-                                                            <li>[01;31m[Kvsftpd[m[K [01;31m[K2.0[m[K.5 - 'deny_file' Option Remote Denial of Service (1)                                                                                                                                            | windows/dos/31818.sh</li>
-                                                            <li>[01;31m[Kvsftpd[m[K [01;31m[K2.0[m[K.5 - 'deny_file' Option Remote Denial of Service (2)                                                                                                                                            | windows/dos/31819.pl</li>
-                                                            <li>Shellcodes: No Results</li>
-                                                    </ul>
+                                            
+                                                <ul>
+                                                    
+                                                        <li> Exploit Title                                                                                                                                                                                            |  Path</li>
+                                                    
+                                                        <li>[01;31m[Kvsftpd[m[K [01;31m[K2.0[m[K.5 - 'CWD' (Authenticated) Remote Memory Consumption                                                                                                                                            | linux/dos/5814.pl</li>
+                                                    
+                                                        <li>[01;31m[Kvsftpd[m[K [01;31m[K2.0[m[K.5 - 'deny_file' Option Remote Denial of Service (1)                                                                                                                                            | windows/dos/31818.sh</li>
+                                                    
+                                                        <li>[01;31m[Kvsftpd[m[K [01;31m[K2.0[m[K.5 - 'deny_file' Option Remote Denial of Service (2)                                                                                                                                            | windows/dos/31819.pl</li>
+                                                    
+                                                        <li>Shellcodes: No Results</li>
+                                                    
+                                                </ul>
+                                            
                                             <strong>Github Titles:</strong>
-                                                    <span class="no-results">No results</span>
+                                            
+                                                <ul>
+                                                    
+                                                </ul>
+                                            
                                             <strong>Google Titles:</strong>
-                                                    <ul>
-                                                            <li>Exploiting vsftpd in Metasploitable 2 | by Jason Jacobs, MSc. - Medium</li>
-                                                            <li>dgrbch1/Exploits: Vsftpd Backdoor Exploit Demonstration - GitHub</li>
-                                                            <li>Exploit VSFTPD 2.0.8 | HackingDNA</li>
-                                                            <li>ftp-vsftpd-backdoor NSE script — Nmap Scripting Engine documentation</li>
-                                                            <li>vsftpd 2.0.5 - 'CWD' (Authenticated) Remote Memory Consumption</li>
-                                                    </ul>
+                                            
+                                                <ul>
+                                                    
+                                                        <li>Exploiting vsftpd in Metasploitable 2 | by Jason Jacobs, MSc. - Medium</li>
+                                                    
+                                                        <li>dgrbch1/Exploits: Vsftpd Backdoor Exploit Demonstration - GitHub</li>
+                                                    
+                                                        <li>Exploit VSFTPD 2.0.8 | HackingDNA</li>
+                                                    
+                                                        <li>ftp-vsftpd-backdoor NSE script — Nmap Scripting Engine documentation</li>
+                                                    
+                                                        <li>Vsftpd Backdoor Exploit Project - dgrbch1.github.io</li>
+                                                    
+                                                </ul>
+                                            
                             </div>
                             
-
                             
                         </div>
                     </div>
@@ -1217,13 +1943,11 @@ Cannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED
                     </div>
                     <span class="state-badge state-open">open</span>
                 </div>
-
                 <!-- Port Summary -->
                 <div class="summary-section">
                     <h4>🔍 Port Summary</h4>
                     <p><em>AI-generated analysis will appear here.</em></p>
                 </div>
-
                 <!-- Scripts Section -->
                 
                 <div class="scripts-section">
@@ -1242,7 +1966,6 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                     
                 </div>
                 
-
                 <!-- Plugin Results -->
                 
                 <div class="plugin-results">
@@ -1251,7 +1974,6 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                         <button onclick="expandAll()" style="margin-left: 10px; font-size: 0.8em;">Expand All</button>
                         <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
                     </h4>
-                    
                     
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
@@ -1275,29 +1997,45 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                                 
                             </div>
                             
-
                             
                             <strong>Results:</strong>
                             <div class="results-box">
                                             <strong>Searchsploit:</strong>
-                                                    <ul>
-                                                            <li>Exploits: No Results</li>
-                                                            <li>Shellcodes: No Results</li>
-                                                            <li>Papers: No Results</li>
-                                                    </ul>
+                                            
+                                                <ul>
+                                                    
+                                                        <li>Exploits: No Results</li>
+                                                    
+                                                        <li>Shellcodes: No Results</li>
+                                                    
+                                                        <li>Papers: No Results</li>
+                                                    
+                                                </ul>
+                                            
                                             <strong>Github Titles:</strong>
-                                                    <span class="no-results">No results</span>
+                                            
+                                                <ul>
+                                                    
+                                                </ul>
+                                            
                                             <strong>Google Titles:</strong>
-                                                    <ul>
-                                                            <li>GitHub - d0rb/CVE-2024-6387: This Python script exploits a remote code ...</li>
-                                                            <li>CVE-2023-38408 (OpenSSH Vulnerability to RCE) | by Manjil - Medium</li>
-                                                            <li>OpenSSH Vulnerability: CVE-2020-12062 - Rapid7</li>
-                                                            <li>Openbsd Openssh 8.2 security vulnerabilities, CVEs - CVEdetails.com</li>
-                                                            <li>Cve-2020-12062 - Nvd</li>
-                                                    </ul>
+                                            
+                                                <ul>
+                                                    
+                                                        <li>GitHub - d0rb/CVE-2024-6387: This Python script exploits a remote code ...</li>
+                                                    
+                                                        <li>CVE-2023-38408 (OpenSSH Vulnerability to RCE) | by Manjil - Medium</li>
+                                                    
+                                                        <li>Cve-2020-12062 - Nvd</li>
+                                                    
+                                                        <li>Openbsd Openssh 8.2 security vulnerabilities, CVEs - CVEdetails.com</li>
+                                                    
+                                                        <li>OpenSSH 8.2p1 - any known CVE ? - Exploits - Hack The Box - Forums</li>
+                                                    
+                                                </ul>
+                                            
                             </div>
                             
-
                             
                         </div>
                     </div>
@@ -1325,13 +2063,11 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                     </div>
                     <span class="state-badge state-open">open</span>
                 </div>
-
                 <!-- Port Summary -->
                 <div class="summary-section">
                     <h4>🔍 Port Summary</h4>
                     <p><em>AI-generated analysis will appear here.</em></p>
                 </div>
-
                 <!-- Scripts Section -->
                 
                 <div class="scripts-section">
@@ -1344,6 +2080,11 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                     </div>
                     
                     <div class="script-item">
+                        <div class="script-name">http-server-header</div>
+                        <div class="script-output">Apache/2.4.41 (Ubuntu)</div>
+                    </div>
+                    
+                    <div class="script-item">
                         <div class="script-name">http-open-proxy</div>
                         <div class="script-output">Proxy might be redirecting requests</div>
                     </div>
@@ -1353,14 +2094,8 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                         <div class="script-output"></div>
                     </div>
                     
-                    <div class="script-item">
-                        <div class="script-name">http-server-header</div>
-                        <div class="script-output">Apache/2.4.41 (Ubuntu)</div>
-                    </div>
-                    
                 </div>
                 
-
                 <!-- Plugin Results -->
                 
             </div>
@@ -1381,16 +2116,13 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                     </div>
                     <span class="state-badge state-open">open</span>
                 </div>
-
                 <!-- Port Summary -->
                 <div class="summary-section">
                     <h4>🔍 Port Summary</h4>
                     <p><em>AI-generated analysis will appear here.</em></p>
                 </div>
-
                 <!-- Scripts Section -->
                 
-
                 <!-- Plugin Results -->
                 
                 <div class="plugin-results">
@@ -1400,7 +2132,6 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                         <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
                     </h4>
                     
-                    
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
                             <span>Enum Generic Product Search</span>
@@ -1408,14 +2139,21 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                         </div>
                         <div class="plugin-content">
                             
-
                             
                             <strong>Results:</strong>
                             <div class="results-box">
-                                            <span class="no-results">No product info found for this port.</span>
+                                    
+            
+                <div style="margin-left:0em;">
+                    <strong>Error:</strong>
+                    
+                        No product info found for this port.
+                    
+                </div>
+            
+        
                             </div>
                             
-
                             
                         </div>
                     </div>
@@ -1443,16 +2181,13 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                     </div>
                     <span class="state-badge state-open">open</span>
                 </div>
-
                 <!-- Port Summary -->
                 <div class="summary-section">
                     <h4>🔍 Port Summary</h4>
                     <p><em>AI-generated analysis will appear here.</em></p>
                 </div>
-
                 <!-- Scripts Section -->
                 
-
                 <!-- Plugin Results -->
                 
                 <div class="plugin-results">
@@ -1461,7 +2196,6 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                         <button onclick="expandAll()" style="margin-left: 10px; font-size: 0.8em;">Expand All</button>
                         <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
                     </h4>
-                    
                     
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
@@ -1485,31 +2219,49 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                                 
                             </div>
                             
-
                             
                             <strong>Results:</strong>
                             <div class="results-box">
                                             <strong>Searchsploit:</strong>
-                                                    <ul>
-                                                            <li> Exploit Title                                                                                                                                                                                            |  Path</li>
-                                                            <li>Active Calendar 1.2 - '/data/[01;31m[Kmysql[m[Kevents.php?css' Cross-Site Scripting                                                                                                                                    | php/webapps/29653.txt</li>
-                                                            <li>Advanced Poll 2.0 - '[01;31m[Kmysql[m[K_host' Cross-Site Scripting                                                                                                                                                     | php/webapps/33972.txt</li>
-                                                            <li>Agora 1.4 RC1 - '[01;31m[KMysql[m[KfinderAdmin.php' Remote File Inclusion                                                                                                                                              | php/webapps/2726.txt</li>
-                                                            <li>Asterisk 'asterisk-addons' 1.2.7/1.4.3 - CDR_ADDON_[01;31m[KMYSQL[m[K Module SQL Injection                                                                                                                             | linux/remote/30677.pl</li>
-                                                    </ul>
+                                            
+                                                <ul>
+                                                    
+                                                        <li> Exploit Title                                                                                                                                                                                            |  Path</li>
+                                                    
+                                                        <li>Active Calendar 1.2 - '/data/[01;31m[Kmysql[m[Kevents.php?css' Cross-Site Scripting                                                                                                                                    | php/webapps/29653.txt</li>
+                                                    
+                                                        <li>Advanced Poll 2.0 - '[01;31m[Kmysql[m[K_host' Cross-Site Scripting                                                                                                                                                     | php/webapps/33972.txt</li>
+                                                    
+                                                        <li>Agora 1.4 RC1 - '[01;31m[KMysql[m[KfinderAdmin.php' Remote File Inclusion                                                                                                                                              | php/webapps/2726.txt</li>
+                                                    
+                                                        <li>Asterisk 'asterisk-addons' 1.2.7/1.4.3 - CDR_ADDON_[01;31m[KMYSQL[m[K Module SQL Injection                                                                                                                             | linux/remote/30677.pl</li>
+                                                    
+                                                </ul>
+                                            
                                             <strong>Github Titles:</strong>
-                                                    <span class="no-results">No results</span>
+                                            
+                                                <ul>
+                                                    
+                                                </ul>
+                                            
                                             <strong>Google Titles:</strong>
-                                                    <ul>
-                                                            <li>MySQL Pentesting | Exploit Notes - HDKS</li>
-                                                            <li>3306 - Pentesting Mysql - HackTricks</li>
-                                                            <li>Attacking MySQL With Metasploit - Penetration Testing Lab</li>
-                                                            <li>MySQL - Authentication Bypass - Multiple remote Exploit</li>
-                                                            <li>MySQL Authentication Bypass Password Dump - Rapid7</li>
-                                                    </ul>
+                                            
+                                                <ul>
+                                                    
+                                                        <li>MySQL - Authentication Bypass - Multiple remote Exploit</li>
+                                                    
+                                                        <li>MySQL Pentesting | Exploit Notes - HDKS</li>
+                                                    
+                                                        <li>3306 - Pentesting Mysql - HackTricks</li>
+                                                    
+                                                        <li>Attacking MySQL With Metasploit - Penetration Testing Lab</li>
+                                                    
+                                                        <li>MySQL Authentication Bypass Password Dump - Rapid7</li>
+                                                    
+                                                </ul>
+                                            
                             </div>
                             
-
                             
                         </div>
                     </div>
@@ -1534,16 +2286,13 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                     </div>
                     <span class="state-badge state-open">open</span>
                 </div>
-
                 <!-- Port Summary -->
                 <div class="summary-section">
                     <h4>🔍 Port Summary</h4>
                     <p><em>AI-generated analysis will appear here.</em></p>
                 </div>
-
                 <!-- Scripts Section -->
                 
-
                 <!-- Plugin Results -->
                 
                 <div class="plugin-results">
@@ -1553,7 +2302,6 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                         <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
                     </h4>
                     
-                    
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
                             <span>Enum Generic Product Search</span>
@@ -1561,14 +2309,21 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                         </div>
                         <div class="plugin-content">
                             
-
                             
                             <strong>Results:</strong>
                             <div class="results-box">
-                                            <span class="no-results">No product info found for this port.</span>
+                                    
+            
+                <div style="margin-left:0em;">
+                    <strong>Error:</strong>
+                    
+                        No product info found for this port.
+                    
+                </div>
+            
+        
                             </div>
                             
-
                             
                         </div>
                     </div>
@@ -1593,16 +2348,13 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                     </div>
                     <span class="state-badge state-open">open</span>
                 </div>
-
                 <!-- Port Summary -->
                 <div class="summary-section">
                     <h4>🔍 Port Summary</h4>
                     <p><em>AI-generated analysis will appear here.</em></p>
                 </div>
-
                 <!-- Scripts Section -->
                 
-
                 <!-- Plugin Results -->
                 
                 <div class="plugin-results">
@@ -1612,7 +2364,6 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                         <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
                     </h4>
                     
-                    
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
                             <span>Enum Generic Product Search</span>
@@ -1620,14 +2371,21 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                         </div>
                         <div class="plugin-content">
                             
-
                             
                             <strong>Results:</strong>
                             <div class="results-box">
-                                            <span class="no-results">No product info found for this port.</span>
+                                    
+            
+                <div style="margin-left:0em;">
+                    <strong>Error:</strong>
+                    
+                        No product info found for this port.
+                    
+                </div>
+            
+        
                             </div>
                             
-
                             
                         </div>
                     </div>
@@ -1652,16 +2410,13 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                     </div>
                     <span class="state-badge state-open">open</span>
                 </div>
-
                 <!-- Port Summary -->
                 <div class="summary-section">
                     <h4>🔍 Port Summary</h4>
                     <p><em>AI-generated analysis will appear here.</em></p>
                 </div>
-
                 <!-- Scripts Section -->
                 
-
                 <!-- Plugin Results -->
                 
                 <div class="plugin-results">
@@ -1671,7 +2426,6 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                         <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
                     </h4>
                     
-                    
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
                             <span>Enum Generic Product Search</span>
@@ -1679,14 +2433,21 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                         </div>
                         <div class="plugin-content">
                             
-
                             
                             <strong>Results:</strong>
                             <div class="results-box">
-                                            <span class="no-results">No product info found for this port.</span>
+                                    
+            
+                <div style="margin-left:0em;">
+                    <strong>Error:</strong>
+                    
+                        No product info found for this port.
+                    
+                </div>
+            
+        
                             </div>
                             
-
                             
                         </div>
                     </div>
@@ -1711,16 +2472,13 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                     </div>
                     <span class="state-badge state-open">open</span>
                 </div>
-
                 <!-- Port Summary -->
                 <div class="summary-section">
                     <h4>🔍 Port Summary</h4>
                     <p><em>AI-generated analysis will appear here.</em></p>
                 </div>
-
                 <!-- Scripts Section -->
                 
-
                 <!-- Plugin Results -->
                 
                 <div class="plugin-results">
@@ -1730,7 +2488,6 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                         <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
                     </h4>
                     
-                    
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
                             <span>Enum Generic Product Search</span>
@@ -1738,14 +2495,21 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                         </div>
                         <div class="plugin-content">
                             
-
                             
                             <strong>Results:</strong>
                             <div class="results-box">
-                                            <span class="no-results">No product info found for this port.</span>
+                                    
+            
+                <div style="margin-left:0em;">
+                    <strong>Error:</strong>
+                    
+                        No product info found for this port.
+                    
+                </div>
+            
+        
                             </div>
                             
-
                             
                         </div>
                     </div>
@@ -1770,16 +2534,13 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                     </div>
                     <span class="state-badge state-open">open</span>
                 </div>
-
                 <!-- Port Summary -->
                 <div class="summary-section">
                     <h4>🔍 Port Summary</h4>
                     <p><em>AI-generated analysis will appear here.</em></p>
                 </div>
-
                 <!-- Scripts Section -->
                 
-
                 <!-- Plugin Results -->
                 
                 <div class="plugin-results">
@@ -1789,7 +2550,6 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                         <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
                     </h4>
                     
-                    
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
                             <span>Enum Generic Product Search</span>
@@ -1797,14 +2557,21 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                         </div>
                         <div class="plugin-content">
                             
-
                             
                             <strong>Results:</strong>
                             <div class="results-box">
-                                            <span class="no-results">No product info found for this port.</span>
+                                    
+            
+                <div style="margin-left:0em;">
+                    <strong>Error:</strong>
+                    
+                        No product info found for this port.
+                    
+                </div>
+            
+        
                             </div>
                             
-
                             
                         </div>
                     </div>
@@ -1829,16 +2596,13 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                     </div>
                     <span class="state-badge state-open">open</span>
                 </div>
-
                 <!-- Port Summary -->
                 <div class="summary-section">
                     <h4>🔍 Port Summary</h4>
                     <p><em>AI-generated analysis will appear here.</em></p>
                 </div>
-
                 <!-- Scripts Section -->
                 
-
                 <!-- Plugin Results -->
                 
                 <div class="plugin-results">
@@ -1848,7 +2612,6 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                         <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
                     </h4>
                     
-                    
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
                             <span>Enum Generic Product Search</span>
@@ -1856,14 +2619,21 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                         </div>
                         <div class="plugin-content">
                             
-
                             
                             <strong>Results:</strong>
                             <div class="results-box">
-                                            <span class="no-results">No product info found for this port.</span>
+                                    
+            
+                <div style="margin-left:0em;">
+                    <strong>Error:</strong>
+                    
+                        No product info found for this port.
+                    
+                </div>
+            
+        
                             </div>
                             
-
                             
                         </div>
                     </div>
@@ -1888,16 +2658,13 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                     </div>
                     <span class="state-badge state-open">open</span>
                 </div>
-
                 <!-- Port Summary -->
                 <div class="summary-section">
                     <h4>🔍 Port Summary</h4>
                     <p><em>AI-generated analysis will appear here.</em></p>
                 </div>
-
                 <!-- Scripts Section -->
                 
-
                 <!-- Plugin Results -->
                 
                 <div class="plugin-results">
@@ -1907,7 +2674,6 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                         <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
                     </h4>
                     
-                    
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
                             <span>Enum Generic Product Search</span>
@@ -1915,14 +2681,21 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                         </div>
                         <div class="plugin-content">
                             
-
                             
                             <strong>Results:</strong>
                             <div class="results-box">
-                                            <span class="no-results">No product info found for this port.</span>
+                                    
+            
+                <div style="margin-left:0em;">
+                    <strong>Error:</strong>
+                    
+                        No product info found for this port.
+                    
+                </div>
+            
+        
                             </div>
                             
-
                             
                         </div>
                     </div>
@@ -1947,16 +2720,13 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                     </div>
                     <span class="state-badge state-open">open</span>
                 </div>
-
                 <!-- Port Summary -->
                 <div class="summary-section">
                     <h4>🔍 Port Summary</h4>
                     <p><em>AI-generated analysis will appear here.</em></p>
                 </div>
-
                 <!-- Scripts Section -->
                 
-
                 <!-- Plugin Results -->
                 
                 <div class="plugin-results">
@@ -1966,7 +2736,6 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                         <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
                     </h4>
                     
-                    
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
                             <span>Enum Generic Product Search</span>
@@ -1974,14 +2743,21 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                         </div>
                         <div class="plugin-content">
                             
-
                             
                             <strong>Results:</strong>
                             <div class="results-box">
-                                            <span class="no-results">No product info found for this port.</span>
+                                    
+            
+                <div style="margin-left:0em;">
+                    <strong>Error:</strong>
+                    
+                        No product info found for this port.
+                    
+                </div>
+            
+        
                             </div>
                             
-
                             
                         </div>
                     </div>
@@ -2006,16 +2782,13 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                     </div>
                     <span class="state-badge state-open">open</span>
                 </div>
-
                 <!-- Port Summary -->
                 <div class="summary-section">
                     <h4>🔍 Port Summary</h4>
                     <p><em>AI-generated analysis will appear here.</em></p>
                 </div>
-
                 <!-- Scripts Section -->
                 
-
                 <!-- Plugin Results -->
                 
                 <div class="plugin-results">
@@ -2025,7 +2798,6 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                         <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
                     </h4>
                     
-                    
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
                             <span>Enum Generic Product Search</span>
@@ -2033,14 +2805,21 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                         </div>
                         <div class="plugin-content">
                             
-
                             
                             <strong>Results:</strong>
                             <div class="results-box">
-                                            <span class="no-results">No product info found for this port.</span>
+                                    
+            
+                <div style="margin-left:0em;">
+                    <strong>Error:</strong>
+                    
+                        No product info found for this port.
+                    
+                </div>
+            
+        
                             </div>
                             
-
                             
                         </div>
                     </div>
@@ -2065,16 +2844,13 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                     </div>
                     <span class="state-badge state-open">open</span>
                 </div>
-
                 <!-- Port Summary -->
                 <div class="summary-section">
                     <h4>🔍 Port Summary</h4>
                     <p><em>AI-generated analysis will appear here.</em></p>
                 </div>
-
                 <!-- Scripts Section -->
                 
-
                 <!-- Plugin Results -->
                 
                 <div class="plugin-results">
@@ -2084,7 +2860,6 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                         <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
                     </h4>
                     
-                    
                     <div class="plugin-item">
                         <div class="plugin-header" onclick="togglePlugin(this)">
                             <span>Enum Generic Product Search</span>
@@ -2092,14 +2867,21 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                         </div>
                         <div class="plugin-content">
                             
-
                             
                             <strong>Results:</strong>
                             <div class="results-box">
-                                            <span class="no-results">No product info found for this port.</span>
+                                    
+            
+                <div style="margin-left:0em;">
+                    <strong>Error:</strong>
+                    
+                        No product info found for this port.
+                    
+                </div>
+            
+        
                             </div>
                             
-
                             
                         </div>
                     </div>
@@ -2111,9 +2893,8 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
             
         </div>
         
-
         <div class="footer">
-            <p>Report generated by SPADE by ReKon64 | 2025-06-06 11:59:41</p>
+            <p>Report generated by SPADE by ReKon64 | 2025-06-07 13:05:01</p>
         </div>
     </div>
 </body>

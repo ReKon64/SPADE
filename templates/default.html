@@ -310,11 +310,11 @@
                 </div>
             {%- elif v is iterable and v is not string -%}
                 {%- if v -%}
-                    <ul style="margin:0 0 0 1em; padding:0; list-style-position: inside;">
+                    <span style="margin-left:0.5em;">
                         {%- for item in v -%}
-                            <li style="margin:0; padding:0;">{{ item }}</li>
+                            {{ item }}{% if not loop.last %}, {% endif %}
                         {%- endfor -%}
-                    </ul>
+                    </span>
                 {%- else -%}
                     <span class="no-results" style="margin-left:1em;">empty</span>
                 {%- endif -%}

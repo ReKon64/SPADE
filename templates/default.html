@@ -305,14 +305,14 @@
         <div style="margin-left:{{ indent }}em; margin-bottom:0.2em;">
             <strong style="display:inline;">{{ k|replace('_', ' ')|title }}:</strong>
             {%- if v is mapping -%}
-                <div style="margin-left:1em; display:inline-block;">
+                <div style="margin-left:1em;">
                     {{- render_dict(v, 0) -}}
                 </div>
             {%- elif v is iterable and v is not string -%}
                 {%- if v -%}
-                    <ul style="display:inline-block; margin:0 0 0 1em; padding:0;">
+                    <ul style="margin:0 0 0 1em; padding:0; list-style-position: inside;">
                         {%- for item in v -%}
-                            <li style="display:list-item; margin:0; padding:0;">{{ item }}</li>
+                            <li style="margin:0; padding:0;">{{ item }}</li>
                         {%- endfor -%}
                     </ul>
                 {%- else -%}

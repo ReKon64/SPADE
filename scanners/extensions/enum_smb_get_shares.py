@@ -140,35 +140,35 @@ def enum_smb_get_shares(self, plugin_results=None):
                                 share_info["errors"].append(f"Write error on {path}: {str(e)}")
 
                     # Check append permissions on files
-                    for file in share_info["files"]:
-                        # Create a temp file with a unique string to append
-                        with tempfile.NamedTemporaryFile("w+", delete=False) as tmpf:
-                            tmpf.write("SPADE_APPEND_TEST\n")
-                            tmpf.flush()
-                            tmpf_path = tmpf.name
-                        
-                        # Use correct UNC path format for append
-                        append_cmd = (
-                            f"smbclient -N //{host}/{share} -p {port} "
-                            f"-c 'prompt OFF; lcd {os.path.dirname(tmpf_path)}; append {os.path.basename(tmpf_path)} \"{file}\"'"
-                        )
-                        try:
-                            append_proc = subprocess.run(
-                                append_cmd,
-                                shell=True,
-                                capture_output=True,
-                                text=True,
-                                timeout=10
-                            )
-                            if append_proc.returncode == 0 or "NT_STATUS_OK" in append_proc.stdout:
-                                share_info["appendable"].append(file)
-                        except Exception as e:
-                            share_info["errors"].append(f"Append error on {file}: {str(e)}")
-                        finally:
-                            try:
-                                os.unlink(tmpf_path)
-                            except:
-                                pass  # Ignore failure to delete temp file
+                    # for file in share_info["files"]:
+                    #     # Create a temp file with a unique string to append
+                    #     with tempfile.NamedTemporaryFile("w+", delete=False) as tmpf:
+                    #         tmpf.write("SPADE_APPEND_TEST\n")
+                    #         tmpf.flush()
+                    #         tmpf_path = tmpf.name
+                    #     
+                    #     # Use correct UNC path format for append
+                    #     append_cmd = (
+                    #         f"smbclient -N //{host}/{share} -p {port} "
+                    #         f"-c 'prompt OFF; lcd {os.path.dirname(tmpf_path)}; append {os.path.basename(tmpf_path)} \"{file}\"'"
+                    #     )
+                    #     try:
+                    #         append_proc = subprocess.run(
+                    #             append_cmd,
+                    #             shell=True,
+                    #             capture_output=True,
+                    #             text=True,
+                    #             timeout=10
+                    #         )
+                    #         if append_proc.returncode == 0 or "NT_STATUS_OK" in append_proc.stdout:
+                    #             share_info["appendable"].append(file)
+                    #     except Exception as e:
+                    #         share_info["errors"].append(f"Append error on {file}: {str(e)}")
+                    #     finally:
+                    #         try:
+                    #             os.unlink(tmpf_path)
+                    #         except:
+                    #             pass  # Ignore failure to delete temp file
 
                 results["shares"][share] = share_info
 

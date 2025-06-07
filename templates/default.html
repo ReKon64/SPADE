@@ -205,7 +205,7 @@
         }
         .results-box strong {
             display: block;
-            margin: 8px 0 0px 0; /* Reduce margins */
+            margin: 4px 0 0px 0; /* Reduce margins */
             color: #2c3e50;
             border-bottom: 1px solid #e0e0e0;
             padding-bottom: 2px;
@@ -219,6 +219,7 @@
         .results-box li {
             margin: 0;
             padding: 0;
+            line-height: 1.2;
         }
         .no-results {
             color: #6c757d;
@@ -421,7 +422,7 @@
                             {% if plugin_data.results %}
                             <strong>Results:</strong>
                             <div class="results-box">
-                                {%- if plugin_data.report_fields -%}
+                               {%- if plugin_data.report_fields -%}
                                     {%- for key in plugin_data.report_fields -%}
                                         {%- if key in plugin_data.results %}
                                             <strong>{{ key|replace('_', ' ')|title }}:</strong>
@@ -429,7 +430,24 @@
                                             {%- if value is mapping %}
                                                 <ul>
                                                     {%- for k, v in value.items() %}
-                                                        <li><strong>{{ k }}:</strong> {{ v }}</li>
+                                                        <li>
+                                                            <strong>{{ k|replace('_', ' ')|title }}:</strong>
+                                                            {%- if v is mapping %}
+                                                                <ul>
+                                                                    {%- for subk, subv in v.items() %}
+                                                                        <li><strong>{{ subk|replace('_', ' ')|title }}:</strong> {{ subv }}</li>
+                                                                    {%- endfor %}
+                                                                </ul>
+                                                            {%- elif v is iterable and v is not string %}
+                                                                <ul>
+                                                                    {%- for item in v %}
+                                                                        <li>{{ item }}</li>
+                                                                    {%- endfor %}
+                                                                </ul>
+                                                            {%- else %}
+                                                                {{ v }}
+                                                            {%- endif %}
+                                                        </li>
                                                     {%- endfor %}
                                                 </ul>
                                             {%- elif value is iterable and value is not string %}
@@ -453,15 +471,28 @@
                                             <span class="no-results">{{ value }}</span>
                                         {%- elif value is mapping %}
                                             <strong>{{ key|replace('_', ' ')|title }}:</strong>
-                                            {%- if value %}
-                                                <ul>
-                                                    {%- for k, v in value.items() %}
-                                                        <li><strong>{{ k }}:</strong> {{ v }}</li>
-                                                    {%- endfor %}
-                                                </ul>
-                                            {%- else %}
-                                                <span class="no-results">No results</span>
-                                            {%- endif %}
+                                            <ul>
+                                                {%- for k, v in value.items() %}
+                                                    <li>
+                                                        <strong>{{ k|replace('_', ' ')|title }}:</strong>
+                                                        {%- if v is mapping %}
+                                                            <ul>
+                                                                {%- for subk, subv in v.items() %}
+                                                                    <li><strong>{{ subk|replace('_', ' ')|title }}:</strong> {{ subv }}</li>
+                                                                {%- endfor %}
+                                                            </ul>
+                                                        {%- elif v is iterable and v is not string %}
+                                                            <ul>
+                                                                {%- for item in v %}
+                                                                    <li>{{ item }}</li>
+                                                                {%- endfor %}
+                                                            </ul>
+                                                        {%- else %}
+                                                            {{ v }}
+                                                        {%- endif %}
+                                                    </li>
+                                                {%- endfor %}
+                                            </ul>
                                         {%- elif value is iterable and value is not string %}
                                             <strong>{{ key|replace('_', ' ')|title }}:</strong>
                                             {%- if value %}

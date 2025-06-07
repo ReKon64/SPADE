@@ -10,27 +10,6 @@ from core.signal_handler import handler as exit_handler
 
 def main():
     parser = argparse.ArgumentParser(description="SPADE - Scalable Plug-and-play Auto Detection Engine")
-
-    target_group = parser.add_argument_group("Target Acquisition Options", "Options for acquiring targets")
-    target_group.add_argument("-t", "--target", help="One or more IP / Domain")
-    target_group.add_argument("-x", "--xml-input", help="Path to existing Nmap XML file to use as input (skips scanning and uses this for enumeration)")
-
-    domain_group = parser.add_argument_group("Domain Options", "Options for domain-related operations")
-    domain_group.add_argument("-d", "--domain", help="Domain name to use for Kerberos and LDAP operations")
-
-    nmap_group = parser.add_argument_group("Nmap/Scan options", "Options for port scanning and threading")
-    nmap_group.add_argument("-tp", "--tcp-ports", default="-p-", help="Ports to scan. Passed directly to nmap. Default -p-")
-    nmap_group.add_argument("-up", "--udp-ports", default="--top-ports=100", help="WIP")
-    nmap_group.add_argument('-at', "--tcp-options", help="Additional flags to inject into the TCP nmap command")
-    nmap_group.add_argument('-au', "--udp-options", help="Additional flags to inject into the UDP nmap command")
-    nmap_group.add_argument("-T", "--threads", default=16, help="Number of threads scanner will use. I suggest 64")
-
-    logging_group = parser.add_argument_group("Logging and Output Options", "Options for controlling logging and output")
-    logging_group.add_argument("-v", "--verbose", action="store_true", help="Enable verbose output")
-    logging_group.add_argument("-rt", "--realtime", action="store_true", help="Enable real time STDOUT for modules")
-    logging_group.add_argument("-m", "--memory", action="store_true", help="Add memory usage to logging")
-    logging_group.add_argument("-o", "--output", help="Output directory for reports and payloads. Defaults to CWD")
-    logging_group.add_argument("--report", nargs="?", const=True, default=False, help="Generate HTML report. Supply with a filepath to a jinja2 template to use custom report.")
    
     # Load all scanner extensions
     Scanner.load_extensions()

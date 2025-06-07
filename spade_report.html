@@ -194,13 +194,31 @@
             background: #f1f3f4;
             border: 1px solid #dadce0;
             border-radius: 3px;
-            padding: 15px;
+            padding: 10px;
             margin: 10px 0;
             font-family: 'Courier New', monospace;
             font-size: 0.85em;
             white-space: pre-wrap;
-            max-height: 300px;
+            max-height: 400px;
             overflow-y: auto;
+            line-height: 1.3; /* Reduce line height */
+        }
+        .results-box strong {
+            display: block;
+            margin: 8px 0 0px 0; /* Reduce margins */
+            color: #2c3e50;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 2px;
+        }
+        .results-box strong:first-child {
+            margin-top: 0;
+        }
+        .results-box ul {
+            margin: 0;
+        }
+        .results-box li {
+            margin: 0;
+            padding: 0;
         }
         .no-results {
             color: #6c757d;
@@ -281,7 +299,7 @@
     <div class="container">
         <div class="header">
             <h1>Security Scan Report</h1>
-            <p class="subtitle">Generated on 2025-06-04 13:56:58</p>
+            <p class="subtitle">Generated on 2025-06-06 11:59:41</p>
         </div>
 
         <!-- Table of Contents -->
@@ -381,7 +399,7 @@
                             <a href="#port-127-0-0-1-13306">
                                 🔌 13306/TCP - 
                                 mysql
-                                 (MySQL 8.0.42-0ubuntu0.20.04.1)
+                                 (MySQL)
                             </a>
                         </li>
                         
@@ -600,24 +618,21 @@
                             <strong>Results:</strong>
                             <div class="results-box">
                                             <strong>Searchsploit:</strong>
-                                                    <ul style="margin:5px 0 10px 15px;padding:0;">
+                                                    <ul>
                                                             <li>Exploits: No Results</li>
                                                             <li>Shellcodes: No Results</li>
                                                             <li>Papers: No Results</li>
                                                     </ul>
-                                            <br>
                                             <strong>Github Titles:</strong>
                                                     <span class="no-results">No results</span>
-                                            <br>
                                             <strong>Google Titles:</strong>
-                                                    <ul style="margin:5px 0 10px 15px;padding:0;">
+                                                    <ul>
                                                             <li>Postfix SMTP 4.2.x < 4.2.48 - 'Shellshock' Remote ... - Exploit Database</li>
                                                             <li>Exploiting SMTP on Metasploitable 2: Unveiling the Power of ... - Medium</li>
                                                             <li>bughunter1101/postfix-smtpd-exploit.py at master · s-kustm ... - GitHub</li>
                                                             <li>SMTP Smuggling - Postfix</li>
                                                             <li>Cve-2023-51764 - Nvd</li>
                                                     </ul>
-                                            <br>
                             </div>
                             
 
@@ -684,6 +699,56 @@
                         </div>
                     </div>
                     
+                    <div class="plugin-item">
+                        <div class="plugin-header" onclick="togglePlugin(this)">
+                            <span>Enum Rpc Rpcclient</span>
+                            <span class="toggle-btn">[+]</span>
+                        </div>
+                        <div class="plugin-content">
+                            
+                            <strong>Command:</strong>
+                            <div class="command">
+                                
+                                    
+                                        rpcclient -U '' -N 127.0.0.1 -p 1111 -c 'enumdomusers'<br>
+                                    
+                                        rpcclient -U '' -N 127.0.0.1 -p 1111 -c 'netshareenumall'<br>
+                                    
+                                        rpcclient -U '' -N 127.0.0.1 -p 1111 -c 'enumdomains'<br>
+                                    
+                                        rpcclient -U '' -N 127.0.0.1 -p 1111 -c 'enumdomgroups'<br>
+                                    
+                                        rpcclient -U '' -N 127.0.0.1 -p 1111 -c 'srvinfo'<br>
+                                    
+                                
+                            </div>
+                            
+
+                            
+                            <strong>Results:</strong>
+                            <div class="results-box">
+                                            <strong>Users:</strong> WARNING: no network interfaces found
+Cannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED
+
+                                            <strong>Shares:</strong> WARNING: no network interfaces found
+Cannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED
+
+                                            <strong>Domains:</strong> WARNING: no network interfaces found
+Cannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED
+
+                                            <strong>Groups:</strong> WARNING: no network interfaces found
+Cannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED
+
+                                            <strong>Srvinfo:</strong> WARNING: no network interfaces found
+Cannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED
+
+                            </div>
+                            
+
+                            
+                        </div>
+                    </div>
+                    
                 </div>
                 
             </div>
@@ -737,7 +802,7 @@
                             <strong>Command:</strong>
                             <div class="command">
                                 
-                                    nmap -p 1139 --script=smb-os-discovery,smb-enum-shares,smb-enum-users,smb-enum-domains,smb-enum-groups,smb-security-mode,smb2-security-mode,smb2-time,smb2-capabilities,smb-protocols,smb-vuln* -Pn -vv -n -oX /tmp/tmpukuvutjk.xml 127.0.0.1
+                                    nmap -p 1139 --script=smb-os-discovery,smb-enum-shares,smb-enum-users,smb-enum-domains,smb-enum-groups,smb-security-mode,smb2-security-mode,smb2-time,smb2-capabilities,smb-protocols,smb-vuln* -Pn -vv -n -oX /tmp/tmpj0wasxjb.xml 127.0.0.1
                                 
                             </div>
                             
@@ -767,13 +832,12 @@
                             <strong>Results:</strong>
                             <div class="results-box">
                                             <strong>Shares:</strong>
-                                                <ul style="margin:5px 0 10px 15px;padding:0;">
-                                                        <li><strong>public:</strong> {'files': ['readme.txt'], 'dirs': [], 'readable': ['readme.txt'], 'writable': [], 'appendable': ['readme.txt'], 'errors': [], 'raw_list': 'WARNING: no network interfaces found\n  .                                   D        0  Wed Jun  4 10:16:21 2025\n  ..                                  D        0  Wed Jun  4 10:19:00 2025\n  readme.txt                          N       41  Wed Jun  4 10:16:21 2025\n\n\t\t81926552 blocks of size 1024. 27261048 blocks available\n'}</li>
+                                                <ul>
+                                                        <li><strong>public:</strong> {'files': ['readme.txt'], 'dirs': [], 'readable': ['readme.txt'], 'writable': [], 'appendable': ['readme.txt'], 'errors': [], 'raw_list': 'WARNING: no network interfaces found\n  .                                   D        0  Wed Jun  4 10:16:21 2025\n  ..                                  D        0  Wed Jun  4 10:19:00 2025\n  readme.txt                          N       41  Wed Jun  4 10:16:21 2025\n\n\t\t81926552 blocks of size 1024. 27230572 blocks available\n'}</li>
                                                         <li><strong>admin:</strong> {'files': [], 'dirs': [], 'readable': [], 'writable': [], 'appendable': [], 'errors': [], 'raw_list': 'WARNING: no network interfaces found\ntree connect failed: NT_STATUS_ACCESS_DENIED\n'}</li>
-                                                        <li><strong>backup:</strong> {'files': ['db_backup.sql', 'passwords.txt'], 'dirs': [], 'readable': ['db_backup.sql', 'passwords.txt'], 'writable': [], 'appendable': ['db_backup.sql', 'passwords.txt'], 'errors': [], 'raw_list': 'WARNING: no network interfaces found\n  .                                   D        0  Wed Jun  4 10:16:19 2025\n  ..                                  D        0  Wed Jun  4 10:16:19 2025\n  db_backup.sql                       N       21  Wed Jun  4 10:16:19 2025\n  passwords.txt                       N       15  Wed Jun  4 10:16:19 2025\n\n\t\t81926552 blocks of size 1024. 27261048 blocks available\n'}</li>
+                                                        <li><strong>backup:</strong> {'files': ['db_backup.sql', 'passwords.txt'], 'dirs': [], 'readable': ['db_backup.sql', 'passwords.txt'], 'writable': [], 'appendable': ['db_backup.sql', 'passwords.txt'], 'errors': [], 'raw_list': 'WARNING: no network interfaces found\n  .                                   D        0  Wed Jun  4 10:16:19 2025\n  ..                                  D        0  Wed Jun  4 10:16:19 2025\n  db_backup.sql                       N       21  Wed Jun  4 10:16:19 2025\n  passwords.txt                       N       15  Wed Jun  4 10:16:19 2025\n\n\t\t81926552 blocks of size 1024. 27229880 blocks available\n'}</li>
                                                         <li><strong>SMB1:</strong> {'files': [], 'dirs': [], 'readable': [], 'writable': [], 'appendable': [], 'errors': ['Failed to connect to share: NT_STATUS_BAD_NETWORK_NAME']}</li>
                                                 </ul>
-                                            <br>
                             </div>
                             
 
@@ -808,24 +872,21 @@
                             <strong>Results:</strong>
                             <div class="results-box">
                                             <strong>Searchsploit:</strong>
-                                                    <ul style="margin:5px 0 10px 15px;padding:0;">
+                                                    <ul>
                                                             <li>Exploits: No Results</li>
                                                             <li>Shellcodes: No Results</li>
                                                             <li>Papers: No Results</li>
                                                     </ul>
-                                            <br>
                                             <strong>Github Titles:</strong>
                                                     <span class="no-results">No results</span>
-                                            <br>
                                             <strong>Google Titles:</strong>
-                                                    <ul style="margin:5px 0 10px 15px;padding:0;">
+                                                    <ul>
                                                             <li>opsxcq/exploit-CVE-2017-7494 - GitHub</li>
                                                             <li>Samba 3.5.0 < 4.4.14/4.5.10/4.6.4 - 'is_known ... - Exploit Database</li>
-                                                            <li>SambaCry RCE Exploit | Lucideus Research | by Lucideus - Medium</li>
-                                                            <li>It is a simple script to exploit RCE for Samba (CVE-2017-7494 ).</li>
-                                                            <li>Samba 3.5.0 - Remote Code Execution - Linux remote Exploit</li>
+                                                            <li>Script smb-vuln-cve-2017-7494 - Nmap</li>
+                                                            <li>SambaCry RCE: CVE-2017-7494 - Medium</li>
+                                                            <li>Cve-2017-7494 - Nvd</li>
                                                     </ul>
-                                            <br>
                             </div>
                             
 
@@ -888,7 +949,7 @@
                             <strong>Command:</strong>
                             <div class="command">
                                 
-                                    nmap -p 1445 --script=smb-os-discovery,smb-enum-shares,smb-enum-users,smb-enum-domains,smb-enum-groups,smb-security-mode,smb2-security-mode,smb2-time,smb2-capabilities,smb-protocols,smb-vuln* -Pn -vv -n -oX /tmp/tmplfgdk22i.xml 127.0.0.1
+                                    nmap -p 1445 --script=smb-os-discovery,smb-enum-shares,smb-enum-users,smb-enum-domains,smb-enum-groups,smb-security-mode,smb2-security-mode,smb2-time,smb2-capabilities,smb-protocols,smb-vuln* -Pn -vv -n -oX /tmp/tmptmyghcam.xml 127.0.0.1
                                 
                             </div>
                             
@@ -918,13 +979,12 @@
                             <strong>Results:</strong>
                             <div class="results-box">
                                             <strong>Shares:</strong>
-                                                <ul style="margin:5px 0 10px 15px;padding:0;">
-                                                        <li><strong>public:</strong> {'files': ['readme.txt'], 'dirs': [], 'readable': ['readme.txt'], 'writable': [], 'appendable': ['readme.txt'], 'errors': [], 'raw_list': 'WARNING: no network interfaces found\n  .                                   D        0  Wed Jun  4 10:16:21 2025\n  ..                                  D        0  Wed Jun  4 10:19:00 2025\n  readme.txt                          N       41  Wed Jun  4 10:16:21 2025\n\n\t\t81926552 blocks of size 1024. 27261044 blocks available\n'}</li>
+                                                <ul>
+                                                        <li><strong>public:</strong> {'files': ['readme.txt'], 'dirs': [], 'readable': ['readme.txt'], 'writable': [], 'appendable': ['readme.txt'], 'errors': [], 'raw_list': 'WARNING: no network interfaces found\n  .                                   D        0  Wed Jun  4 10:16:21 2025\n  ..                                  D        0  Wed Jun  4 10:19:00 2025\n  readme.txt                          N       41  Wed Jun  4 10:16:21 2025\n\n\t\t81926552 blocks of size 1024. 27230580 blocks available\n'}</li>
                                                         <li><strong>admin:</strong> {'files': [], 'dirs': [], 'readable': [], 'writable': [], 'appendable': [], 'errors': [], 'raw_list': 'WARNING: no network interfaces found\ntree connect failed: NT_STATUS_ACCESS_DENIED\n'}</li>
-                                                        <li><strong>backup:</strong> {'files': ['db_backup.sql', 'passwords.txt'], 'dirs': [], 'readable': ['db_backup.sql', 'passwords.txt'], 'writable': [], 'appendable': ['db_backup.sql', 'passwords.txt'], 'errors': [], 'raw_list': 'WARNING: no network interfaces found\n  .                                   D        0  Wed Jun  4 10:16:19 2025\n  ..                                  D        0  Wed Jun  4 10:16:19 2025\n  db_backup.sql                       N       21  Wed Jun  4 10:16:19 2025\n  passwords.txt                       N       15  Wed Jun  4 10:16:19 2025\n\n\t\t81926552 blocks of size 1024. 27261048 blocks available\n'}</li>
+                                                        <li><strong>backup:</strong> {'files': ['db_backup.sql', 'passwords.txt'], 'dirs': [], 'readable': ['db_backup.sql', 'passwords.txt'], 'writable': [], 'appendable': ['db_backup.sql', 'passwords.txt'], 'errors': [], 'raw_list': 'WARNING: no network interfaces found\n  .                                   D        0  Wed Jun  4 10:16:19 2025\n  ..                                  D        0  Wed Jun  4 10:16:19 2025\n  db_backup.sql                       N       21  Wed Jun  4 10:16:19 2025\n  passwords.txt                       N       15  Wed Jun  4 10:16:19 2025\n\n\t\t81926552 blocks of size 1024. 27230160 blocks available\n'}</li>
                                                         <li><strong>SMB1:</strong> {'files': [], 'dirs': [], 'readable': [], 'writable': [], 'appendable': [], 'errors': ['Failed to connect to share: NT_STATUS_BAD_NETWORK_NAME']}</li>
                                                 </ul>
-                                            <br>
                             </div>
                             
 
@@ -959,24 +1019,21 @@
                             <strong>Results:</strong>
                             <div class="results-box">
                                             <strong>Searchsploit:</strong>
-                                                    <ul style="margin:5px 0 10px 15px;padding:0;">
+                                                    <ul>
                                                             <li>Exploits: No Results</li>
                                                             <li>Shellcodes: No Results</li>
                                                             <li>Papers: No Results</li>
                                                     </ul>
-                                            <br>
                                             <strong>Github Titles:</strong>
                                                     <span class="no-results">No results</span>
-                                            <br>
                                             <strong>Google Titles:</strong>
-                                                    <ul style="margin:5px 0 10px 15px;padding:0;">
+                                                    <ul>
                                                             <li>opsxcq/exploit-CVE-2017-7494 - GitHub</li>
-                                                            <li>Samba "username map script" Command Execution - Rapid7</li>
                                                             <li>Samba 3.5.0 < 4.4.14/4.5.10/4.6.4 - 'is_known ... - Exploit Database</li>
                                                             <li>Script smb-vuln-cve-2017-7494 - Nmap</li>
                                                             <li>SambaCry RCE: CVE-2017-7494 - Medium</li>
+                                                            <li>Cve-2017-7494 - Nvd</li>
                                                     </ul>
-                                            <br>
                             </div>
                             
 
@@ -1058,7 +1115,7 @@
                                     
                                         ftp.login('anonymous', 'anonymous@')<br>
                                     
-                                        ftp.retrbinary('RETR /password.txt', open('/tmp/ftp_f16e5n9w/password.txt', 'wb').write)<br>
+                                        ftp.retrbinary('RETR /password.txt', open('/tmp/ftp_74vmqvvm/password.txt', 'wb').write)<br>
                                     
                                 
                             </div>
@@ -1069,20 +1126,16 @@
                             <div class="results-box">
                                             <strong>Success:</strong>
                                                 True
-                                            <br>
                                             <strong>Files Downloaded:</strong>
-                                                    <ul style="margin:5px 0 10px 15px;padding:0;">
-                                                            <li>/tmp/ftp_f16e5n9w/password.txt</li>
+                                                    <ul>
+                                                            <li>/tmp/ftp_74vmqvvm/password.txt</li>
                                                     </ul>
-                                            <br>
                                             <strong>All Files:</strong>
-                                                    <ul style="margin:5px 0 10px 15px;padding:0;">
+                                                    <ul>
                                                             <li>/password.txt</li>
                                                     </ul>
-                                            <br>
                                             <strong>Errors:</strong>
                                                     <span class="no-results">No results</span>
-                                            <br>
                             </div>
                             
 
@@ -1117,26 +1170,23 @@
                             <strong>Results:</strong>
                             <div class="results-box">
                                             <strong>Searchsploit:</strong>
-                                                    <ul style="margin:5px 0 10px 15px;padding:0;">
+                                                    <ul>
                                                             <li> Exploit Title                                                                                                                                                                                            |  Path</li>
                                                             <li>[01;31m[Kvsftpd[m[K [01;31m[K2.0[m[K.5 - 'CWD' (Authenticated) Remote Memory Consumption                                                                                                                                            | linux/dos/5814.pl</li>
                                                             <li>[01;31m[Kvsftpd[m[K [01;31m[K2.0[m[K.5 - 'deny_file' Option Remote Denial of Service (1)                                                                                                                                            | windows/dos/31818.sh</li>
                                                             <li>[01;31m[Kvsftpd[m[K [01;31m[K2.0[m[K.5 - 'deny_file' Option Remote Denial of Service (2)                                                                                                                                            | windows/dos/31819.pl</li>
                                                             <li>Shellcodes: No Results</li>
                                                     </ul>
-                                            <br>
                                             <strong>Github Titles:</strong>
                                                     <span class="no-results">No results</span>
-                                            <br>
                                             <strong>Google Titles:</strong>
-                                                    <ul style="margin:5px 0 10px 15px;padding:0;">
+                                                    <ul>
                                                             <li>Exploiting vsftpd in Metasploitable 2 | by Jason Jacobs, MSc. - Medium</li>
-                                                            <li>vsftpd 2.3.4 - Backdoor Command Execution - Unix remote Exploit</li>
-                                                            <li>Exploit VSFTPD 2.0.8 | HackingDNA</li>
                                                             <li>dgrbch1/Exploits: Vsftpd Backdoor Exploit Demonstration - GitHub</li>
+                                                            <li>Exploit VSFTPD 2.0.8 | HackingDNA</li>
                                                             <li>ftp-vsftpd-backdoor NSE script — Nmap Scripting Engine documentation</li>
+                                                            <li>vsftpd 2.0.5 - 'CWD' (Authenticated) Remote Memory Consumption</li>
                                                     </ul>
-                                            <br>
                             </div>
                             
 
@@ -1230,24 +1280,21 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                             <strong>Results:</strong>
                             <div class="results-box">
                                             <strong>Searchsploit:</strong>
-                                                    <ul style="margin:5px 0 10px 15px;padding:0;">
+                                                    <ul>
                                                             <li>Exploits: No Results</li>
                                                             <li>Shellcodes: No Results</li>
                                                             <li>Papers: No Results</li>
                                                     </ul>
-                                            <br>
                                             <strong>Github Titles:</strong>
                                                     <span class="no-results">No results</span>
-                                            <br>
                                             <strong>Google Titles:</strong>
-                                                    <ul style="margin:5px 0 10px 15px;padding:0;">
+                                                    <ul>
                                                             <li>GitHub - d0rb/CVE-2024-6387: This Python script exploits a remote code ...</li>
                                                             <li>CVE-2023-38408 (OpenSSH Vulnerability to RCE) | by Manjil - Medium</li>
-                                                            <li>Openbsd Openssh 8.2 security vulnerabilities, CVEs - CVEdetails.com</li>
                                                             <li>OpenSSH Vulnerability: CVE-2020-12062 - Rapid7</li>
+                                                            <li>Openbsd Openssh 8.2 security vulnerabilities, CVEs - CVEdetails.com</li>
                                                             <li>Cve-2020-12062 - Nvd</li>
                                                     </ul>
-                                            <br>
                             </div>
                             
 
@@ -1291,6 +1338,17 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                     <h4>📜 Nmap Scripts</h4>
                     
                     <div class="script-item">
+                        <div class="script-name">http-methods</div>
+                        <div class="script-output">
+  Supported Methods: GET HEAD POST OPTIONS</div>
+                    </div>
+                    
+                    <div class="script-item">
+                        <div class="script-name">http-open-proxy</div>
+                        <div class="script-output">Proxy might be redirecting requests</div>
+                    </div>
+                    
+                    <div class="script-item">
                         <div class="script-name">http-title</div>
                         <div class="script-output"></div>
                     </div>
@@ -1300,201 +1358,10 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                         <div class="script-output">Apache/2.4.41 (Ubuntu)</div>
                     </div>
                     
-                    <div class="script-item">
-                        <div class="script-name">http-open-proxy</div>
-                        <div class="script-output">Proxy might be redirecting requests</div>
-                    </div>
-                    
-                    <div class="script-item">
-                        <div class="script-name">http-methods</div>
-                        <div class="script-output">
-  Supported Methods: GET HEAD POST OPTIONS</div>
-                    </div>
-                    
                 </div>
                 
 
                 <!-- Plugin Results -->
-                
-                <div class="plugin-results">
-                    <h4>
-                        🔧 Plugin Results 
-                        <button onclick="expandAll()" style="margin-left: 10px; font-size: 0.8em;">Expand All</button>
-                        <button onclick="collapseAll()" style="margin-left: 5px; font-size: 0.8em;">Collapse All</button>
-                    </h4>
-                    
-                    
-                    <div class="plugin-item">
-                        <div class="plugin-header" onclick="togglePlugin(this)">
-                            <span>Enum Http Curl Confirmation</span>
-                            <span class="toggle-btn">[+]</span>
-                        </div>
-                        <div class="plugin-content">
-                            
-                            <strong>Command:</strong>
-                            <div class="command">
-                                
-                                    curl -i --insecure --max-time 15 http://127.0.0.1:8080/
-                                
-                            </div>
-                            
-
-                            
-                            <strong>Results:</strong>
-                            <div class="results-box">
-                                            <strong>Isreal:</strong>
-                                                True
-                                            <br>
-                                            <strong>Status Line:</strong>
-                                                HTTP/1.1 302 Found
-                                            <br>
-                                            <strong>Headers:</strong>
-                                                <ul style="margin:5px 0 10px 15px;padding:0;">
-                                                </ul>
-                                            <br>
-                            </div>
-                            
-
-                            
-                        </div>
-                    </div>
-                    
-                    <div class="plugin-item">
-                        <div class="plugin-header" onclick="togglePlugin(this)">
-                            <span>Enum Http Gowitness</span>
-                            <span class="toggle-btn">[+]</span>
-                        </div>
-                        <div class="plugin-content">
-                            
-                            <strong>Command:</strong>
-                            <div class="command">
-                                
-                                    gowitness single --url "http://127.0.0.1:8080/" --disable-db --destination "/tmp/tmp3xs9mdv_/screens"
-                                
-                            </div>
-                            
-
-                            
-                            <strong>Results:</strong>
-                            <div class="results-box">
-                                            <strong>Screenshots:</strong>
-                                                    <span class="no-results">No results</span>
-                                            <br>
-                            </div>
-                            
-
-                            
-                        </div>
-                    </div>
-                    
-                    <div class="plugin-item">
-                        <div class="plugin-header" onclick="togglePlugin(this)">
-                            <span>Enum Generic Product Search</span>
-                            <span class="toggle-btn">[+]</span>
-                        </div>
-                        <div class="plugin-content">
-                            
-                            <strong>Command:</strong>
-                            <div class="command">
-                                
-                                    
-                                        searchsploit Apache httpd 2.4<br>
-                                    
-                                        https://github.com/search?q=Apache+httpd+2.4+exploit<br>
-                                    
-                                        Google Custom Search API: Apache httpd 2.4 exploit<br>
-                                    
-                                        https://html.duckduckgo.com/html/?q=Apache+httpd+2.4+exploit<br>
-                                    
-                                
-                            </div>
-                            
-
-                            
-                            <strong>Results:</strong>
-                            <div class="results-box">
-                                            <strong>Searchsploit:</strong>
-                                                    <ul style="margin:5px 0 10px 15px;padding:0;">
-                                                            <li> Exploit Title                                                                                                                                                                                            |  Path</li>
-                                                            <li>[01;31m[KApache[m[K [01;31m[K2.4[m[K.23 mod_http2 - Denial of Service                                                                                                                                                               | linux/dos/40909.py</li>
-                                                            <li>[01;31m[KApache[m[K HTTP Server [01;31m[K2.4[m[K.49 - Path Traversal & Remote Code Execution (RCE)                                                                                                                                  | multiple/webapps/50383.sh</li>
-                                                            <li>Shellcodes: No Results</li>
-                                                            <li>Papers: No Results</li>
-                                                    </ul>
-                                            <br>
-                                            <strong>Github Titles:</strong>
-                                                    <span class="no-results">No results</span>
-                                            <br>
-                                            <strong>Google Titles:</strong>
-                                                    <ul style="margin:5px 0 10px 15px;padding:0;">
-                                                            <li>Apache HTTP Server 2.4.49 - Exploit Database</li>
-                                                            <li>Apache HTTP Server 2.4 vulnerabilities</li>
-                                                            <li>Proof-of-Concept Exploit Released for CVE-2024-40725 in Apache HTTP ...</li>
-                                                            <li>Active Exploitation of Apache HTTP Server CVE-2021-40438</li>
-                                                            <li>Remote Code Execution exploit for Apache servers. Affected ... - GitHub</li>
-                                                    </ul>
-                                            <br>
-                            </div>
-                            
-
-                            
-                        </div>
-                    </div>
-                    
-                    <div class="plugin-item">
-                        <div class="plugin-header" onclick="togglePlugin(this)">
-                            <span>Enum Http Wpscan</span>
-                            <span class="toggle-btn">[+]</span>
-                        </div>
-                        <div class="plugin-content">
-                            
-                            <strong>Command:</strong>
-                            <div class="command">
-                                
-                                    wpscan --url http://127.0.0.1:8080/ --plugins-detection aggressive --enumerate ap,at,tt,cb,dbe,u,m --no-update --output /tmp/tmp4bryculy.wpscan.json --format json
-                                
-                            </div>
-                            
-
-                            
-                            <strong>Results:</strong>
-                            <div class="results-box">
-                                            <strong>Xmlrpc Enabled:</strong>
-                                                False
-                                            <br>
-                            </div>
-                            
-
-                            
-                        </div>
-                    </div>
-                    
-                    <div class="plugin-item">
-                        <div class="plugin-header" onclick="togglePlugin(this)">
-                            <span>Enum Http Whatweb</span>
-                            <span class="toggle-btn">[+]</span>
-                        </div>
-                        <div class="plugin-content">
-                            
-                            <strong>Command:</strong>
-                            <div class="command">
-                                
-                                    whatweb http://127.0.0.1:8080/ -p -a=4 -v --log-json=/tmp/tmp4_et8fw5.json
-                                
-                            </div>
-                            
-
-                            
-                            <strong>Results:</strong>
-                            <div class="results-box">
-                            </div>
-                            
-
-                            
-                        </div>
-                    </div>
-                    
-                </div>
                 
             </div>
             
@@ -1569,9 +1436,9 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                         <div class="service-details">
                             
                                 MySQL
-                                 v8.0.42-0ubuntu0.20.04.1
+                                
                             
-                            
+                             | blocked - too many connection errors
                         </div>
                     </div>
                     <span class="state-badge state-open">open</span>
@@ -1584,26 +1451,6 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                 </div>
 
                 <!-- Scripts Section -->
-                
-                <div class="scripts-section">
-                    <h4>📜 Nmap Scripts</h4>
-                    
-                    <div class="script-item">
-                        <div class="script-name">mysql-info</div>
-                        <div class="script-output"></div>
-                    </div>
-                    
-                    <div class="script-item">
-                        <div class="script-name">ssl-date</div>
-                        <div class="script-output">TLS randomness does not represent time</div>
-                    </div>
-                    
-                    <div class="script-item">
-                        <div class="script-name">ssl-cert</div>
-                        <div class="script-output"></div>
-                    </div>
-                    
-                </div>
                 
 
                 <!-- Plugin Results -->
@@ -1627,13 +1474,13 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                             <div class="command">
                                 
                                     
-                                        searchsploit MySQL 8.0<br>
+                                        searchsploit MySQL <br>
                                     
-                                        https://github.com/search?q=MySQL+8.0+exploit<br>
+                                        https://github.com/search?q=MySQL+exploit<br>
                                     
-                                        Google Custom Search API: MySQL 8.0 exploit<br>
+                                        Google Custom Search API: MySQL exploit<br>
                                     
-                                        https://html.duckduckgo.com/html/?q=MySQL+8.0+exploit<br>
+                                        https://html.duckduckgo.com/html/?q=MySQL+exploit<br>
                                     
                                 
                             </div>
@@ -1643,25 +1490,23 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
                             <strong>Results:</strong>
                             <div class="results-box">
                                             <strong>Searchsploit:</strong>
-                                                    <ul style="margin:5px 0 10px 15px;padding:0;">
+                                                    <ul>
                                                             <li> Exploit Title                                                                                                                                                                                            |  Path</li>
-                                                            <li>PHP-Nuke [01;31m[K8.0[m[K Final - 'INSERT' Blind SQL Injection ([01;31m[KMySQL[m[K)                                                                                                                                                 | php/webapps/3344.pl</li>
-                                                            <li>Shellcodes: No Results</li>
-                                                            <li>Papers: No Results</li>
+                                                            <li>Active Calendar 1.2 - '/data/[01;31m[Kmysql[m[Kevents.php?css' Cross-Site Scripting                                                                                                                                    | php/webapps/29653.txt</li>
+                                                            <li>Advanced Poll 2.0 - '[01;31m[Kmysql[m[K_host' Cross-Site Scripting                                                                                                                                                     | php/webapps/33972.txt</li>
+                                                            <li>Agora 1.4 RC1 - '[01;31m[KMysql[m[KfinderAdmin.php' Remote File Inclusion                                                                                                                                              | php/webapps/2726.txt</li>
+                                                            <li>Asterisk 'asterisk-addons' 1.2.7/1.4.3 - CDR_ADDON_[01;31m[KMYSQL[m[K Module SQL Injection                                                                                                                             | linux/remote/30677.pl</li>
                                                     </ul>
-                                            <br>
                                             <strong>Github Titles:</strong>
                                                     <span class="no-results">No results</span>
-                                            <br>
                                             <strong>Google Titles:</strong>
-                                                    <ul style="margin:5px 0 10px 15px;padding:0;">
-                                                            <li>MySQL vulnerabilities CVE-2024-21247, CVE-2024-21209, and CVE-2024-21231</li>
-                                                            <li>Cve-2025-21520 - Nvd</li>
-                                                            <li>Hissec/Mysql_CVE-2024-27766: Database authenticated code execution - GitHub</li>
-                                                            <li>Oracle Mysql 8.0 security vulnerabilities, CVEs - CVEdetails.com</li>
-                                                            <li>MySQL 8.0.x < 8.0.26 Multiple Vulnerabilities (Jul 2021 CPU) - Tenable</li>
+                                                    <ul>
+                                                            <li>MySQL Pentesting | Exploit Notes - HDKS</li>
+                                                            <li>3306 - Pentesting Mysql - HackTricks</li>
+                                                            <li>Attacking MySQL With Metasploit - Penetration Testing Lab</li>
+                                                            <li>MySQL - Authentication Bypass - Multiple remote Exploit</li>
+                                                            <li>MySQL Authentication Bypass Password Dump - Rapid7</li>
                                                     </ul>
-                                            <br>
                             </div>
                             
 
@@ -2268,7 +2113,7 @@ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILY4iHgBXq1Qwa7i8+/2oxJuV2CS8pjvcSRC7VyNhKjc
         
 
         <div class="footer">
-            <p>Report generated by SPADE by ReKon64 | 2025-06-04 13:56:58</p>
+            <p>Report generated by SPADE by ReKon64 | 2025-06-06 11:59:41</p>
         </div>
     </div>
 </body>

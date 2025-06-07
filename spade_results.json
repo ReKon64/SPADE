@@ -3,7 +3,7 @@
         {
             "ip": "127.0.0.1",
             "hostname": "unknown",
-            "nmap_command": "/usr/lib/nmap/nmap --privileged --top-ports=100 -sU -sCV -T4 -vv --reason -Pn -n -oX /tmp/tmp9p_ddva7.xml 127.0.0.1",
+            "nmap_command": "/usr/lib/nmap/nmap --privileged --top-ports=100 -sU -sCV -T4 -vv --reason -Pn -n -oX /tmp/tmpbrz4c163.xml 127.0.0.1",
             "ports": [
                 {
                     "id": "1025",
@@ -74,6 +74,22 @@
                             "results": {
                                 "error": "No product info found for this port."
                             }
+                        },
+                        "enum_rpc_rpcclient": {
+                            "cmd": [
+                                "rpcclient -U '' -N 127.0.0.1 -p 1111 -c 'enumdomusers'",
+                                "rpcclient -U '' -N 127.0.0.1 -p 1111 -c 'netshareenumall'",
+                                "rpcclient -U '' -N 127.0.0.1 -p 1111 -c 'enumdomains'",
+                                "rpcclient -U '' -N 127.0.0.1 -p 1111 -c 'enumdomgroups'",
+                                "rpcclient -U '' -N 127.0.0.1 -p 1111 -c 'srvinfo'"
+                            ],
+                            "results": {
+                                "users": "WARNING: no network interfaces found\nCannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED\n",
+                                "shares": "WARNING: no network interfaces found\nCannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED\n",
+                                "domains": "WARNING: no network interfaces found\nCannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED\n",
+                                "groups": "WARNING: no network interfaces found\nCannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED\n",
+                                "srvinfo": "WARNING: no network interfaces found\nCannot connect to server.  Error was NT_STATUS_CONNECTION_DISCONNECTED\n"
+                            }
                         }
                     }
                 },
@@ -89,7 +105,7 @@
                     },
                     "plugins": {
                         "enum_smb_nmap": {
-                            "cmd": "nmap -p 1139 --script=smb-os-discovery,smb-enum-shares,smb-enum-users,smb-enum-domains,smb-enum-groups,smb-security-mode,smb2-security-mode,smb2-time,smb2-capabilities,smb-protocols,smb-vuln* -Pn -vv -n -oX /tmp/tmpukuvutjk.xml 127.0.0.1",
+                            "cmd": "nmap -p 1139 --script=smb-os-discovery,smb-enum-shares,smb-enum-users,smb-enum-domains,smb-enum-groups,smb-security-mode,smb2-security-mode,smb2-time,smb2-capabilities,smb-protocols,smb-vuln* -Pn -vv -n -oX /tmp/tmpj0wasxjb.xml 127.0.0.1",
                             "results": {},
                             "report_fields": [
                                 "results",
@@ -114,7 +130,7 @@
                                             "readme.txt"
                                         ],
                                         "errors": [],
-                                        "raw_list": "WARNING: no network interfaces found\n  .                                   D        0  Wed Jun  4 10:16:21 2025\n  ..                                  D        0  Wed Jun  4 10:19:00 2025\n  readme.txt                          N       41  Wed Jun  4 10:16:21 2025\n\n\t\t81926552 blocks of size 1024. 27261048 blocks available\n"
+                                        "raw_list": "WARNING: no network interfaces found\n  .                                   D        0  Wed Jun  4 10:16:21 2025\n  ..                                  D        0  Wed Jun  4 10:19:00 2025\n  readme.txt                          N       41  Wed Jun  4 10:16:21 2025\n\n\t\t81926552 blocks of size 1024. 27230572 blocks available\n"
                                     },
                                     "admin": {
                                         "files": [],
@@ -141,7 +157,7 @@
                                             "passwords.txt"
                                         ],
                                         "errors": [],
-                                        "raw_list": "WARNING: no network interfaces found\n  .                                   D        0  Wed Jun  4 10:16:19 2025\n  ..                                  D        0  Wed Jun  4 10:16:19 2025\n  db_backup.sql                       N       21  Wed Jun  4 10:16:19 2025\n  passwords.txt                       N       15  Wed Jun  4 10:16:19 2025\n\n\t\t81926552 blocks of size 1024. 27261048 blocks available\n"
+                                        "raw_list": "WARNING: no network interfaces found\n  .                                   D        0  Wed Jun  4 10:16:19 2025\n  ..                                  D        0  Wed Jun  4 10:16:19 2025\n  db_backup.sql                       N       21  Wed Jun  4 10:16:19 2025\n  passwords.txt                       N       15  Wed Jun  4 10:16:19 2025\n\n\t\t81926552 blocks of size 1024. 27229880 blocks available\n"
                                     },
                                     "SMB1": {
                                         "files": [],
@@ -177,9 +193,9 @@
                                 "google_titles": [
                                     "opsxcq/exploit-CVE-2017-7494 - GitHub",
                                     "Samba 3.5.0 < 4.4.14/4.5.10/4.6.4 - 'is_known ... - Exploit Database",
-                                    "SambaCry RCE Exploit | Lucideus Research | by Lucideus - Medium",
-                                    "It is a simple script to exploit RCE for Samba (CVE-2017-7494 ).",
-                                    "Samba 3.5.0 - Remote Code Execution - Linux remote Exploit"
+                                    "Script smb-vuln-cve-2017-7494 - Nmap",
+                                    "SambaCry RCE: CVE-2017-7494 - Medium",
+                                    "Cve-2017-7494 - Nvd"
                                 ]
                             },
                             "report_fields": [
@@ -222,7 +238,7 @@
                     },
                     "plugins": {
                         "enum_smb_nmap": {
-                            "cmd": "nmap -p 1445 --script=smb-os-discovery,smb-enum-shares,smb-enum-users,smb-enum-domains,smb-enum-groups,smb-security-mode,smb2-security-mode,smb2-time,smb2-capabilities,smb-protocols,smb-vuln* -Pn -vv -n -oX /tmp/tmplfgdk22i.xml 127.0.0.1",
+                            "cmd": "nmap -p 1445 --script=smb-os-discovery,smb-enum-shares,smb-enum-users,smb-enum-domains,smb-enum-groups,smb-security-mode,smb2-security-mode,smb2-time,smb2-capabilities,smb-protocols,smb-vuln* -Pn -vv -n -oX /tmp/tmptmyghcam.xml 127.0.0.1",
                             "results": {},
                             "report_fields": [
                                 "results",
@@ -247,7 +263,7 @@
                                             "readme.txt"
                                         ],
                                         "errors": [],
-                                        "raw_list": "WARNING: no network interfaces found\n  .                                   D        0  Wed Jun  4 10:16:21 2025\n  ..                                  D        0  Wed Jun  4 10:19:00 2025\n  readme.txt                          N       41  Wed Jun  4 10:16:21 2025\n\n\t\t81926552 blocks of size 1024. 27261044 blocks available\n"
+                                        "raw_list": "WARNING: no network interfaces found\n  .                                   D        0  Wed Jun  4 10:16:21 2025\n  ..                                  D        0  Wed Jun  4 10:19:00 2025\n  readme.txt                          N       41  Wed Jun  4 10:16:21 2025\n\n\t\t81926552 blocks of size 1024. 27230580 blocks available\n"
                                     },
                                     "admin": {
                                         "files": [],
@@ -274,7 +290,7 @@
                                             "passwords.txt"
                                         ],
                                         "errors": [],
-                                        "raw_list": "WARNING: no network interfaces found\n  .                                   D        0  Wed Jun  4 10:16:19 2025\n  ..                                  D        0  Wed Jun  4 10:16:19 2025\n  db_backup.sql                       N       21  Wed Jun  4 10:16:19 2025\n  passwords.txt                       N       15  Wed Jun  4 10:16:19 2025\n\n\t\t81926552 blocks of size 1024. 27261048 blocks available\n"
+                                        "raw_list": "WARNING: no network interfaces found\n  .                                   D        0  Wed Jun  4 10:16:19 2025\n  ..                                  D        0  Wed Jun  4 10:16:19 2025\n  db_backup.sql                       N       21  Wed Jun  4 10:16:19 2025\n  passwords.txt                       N       15  Wed Jun  4 10:16:19 2025\n\n\t\t81926552 blocks of size 1024. 27230160 blocks available\n"
                                     },
                                     "SMB1": {
                                         "files": [],
@@ -309,10 +325,10 @@
                                 "github_titles": [],
                                 "google_titles": [
                                     "opsxcq/exploit-CVE-2017-7494 - GitHub",
-                                    "Samba \"username map script\" Command Execution - Rapid7",
                                     "Samba 3.5.0 < 4.4.14/4.5.10/4.6.4 - 'is_known ... - Exploit Database",
                                     "Script smb-vuln-cve-2017-7494 - Nmap",
-                                    "SambaCry RCE: CVE-2017-7494 - Medium"
+                                    "SambaCry RCE: CVE-2017-7494 - Medium",
+                                    "Cve-2017-7494 - Nvd"
                                 ]
                             },
                             "report_fields": [
@@ -337,7 +353,7 @@
                     "scripts": {
                         "ftp-anon": "Anonymous FTP login allowed (FTP code 230)\n-rw-r--r--    1 0        0              16 Jun 03 20:16 password.txt",
                         "ftp-syst": {
-                            "STAT": "\nFTP server status:\n     Connected to 172.17.0.1\n     Logged in as ftp\n     TYPE: ASCII\n     No session bandwidth limit\n     Session timeout in seconds is 300\n     Control connection is plain text\n     Data connections will be plain text\n     At session startup, client count was 2\n     vsFTPd 3.0.5 - secure, fast, stable\nEnd of status"
+                            "STAT": "\nFTP server status:\n     Connected to 172.17.0.1\n     Logged in as ftp\n     TYPE: ASCII\n     No session bandwidth limit\n     Session timeout in seconds is 300\n     Control connection is plain text\n     Data connections will be plain text\n     At session startup, client count was 1\n     vsFTPd 3.0.5 - secure, fast, stable\nEnd of status"
                         }
                     },
                     "plugins": {
@@ -345,15 +361,15 @@
                             "cmd": [
                                 "ftp.connect(127.0.0.1, 2121)",
                                 "ftp.login('anonymous', 'anonymous@')",
-                                "ftp.retrbinary('RETR /password.txt', open('/tmp/ftp_f16e5n9w/password.txt', 'wb').write)"
+                                "ftp.retrbinary('RETR /password.txt', open('/tmp/ftp_74vmqvvm/password.txt', 'wb').write)"
                             ],
                             "results": {
                                 "success": true,
                                 "files_downloaded": [
-                                    "/tmp/ftp_f16e5n9w/password.txt"
+                                    "/tmp/ftp_74vmqvvm/password.txt"
                                 ],
                                 "errors": [],
-                                "output_dir": "/tmp/ftp_f16e5n9w",
+                                "output_dir": "/tmp/ftp_74vmqvvm",
                                 "all_files": [
                                     "/password.txt"
                                 ]
@@ -383,10 +399,10 @@
                                 "github_titles": [],
                                 "google_titles": [
                                     "Exploiting vsftpd in Metasploitable 2 | by Jason Jacobs, MSc. - Medium",
-                                    "vsftpd 2.3.4 - Backdoor Command Execution - Unix remote Exploit",
-                                    "Exploit VSFTPD 2.0.8 | HackingDNA",
                                     "dgrbch1/Exploits: Vsftpd Backdoor Exploit Demonstration - GitHub",
-                                    "ftp-vsftpd-backdoor NSE script \u2014 Nmap Scripting Engine documentation"
+                                    "Exploit VSFTPD 2.0.8 | HackingDNA",
+                                    "ftp-vsftpd-backdoor NSE script \u2014 Nmap Scripting Engine documentation",
+                                    "vsftpd 2.0.5 - 'CWD' (Authenticated) Remote Memory Consumption"
                                 ]
                             },
                             "report_fields": [
@@ -430,8 +446,8 @@
                                 "google_titles": [
                                     "GitHub - d0rb/CVE-2024-6387: This Python script exploits a remote code ...",
                                     "CVE-2023-38408 (OpenSSH Vulnerability to RCE) | by Manjil - Medium",
-                                    "Openbsd Openssh 8.2 security vulnerabilities, CVEs - CVEdetails.com",
                                     "OpenSSH Vulnerability: CVE-2020-12062 - Rapid7",
+                                    "Openbsd Openssh 8.2 security vulnerabilities, CVEs - CVEdetails.com",
                                     "Cve-2020-12062 - Nvd"
                                 ]
                             },
@@ -456,204 +472,13 @@
                         "tunnel": ""
                     },
                     "scripts": {
+                        "http-methods": "\n  Supported Methods: GET HEAD POST OPTIONS",
+                        "http-open-proxy": "Proxy might be redirecting requests",
                         "http-title": {
                             "title": "WordPress &rsaquo; Installation",
                             "redirect_url": "http://127.0.0.1:8080/wp-admin/install.php"
                         },
-                        "http-server-header": "Apache/2.4.41 (Ubuntu)",
-                        "http-open-proxy": "Proxy might be redirecting requests",
-                        "http-methods": "\n  Supported Methods: GET HEAD POST OPTIONS"
-                    },
-                    "plugins": {
-                        "enum_http_curl_confirmation": {
-                            "cmd": "curl -i --insecure --max-time 15 http://127.0.0.1:8080/",
-                            "results": {
-                                "status_line": "HTTP/1.1 302 Found",
-                                "headers": {},
-                                "body_snippet": "  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\n  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0\nHTTP/1.1 302 Found\nDate: Wed, 04 Jun 2025 17:56:53 GMT\nServer: Apache/2.4.41 (Ubuntu)\nExpires: Wed, 11 Jan 1984 05:00:00 GMT\nCache-Control: no-cache, must-revalidate, max-age=0, no-store, private\nX-Redirect-By: WordPress\nLocation: http://127.0.0.1:8080/wp-admin/install.php\nContent-Length: 0",
-                                "isreal": true
-                            },
-                            "report_fields": [
-                                "isreal",
-                                "status_line",
-                                "headers",
-                                "error"
-                            ]
-                        },
-                        "enum_http_gowitness": {
-                            "cmd": "gowitness single --url \"http://127.0.0.1:8080/\" --disable-db --destination \"/tmp/tmp3xs9mdv_/screens\"",
-                            "error": "Command 'gowitness single --url \"http://127.0.0.1:8080/\" --disable-db --destination \"/tmp/tmp3xs9mdv_/screens\"' returned non-zero exit status 1.",
-                            "results": {
-                                "screenshots": []
-                            },
-                            "report_fields": [
-                                "screenshots",
-                                "error"
-                            ]
-                        },
-                        "enum_generic_product_search": {
-                            "cmd": [
-                                "searchsploit Apache httpd 2.4",
-                                "https://github.com/search?q=Apache+httpd+2.4+exploit",
-                                "Google Custom Search API: Apache httpd 2.4 exploit",
-                                "https://html.duckduckgo.com/html/?q=Apache+httpd+2.4+exploit"
-                            ],
-                            "results": {
-                                "searchsploit": [
-                                    " Exploit Title                                                                                                                                                                                            |  Path",
-                                    "\u001b[01;31m\u001b[KApache\u001b[m\u001b[K \u001b[01;31m\u001b[K2.4\u001b[m\u001b[K.23 mod_http2 - Denial of Service                                                                                                                                                               | linux/dos/40909.py",
-                                    "\u001b[01;31m\u001b[KApache\u001b[m\u001b[K HTTP Server \u001b[01;31m\u001b[K2.4\u001b[m\u001b[K.49 - Path Traversal & Remote Code Execution (RCE)                                                                                                                                  | multiple/webapps/50383.sh",
-                                    "Shellcodes: No Results",
-                                    "Papers: No Results"
-                                ],
-                                "github_titles": [],
-                                "google_titles": [
-                                    "Apache HTTP Server 2.4.49 - Exploit Database",
-                                    "Apache HTTP Server 2.4 vulnerabilities",
-                                    "Proof-of-Concept Exploit Released for CVE-2024-40725 in Apache HTTP ...",
-                                    "Active Exploitation of Apache HTTP Server CVE-2021-40438",
-                                    "Remote Code Execution exploit for Apache servers. Affected ... - GitHub"
-                                ]
-                            },
-                            "report_fields": [
-                                "searchsploit",
-                                "github_titles",
-                                "google_titles",
-                                "error"
-                            ]
-                        },
-                        "enum_http_wpscan": {
-                            "cmd": "wpscan --url http://127.0.0.1:8080/ --plugins-detection aggressive --enumerate ap,at,tt,cb,dbe,u,m --no-update --output /tmp/tmp4bryculy.wpscan.json --format json",
-                            "results": {
-                                "banner": {
-                                    "description": "WordPress Security Scanner by the WPScan Team",
-                                    "version": "3.8.27",
-                                    "authors": [
-                                        "@_WPScan_",
-                                        "@ethicalhack3r",
-                                        "@erwan_lr",
-                                        "@firefart"
-                                    ],
-                                    "sponsor": "Sponsored by Automattic - https://automattic.com/"
-                                },
-                                "not_fully_configured": "The Website is not fully configured and currently in install mode. Create a new admin user at http://127.0.0.1:8080/wp-admin/install.php",
-                                "xmlrpc_enabled": false
-                            },
-                            "report_fields": [
-                                "xmlrpc_enabled",
-                                "error"
-                            ]
-                        },
-                        "enum_http_whatweb": {
-                            "cmd": "whatweb http://127.0.0.1:8080/ -p -a=4 -v --log-json=/tmp/tmp4_et8fw5.json",
-                            "results": [
-                                {
-                                    "target": "http://127.0.0.1:8080/",
-                                    "http_status": 302,
-                                    "request_config": {
-                                        "headers": {
-                                            "User-Agent": "WhatWeb/0.5.5"
-                                        }
-                                    },
-                                    "plugins": {
-                                        "Apache": {
-                                            "version": [
-                                                "2.4.41"
-                                            ]
-                                        },
-                                        "Country": {
-                                            "string": [
-                                                "RESERVED"
-                                            ],
-                                            "module": [
-                                                "ZZ"
-                                            ]
-                                        },
-                                        "HTTPServer": {
-                                            "os": [
-                                                "Ubuntu Linux"
-                                            ],
-                                            "string": [
-                                                "Apache/2.4.41 (Ubuntu)"
-                                            ]
-                                        },
-                                        "IP": {
-                                            "string": [
-                                                "127.0.0.1"
-                                            ]
-                                        },
-                                        "RedirectLocation": {
-                                            "string": [
-                                                "http://127.0.0.1:8080/wp-admin/install.php"
-                                            ]
-                                        },
-                                        "UncommonHeaders": {
-                                            "string": [
-                                                "x-redirect-by"
-                                            ]
-                                        }
-                                    }
-                                },
-                                {
-                                    "target": "http://127.0.0.1:8080/wp-admin/install.php",
-                                    "http_status": 200,
-                                    "request_config": {
-                                        "headers": {
-                                            "User-Agent": "WhatWeb/0.5.5"
-                                        }
-                                    },
-                                    "plugins": {
-                                        "Apache": {
-                                            "version": [
-                                                "2.4.41"
-                                            ]
-                                        },
-                                        "Country": {
-                                            "string": [
-                                                "RESERVED"
-                                            ],
-                                            "module": [
-                                                "ZZ"
-                                            ]
-                                        },
-                                        "HTML5": {},
-                                        "HTTPServer": {
-                                            "os": [
-                                                "Ubuntu Linux"
-                                            ],
-                                            "string": [
-                                                "Apache/2.4.41 (Ubuntu)"
-                                            ]
-                                        },
-                                        "IP": {
-                                            "string": [
-                                                "127.0.0.1"
-                                            ]
-                                        },
-                                        "JQuery": {
-                                            "version": [
-                                                "3.7.1"
-                                            ]
-                                        },
-                                        "Script": {
-                                            "string": [
-                                                "text/javascript"
-                                            ]
-                                        },
-                                        "Title": {
-                                            "string": [
-                                                "WordPress &rsaquo; Installation"
-                                            ]
-                                        },
-                                        "WordPress": {}
-                                    }
-                                }
-                            ],
-                            "report_fields": [
-                                "plugins",
-                                "error"
-                            ]
-                        }
+                        "http-server-header": "Apache/2.4.41 (Ubuntu)"
                     }
                 },
                 {
@@ -679,52 +504,36 @@
                     "id": "13306",
                     "protocol": "tcp",
                     "state": "open",
+                    "extrainfo": "blocked - too many connection errors",
                     "service": {
                         "name": "mysql",
                         "product": "MySQL",
-                        "version": "8.0.42-0ubuntu0.20.04.1",
+                        "version": "",
                         "tunnel": ""
-                    },
-                    "scripts": {
-                        "mysql-info": {
-                            "Protocol": "10",
-                            "Version": "8.0.42-0ubuntu0.20.04.1",
-                            "Thread ID": "387",
-                            "Capabilities flags": "65535",
-                            "Status": "Autocommit",
-                            "Salt": "\r{*W\r\\x0C\\x03h?)R<\\x058\\]=Qa\\x10",
-                            "Auth Plugin Name": "caching_sha2_password"
-                        },
-                        "ssl-date": "TLS randomness does not represent time",
-                        "ssl-cert": {
-                            "sig_algo": "sha256WithRSAEncryption",
-                            "md5": "e7f00cd7243d58794b773cf71e8e6aa8",
-                            "sha1": "7147f509eb6ca408f54e2d5dba13dce458e691bc",
-                            "pem": "-----BEGIN CERTIFICATE-----\nMIIDBzCCAe+gAwIBAgIBAjANBgkqhkiG9w0BAQsFADA8MTowOAYDVQQDDDFNeVNR\nTF9TZXJ2ZXJfOC4wLjQyX0F1dG9fR2VuZXJhdGVkX0NBX0NlcnRpZmljYXRlMB4X\nDTI1MDYwMzIwMTU0OFoXDTM1MDYwMTIwMTU0OFowQDE+MDwGA1UEAww1TXlTUUxf\nU2VydmVyXzguMC40Ml9BdXRvX0dlbmVyYXRlZF9TZXJ2ZXJfQ2VydGlmaWNhdGUw\nggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCtcK9gb+UlBUYWMts94FHf\nuUF8c8XVMP/c5iDChVZRQQPSrU+AMaTm3e7ME5vD+aqRpGDB4U9t2ssI6LXzXp65\n1Ao0wKhspwzhWJmw1GJrjwWyluvMy9V3stSNstpHL1ChA4423NGEOr9j4rSjVeaF\nn9XMnDZnk/+h2oLa9N1SAN8pl8O3GKEz2lWyyQoEV/thUYYOd7hFe1YQ+GGurhgM\nMU5qSwUEAGylz20VREcSA41Mofr49K8I5vXIr0h+V9qAL9Pta39A330jbaTFhcu5\nGiViJKWn85AK8dJ5nYWNDQ3NnOTA7w8W6Y0yJiTwDWDCkAzYIuswh9wgw3mHfwQH\nAgMBAAGjEDAOMAwGA1UdEwEB/wQCMAAwDQYJKoZIhvcNAQELBQADggEBAIB4Lfmy\n6LXBODGm15qTvRD0a61KnJIFTKaj9xWPO2PPqWbdMpryrrlzUbVQd6mYoG9fpEFD\nJkGnODs4HmmG4WvzaWiWIWsDuPOZ4GokQ6wA8SqO/8cbj/0FtcTFgT57nSvXP/WF\nHQ9da9eCNld8XJgfGFHjHAzZR64wyH6fbbTpsGrNAPN0CPESvzVn06en2RqE6web\neyJAFBUpbrG4s375zee6Vj934gmYxB+wusHbSeegwGXGvFHIjiUSESUjML3qJO41\ncoLXoUyCBU6X8pRA5h8H4cDqlhPwtPO79g7pIbi3W0AGsFXLgBWSjmdVpzORew7F\nYokO1ektdH5Mif4=\n-----END CERTIFICATE-----\n"
-                        }
                     },
                     "plugins": {
                         "enum_generic_product_search": {
                             "cmd": [
-                                "searchsploit MySQL 8.0",
-                                "https://github.com/search?q=MySQL+8.0+exploit",
-                                "Google Custom Search API: MySQL 8.0 exploit",
-                                "https://html.duckduckgo.com/html/?q=MySQL+8.0+exploit"
+                                "searchsploit MySQL ",
+                                "https://github.com/search?q=MySQL+exploit",
+                                "Google Custom Search API: MySQL exploit",
+                                "https://html.duckduckgo.com/html/?q=MySQL+exploit"
                             ],
                             "results": {
                                 "searchsploit": [
                                     " Exploit Title                                                                                                                                                                                            |  Path",
-                                    "PHP-Nuke \u001b[01;31m\u001b[K8.0\u001b[m\u001b[K Final - 'INSERT' Blind SQL Injection (\u001b[01;31m\u001b[KMySQL\u001b[m\u001b[K)                                                                                                                                                 | php/webapps/3344.pl",
-                                    "Shellcodes: No Results",
-                                    "Papers: No Results"
+                                    "Active Calendar 1.2 - '/data/\u001b[01;31m\u001b[Kmysql\u001b[m\u001b[Kevents.php?css' Cross-Site Scripting                                                                                                                                    | php/webapps/29653.txt",
+                                    "Advanced Poll 2.0 - '\u001b[01;31m\u001b[Kmysql\u001b[m\u001b[K_host' Cross-Site Scripting                                                                                                                                                     | php/webapps/33972.txt",
+                                    "Agora 1.4 RC1 - '\u001b[01;31m\u001b[KMysql\u001b[m\u001b[KfinderAdmin.php' Remote File Inclusion                                                                                                                                              | php/webapps/2726.txt",
+                                    "Asterisk 'asterisk-addons' 1.2.7/1.4.3 - CDR_ADDON_\u001b[01;31m\u001b[KMYSQL\u001b[m\u001b[K Module SQL Injection                                                                                                                             | linux/remote/30677.pl"
                                 ],
                                 "github_titles": [],
                                 "google_titles": [
-                                    "MySQL vulnerabilities CVE-2024-21247, CVE-2024-21209, and CVE-2024-21231",
-                                    "Cve-2025-21520 - Nvd",
-                                    "Hissec/Mysql_CVE-2024-27766: Database authenticated code execution - GitHub",
-                                    "Oracle Mysql 8.0 security vulnerabilities, CVEs - CVEdetails.com",
-                                    "MySQL 8.0.x < 8.0.26 Multiple Vulnerabilities (Jul 2021 CPU) - Tenable"
+                                    "MySQL Pentesting | Exploit Notes - HDKS",
+                                    "3306 - Pentesting Mysql - HackTricks",
+                                    "Attacking MySQL With Metasploit - Penetration Testing Lab",
+                                    "MySQL - Authentication Bypass - Multiple remote Exploit",
+                                    "MySQL Authentication Bypass Password Dump - Rapid7"
                                 ]
                             },
                             "report_fields": [

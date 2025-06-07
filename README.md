@@ -1,19 +1,3 @@
-# SPADE
-
-**Scalable Plug-and-play Auto Detection Engine**
-
-SPADE is a modular vulnerability scanning framework that leverages external tools like `nmap`, `curl`, and others. It uses Python class decorators and reflection to auto-register modules for execution, making it easy to extend and customize.
-
-## ✨ Features
-
-- 🔌 Plug-and-play modules via class decorators
-- 🔍 Built-in support for external tools (e.g. `nmap`)
-- 🧠 Reflection-based auto-discovery of scanners
-- 📦 Designed for packaging and easy execution via `pipx`
-- 💬 Lax plugin development guidelines
-
-## 🚀 Getting Started
-
 # 🚀 SPADE
 
 **Scalable Plug-and-play Auto Detection Engine**

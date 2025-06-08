@@ -52,14 +52,15 @@ class PluginMonitor:
                 self._terminate_child_processes(plugin_name)
             self.active_plugins.clear()
     
-    def register_plugin(self, plugin_name, target_info, thread=None):
+    def register_plugin(self, plugin_name, target_info, thread=None, timeout=None):
         """
         Register a plugin as active
-        
+
         Args:
             plugin_name (str): Name of the plugin that started
             target_info (str): Target information (e.g., "host:port")
             thread (Thread, optional): Thread executing the plugin
+            timeout (int, optional): Timeout for this plugin (seconds)
         """
         with self.lock:
             self.active_plugins[plugin_name] = {

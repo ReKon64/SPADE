@@ -1,7 +1,7 @@
 ### MANUAL START
 
 scan_*
-changelogformat.md
+changelogformat*
 # Allow directories containing "results"
 !*/results/
 

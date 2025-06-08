@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "spade"
+name = "scalable-plug-and-play-auto-detection-engine"
 version = "1.0.0"
 description = "SPADE is a modular vulnerability scanning framework that leverages external tools like nmap, curl, and more. It uses Python class decorators and reflection to auto-register modules for execution, making it easy to extend and customize."
 authors = ["ReKon64 <cookiewithoutraisins@gmail.com>"]

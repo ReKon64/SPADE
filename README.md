@@ -39,7 +39,7 @@ I developed this project with a few key goals in mind:
 
 ```bash
 # Install with pipx (recommended)
-pipx install spade
+pipx install scalable-plug-and-play-auto-detection-engine
 ```
 
 
@@ -60,6 +60,7 @@ pipx install spade
 
 ## 🔮 What’s Next?
 
+- Support for multiple targets
 - Credentialed enumeration
 - Built-in AI plugins
 

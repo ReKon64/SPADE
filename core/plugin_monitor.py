@@ -65,9 +65,10 @@ class PluginMonitor:
             self.active_plugins[plugin_name] = {
                 "start_time": time.time(),
                 "target": target_info,
-                "thread": thread or threading.current_thread()
+                "thread": thread or threading.current_thread(),
+                "timeout": timeout or self.default_timeout
             }
-    
+        
     def unregister_plugin(self, plugin_name):
         """
         Unregister a plugin (mark as completed)
@@ -119,11 +120,10 @@ class PluginMonitor:
         timed_out_plugins = []
         
         with self.lock:
-            # Find plugins that have timed out
             for plugin_name, info in self.active_plugins.items():
                 runtime = now - info["start_time"]
-                
-                if runtime > self.default_timeout:
+                timeout = info.get("timeout", self.default_timeout)
+                if runtime > timeout:
                     timed_out_plugins.append((plugin_name, info))
         
         # Process timed out plugins outside the lock to avoid deadlocks

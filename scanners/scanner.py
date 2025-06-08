@@ -576,8 +576,10 @@ class Scanner:
                     host_port_info = f"{temp_scanner.options.get('current_port', {}).get('host')}:{temp_scanner.options.get('current_port', {}).get('port_id')}"
                     logging.info(f"[PLUGIN EXEC] Starting {plugin} for {host_port_info}")
                     
+                    timeout = temp_scanner.options.get(f"{plugin}_timeout") or temp_scanner.options.get("ferox_timeout") or None
+
                     # Register plugin with the monitor
-                    plugin_monitor.register_plugin(plugin, host_port_info)
+                    plugin_monitor.register_plugin(plugin, host_port_info, timeout=timeout)
                     
                     # Submit the task with the wrapper that ensures proper cleanup
                     plugin_func = getattr(temp_scanner, plugin)

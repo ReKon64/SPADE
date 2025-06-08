@@ -1,6 +1,5 @@
 from core.imports import *
 from scanners.scanner import Scanner
-import tempfile
 
 @Scanner.register_args
 def feroxbuster_args(parser, get_protocol_group):

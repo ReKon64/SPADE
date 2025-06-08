@@ -5,6 +5,15 @@ description = "SPADE is a modular vulnerability scanning framework that leverage
 authors = ["ReKon64 <cookiewithoutraisins@gmail.com>"]
 license = "AGPL 3.0"
 readme = "README.md"
+packages = [
+  { include = "core" },
+  { include = "scanners" },
+  { include = "templates" },
+  { include = "main.py"}
+]
+
+[tool.poetry.scripts]
+spade = "main:main"
 
 [tool.poetry.dependencies]
 python = "^3.9"

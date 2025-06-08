@@ -1,6 +1,6 @@
 ### MANUAL START
 
-scan_*
+scan_*res*
 changelogformat*
 # Allow directories containing "results"
 !*/results/

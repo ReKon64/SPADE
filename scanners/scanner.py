@@ -47,15 +47,15 @@ class Scanner:
             extensions_path (str): The Python module path to the extensions directory.
         """
         if cls._extensions_loaded:
-            print("[!] Extensions already loaded, skipping.")
+           #print("[!] Extensions already loaded, skipping.")
             return
         cls._extensions_loaded = True
-        print(f"[+] Loading extensions from {extensions_path}")
+        #print(f"[+] Loading extensions from {extensions_path}")
         package = importlib.import_module(extensions_path)
         package_path = os.path.dirname(package.__file__)
         logging.debug(f"Package Path: {package_path}")
         for _, module_name, _ in pkgutil.iter_modules([package_path]):
-            print(f"[+] Loading extension module: {module_name}")
+            #print(f"[+] Loading extension module: {module_name}")
             try:
                 full_module_name = f"{extensions_path}.{module_name}"
                 importlib.import_module(full_module_name)
@@ -88,7 +88,7 @@ class Scanner:
                 method for method in dir(self)
                 if any(method.startswith(prefix) for prefix in prefixes)
                 and callable(getattr(self, method))
-                and method != "scan_by_port_service"  # <-- Add this line
+                and method != "scan_by_port_service"
             ]
             # Sort so brute_ plugins are last
             discovered_methods.sort(key=lambda m: m.startswith("brute_"))
@@ -380,6 +380,7 @@ class Scanner:
                 port_data = futures[future]
                 try:
                     plugin_results = future.result()
+                    print(f"[PRINT] Plugin results for {port_data['service']} on {port_data['host']}:{port_data['port_id']}: {plugin_results}")
                     port_obj = port_data["port_obj"]
                     with port_obj["_plugin_lock"]:
                         if "plugins" not in port_obj:
@@ -470,25 +471,25 @@ class Scanner:
         """
         cls._extensions[func.__name__] = func
         logging.debug(f"Registering extension: {func.__name__}")
-        print(f"[+] Registering extension: {func.__name__}")
+        #print(f"[+] Registering extension: {func.__name__}")
 
         return func
     
     @classmethod
     def register_args(cls, func):
         if func in cls._arg_registrars:
-            print(f"[!] Skipping duplicate arg registrar: {func.__name__}")
+            #print(f"[!] Skipping duplicate arg registrar: {func.__name__}")
             return func
         cls._arg_registrars.append(func)
         logging.debug(f"Registered arg registrar: {func.__name__}")
-        print(f"[+] Registered arg registrar: {func.__name__}")
+        #print(f"[+] Registered arg registrar: {func.__name__}")
         return func
 
     @classmethod
     def register_all_args(cls, parser):
         for func in cls._arg_registrars:
             func(parser, cls.get_protocol_group)
-        print(f"[+] Registered all argument registrars: {cls._arg_registrars}")
+        #print(f"[+] Registered all argument registrars: {cls._arg_registrars}")
 
     @classmethod
     def get_protocol_group(cls, parser, protocol):
@@ -497,7 +498,7 @@ class Scanner:
             cls._protocol_groups[protocol] = parser.add_argument_group(
                 f"{protocol.upper()} Options", f"Options for {protocol.upper()} plugins"
             )
-        print(f"[+] Using protocol group: {protocol}")
+        #print(f"[+] Using protocol group: {protocol}")
         return cls._protocol_groups[protocol]
 
     def _run_plugin_with_deps(self, plugin_name, temp_scanner, plugin_results):

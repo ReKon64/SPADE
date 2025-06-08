@@ -18,7 +18,7 @@ def main():
 
     options = vars(args).copy()
     options['output_dir'] = args.output or os.getcwd()
-    print(f"[+] Options : {options}")
+    #print(f"[+] Options : {options}")
 
     # Idiot-proof for all *_list args: split if quoted
     for argname in vars(args):
@@ -118,7 +118,7 @@ def main():
 
     # Load all scanner extensions
     scanner = Scanner(options)
-    print("Scanner methods:", [m for m in dir(scanner) if m.startswith("enum_") or m.startswith("brute_")])
+    #print("Scanner methods:", [m for m in dir(scanner) if m.startswith("enum_") or m.startswith("brute_")])
     
     # Register exit handler with scanner and args
     exit_handler.register(scanner=scanner, args=args)

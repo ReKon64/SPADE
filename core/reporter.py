@@ -36,7 +36,7 @@ class Reporter:
         if output_file:
             with open(output_file, 'w', encoding='utf-8') as f:
                 f.write(html_content)
-            print(f"Report generated: {output_file}")
+            logging.info(f"[$] Report generated: {output_file}")
         else:
             return html_content
 

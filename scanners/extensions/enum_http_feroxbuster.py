@@ -49,7 +49,7 @@ def enum_http_feroxbuster(self, plugin_results=None):
 
     url = f"{protocol}://{host}:{port}"
 
-    # Detect product for extension guessing
+    # Apacjhe/IIS specific extensions
     product = port_obj.get("product", "").lower()
     ferox_ext = ""
     if "apache" in product:
@@ -61,7 +61,7 @@ def enum_http_feroxbuster(self, plugin_results=None):
     wordlists = self.options.get("ferox_wordlists") or [
         "/usr/share/wordlists/seclists/Discovery/Web-Content/raft-medium-files.txt"
     ]
-    ignored_extensions = "css,png,gif,scss,jpg,jpeg"
+    ignored_extensions = "min.css,css,png,gif,scss,jpg,jpeg"
     results = {}
     cmds = []
     logging.info(f"[enum_http_feroxbuster] Using wordlists: {wordlists}")

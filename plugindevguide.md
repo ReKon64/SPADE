@@ -6,76 +6,69 @@ It covers plugin structure, best practices, and the rationale behind key design 
 
 ---
 
-## 1. Plugin Naming Convention
-To ensure SPADE can auto-discover your plugins correctly, **all plugin functions must follow a strict naming convention**:
-- Each plugin function name must start with a prefix that identifies its target protocol or service, followed by a descriptive action.
-**Example:**
+## 1. Naming Convention
 
+**All plugin functions must follow a strict naming convention:**
+- Start with a prefix indicating the target protocol/service (e.g., `enum_http_`, `enum_ftp_`, `brute_ssh_`).
+- Use lowercase letters and underscores.
+- Make the function name descriptive of the action or tool.
+
+**Example:**
 ```python
 @Scanner.extend
 def enum_http_whatweb(self, plugin_results=None):
+    ...
 ```
 
-*Why is this required?*
-**- Auto-discovery and Service Mapping:**
-SPADE uses reflection to find all methods whose names start with a given prefix (like `enum_http`) for a specific service.
+**Why?**
+- SPADE uses reflection to auto-discover plugins by prefix for each service.
+- Prefixes are mapped to service types in the scanner logic, ensuring only relevant plugins run for each detected service.
+- The `enum_generic_` prefix is a catch-all for plugins that should run against all services.
 
-The prefix (e.g., `enum_http`) is mapped to service types (like HTTP, FTP, SMB) in the scanner logic.
-This allows SPADE to run only relevant plugins for each detected service.
-
-**Exception**
-As a catch all solution there's a `enum_generic` prefix that runs against ALL services.
-
-**Best Practices**
-- Use lowercase letters and underscores.
-- Start with the appropriate prefix for your plugin's purpose and target protocol/service.
-- Make the rest of the function name descriptive of the action or tool (e.g., enum_http_curl_confirmation, enum_smb_enumshares).
-
+---
 
 ## 2. Plugin Structure
 
-A SPADE plugin is a Python function registered with the `@Scanner.extend` decorator. It should:
+A SPADE plugin is a Python function registered with `@Scanner.extend`. It should:
 
-- Have imports declared at the start of the file after common imports
+- Import dependencies at the top of the file.
 - Accept `self` and `plugin_results=None` as arguments.
-- Use `plugin_results` to access results from other plugins (dependencies).
+- Use `plugin_results` to access results from dependencies.
 - Return a dictionary with at least `"cmd"` and `"results"` keys.
-- Declare dependencies via a `depends_on` attribute.
-- Dependencies that cannot run will be skipped. This allows for "optional" dependencies. (Look at DNS Dig + LDAP / RDP relationship)
-- If you prefer to write multiple function instead of a singular for a plugin , use the `_func` convention for helper functions.
+- Declare dependencies via a `depends_on` attribute after the function.
+- Use helper functions with a `_func` suffix if needed.
 
 **Example:**
 ```python
 from core.imports import *
 from scanners.scanner import Scanner
-# ... module not included in imports ...
+
 @Scanner.extend
 def enum_http_whatweb(self, plugin_results=None):
-    # ...plugin logic...
+    # Plugin logic here
     return {"cmd": cmd, "results": whatweb_data}
 
-def _helper_function(args)
-# See enum_smb_nmap.py for an example.
 enum_http_whatweb.depends_on = ["enum_http_curl_confirmation"]
 ```
 
+---
+
 ## 3. Arguments
-### self
-The plugin is a method bound to a Scanner instance, giving access to scan options and the current port context via self.options.
 
-### plugin_results
-A dictionary containing the results of all plugins that have already run for this port in the current scan execution.
+- **self**: The plugin is a method bound to a Scanner instance, giving access to scan options and the current port context via `self.options`.
+- **plugin_results**: A dictionary containing the results of all plugins that have already run for this port in the current scan execution.
 
-**Why use plugin_results?**
+**Why use `plugin_results`?**
+- Avoids race conditions: `plugin_results` is always up-to-date during plugin execution, unlike `port_obj["plugins"]` which may not be updated until all plugins finish.
+- Ensures dependency safety: You can safely access dependency results from `plugin_results`.
 
-Race condition avoidance:
-During parallel execution, results in the main port object `port_obj["plugins"]` may not be updated until all plugins finish.
-`plugin_results` is an in-memory, per-thread, per-port dictionary that is always up-to-date during plugin execution.
+---
 
-Dependency safety:
-When your plugin depends on another (e.g., `enum_http_whatweb` depends on `enum_http_curl_confirmation`), you can safely access its result from plugin_results and be sure it is available.
 ## 4. Accessing Port and Service Data
-Use `self.options["current_port"]` and its `port_obj` key to access static port/service information:
+
+Use `self.options["current_port"]` and its `port_obj` key to access static port/service information.
+
+**Example:**
 ```python
 port_obj = self.options["current_port"].get("port_obj", {})
 host = self.options["current_port"]["host"]
@@ -83,8 +76,13 @@ port = self.options["current_port"]["port_id"]
 service = port_obj.get("service", {}) if port_obj else {}
 ```
 
+---
+
 ## 5. Accessing Dependency Results
-Use `plugin_results.get("dependency_plugin_name", {})` to access the results of a dependency:
+
+Use `plugin_results.get("dependency_plugin_name", {})` to access the results of a dependency.
+
+**Example:**
 ```python
 curl_result = plugin_results.get("enum_http_curl_confirmation", {})
 isreal = False
@@ -92,66 +90,55 @@ if isinstance(curl_result, dict):
     if isinstance(curl_result.get("results"), dict):
         isreal = curl_result["results"].get("isreal") is True
 ```
+
+---
+
 ## 6. Returning Results
+
 Always return a dictionary with:
-
-"cmd": The command(s) or action(s) performed (for traceability).
-
-"results": The parsed or raw results, or a structured error/skipped message.
+- `"cmd"`: The command(s) or action(s) performed.
+- `"results"`: The parsed or raw results, or a structured error/skipped message.
 
 **Example:**
 ```python
 cmd = f"whatweb {url} -p -a 4 -v --log-json={output_path}"
 return {"cmd": cmd, "results": whatweb_data}
 ```
+
 If your plugin is skipped due to a dependency:
 ```python
-return {"cmd": [], "results": {"skipped": "Reason for skipping"}}
+return {"skipped": "Reason for skipping"}
 ```
 
+---
+
 ## 7. Declaring Dependencies
-If your plugin requires another plugin to run first, declare this with a depends_on attribute after the function body:
+
+If your plugin requires another plugin to run first, declare this with a `depends_on` attribute after the function.
+
+**Example:**
 ```python
 enum_http_whatweb.depends_on = ["enum_http_curl_confirmation"]
 ```
-This ensures the scheduler runs dependencies first and passes their results in plugin_results.
-To see an example see; `enum_http_whatweb.py` plugin
+
+- This ensures the scheduler runs dependencies first and passes their results in `plugin_results`.
+- You can depend on multiple plugins by listing them all.
+
+---
 
 ## 8. Best Practices
-- Always use `plugin_results` for dependency data.
-- Never write to `plugin_results` directly; just return your result, the scheduler will handle it.
-- Return structured results with "cmd" and "results" keys.
-- Declare dependencies with depends_on after the function.
-- Log important actions and errors for debugging. Do not over clutter it though. Clarity is verbosity.
-## 9. FAQ
-### *Q: Why not just use `port_obj["plugins"]` for dependencies?*
-A: Because it may not be updated until all plugins for the port finish, leading to race conditions and missing data during parallel execution of multiple plugins against the same port. `plugin_results` is always up-to-date for the current execution context.
 
-### *Q: Why not just use plugin_results for everything, instead of having both plugin_results and port_obj?*
+- Use `plugin_results` for dependency data.
+- Never write to `plugin_results` directly; just return your result.
+- Return structured results with `"cmd"` and `"results"` keys.
+- Declare dependencies with `depends_on` after the function.
+- Log important actions and errors for debugging, but keep logs clear and concise.
 
-A: The design intentionally separates concerns for clarity, safety, and flexibility:
+---
 
-- `plugin_results` is **granular and ephemeral**: it only contains the results of plugins that have already run during the current scan execution for a specific port. It is meant for inter-plugin communication and dependency resolution within a single scan context. This ensures that plugins always see up-to-date results from their dependencies, avoiding race conditions and stale data.
+## 9. Skipping Plugins: The Standard
 
-- `port_obj` is **broad and persistent**: it holds static and persistent information about the port/service (such as host, port number, service name, product, version, etc.) that is required for plugin logic but is not produced by any plugin. This data is available before any plugins run and is not affected by the execution order or timing of plugins.
-
-**Why not merge them?**  
-If you used only `plugin_results`, you would lose access to static scan data before any plugin runs, and you would risk mixing persistent scan context with ephemeral plugin output. If you used only `port_obj`, you would risk race conditions and stale data when plugins run in parallel, since plugin results may not be available or up-to-date during execution.
-
-**Summary:**  
-- Use `port_obj` for broad, static scan context.
-- Use `plugin_results` for granular, up-to-date plugin output and dependencies.
-- This separation ensures both safety (no race conditions) and clarity (clear distinction between scan context and plugin results).
-
-*Q: Can I depend on multiple plugins?*
-A: Yes, set `depends_on` to a list of plugin names.
-
-*Q: What if my plugin doesn't access data returned by other plugins?*
-A: The task scheduler requires all plugins to accept `plugin_results` even if you don't use it.
-
-## 10. Skipping Plugins: The Standard
-# Clear this up with results return standard
-If your plugin cannot or should not run (e.g., a dependency result means it’s not applicable), **always return a dictionary with a `"skipped"` key**:
+If your plugin cannot or should not run (e.g., a dependency result means it's not applicable), **always return a dictionary with a `"skipped"` key**:
 
 ```python
 return {"skipped": "Reason for skipping"}
@@ -166,8 +153,20 @@ if not isreal:
     return {"skipped": "Not a real HTTP(S) service (isreal != True)"}
 ```
 
-**Why?**  
-This prevents deadlocks and ensures dependents can be skipped or handled gracefully.
+---
 
-Happy plugin writing!
+## 10. FAQ
 
+**Q: Why not just use `port_obj["plugins"]` for dependencies?**  
+A: Because it may not be updated until all plugins for the port finish, leading to race conditions and missing data during parallel execution. `plugin_results` is always up-to-date for the current execution context.
+
+**Q: Why not just use `plugin_results` for everything?**  
+A: `plugin_results` is granular and ephemeral, for inter-plugin communication within a single scan context. `port_obj` is broad and persistent, holding static scan context. Keeping them separate avoids race conditions and keeps scan context clear.
+
+**Q: Can I depend on multiple plugins?**  
+A: Yes, set `depends_on` to a list of plugin names.
+
+**Q: What if my plugin doesn't access data returned by other plugins?**  
+A: The scheduler still requires all plugins to accept `plugin_results`, even if you don't use it.
+
+---

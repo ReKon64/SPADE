@@ -375,7 +375,7 @@ class Scanner:
                     max_workers=max_workers
                 )] = port_data
                 
-                # Process results as they complete
+            # Process results as they complete
             for future in concurrent.futures.as_completed(futures):
                 port_data = futures[future]
                 try:
@@ -387,7 +387,11 @@ class Scanner:
                         for plugin_name, result in plugin_results.items():
                             port_obj["plugins"][plugin_name] = result
                 except Exception as e:
-                    logging.error(f"Error processing scan for {port_data['service']} on {port_data['host']}:{port_data['port_id']}: {e}")
+                    logging.error(
+                        f"Error processing scan for {port_data['service']} on {port_data['host']}:{port_data['port_id']}: {e}",
+                        exc_info=True
+                    )
+                    logging.error(f"Error data: {repr(port_data)}")
         
         logging.info(f"[+] Completed all {protocol} port-specific enumeration")
         return self.findings

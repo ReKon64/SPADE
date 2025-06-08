@@ -10,7 +10,7 @@
 ---
 
 
-SPADE is a modular vulnerability scanning framework that leverages external tools like `nmap`, feroxbuster, and more. It uses Python class decorators and reflection to auto-register modules for execution, making it easy to extend and customize.
+SPADE is a modular vulnerability scanning framework that leverages external tools like `nmap`, `feroxbuster`, and more. It uses Python class decorators and reflection to auto-register modules for execution, making it easy to extend and customize.
 
 ---
 
